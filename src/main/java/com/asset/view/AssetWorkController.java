@@ -4,20 +4,19 @@ import java.net.URL;
 
 import javafx.scene.image.Image;
 
-public class AssetOverviewController extends AssetAsSwitch{
+public class AssetWorkController extends AssetAsSwitch{
 	
-	 
-	
-	 public AssetOverviewController() {
+	 public AssetWorkController() {
 		// TODO Auto-generated constructor stub
-		 super(); 
+		 super();
 	}
 	 
 	 @Override
 	 protected void initCurrent() {
 		 URL url = getClass().getResource("");
 		 String filePath=url.toString()+"Image";
-		 Image image = new Image(filePath+"/home.jpg");
+		 Image image = new Image(filePath+"/work.jpg");
 	     homepage.setImage(image);
 	 }
+	 
 }

@@ -78,7 +78,10 @@ public class PersonOverviewController {
         personTable.setItems(mainApp.getPersonData());
     }
     
-   
+    public void setMain(Main main) {
+        this.main = main;
+
+    }
     
     private void showPersonDetails(Person person) {
         if (person != null) {

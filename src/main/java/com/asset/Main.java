@@ -2,12 +2,14 @@ package com.asset;
 
 import java.io.IOException;
 
+import com.asset.view.AssetInformController;
+import com.asset.view.AssetMessageController;
 import com.asset.view.AssetOverviewController;
+import com.asset.view.AssetOverviewQueryController;
+import com.asset.view.AssetWorkController;
 
-import controller.model.Person;
+
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -29,8 +31,9 @@ public class Main extends Application{
 	        this.primaryStage.setTitle("安全隐患监管系统");
 
 	        initRootLayout();
+	        
+	       showAssetOverview();
 
-	        showAssetOverview();
 	    }
 
 	    /**
@@ -55,6 +58,7 @@ public class Main extends Application{
 	    /**
 	     * Shows the person overview inside the root layout.
 	     */
+	    //主界面
 	    public void showAssetOverview() {
 	        try {
 	            // Load person overview.
@@ -74,7 +78,88 @@ public class Main extends Application{
 	        }
 	    }
 
+	    //查询界面
+	    public void showAssetOverviewQuery() {
+	        try {
+	            // Load person overview.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(MainApp.class.getResource("view/AssetOverviewQuery.fxml"));
+	            AnchorPane personOverview = (AnchorPane) loader.load();
 
+	            // Set person overview into the center of root layout.
+	            rootLayout.setCenter(personOverview);
+
+	            // Give the controller access to the main app.
+	            AssetOverviewQueryController controller = loader.getController();
+	            controller.setMain(this);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+
+	  //messgae界面
+	    public void showAssetMessage() {
+	        try {
+	            // Load person overview.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(MainApp.class.getResource("view/AssetMessage.fxml"));
+	            AnchorPane personOverview = (AnchorPane) loader.load();
+
+	            // Set person overview into the center of root layout.
+	            rootLayout.setCenter(personOverview);
+
+	            // Give the controller access to the main app.
+	            AssetMessageController controller = loader.getController();
+	            controller.setMain(this);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	  //inform界面
+	    public void showAssetInform() {
+	        try {
+	            // Load person overview.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(MainApp.class.getResource("view/AssetInform.fxml"));
+	            AnchorPane personOverview = (AnchorPane) loader.load();
+
+	            // Set person overview into the center of root layout.
+	            rootLayout.setCenter(personOverview);
+
+	            // Give the controller access to the main app.
+	            AssetInformController controller = loader.getController();
+	            controller.setMain(this);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	    
+	  //work界面
+	    public void showAssetWork() {
+	        try {
+	            // Load person overview.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(MainApp.class.getResource("view/AssetWork.fxml"));
+	            AnchorPane personOverview = (AnchorPane) loader.load();
+
+	            // Set person overview into the center of root layout.
+	            rootLayout.setCenter(personOverview);
+
+	            // Give the controller access to the main app.
+	            AssetWorkController controller = loader.getController();
+	            controller.setMain(this);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	    
 	    public static void main(String args[]) {
 			new Main().launch("");
 		}

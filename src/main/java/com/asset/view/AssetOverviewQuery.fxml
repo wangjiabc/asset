@@ -15,9 +15,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.AssetOverviewController">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.AssetOverviewQueryController">
    <children>
-      <SplitPane dividerPositions="0.24448897795591182" layoutX="6.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.5" layoutX="6.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane maxWidth="242.0" minHeight="0.0" minWidth="0.0" prefWidth="254.0" SplitPane.resizableWithParent="false">
                <children>
@@ -65,7 +65,7 @@
                   <Button layoutX="20.0" layoutY="427.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="统计报表" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" />
                   <Button layoutX="20.0" layoutY="477.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="安全档案" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="450.0" />
                   <ImageView fx:id="bar" fitHeight="30.0" fitWidth="222.0" layoutX="-37.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />                 
-                  <Label fx:id="leftTitleLabel" layoutX="112.0" layoutY="17.0" text="Label" textFill="#fc0d0d" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
+                  <Label fx:id="leftTitleLabel" layoutX="112.0" layoutY="17.0" text="Label" textFill="#fc0d0d" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="15.0">
                      <font>
                         <Font name="System Italic" size="16.0" />
                      </font></Label>
@@ -73,7 +73,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="798.0" prefWidth="738.0">
                <children>
-                  <ToolBar layoutX="32.0" layoutY="112.0" prefHeight="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                   <ToolBar layoutX="32.0" layoutY="112.0" prefHeight="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <items>
                         <ImageView fx:id="homepage" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                         <Label text="您现在的位置 :">
@@ -83,76 +83,7 @@
                         </Label>
                      </items>
                   </ToolBar>
-                  <SplitPane layoutX="20.0" layoutY="52.0" prefHeight="120.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
-                     <items>
-                        <GridPane>
-                           <children>
-                              <Label text="Label">
-                                 <padding>
-                                    <Insets left="30.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Label" GridPane.rowIndex="1">
-                                 <padding>
-                                    <Insets left="30.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Label" GridPane.rowIndex="2">
-                                 <padding>
-                                    <Insets left="30.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                 <padding>
-                                    <Insets left="30.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                 <padding>
-                                    <Insets left="30.0" />
-                                 </padding>
-                              </Label>
-                              <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets left="10.0" />
-                                 </GridPane.margin>
-                              </Button>
-                              <ChoiceBox maxWidth="200.0" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </ChoiceBox>
-                              <ChoiceBox maxWidth="200.0" minWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </ChoiceBox>
-                              <ChoiceBox maxWidth="200.0" minWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </ChoiceBox>
-                              <TextField maxHeight="-Infinity" maxWidth="200.0" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </TextField>
-                           </children>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
-                     </items></SplitPane>
-                  <HBox layoutX="397.0" layoutY="286.0" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
+                  <HBox layoutX="407.0" layoutY="296.0" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
                      <children>
                         <Button layoutX="132.0" layoutY="311.0" mnemonicParsing="false" onAction="#mainButtonAction" text="主页" />
                         <Button layoutX="303.0" layoutY="306.0" mnemonicParsing="false" onAction="#messageButtonAction" text="公告通知" />
