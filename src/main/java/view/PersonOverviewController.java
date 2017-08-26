@@ -2,12 +2,12 @@ package view;
 
 import org.controlsfx.dialog.Dialogs;
 
+import com.asset.Main;
 import com.asset.MainApp;
 import com.asset.tool.DateUtil;
 
 import controller.model.Person;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -37,6 +37,8 @@ public class PersonOverviewController {
     // Reference to the main application.
     private MainApp mainApp;
 
+    private Main main;
+    
     /**
      * The constructor.
      * The constructor is called before the initialize() method.
@@ -76,6 +78,7 @@ public class PersonOverviewController {
         personTable.setItems(mainApp.getPersonData());
     }
     
+   
     
     private void showPersonDetails(Person person) {
         if (person != null) {
@@ -112,6 +115,38 @@ public class PersonOverviewController {
                 .masthead("No Person Selected")
                 .message("Please select a person in the table.")
                 .owner(null)
+                .showWarning();
+        }
+    }
+    
+    @FXML
+    private void handleNewPerson() {
+        Person tempPerson = new Person();
+        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
+        if (okClicked) {
+            mainApp.getPersonData().add(tempPerson);
+        }
+    }
+
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected person.
+     */
+    @FXML
+    private void handleEditPerson() {
+        Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedPerson != null) {
+            boolean okClicked = mainApp.showPersonEditDialog(selectedPerson);
+            if (okClicked) {
+                showPersonDetails(selectedPerson);
+            }
+
+        } else {
+            // Nothing selected.
+            Dialogs.create()
+                .title("No Selection")
+                .masthead("No Person Selected")
+                .message("Please select a person in the table.")
                 .showWarning();
         }
     }

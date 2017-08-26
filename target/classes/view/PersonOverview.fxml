@@ -56,12 +56,12 @@
                   </GridPane>
                   <HBox layoutX="141.0" layoutY="334.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <children>
-                        <Button layoutX="116.0" layoutY="323.0" mnemonicParsing="false" text="New">
+                        <Button layoutX="116.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleNewPerson" text="New">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button layoutX="206.0" layoutY="323.0" mnemonicParsing="false" text="Edit">
+                        <Button layoutX="206.0" layoutY="323.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Edit">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>

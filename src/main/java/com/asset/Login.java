@@ -188,7 +188,7 @@ class PanelDemo extends Panel {
    g.setColor(Color.RED);
    g.drawOval(x, y, 2, 2);
   }
-  g.setFont(new Font("ºÚÌå", Font.BOLD, 20));
+  g.setFont(new Font("", Font.BOLD, 20));
   g.setColor(Color.BLUE);
   char[] c = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
   StringBuffer sb = new StringBuffer();
