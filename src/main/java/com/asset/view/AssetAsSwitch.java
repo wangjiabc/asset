@@ -24,6 +24,18 @@ public abstract class AssetAsSwitch {
 	 ImageView homepage;
 	 
 	 @FXML
+	 ImageView note;
+	 
+	 @FXML
+	 ImageView report;
+	 
+	 @FXML
+	 ImageView danger;
+	 
+	 @FXML
+	 ImageView file;
+	 
+	 @FXML
 	  Label firstNameLabel;
 	 
 	 @FXML
@@ -34,7 +46,6 @@ public abstract class AssetAsSwitch {
 		    URL url = getClass().getResource("");
 	    	
 	    	String filePath=url.toString()+"Image";
-	    	System.out.println("file="+filePath);
 	        Image image = new Image(filePath+"/apple.png");
 
 	        hardImage.setImage(image);
@@ -44,6 +55,18 @@ public abstract class AssetAsSwitch {
             firstNameLabel.setText("aaa");
            
             
+            image = new Image(filePath+"/note.png");
+	        note.setImage(image);
+            
+	        image = new Image(filePath+"/report.png");
+	        report.setImage(image);
+	        
+	        image = new Image(filePath+"/danger.jpg");
+	        danger.setImage(image);
+	        
+	        image = new Image(filePath+"/file.png");
+	        file.setImage(image);
+	        
             leftTitleLabel.setText("今日提醒");
             
             initCurrent();
