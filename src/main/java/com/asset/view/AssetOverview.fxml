@@ -92,80 +92,11 @@
                         </Label>
                      </items>
                   </ToolBar>
-                  <SplitPane layoutX="20.0" layoutY="52.0" prefHeight="120.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
-                     <items>
-                        <GridPane>
-                           <children>
-                              <Label text="查询条件">
-                                 <padding>
-                                    <Insets left="30.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="关键词 :" GridPane.rowIndex="1">
-                                 <padding>
-                                    <Insets left="30.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="隐患级别 :" GridPane.rowIndex="2">
-                                 <padding>
-                                    <Insets left="14.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="整改进度 :" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                 <padding>
-                                    <Insets left="14.0" />
-                                 </padding>
-                              </Label>
-                              <Label text="隐患情况 :" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                                 <padding>
-                                    <Insets left="14.0" />
-                                 </padding>
-                              </Label>
-                              <Button mnemonicParsing="false" prefWidth="80.0" text="  搜索" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets left="10.0" />
-                                 </GridPane.margin>
-                              </Button>
-                              <TextField maxHeight="-Infinity" maxWidth="200.0" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                 </GridPane.margin>
-                              </TextField>
-                              <ImageView fx:id="search" fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets left="15.0" />
-                                 </GridPane.margin>
-                              </ImageView>
-                              <SplitMenuButton fx:id="level" mnemonicParsing="false" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                 <GridPane.margin>
-                                    <Insets left="5.0" />
-                                 </GridPane.margin></SplitMenuButton>
-                              <SplitMenuButton mnemonicParsing="false" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                
-                              </SplitMenuButton>
-                              <SplitMenuButton mnemonicParsing="false" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                               
-                              </SplitMenuButton>
-                           </children>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                        </GridPane>
-                     </items></SplitPane>
                   <HBox layoutX="397.0" layoutY="286.0" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
                      <children>
                         <Button layoutX="132.0" layoutY="311.0" mnemonicParsing="false" onAction="#mainButtonAction" text="主页" />
-                        <Button layoutX="303.0" layoutY="306.0" mnemonicParsing="false" onAction="#messageButtonAction" text="公告通知" />
-                        <Button layoutX="226.0" layoutY="315.0" mnemonicParsing="false" onAction="#informButtonAction" text="最新消息" />
+                        <Button layoutX="303.0" layoutY="306.0" mnemonicParsing="false" onAction="#messageButtonAction" text="最新消息" />
+                        <Button layoutX="226.0" layoutY="315.0" mnemonicParsing="false" onAction="#informButtonAction" text="公告通知" />
                         <Button layoutX="404.0" layoutY="310.0" mnemonicParsing="false" onAction="#workButtonAction" text="工作动态" />
                      </children>
                      <padding>
@@ -187,6 +118,70 @@
                      </columnResizePolicy>
                   </TableView>
                   <Pagination fx:id="pagination" layoutX="54.0" layoutY="719.0" prefHeight="50.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" />
+                  <ListView layoutX="10.0" layoutY="14.0" prefHeight="120.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
+                  <GridPane layoutX="10.0" layoutY="10.0" prefHeight="110.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+                     <children>
+                        <Label text="查询条件">
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Label>
+                        <Label text="关键词 :" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                        </Label>
+                        <Label text="隐患级别 :" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                        </Label>
+                        <Label text="整改进度 :" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                        </Label>
+                        <Label text="隐患情况 :" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                        </Label>
+                        <Button fx:id="search" mnemonicParsing="false" prefWidth="80.0" text="  搜索" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <TextField fx:id="keyWord" maxHeight="-Infinity" maxWidth="200.0" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </TextField>
+                        <ImageView fx:id="searchImage" fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="15.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                        <SplitMenuButton fx:id="level" mnemonicParsing="false" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <GridPane.margin>
+                              <Insets left="5.0" />
+                           </GridPane.margin>
+                        </SplitMenuButton>
+                        <SplitMenuButton fx:id="plan" mnemonicParsing="false" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <SplitMenuButton fx:id="instance" mnemonicParsing="false" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
                </children></AnchorPane>
         </items>
       </SplitPane>

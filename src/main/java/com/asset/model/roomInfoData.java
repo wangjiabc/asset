@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import com.asset.database.Connect;
 import com.rmi.server.Assets;
@@ -15,11 +16,20 @@ import javafx.collections.ObservableList;
 public class roomInfoData {
 	 private ObservableList<RoomInfoProperty> roomInfoData = FXCollections.observableArrayList();
 	 
-	 Assets assets= new Connect().getAssets();
+	 
 	 
 	 public Map<String, Object> get(Integer limit,Integer offset,
 			 String sort,String order,String search) {
-	      
+		 Assets assets=null;
+		try {
+			assets = new Connect().get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		  List<RoomInfo> roomInfo;
 	      Map<String,Object> map,result; 
 	      map=assets.getRoomInfo(limit, offset, sort, order, search);  

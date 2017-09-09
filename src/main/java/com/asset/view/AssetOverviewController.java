@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
+import org.controlsfx.dialog.Dialogs;
+
 import com.asset.model.RoomInfoProperty;
 import com.asset.model.roomInfoData;
 import com.gargoylesoftware.htmlunit.javascript.host.Iterator;
@@ -15,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -23,19 +26,32 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class AssetOverviewController extends AssetAsSwitch{
 	
 	 @FXML
-	 private ImageView search;
+	 private ImageView searchImage;
 	 
 	 @FXML
 	 private Label rightTitleLabel;
 	 
+	 /*
+      * 查询条件菜单
+      */
 	 @FXML
-	 private SplitMenuButton level;
+	 private TextField keyWord;
+	 @FXML
+	 private SplitMenuButton level;	 
+	 @FXML
+	 private SplitMenuButton plan;	 
+	 @FXML
+	 private SplitMenuButton instance;	 
+	 //查询按钮
+	 @FXML
+	 private Button search;
 	 
 	 private ObservableList<RoomInfoProperty> roomInfoList;
 	 
@@ -63,7 +79,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 public AssetOverviewController() {
 		// TODO Auto-generated constructor stub
 		 super(); 
-	}
+	 }
 	 
 	 @Override
 	 protected void initCurrent() {
@@ -73,22 +89,87 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     homepage.setImage(image);
 	     
 	     image=new Image(filePath+"/search.png");
-	     search.setImage(image);
+	     searchImage.setImage(image);
 	     
 	     rightTitleLabel.setText("主页");
 	     
-	     MenuItem logout=new MenuItem("logout");
+	     /*
+	      * 查询条件
+	      */
 	     
-	     level.getItems().addAll(logout,new MenuItem("sleep"));
+	     //隐患级别 :
+	     MenuItem level1=new MenuItem("一类");	     
+	     MenuItem level2=new MenuItem("二类");
+	     MenuItem level3=new MenuItem("三类");
 	     
-	     logout.setOnAction(new EventHandler<ActionEvent>() {
-			
+	     level.getItems().addAll(level1,level2,level3);
+	     
+	     level1.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				level.setText("logout");
+				level.setText("一类");
 			}
-		});
+		  });
+	     
+	     level2.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				level.setText("二类");
+			}
+		 });
+	     
+	     level3.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				level.setText("三类");
+			}
+		 });
+	     
+	    //整改进度 :
+	     MenuItem exhale=new MenuItem("已发整改通知");
+	    
+	     plan.getItems().addAll(exhale);
+	     
+	     exhale.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				plan.setText("已发整改通知");
+			}
+		  });
+	     
+	    //隐患情况 :
+	     MenuItem bigness=new MenuItem("具有重大消防隐患");
+	     
+	     instance.getItems().addAll(bigness);
+	     
+	     bigness.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				instance.setText("具有重大消防隐患");
+			}
+		  });
+	    
+	    //搜索
+	    
+	     search.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				 Dialogs.create()
+	                .title("search")
+	                .masthead(level.getText())
+	                .message(keyWord.getText())
+	                .owner(null)
+	                .showWarning();
+			}
+		  });
 	     
 	    setRoomInfoList(0,10);
 	     
@@ -103,6 +184,20 @@ public class AssetOverviewController extends AssetAsSwitch{
                 return null;
             }
 	    });
+	    
+	   
+	    roomInfoTable.getSelectionModel().selectedItemProperty().addListener(
+	    		(observable, oldValue, newValue) ->table(newValue));
+	    
+	 }
+	 
+	 private void table(RoomInfoProperty newValue){
+		 Dialogs.create()
+         .title("search")
+         .masthead(newValue.toString())
+         .message(keyWord.getText())
+         .owner(null)
+         .showWarning();
 	 }
 	 
 	 void setRoomInfoList(Integer offset,Integer limit){

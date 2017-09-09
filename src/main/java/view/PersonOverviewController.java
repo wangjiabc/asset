@@ -62,8 +62,8 @@ public class PersonOverviewController {
         showPersonDetails(null);
 
         // Listen for selection changes and show the person details when changed.
-     //   personTable.getSelectionModel().selectedItemProperty().addListener(
-      //          (observable, oldValue, newValue) -> showPersonDetails(newValue));
+        personTable.getSelectionModel().selectedItemProperty().addListener(
+               (observable, oldValue, newValue) -> showPersonDetails(newValue));
     }
 
     /**
