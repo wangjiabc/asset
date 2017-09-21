@@ -2,12 +2,17 @@ package com.asset.view;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.controlsfx.dialog.Dialogs;
 
+import com.asset.database.Connect;
+import com.asset.propert.RowData;
 import com.asset.property.RoomInfoProperty;
-import com.asset.serviceImpl.RoomInfoData;
+import com.asset.tool.MyTestUtil;
+import com.rmi.server.Assets;
+import com.voucher.manage.daoModel.RoomInfo;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -201,26 +206,22 @@ public class AssetOverviewController extends AssetAsSwitch{
 		  String search=null;
 	     
 		  Map map=new HashMap<>();
-		 
-	      map=new RoomInfoData().get(limit, offset, sort, order, search);
+		  
+		  Assets assets= new Connect().get();
+		  map=assets.getRoomInfo(limit, offset, sort, order, search);
+
+	     List<RoomInfo> roomInfo=(List<RoomInfo>) map.get("rows");
 	     
-	      if((int)map.get("error")!=0){
-	    	  Dialogs.create()
-	          .title("错误")
-	          .message("网络连接错误")
-	          .owner(null)
-	          .showWarning();
-	      }
-	      
-	     roomInfoList=(ObservableList<RoomInfoProperty>) map.get("value");
-	      
+	     MyTestUtil.print(roomInfo);
+	     
+	      roomInfoList=(ObservableList<RoomInfoProperty>) new RowData(roomInfo,RoomInfoProperty.class).get();
 	     java.util.Iterator<RoomInfoProperty> iterator=roomInfoList.iterator();
-	     
+	    
 	     while (iterator.hasNext()) {
 			System.out.println(iterator.next());
 		}
 	     
-	     roomInfoTable.setItems(roomInfoList);
+	    roomInfoTable.setItems(roomInfoList);
 	     
 	     C1.setCellValueFactory(
 	                cellData -> cellData.getValue().getNum());

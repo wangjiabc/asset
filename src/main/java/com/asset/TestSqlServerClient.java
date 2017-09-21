@@ -8,7 +8,9 @@ import java.util.concurrent.ExecutionException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.asset.database.Connect;
+import com.asset.propert.RowData;
 import com.asset.property.RoomInfoProperty;
+import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.RoomInfo;
 
@@ -34,14 +36,30 @@ public class TestSqlServerClient {
           int total=(int) map.get("total");
           roomInfo=(List<RoomInfo>) map.get("rows");
           Iterator<RoomInfo> iterator=roomInfo.iterator();
+          /*
           while (iterator.hasNext()) {
 			System.out.println(iterator.next().getAddress());
 			System.out.println(iterator.next().getOriginalAddress());
 	       }
-          System.out.println("total="+total);
+	       */
           
-	//	  Map<String, Object> o=new roomInfoData().get(limit, offset, sort, order, search);
-	      
-	//	  System.out.println(o);
+         // System.out.println("total="+total);
+          
+		//  Map<String, Object> o=new RoomInfoData().get(limit, offset, sort, order, search);
+	     
+
+          List<RoomInfoProperty> roomInfoDatas= (List<RoomInfoProperty>) new RowData(roomInfo,RoomInfoProperty.class).get();
+          
+		  MyTestUtil.print(roomInfoDatas);
+		  
+		  
+		  
+		  Iterator iterator2=roomInfoDatas.iterator();
+		  
+		  while (iterator2.hasNext()) {
+              RoomInfoProperty roomInfoProperty=(RoomInfoProperty) iterator2.next();
+			  System.out.println("address="+roomInfoProperty.getAddress());
+		}
+		  
 	  }
 }
