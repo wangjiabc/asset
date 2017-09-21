@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import org.controlsfx.dialog.Dialogs;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.rmi.server.Assets;
@@ -38,8 +39,27 @@ public class Connect {
 		
 	}
 	
-	public Assets get() throws InterruptedException, ExecutionException{
-		Assets assets=future.get();
+	public Assets get(){
+		Assets assets=null;
+		try {
+			assets = future.get();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Dialogs.create()
+	          .title("错误")
+	          .message("网络连接错误")
+	          .owner(null)
+	          .showWarning();
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Dialogs.create()
+	          .title("错误")
+	          .message("网络连接错误")
+	          .owner(null)
+	          .showWarning();
+		}
 		System.out.println("assets="+assets.getClass());
 		return assets;
 	}

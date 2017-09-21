@@ -3,23 +3,17 @@ package com.asset.view;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
 import org.controlsfx.dialog.Dialogs;
 
-import com.asset.model.RoomInfoProperty;
-import com.asset.model.roomInfoData;
-import com.gargoylesoftware.htmlunit.javascript.host.Iterator;
-import com.voucher.manage.daoModel.RoomInfo;
+import com.asset.property.RoomInfoProperty;
+import com.asset.serviceImpl.RoomInfoData;
 
-import controller.model.Person;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Pagination;
@@ -208,8 +202,16 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     
 		  Map map=new HashMap<>();
 		 
-	      map=new roomInfoData().get(limit, offset, sort, order, search);
+	      map=new RoomInfoData().get(limit, offset, sort, order, search);
 	     
+	      if((int)map.get("error")!=0){
+	    	  Dialogs.create()
+	          .title("错误")
+	          .message("网络连接错误")
+	          .owner(null)
+	          .showWarning();
+	      }
+	      
 	     roomInfoList=(ObservableList<RoomInfoProperty>) map.get("value");
 	      
 	     java.util.Iterator<RoomInfoProperty> iterator=roomInfoList.iterator();

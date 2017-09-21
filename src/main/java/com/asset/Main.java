@@ -2,6 +2,8 @@ package com.asset;
 
 import java.io.IOException;
 
+import org.controlsfx.dialog.Dialogs;
+
 import com.asset.view.AssetInformController;
 import com.asset.view.AssetMessageController;
 import com.asset.view.AssetOverviewController;
@@ -75,6 +77,11 @@ public class Main extends Application{
 
 	        } catch (IOException e) {
 	            e.printStackTrace();
+	            Dialogs.create()
+		          .title("错误")
+		          .message("网络连接错误")
+		          .owner(null)
+		          .showWarning();
 	        }
 	    }
 

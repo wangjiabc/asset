@@ -8,8 +8,7 @@ import java.util.concurrent.ExecutionException;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.asset.database.Connect;
-import com.asset.model.RoomInfoProperty;
-import com.asset.model.roomInfoData;
+import com.asset.property.RoomInfoProperty;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.RoomInfo;
 
