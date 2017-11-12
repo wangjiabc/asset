@@ -13,6 +13,7 @@ import com.asset.property.RoomInfoProperty;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.RoomInfo;
+import com.voucher.manage.daoModelJoin.RoomChangeHireLog_RoomChartLog;
 
 import javafx.collections.ObservableList;
 
@@ -32,10 +33,13 @@ public class TestSqlServerClient {
 		  
 		  List<RoomInfo> roomInfo;
 	      Map<String,Object> map; 
-	      map=assets.getRoomInfo(limit, offset, sort, order, search);  
-          int total=(int) map.get("total");
-          roomInfo=(List<RoomInfo>) map.get("rows");
-          Iterator<RoomInfo> iterator=roomInfo.iterator();
+	     // map=assets.getRoomInfo(limit, offset, sort, order, search);  
+	      List<RoomChangeHireLog_RoomChartLog> changeHireLog_RoomChartLogs;
+	      map=assets.findAllChangehire_CharLog(limit, offset, sort, order, search); 
+	      MyTestUtil.print(map);
+         int total=(int) map.get("rows");
+          changeHireLog_RoomChartLogs=(List<RoomChangeHireLog_RoomChartLog>) map.get("value");
+       //   Iterator<RoomInfo> iterator=roomInfo.iterator();
           /*
           while (iterator.hasNext()) {
 			System.out.println(iterator.next().getAddress());
@@ -43,12 +47,18 @@ public class TestSqlServerClient {
 	       }
 	       */
           
+           Iterator iterator=changeHireLog_RoomChartLogs.iterator();
+          
+           while (iterator.hasNext()) {
+			MyTestUtil.print(iterator.next());
+		}
+           
          // System.out.println("total="+total);
           
 		//  Map<String, Object> o=new RoomInfoData().get(limit, offset, sort, order, search);
 	     
 
-          List<RoomInfoProperty> roomInfoDatas= (List<RoomInfoProperty>) new RowData(roomInfo,RoomInfoProperty.class).get();
+       /*   List<RoomInfoProperty> roomInfoDatas= (List<RoomInfoProperty>) new RowData(roomInfo,RoomInfoProperty.class).get();
           
 		  MyTestUtil.print(roomInfoDatas);
 		  
@@ -60,6 +70,6 @@ public class TestSqlServerClient {
               RoomInfoProperty roomInfoProperty=(RoomInfoProperty) iterator2.next();
 			  System.out.println("address="+roomInfoProperty.getAddress());
 		}
-		  
+		  */
 	  }
 }

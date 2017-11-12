@@ -174,8 +174,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     
 	    pagination.setPageFactory((Integer pageIndex)->{
 	    	if (pageIndex >= 0) {
-	    		setRoomInfoList(pageIndex,10);
-	    		System.out.println(pageIndex);
+	    		setRoomInfoList(pageIndex*10,10);
 	    		 Label mLabel = new Label();  
 	                mLabel.setText("这是第" + (pageIndex+1) + "页");  
 	                return mLabel;  
