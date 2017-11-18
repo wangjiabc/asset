@@ -1,13 +1,21 @@
 package com.asset.view;
 
+import java.io.IOException;
 import java.net.URL;
 
 import com.asset.Main;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 public abstract class AssetAsSwitch {
 	  Main main;
@@ -42,6 +50,12 @@ public abstract class AssetAsSwitch {
 	  Label leftTitleLabel;
 	
 	 @FXML
+	  Button hiddenWrite;
+	 
+	 @FXML
+	  Button hiddenQuery;
+	 
+	 @FXML
 	 protected void initialize() {
 		    URL url = getClass().getResource("");
 	    	
@@ -68,6 +82,44 @@ public abstract class AssetAsSwitch {
 	        file.setImage(image);
 	        
             leftTitleLabel.setText("今日提醒");
+            
+            
+            hiddenWrite.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					try {
+						Parent target=FXMLLoader.load(getClass().getResource("child/RoomInfoQuery.fxml"));
+					    Scene scene=new Scene(target);
+					    Stage stage=new Stage();
+					    stage.setScene(scene);
+					    stage.show();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+            
+            hiddenQuery.setOnAction(new EventHandler<ActionEvent>() {
+				
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					try {
+						Parent target=FXMLLoader.load(getClass().getResource("hidden/HiddenQuery.fxml"));
+					    Scene scene=new Scene(target);
+					    Stage stage=new Stage();
+					    stage.setScene(scene);
+					    stage.show();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+			});
             
             initCurrent();
 	        

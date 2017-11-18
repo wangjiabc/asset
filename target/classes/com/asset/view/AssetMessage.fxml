@@ -61,7 +61,7 @@
                      </children>
                   </GridPane>
                   <Button layoutX="28.0" layoutY="301.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="信息录入" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0" />
-                  <Button layoutX="18.0" layoutY="363.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="隐患查询" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="350.0" />
+                  <Button fx:id="hiddenQuery" layoutX="18.0" layoutY="363.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="隐患查询" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="350.0" />
                   <Button layoutX="20.0" layoutY="427.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="统计报表" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" />
                   <Button layoutX="20.0" layoutY="477.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="安全档案" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="450.0" />
                   <ImageView fx:id="bar" fitHeight="30.0" fitWidth="222.0" layoutX="-37.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />                 
@@ -106,6 +106,9 @@
                         <Button fx:id="imageButton" layoutX="470.0" layoutY="170.0" mnemonicParsing="false" text="image" />
                         <ImageView fx:id="imageFile" fitHeight="60.0" fitWidth="60.0" layoutX="337.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true" />
                         <Button fx:id="uploadButton" layoutX="465.0" layoutY="232.0" mnemonicParsing="false" text="upload" />
+                        <Button fx:id="docButton" layoutX="469.0" layoutY="283.0" mnemonicParsing="false" text="doc" />
+                        <Button fx:id="upload2Button" layoutX="478.0" layoutY="337.0" mnemonicParsing="false" text="upload2" />
+                        <Label fx:id="docLabel" layoutX="212.0" layoutY="289.0" />
                      </children></AnchorPane>
                </children></AnchorPane>
         </items>

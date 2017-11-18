@@ -59,9 +59,10 @@ public class RowProperty<T> {
 		            }else
 		            if(anns[0] instanceof SQLInteger)                //判断注解类型
 		            {
+		            	System.out.println("int");
 		                SQLInteger sInt = (SQLInteger)anns[0];
 		                columnName = (sInt.name().length()<1)?field.getName():sInt.name();//获取列名称与获取表名一样
-		            //    setIntMethods(null, object, cl, field, columnName);
+		                setIntMethods(object,objectProperty, cl, field, columnName);
 
 		            }else
 		            if(anns[0] instanceof SQLString)
@@ -74,13 +75,13 @@ public class RowProperty<T> {
 		            {
 		                SQLFloat sStr = (SQLFloat) anns[0];
 		                columnName = (sStr.name().length()<1)?field.getName().toUpperCase():sStr.name();
-		          //      setFloatMethods(object,objectProperty, cl, field, columnName);
+		                setFloatMethods(object,objectProperty, cl, field, columnName);
 		            }else
 		            if(anns[0] instanceof SQLDateTime)
 		            {
 		                SQLDateTime sStr = (SQLDateTime) anns[0];
 		                columnName = (sStr.name().length()<1)?field.getName().toUpperCase():sStr.name();
-		           //     setDateTimeMethods(object,objectProperty,cl, field, columnName);
+		                setDateTimeMethods(object,objectProperty,cl, field, columnName);
 		            }
 		         }
 		   
@@ -130,17 +131,23 @@ public class RowProperty<T> {
                 + filedName.substring(1); 
         String setMethodName = "set" + filedName.substring(0, 1).toUpperCase()  
                 + filedName.substring(1); 
-     //   System.out.println("setMethodName="+setMethodName);
+       System.out.println("getMethodName="+getMethodName);
+       System.out.println("className="+className);
        try {
     	 Method getMethod =className.getDeclaredMethod(getMethodName);
-       	 Method setMethod =className.getDeclaredMethod(setMethodName,String.class);
-       	// System.out.println("setmethod="+setMethod);
-       	 int aa=(int) getMethod.invoke(object,null);
-       //	 System.out.println("aa="+aa);
+    	 /* 
+    	  * setMethod与getMethod 不一样的在于不能使用classname
+    	  * 否则抛出 java.lang.IllegalArgumentException
+    	  * object is not an instance of declaring class
+    	  */
+       	 Method setMethod =(objectProperty.getClass()).getDeclaredMethod(setMethodName,Integer.class);
+        System.out.println("setmethod="+setMethod);
+       	 Integer aa=(Integer) getMethod.invoke(object,null);
+       	 System.out.println("aa="+aa+" "+objectProperty);
 		 setMethod.invoke(objectProperty,aa);
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			e.printStackTrace();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -26,6 +26,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -51,11 +55,21 @@ public class AssetMessageController extends AssetAsSwitch{
 	 private Button uploadButton;
 	 
 	 @FXML
+	 private Button docButton;
+	 
+	 @FXML
+	 private Button upload2Button;
+	 
+	 @FXML
 	 ImageView imageFile;
+	 
+	 @FXML
+	 Label docLabel;
 	 
 	 private final Desktop desktop = Desktop.getDesktop();
 	 private Stage stage;
 	 private File file;
+	 private File docFile;
 	 
 	 public AssetMessageController() {
 		// TODO Auto-generated constructor stub
@@ -75,15 +89,7 @@ public class AssetMessageController extends AssetAsSwitch{
 	     
 	     Parent root;
 	     
-	     final FileChooser fileChooser = new FileChooser();
-	     
-		try {
-			root = FXMLLoader.load(getClass().getResource("child/DeviceView.fxml"));
-			anchorPane.getChildren().add(root);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	     FileChooser fileChooser = new FileChooser();
      
 		
 		 button.setOnAction(new EventHandler<ActionEvent>() {
@@ -103,14 +109,7 @@ public class AssetMessageController extends AssetAsSwitch{
 				    anchorPane.getChildren().clear();
 				    anchorPane.getChildren().add(button);
 				    anchorPane.getChildren().add(button2);
-				    Parent root;
-				    try {
-						root = FXMLLoader.load(getClass().getResource("child/DeviceView.fxml"));
-						anchorPane.getChildren().add(root);
-				    } catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}	
+				    Parent root;	
 				 }
 			  });
 		 
@@ -125,13 +124,14 @@ public class AssetMessageController extends AssetAsSwitch{
 				if(!lastPath.equals(""))
 				fileChooser.setInitialDirectory(new File(lastPath));
 				fileChooser.getExtensionFilters().addAll(
-					    new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-					    new FileChooser.ExtensionFilter("GIF", "*.gif"),
-					    new FileChooser.ExtensionFilter("BMP", "*.bmp"),
-					    new FileChooser.ExtensionFilter("PNG", "*.png"),
-					    new FileChooser.ExtensionFilter("JPEG", "*.jpeg")
+						new FileChooser.ExtensionFilter("PNG", "*.png"),
+						new FileChooser.ExtensionFilter("GIF", "*.gif"),
+						new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
+					    new FileChooser.ExtensionFilter("JPG", "*.jpg"),					    
+					    new FileChooser.ExtensionFilter("BMP", "*.bmp")
 					);
 				file = fileChooser.showOpenDialog(stage);
+				fileChooser.getExtensionFilters().clear();
                 if (file != null) {
                   //  openFile(file);
                 	BufferedImage bufImg = null;
@@ -158,7 +158,63 @@ public class AssetMessageController extends AssetAsSwitch{
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				Assets assets=new Connect().getAssets();
-				assets.uploadFile(file, Assets.type.IMAGE);
+				assets.uploadImageFile(file);
+			}
+		});
+	
+		docButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				Preferences prefs = Preferences.userRoot().node(this.getClass().getName()); 
+				String lastPath=prefs.get("lastPath", "");
+				System.out.println("lastpath="+lastPath);
+				if(!lastPath.equals(""))
+				fileChooser.setInitialDirectory(new File(lastPath));
+				fileChooser.getExtensionFilters().addAll(
+					    new FileChooser.ExtensionFilter("DOC", "*.doc")
+					);
+				docFile = fileChooser.showOpenDialog(stage);
+				fileChooser.getExtensionFilters().clear();
+                if (docFile != null) {
+                  //  openFile(file);
+                   docLabel.setText(docFile.getName());
+                }
+                try{
+                	 String filePath=file.getPath();
+					 prefs.put("lastPath", filePath.substring(0,filePath.lastIndexOf(File.separator)));
+					}catch(Exception e1){
+						
+					}
+			}
+		});
+		
+		upload2Button.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				Assets assets=new Connect().getAssets();
+				assets.uploadDocFile(docFile);
+			}
+		});
+		
+		imageFile.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				openFile(file);
+			}
+		});
+		
+		docLabel.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				openFile(docFile);
 			}
 		});
 		

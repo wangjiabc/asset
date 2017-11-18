@@ -36,7 +36,7 @@ public class RootLayoutController {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("关于");
 				alert.setHeaderText("四川帕岸信息科技有限公司");
-				alert.setContentText("总经理 张征新");
+				alert.setContentText("总经理 张新征");
 
 				alert.showAndWait();
 			}

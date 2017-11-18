@@ -1,5 +1,6 @@
 package com.asset.view;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +19,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -26,58 +30,21 @@ import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 
 public class AssetOverviewController extends AssetAsSwitch{
-	
-	 @FXML
-	 private ImageView searchImage;
-	 
+
 	 @FXML
 	 private Label rightTitleLabel;
-	 
-	 /*
-      * 查询条件菜单
-      */
-	 @FXML
-	 private TextField keyWord;
-	 @FXML
-	 private SplitMenuButton level;	 
-	 @FXML
-	 private SplitMenuButton plan;	 
-	 @FXML
-	 private SplitMenuButton instance;	 
-	 //查询按钮
-	 @FXML
-	 private Button search;
-	 
-	 private ObservableList<RoomInfoProperty> roomInfoList;
-	 
-	 @FXML
-	 private TableView<RoomInfoProperty> roomInfoTable;
-	 
-	 @FXML
-	 private TableColumn<RoomInfoProperty,String> C1;
-	 
-	 @FXML
-	 private TableColumn<RoomInfoProperty,String> C2;
-	 
-	 @FXML
-	 private TableColumn<RoomInfoProperty,String> C3;
-	 
-	 @FXML
-	 private TableColumn<RoomInfoProperty,String> C4;
-	 
-	 @FXML
-	 private TableColumn<RoomInfoProperty,String> C5;
-	 
-	 @FXML
-	 private Pagination pagination;
-	 
+ 
 	 public AssetOverviewController() {
 		// TODO Auto-generated constructor stub
-		 super(); 
+		 super();  
 	 }
 	 
 	 @Override
@@ -87,155 +54,8 @@ public class AssetOverviewController extends AssetAsSwitch{
 		 Image image = new Image(filePath+"/home.jpg");
 	     homepage.setImage(image);
 	     
-	     image=new Image(filePath+"/search.png");
-	     searchImage.setImage(image);
-	     
 	     rightTitleLabel.setText("主页");
-	     
-	     /*
-	      * 查询条件
-	      */
-	     
-	     //隐患级别 :
-	     MenuItem level1=new MenuItem("一类");	     
-	     MenuItem level2=new MenuItem("二类");
-	     MenuItem level3=new MenuItem("三类");
-	     
-	     level.getItems().addAll(level1,level2,level3);
-	     
-	     level1.setOnAction(new EventHandler<ActionEvent>() {	
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				level.setText("一类");
-			}
-		  });
-	     
-	     level2.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				level.setText("二类");
-			}
-		 });
-	     
-	     level3.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				level.setText("三类");
-			}
-		 });
-	     
-	    //整改进度 :
-	     MenuItem exhale=new MenuItem("已发整改通知");
-	    
-	     plan.getItems().addAll(exhale);
-	     
-	     exhale.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				plan.setText("已发整改通知");
-			}
-		  });
-	     
-	    //隐患情况 :
-	     MenuItem bigness=new MenuItem("具有重大消防隐患");
-	     
-	     instance.getItems().addAll(bigness);
-	     
-	     bigness.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				instance.setText("具有重大消防隐患");
-			}
-		  });
-	    
-	    //搜索
-	    
-	     search.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				 Dialogs.create()
-	                .title("search")
-	                .masthead(level.getText())
-	                .message(keyWord.getText())
-	                .owner(null)
-	                .showWarning();
-			}
-		  });
-	     
-	    setRoomInfoList(0,10);
-	     
-	    pagination.setPageFactory((Integer pageIndex)->{
-	    	if (pageIndex >= 0) {
-	    		setRoomInfoList(pageIndex*10,10);
-	    		 Label mLabel = new Label();  
-	                mLabel.setText("这是第" + (pageIndex+1) + "页");  
-	                return mLabel;  
-            } else {
-                return null;
-            }
-	    });
-	    
-	   
-	    roomInfoTable.getSelectionModel().selectedItemProperty().addListener(
-	    		(observable, oldValue, newValue) ->table(newValue));
-	    
-	 }
-	 
-	 private void table(RoomInfoProperty newValue){
-		 Dialogs.create()
-         .title("search")
-         .masthead(newValue.toString())
-         .message(keyWord.getText())
-         .owner(null)
-         .showWarning();
-	 }
-	 
-	 void setRoomInfoList(Integer offset,Integer limit){
-
-	      String sort=null;
-	      String order=null;
-		  String search=null;
-	     
-		  Map map=new HashMap<>();
-		  
-		  Assets assets= new Connect().get();
-		  map=assets.getRoomInfo(limit, offset, sort, order, search);
-
-	     List<RoomInfo> roomInfo=(List<RoomInfo>) map.get("rows");
-	     
-	     MyTestUtil.print(roomInfo);
-	     
-	      roomInfoList=(ObservableList<RoomInfoProperty>) new RowData(roomInfo,RoomInfoProperty.class).get();
-	     java.util.Iterator<RoomInfoProperty> iterator=roomInfoList.iterator();
-	    
-	     while (iterator.hasNext()) {
-			System.out.println(iterator.next());
-		}
-	     
-	    roomInfoTable.setItems(roomInfoList);
-	     
-	     C1.setCellValueFactory(
-	                cellData -> cellData.getValue().getNum());
-	     C2.setCellValueFactory(
-	    		    cellData->cellData.getValue().getAddress());
-	     C3.setCellValueFactory(
-	    		    cellData->cellData.getValue().getOriginalAddress());
-	     C4.setCellValueFactory(
-	    		    cellData->cellData.getValue().getGUID());
-	     C5.setCellValueFactory(
-	    		    cellData->cellData.getValue().getOriginalNum());
-	     
-	     int total=(int) map.get("total")/10;
-	     
-	     pagination.setPageCount(total);
+	     	     
 	 }
 	 
 }
