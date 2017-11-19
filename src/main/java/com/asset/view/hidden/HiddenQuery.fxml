@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.hidden.HiddenQueryController">
+<AnchorPane prefHeight="606.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.hidden.HiddenQueryController">
    <children>
       <TableView fx:id="hiddenTable" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
          <columnResizePolicy>
@@ -20,8 +20,9 @@
             <TableColumn fx:id="C3" prefWidth="75.0" text="Column X" />
             <TableColumn fx:id="C4" prefWidth="75.0" text="Column X" />
             <TableColumn fx:id="C5" prefWidth="75.0" text="Column X" />
-            <TableColumn prefWidth="75.0" text="Column X" />
-            <TableColumn prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="C6" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="C7" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="C8" prefWidth="75.0" text="Column X" />
          </columns>
       </TableView>
       <Pagination fx:id="pagination" layoutX="64.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />

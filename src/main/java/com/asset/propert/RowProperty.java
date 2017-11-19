@@ -11,8 +11,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.voucher.manage.daoSQL.annotations.SQLDateTime;
+import com.voucher.manage.daoSQL.annotations.SQLDouble;
 import com.voucher.manage.daoSQL.annotations.SQLFloat;
 import com.voucher.manage.daoSQL.annotations.SQLInteger;
+import com.voucher.manage.daoSQL.annotations.SQLLong;
 import com.voucher.manage.daoSQL.annotations.SQLString;
 
 public class RowProperty<T> {
@@ -59,7 +61,6 @@ public class RowProperty<T> {
 		            }else
 		            if(anns[0] instanceof SQLInteger)                //判断注解类型
 		            {
-		            	System.out.println("int");
 		                SQLInteger sInt = (SQLInteger)anns[0];
 		                columnName = (sInt.name().length()<1)?field.getName():sInt.name();//获取列名称与获取表名一样
 		                setIntMethods(object,objectProperty, cl, field, columnName);
@@ -82,7 +83,25 @@ public class RowProperty<T> {
 		                SQLDateTime sStr = (SQLDateTime) anns[0];
 		                columnName = (sStr.name().length()<1)?field.getName().toUpperCase():sStr.name();
 		                setDateTimeMethods(object,objectProperty,cl, field, columnName);
-		            }
+		            }else
+			        if(anns[0] instanceof SQLDouble)
+			        {
+			             SQLDouble sStr =  (SQLDouble) anns[0];
+			             columnName = (sStr.name().length()<1)?field.getName().toUpperCase():sStr.name();
+			             setDoubleMethods(object,objectProperty,cl, field, columnName);
+			         }else
+					 if(anns[0] instanceof SQLLong)
+					 {
+					      SQLLong sStr =  (SQLLong) anns[0];
+					      columnName = (sStr.name().length()<1)?field.getName().toUpperCase():sStr.name();
+					      setLongMethods(object,objectProperty,cl, field, columnName);
+					 }else
+			         if(anns[0] instanceof SQLDateTime)
+			         {
+			               SQLDateTime sStr = (SQLDateTime) anns[0];
+			               columnName = (sStr.name().length()<1)?field.getName().toUpperCase():sStr.name();
+			               setDateTimeMethods(object,objectProperty,cl, field, columnName);
+			         }
 		         }
 		   
 		
@@ -131,8 +150,8 @@ public class RowProperty<T> {
                 + filedName.substring(1); 
         String setMethodName = "set" + filedName.substring(0, 1).toUpperCase()  
                 + filedName.substring(1); 
-       System.out.println("getMethodName="+getMethodName);
-       System.out.println("className="+className);
+     //  System.out.println("getMethodName="+getMethodName);
+     //  System.out.println("className="+className);
        try {
     	 Method getMethod =className.getDeclaredMethod(getMethodName);
     	 /* 
@@ -141,9 +160,9 @@ public class RowProperty<T> {
     	  * object is not an instance of declaring class
     	  */
        	 Method setMethod =(objectProperty.getClass()).getDeclaredMethod(setMethodName,Integer.class);
-        System.out.println("setmethod="+setMethod);
+     //   System.out.println("setmethod="+setMethod);
        	 Integer aa=(Integer) getMethod.invoke(object,null);
-       	 System.out.println("aa="+aa+" "+objectProperty);
+     //  	 System.out.println("aa="+aa+" "+objectProperty);
 		 setMethod.invoke(objectProperty,aa);
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
@@ -173,7 +192,7 @@ public class RowProperty<T> {
      //   System.out.println("setMethodName="+setMethodName);
        try {
     	 Method getMethod =className.getDeclaredMethod(getMethodName);
-       	 Method setMethod =className.getDeclaredMethod(setMethodName,String.class);
+    	 Method setMethod =(objectProperty.getClass()).getDeclaredMethod(setMethodName,Float.class);
        //	 System.out.println("setmethod="+setMethod);
        	 float aa=(float) getMethod.invoke(object,null);
        //	 System.out.println("aa="+aa);
@@ -206,14 +225,94 @@ public class RowProperty<T> {
        // System.out.println("setMethodName="+setMethodName);
        try {
     	 Method getMethod =className.getDeclaredMethod(getMethodName);
-       	 Method setMethod =className.getDeclaredMethod(setMethodName,String.class);
+    	 Method setMethod =(objectProperty.getClass()).getDeclaredMethod(setMethodName,Date.class);
      //  	 System.out.println("setmethod="+setMethod);
        	 Date aa= (Date) getMethod.invoke(object,null);
-       	 System.out.println("aa="+aa);
+      // 	 System.out.println("aa="+aa);
 		 setMethod.invoke(objectProperty,aa);
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public static void setDoubleMethods(Object object,Object objectProperty,Class className,Field field,String columnName){
+        String filedName = field.getName();  
+        //获取相应字段的getXXX()方法  
+        String getMethodName = "get" + filedName.substring(0, 1).toUpperCase()  
+                + filedName.substring(1); 
+        String setMethodName = "set" + filedName.substring(0, 1).toUpperCase()  
+                + filedName.substring(1); 
+     //  System.out.println("getMethodName="+getMethodName);
+     //  System.out.println("className="+className);
+       try {
+    	 Method getMethod =className.getDeclaredMethod(getMethodName);
+    	 /* 
+    	  * setMethod与getMethod 不一样的在于不能使用classname
+    	  * 否则抛出 java.lang.IllegalArgumentException
+    	  * object is not an instance of declaring class
+    	  */
+       	 Method setMethod =(objectProperty.getClass()).getDeclaredMethod(setMethodName,Double.class);
+      //  System.out.println("setmethod="+setMethod);
+       	 Double aa= (Double) getMethod.invoke(object,null);
+       //	 System.out.println("aa="+aa+" "+objectProperty);
+		 setMethod.invoke(objectProperty,aa);
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public static void setLongMethods(Object object,Object objectProperty,Class className,Field field,String columnName){
+        String filedName = field.getName();  
+        //获取相应字段的getXXX()方法  
+        String getMethodName = "get" + filedName.substring(0, 1).toUpperCase()  
+                + filedName.substring(1); 
+        String setMethodName = "set" + filedName.substring(0, 1).toUpperCase()  
+                + filedName.substring(1); 
+      // System.out.println("getMethodName="+getMethodName);
+      // System.out.println("className="+className);
+       try {
+    	 Method getMethod =className.getDeclaredMethod(getMethodName);
+    	 /* 
+    	  * setMethod与getMethod 不一样的在于不能使用classname
+    	  * 否则抛出 java.lang.IllegalArgumentException
+    	  * object is not an instance of declaring class
+    	  */
+       	 Method setMethod =(objectProperty.getClass()).getDeclaredMethod(setMethodName,Long.class);
+        System.out.println("setmethod="+setMethod);
+       	 Long aa= (Long) getMethod.invoke(object,null);
+     //  	 System.out.println("aa="+aa+" "+objectProperty);
+		 setMethod.invoke(objectProperty,aa);
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

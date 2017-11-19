@@ -1,12 +1,15 @@
 package com.asset.view.hidden;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.controlsfx.dialog.Dialogs;
 
+import com.asset.MainApp;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
@@ -19,6 +22,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -29,6 +34,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class HiddenQueryController {
 	 
@@ -68,10 +76,21 @@ public class HiddenQueryController {
 	 private TableColumn<HiddenProperty,String> C4;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,String> C5;
+	 private TableColumn<HiddenProperty,Double> C5;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,Float> C6;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,Long> C7;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,String> C8;
 	 
 	 @FXML
 	 private Pagination pagination;
+	 
+	 private List<Hidden> hiddens;
 	 
 	 public HiddenQueryController() {
 		// TODO Auto-generated constructor stub
@@ -192,12 +211,43 @@ public class HiddenQueryController {
 	 }
 	 
 	 private void table(HiddenProperty newValue){
-		 Dialogs.create()
-         .title("search")
-         .masthead(newValue.toString())
-         .message(keyWord.getText())
-         .owner(null)
-         .showWarning();
+		 try {
+	            // Load the fxml file and create a new stage for the popup dialog.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(HiddenQueryController.class.getResource("HiddenDetail.fxml"));
+	            AnchorPane page = (AnchorPane) loader.load();
+
+	            // Create the dialog Stage.
+	            Stage dialogStage = new Stage();
+	            dialogStage.setTitle("Edit Person");
+	            dialogStage.initModality(Modality.WINDOW_MODAL);
+	            Scene scene = new Scene(page);
+	            dialogStage.setScene(scene);
+
+	            // Set the person into the controller.
+	            HiddenDetailController controller = loader.getController();
+	            controller.setDialogStage(dialogStage);
+	          
+	            Iterator<Hidden> iterator=hiddens.iterator();
+	            
+	            Hidden hidden=null;
+	            
+	            while(iterator.hasNext()){
+	            	Hidden h=iterator.next();
+	            	if(newValue.getId().get()==h.getId()){
+	            		hidden=h;
+	            		break;
+	            	}
+	            }
+	            
+	            controller.setHidden(hidden);
+
+	            // Show the dialog and wait until the user closes it
+	            dialogStage.show();
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 	 }
 	 
 	 void setRoomInfoList(Integer offset,Integer limit,Map search){
@@ -210,7 +260,7 @@ public class HiddenQueryController {
 		  Assets assets= new Connect().get();
 		  map=assets.findAllHidden(limit, offset, sort, order, search);
 
-	     List<Hidden> hiddens= (List<Hidden>) map.get("rows");
+	     hiddens= (List<Hidden>) map.get("rows");
 	     
 	     MyTestUtil.print(hiddens);
 	     
@@ -218,20 +268,27 @@ public class HiddenQueryController {
 	     java.util.Iterator<HiddenProperty> iterator=hiddenList.iterator();
 	    
 	     while (iterator.hasNext()) {
-			System.out.println("hiddenlist="+iterator.next().getHiddenLevel());
+			System.out.println("hiddenlist="+iterator.next().getTime());
 		}
 	     
 	    hiddenTable.setItems(hiddenList);
 	     
-	//     C1.setCellValueFactory(
-	   //             cellData -> cellData.getValue().getId().asObject());
+	     C1.setCellValueFactory(
+	                cellData -> cellData.getValue().getId().asObject());
 	     C2.setCellValueFactory(
 	   		    cellData->cellData.getValue().getHiddenLevel().asObject());
 	     C3.setCellValueFactory(
 	    		    cellData->cellData.getValue().getHiddenInstance());
 	     C4.setCellValueFactory(
 	    		    cellData->cellData.getValue().getChangeSpeed());
-
+	     C5.setCellValueFactory(
+	    		    cellData->cellData.getValue().getDoubletest().asObject());
+	     C6.setCellValueFactory(
+	    		    cellData->cellData.getValue().getFloattest().asObject());
+	     C7.setCellValueFactory(
+	    		    cellData->cellData.getValue().getLongtest().asObject());
+	     C8.setCellValueFactory(
+	    		 cellData->cellData.getValue().getTime());
 	     
 	     int total=(int) map.get("total")/10;
 	     

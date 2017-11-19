@@ -90,7 +90,7 @@ public abstract class AssetAsSwitch {
 				public void handle(ActionEvent event) {
 					// TODO Auto-generated method stub
 					try {
-						Parent target=FXMLLoader.load(getClass().getResource("child/RoomInfoQuery.fxml"));
+						Parent target=FXMLLoader.load(getClass().getResource("infowrite/InfoWrite.fxml"));
 					    Scene scene=new Scene(target);
 					    Stage stage=new Stage();
 					    stage.setScene(scene);

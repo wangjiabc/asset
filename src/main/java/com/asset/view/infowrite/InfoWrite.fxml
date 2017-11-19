@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="442.0" prefWidth="745.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.infowrite.InfoWriteController">
+   <children>
+      <TextField fx:id="hiddenlevel" layoutX="165.0" layoutY="57.0" />
+      <TextField fx:id="changespeed" layoutX="524.0" layoutY="67.0" />
+      <TextField fx:id="hiddneinstance" layoutX="174.0" layoutY="105.0" />
+      <TextField fx:id="doubletest" layoutX="524.0" layoutY="115.0" />
+      <TextField fx:id="floattest" layoutX="165.0" layoutY="161.0" />
+      <TextField fx:id="longtest" layoutX="524.0" layoutY="161.0" />
+      <Label layoutX="36.0" layoutY="63.0" text="hiddenlevel" />
+      <Label layoutX="409.0" layoutY="63.0" text="changespeed" />
+      <Label layoutX="36.0" layoutY="111.0" text="hiddeninstance" />
+      <Label layoutX="389.0" layoutY="111.0" text="doubletest" />
+      <Label layoutX="36.0" layoutY="167.0" text="floattest" />
+      <Label layoutX="397.0" layoutY="167.0" text="longtest" />
+      <Button fx:id="post" layoutX="580.0" layoutY="291.0" mnemonicParsing="false" text="post" />
+   </children>
+</AnchorPane>

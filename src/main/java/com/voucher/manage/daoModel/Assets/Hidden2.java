@@ -7,13 +7,13 @@ import java.io.Serializable;
 import com.voucher.manage.daoSQL.annotations.*;
 
 @DBTable(name="[Assets].[dbo].[Hidden]")
-public class Hidden implements Serializable{
+public class Hidden2 implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    @SQLInteger(name="id")
-	private Integer id;
 
+    private Integer id;
+    
     @SQLInteger(name="HiddenLevel")
 	private Integer HiddenLevel;
 
@@ -35,13 +35,6 @@ public class Hidden implements Serializable{
     @SQLDateTime(name="time")
 	private Date time;
 
-	public void setId(Integer id){
-		this.id = id;
-	}
-
-	public Integer getId(){
-		return id;
-	}
 
 	public void setHiddenLevel(Integer HiddenLevel){
 		this.HiddenLevel = HiddenLevel;
@@ -175,6 +168,14 @@ public class Hidden implements Serializable{
 
 	public String getWhereTerm(){
 		return whereTerm;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }
