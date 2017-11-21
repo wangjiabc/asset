@@ -1,6 +1,7 @@
 package com.asset.property;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.beans.property.DoubleProperty;
@@ -112,7 +113,9 @@ public class HiddenProperty {
 
 
 		public void setTime(Date time) {
-			this.time = new SimpleStringProperty(time.toString());
+			SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " ); 
+			String datestr = sdf.format(time); 
+			this.time = new SimpleStringProperty(datestr);
 		}
 
 

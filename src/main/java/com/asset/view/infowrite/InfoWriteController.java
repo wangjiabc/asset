@@ -40,6 +40,8 @@ public class InfoWriteController {
 	@FXML
 	private Button post;
 	
+	private Stage dialogStage;
+	
 	public InfoWriteController() {
 		// TODO Auto-generated constructor stub
 	}
@@ -129,7 +131,7 @@ public class InfoWriteController {
 					alert.setHeaderText("插入数据");
 					alert.setContentText("写入成功");
 					alert.showAndWait();
-
+					handleCancel();
 				 }
 				}catch (Exception e) {
 					// TODO: handle exception
@@ -143,4 +145,12 @@ public class InfoWriteController {
 		});
 	}
 	
+	 public void setDialogStage(Stage dialogStage) {
+	        this.dialogStage = dialogStage;
+	    }
+	
+	@FXML
+    private void handleCancel() {
+        dialogStage.close();
+    }
 }

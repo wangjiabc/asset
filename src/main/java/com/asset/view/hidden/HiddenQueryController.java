@@ -18,6 +18,8 @@ import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -92,6 +94,18 @@ public class HiddenQueryController {
 	 
 	 private List<Hidden> hiddens;
 	 
+	 private Stage dialogStage;
+	 
+	 private int i=0;
+	 
+	 private Integer offset=0;
+	 
+	 private Integer limit=10;
+	 
+	 private Map<String,String> searchMap=new HashMap<>();
+	 
+	 Assets assets= new Connect().get();
+	 
 	 public HiddenQueryController() {
 		// TODO Auto-generated constructor stub
 	}
@@ -107,7 +121,7 @@ public class HiddenQueryController {
 		 /*
 	      * 查询条件
 	      */
-	     Map<String,String> map=new HashMap<>();
+	    
 	     //隐患级别 :
 	     MenuItem level1=new MenuItem("一类");	     
 	     MenuItem level2=new MenuItem("二类");
@@ -182,20 +196,22 @@ public class HiddenQueryController {
 				 String search="%"+keyWord.getText()+"%";
 				 
 				 if(!search.equals("")){
-				   map.put("HiddenInstance like ", search);
+				   searchMap.put("HiddenInstance like ", search);
 				 }else {
-					map.clear();
+					searchMap.clear();
 				}
-				 setRoomInfoList(0,10,map);
+				 setRoomInfoList(0,10,searchMap);
 			}
 		  });
 	     
 	     
-	    setRoomInfoList(0,10,map);
+	 //   setRoomInfoList(0,10,searchMap);
 	     
 	    pagination.setPageFactory((Integer pageIndex)->{
 	    	if (pageIndex >= 0) {
-	    		setRoomInfoList(pageIndex*10,10,map);
+	    		offset=pageIndex*10;
+	    		limit=10;
+	    		setRoomInfoList(offset, limit, searchMap);
 	    		 Label mLabel = new Label();  
 	                mLabel.setText("这是第" + (pageIndex+1) + "页");  
 	                return mLabel;  
@@ -205,8 +221,25 @@ public class HiddenQueryController {
 	    });
 	    
 	   
+	 //   hiddenTable.getSelectionModel().selectedItemProperty().addListener(
+	  //  		(observable, oldValue, newValue) ->table(newValue));
+	    
 	    hiddenTable.getSelectionModel().selectedItemProperty().addListener(
-	    		(observable, oldValue, newValue) ->table(newValue));
+	    		new ChangeListener<HiddenProperty>() {
+
+					@Override
+					public void changed(ObservableValue<? extends HiddenProperty> observable, HiddenProperty oldValue,
+							HiddenProperty newValue) {
+						// TODO Auto-generated method stub
+						if(i>=1){
+							if(newValue!=null)
+						      table(newValue);
+						}else{
+							i++;
+						}
+					}
+				 }
+	    		);
 	    
 	 }
 	 
@@ -214,12 +247,12 @@ public class HiddenQueryController {
 		 try {
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(HiddenQueryController.class.getResource("HiddenDetail.fxml"));
+	            loader.setLocation(HiddenQueryController.class.getResource("Hiddendetail.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle("Edit Person");
+	            dialogStage.setTitle("隐患");
 	            dialogStage.initModality(Modality.WINDOW_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
@@ -227,7 +260,12 @@ public class HiddenQueryController {
 	            // Set the person into the controller.
 	            HiddenDetailController controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
-	          
+	            controller.setTableView(hiddenTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
+	            
+	            Map map=assets.selectAllHidden(limit, offset, null, null, searchMap);
+
+	   	        hiddens= (List<Hidden>) map.get("rows");
+	            
 	            Iterator<Hidden> iterator=hiddens.iterator();
 	            
 	            Hidden hidden=null;
@@ -257,8 +295,8 @@ public class HiddenQueryController {
 	     
 		  Map map=new HashMap<>();
 		  
-		  Assets assets= new Connect().get();
-		  map=assets.findAllHidden(limit, offset, sort, order, search);
+		  
+		  map=assets.selectAllHidden(limit, offset, sort, order, search);
 
 	     hiddens= (List<Hidden>) map.get("rows");
 	     
@@ -272,7 +310,7 @@ public class HiddenQueryController {
 		}
 	     
 	    hiddenTable.setItems(hiddenList);
-	     
+
 	     C1.setCellValueFactory(
 	                cellData -> cellData.getValue().getId().asObject());
 	     C2.setCellValueFactory(
@@ -290,13 +328,17 @@ public class HiddenQueryController {
 	     C8.setCellValueFactory(
 	    		 cellData->cellData.getValue().getTime());
 	     
-	     int total=(int) map.get("total")/10;
+	     int total=(int) map.get("total");
+	     int page=total/10;
 	     
-	     if(total<1)
-	    	 total=1;
+	     if(total-page*10>0)
+           page++;	     
 	     
-	     pagination.setPageCount(total);
+	     pagination.setPageCount(page);
 	 
 	 }
 	 
+	 public void setDialogStage(Stage dialogStage) {
+	        this.dialogStage = dialogStage;
+	    }
 }

@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.Map;
 
 import com.voucher.manage.daoModel.Assets.Hidden;
-import com.voucher.manage.daoModel.Assets.Hidden2;
-
 
 public interface Assets {	
 	
@@ -23,11 +21,13 @@ public interface Assets {
 	
 	public String uploadXlsFile(File file);
 	
-	public Map<String, Object> findAllHidden(Integer limit,Integer offset,String sort,String order,
+	public Map<String, Object> selectAllHidden(Integer limit,Integer offset,String sort,String order,
 			Map search);
 	
 	public Integer insertIntoHidden(Hidden hidden);
 	
-	public Integer updateHidden(Hidden2 hidden2);
+	public Integer updateHidden(Hidden hidden);
+	
+	public Integer deleteHidden(Hidden hidden);
 	
 }
