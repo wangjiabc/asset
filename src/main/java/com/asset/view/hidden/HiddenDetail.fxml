@@ -23,6 +23,7 @@
       <TextField fx:id="floattest" layoutX="558.0" layoutY="155.0" />
       <TextField fx:id="longtest" layoutX="153.0" layoutY="213.0" />
       <TextField fx:id="time" layoutX="558.0" layoutY="213.0" />
-      <Button fx:id="update" layoutX="641.0" layoutY="363.0" mnemonicParsing="false" text="update" />
+      <Button fx:id="update" layoutX="520.0" layoutY="361.0" mnemonicParsing="false" text="update" />
+      <Button fx:id="delete" layoutX="651.0" layoutY="361.0" mnemonicParsing="false" text="delete" />
    </children>
 </AnchorPane>
