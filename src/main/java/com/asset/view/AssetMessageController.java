@@ -14,6 +14,7 @@ import java.util.prefs.Preferences;
 import javax.imageio.ImageIO;
 
 import com.asset.database.Connect;
+import com.asset.tool.FileConvect;
 import com.rmi.server.Assets;
 
 import javafx.embed.swing.SwingFXUtils;
@@ -158,7 +159,8 @@ public class AssetMessageController extends AssetAsSwitch{
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				Assets assets=new Connect().getAssets();
-				assets.uploadImageFile(file);
+				byte[] fileByte=FileConvect.fileToByte(file);
+				assets.uploadImageFile(file.getName(),fileByte);
 			}
 		});
 	
@@ -196,7 +198,8 @@ public class AssetMessageController extends AssetAsSwitch{
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				Assets assets=new Connect().getAssets();
-				assets.uploadDocFile(docFile);
+				byte[] fileByte=FileConvect.fileToByte(docFile);
+				assets.uploadDocFile(docFile.getName(),fileByte);
 			}
 		});
 		

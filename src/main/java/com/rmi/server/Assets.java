@@ -13,13 +13,13 @@ public interface Assets {
 	public Map<String, Object> findAllChangehire_CharLog(Integer limit, Integer offset, String sort,
 			String order,String search);
 	
-	public String uploadImageFile(File file);
+	public String uploadImageFile(String name, byte[] file);
 	
-	public String uploadPdfFile(File file);
+	public String uploadPdfFile(String name, byte[] file);
 	
-	public String uploadDocFile(File file);
+	public String uploadDocFile(String name, byte[] file);
 	
-	public String uploadXlsFile(File file);
+	public String uploadXlsFile(String name, byte[] file);
 	
 	public Map<String, Object> selectAllHidden(Integer limit,Integer offset,String sort,String order,
 			Map search);

@@ -26,6 +26,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -34,6 +35,7 @@ import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -187,12 +189,11 @@ public class HiddenQueryController {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				 Dialogs.create()
-	                .title("search")
-	                .masthead(level.getText())
-	                .message(keyWord.getText())
-	                .owner(null)
-	                .showWarning();
+				 Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("search");
+					alert.setHeaderText(level.getText());
+					alert.setContentText(keyWord.getText());
+					alert.showAndWait();
 				 String search="%"+keyWord.getText()+"%";
 				 
 				 if(!search.equals("")){
