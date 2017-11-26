@@ -43,6 +43,7 @@ public class HiddenProperty {
 
 
 		public void setId(Integer id) {
+			System.out.println("id="+id);
 			this.id = new SimpleIntegerProperty(id);
 		}
 

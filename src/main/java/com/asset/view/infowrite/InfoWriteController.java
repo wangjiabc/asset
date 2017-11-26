@@ -7,7 +7,7 @@ import org.controlsfx.dialog.Dialogs;
 
 import com.asset.database.Connect;
 import com.rmi.server.Assets;
-import com.voucher.manage.daoModel.Assets.Hidden;
+import com.voucher.manage.daoModel.Hidden;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

@@ -2,6 +2,7 @@ package com.asset.view.hidden;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -15,7 +16,7 @@ import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
-import com.voucher.manage.daoModel.Assets.Hidden;
+import com.voucher.manage.daoModel.Hidden;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -125,6 +126,7 @@ public class HiddenQueryController {
 	      */
 	    
 	     //隐患级别 :
+	     /*
 	     MenuItem level1=new MenuItem("一类");	     
 	     MenuItem level2=new MenuItem("二类");
 	     MenuItem level3=new MenuItem("三类");
@@ -156,6 +158,26 @@ public class HiddenQueryController {
 				level.setText("三类");
 			}
 		 });
+	     */
+	     
+	     
+	     List<MenuItem> menuItems=new ArrayList<>();
+	     String a[]={"1","2","3"};
+	     for(int i=0;i<3;i++){
+	    	 menuItems.add(new MenuItem(String.valueOf(i)));
+	    	 String aa=a[i];
+	    	 menuItems.get(i).setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					level.setText(aa);
+				}
+			});
+	    	level.getItems().add(menuItems.get(i));
+	     }
+	     
+	     
+	     
 	     
 	    //整改进度 :
 	     MenuItem exhale=new MenuItem("已发整改通知");

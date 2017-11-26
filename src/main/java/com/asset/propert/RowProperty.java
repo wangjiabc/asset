@@ -166,7 +166,7 @@ public class RowProperty<T> {
 		 setMethod.invoke(objectProperty,aa);
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -229,6 +229,7 @@ public class RowProperty<T> {
      //  	 System.out.println("setmethod="+setMethod);
        	 Date aa= (Date) getMethod.invoke(object,null);
       // 	 System.out.println("aa="+aa);
+       	 if(aa!=null)
 		 setMethod.invoke(objectProperty,aa);
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
@@ -269,10 +270,11 @@ public class RowProperty<T> {
       //  System.out.println("setmethod="+setMethod);
        	 Double aa= (Double) getMethod.invoke(object,null);
        //	 System.out.println("aa="+aa+" "+objectProperty);
-		 setMethod.invoke(objectProperty,aa);
+       	 if(aa!=null)
+		  setMethod.invoke(objectProperty,aa);
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -306,13 +308,13 @@ public class RowProperty<T> {
     	  * object is not an instance of declaring class
     	  */
        	 Method setMethod =(objectProperty.getClass()).getDeclaredMethod(setMethodName,Long.class);
-        System.out.println("setmethod="+setMethod);
+      //  System.out.println("setmethod="+setMethod);
        	 Long aa= (Long) getMethod.invoke(object,null);
      //  	 System.out.println("aa="+aa+" "+objectProperty);
 		 setMethod.invoke(objectProperty,aa);
 		} catch (NoSuchMethodException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

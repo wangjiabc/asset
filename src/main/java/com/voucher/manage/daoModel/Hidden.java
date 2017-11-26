@@ -1,4 +1,4 @@
-package com.voucher.manage.daoModel.Assets;
+package com.voucher.manage.daoModel;
 
 import java.util.Date;
 

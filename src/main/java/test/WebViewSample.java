@@ -28,11 +28,13 @@ import javafx.stage.Stage;
  
 public class WebViewSample extends Application {
     private Scene scene; 
-    @Override public void start(Stage stage) throws URISyntaxException, IOException{
+    
+    @Override 
+    public void start(Stage stage) throws URISyntaxException, IOException{
 
         // create the scene
         stage.setTitle("Web View");
-        scene = new Scene(new Browser(),1000,800, Color.web("#666970"));
+        scene = new Scene(new Browser(),1200,800, Color.web("#666970"));
         stage.setScene(scene);     
         stage.show();
     }

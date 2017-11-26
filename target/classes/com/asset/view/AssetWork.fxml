@@ -60,7 +60,7 @@
                         <Label text="kk" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
-                  <Button layoutX="28.0" layoutY="301.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="信息录入" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0" />
+                  <Button fx:id="hiddenWrite" layoutX="28.0" layoutY="301.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="信息录入" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0" />
                   <Button fx:id="hiddenQuery" layoutX="18.0" layoutY="363.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="隐患查询" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="350.0" />
                   <Button layoutX="20.0" layoutY="427.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="统计报表" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" />
                   <Button layoutX="20.0" layoutY="477.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="安全档案" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="450.0" />
@@ -73,6 +73,7 @@
                   <ImageView fx:id="danger" fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
                   <ImageView fx:id="report" fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
                   <ImageView fx:id="file" fitHeight="20.0" fitWidth="20.0" layoutX="50.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
+                  <Button fx:id="hiddenMap" layoutX="30.0" layoutY="502.0" mnemonicParsing="false" text="隐患地图" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="798.0" prefWidth="738.0">

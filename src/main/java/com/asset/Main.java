@@ -7,9 +7,7 @@ import org.controlsfx.dialog.Dialogs;
 import com.asset.view.AssetInformController;
 import com.asset.view.AssetMessageController;
 import com.asset.view.AssetOverviewController;
-import com.asset.view.AssetOverviewQueryController;
 import com.asset.view.AssetWorkController;
-
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -85,25 +83,6 @@ public class Main extends Application{
 	        }
 	    }
 
-	    //查询界面
-	    public void showAssetOverviewQuery() {
-	        try {
-	            // Load person overview.
-	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(MainApp.class.getResource("view/AssetOverviewQuery.fxml"));
-	            AnchorPane personOverview = (AnchorPane) loader.load();
-
-	            // Set person overview into the center of root layout.
-	            rootLayout.setCenter(personOverview);
-
-	            // Give the controller access to the main app.
-	            AssetOverviewQueryController controller = loader.getController();
-	            controller.setMain(this);
-
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	    }
 
 	  //messgae界面
 	    public void showAssetMessage() {

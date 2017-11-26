@@ -1,7 +1,8 @@
-package com.asset.view.hidden;
+package com.asset.view.assets;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -9,9 +10,12 @@ import java.util.Optional;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
+import com.asset.property.RoomInfoProperty;
+import com.asset.property.RoomInfo_PositionProperty;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
-import com.voucher.manage.daoModel.Hidden;
+import com.voucher.manage.daoModel.RoomInfo;
+import com.voucher.manage.daoModelJoin.RoomInfo_Position;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,23 +31,25 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
-public class HiddenDetailController {
+public class AssetDetailController {
 	@FXML
 	private TextField id;
 	@FXML
 	private TextField hiddenlevel;
 	@FXML
 	private TextField changespeed;
-	@FXML
-	private TextField hiddneinstance;
-	@FXML
-	private TextField doubletest;
-	@FXML
-	private TextField floattest;
-	@FXML
-	private TextField longtest;
+
 	@FXML
 	private TextField time;
+	
+	@FXML
+	private TextField Num;
+	
+	@FXML
+	private TextField Lat;
+	
+	@FXML
+	private TextField Lng;
 	
 	@FXML
 	private Button update;
@@ -51,15 +57,13 @@ public class HiddenDetailController {
 	@FXML
 	private Button delete;
 	
-	private Hidden hidden;
-	
 	private Stage dialogStage;
 	
-	private ObservableList<HiddenProperty> hiddenList;
+	private ObservableList<RoomInfo_PositionProperty> roomList;
 
-	private TableView<HiddenProperty> hiddenTable;
+	private TableView<RoomInfo_PositionProperty> roomTable;
 	
-	private List<Hidden> hiddens;
+	private List<RoomInfo_Position> roomInfos;
 	
 	private Pagination pagination;
 	
@@ -70,39 +74,41 @@ public class HiddenDetailController {
 	 private Map<String,String> searchMap;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,Integer> C1;
+	 private TableColumn<RoomInfo_PositionProperty,String> C1;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,Integer> C2;
+	 private TableColumn<RoomInfo_PositionProperty,String> C2;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,String> C3;
+	 private TableColumn<RoomInfo_PositionProperty,String> C3;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,String> C4;
+	 private TableColumn<RoomInfo_PositionProperty,String> C4;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,Double> C5;
+	 private TableColumn<RoomInfo_PositionProperty,String> C5;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,Float> C6;
+	 private TableColumn<RoomInfo_PositionProperty, Double> C6;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,Long> C7;
+	 private TableColumn<RoomInfo_PositionProperty, Double> C7;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,String> C8;
+	 private TableColumn<RoomInfo_PositionProperty,String> C8;
 	
-	public HiddenDetailController() {
+	 private RoomInfo_Position roomInfo;
+	 
+	public AssetDetailController() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void setTableView(TableView<HiddenProperty> hiddenTable,Integer offset,Integer limit,
-			Map<String,String> searchMap,Pagination pagination,TableColumn<HiddenProperty,Integer> C1,
-			TableColumn<HiddenProperty,Integer> C2,TableColumn<HiddenProperty,String> C3,TableColumn<HiddenProperty,String> C4,
-			TableColumn<HiddenProperty,Double> C5,TableColumn<HiddenProperty,Float> C6,
-			TableColumn<HiddenProperty,Long> C7,TableColumn<HiddenProperty,String> C8) {
-		this.hiddenTable=hiddenTable;
+	public void setTableView(TableView<RoomInfo_PositionProperty> roomTable,Integer offset,Integer limit,
+			Map<String,String> searchMap,Pagination pagination,TableColumn<RoomInfo_PositionProperty, String> C1,
+			TableColumn<RoomInfo_PositionProperty, String> C2,TableColumn<RoomInfo_PositionProperty, String> C3,TableColumn<RoomInfo_PositionProperty, String> C4,
+			TableColumn<RoomInfo_PositionProperty, String> C5,TableColumn<RoomInfo_PositionProperty, Double> C6,
+			TableColumn<RoomInfo_PositionProperty, Double> C7,TableColumn<RoomInfo_PositionProperty, String> C8) {
+		this.roomTable=roomTable;
 		this.offset=offset;
 		this.limit=limit;
 		this.searchMap=searchMap;
@@ -128,31 +134,20 @@ public class HiddenDetailController {
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				Date date=new Date();
-				Hidden hidden2=new Hidden();
-				hidden2.setId(null);
-				String[] where={"id=",String.valueOf(hidden.getId())};
-				hidden2.setWhere(where);
+				RoomInfo roomInfo2=new RoomInfo();
+				String[] where={"GUID=",roomInfo.getGUID()};
+				roomInfo2.setWhere(where);
 				try{
+					if(id.getText()!=null)
+						roomInfo2.setGUID(id.getText());
 					if(hiddenlevel.getText()!=null)
-					hidden2.setHiddenLevel(Integer.parseInt(hiddenlevel.getText()));
+					   roomInfo2.setAddress(hiddenlevel.getText());
 					if(changespeed.getText()!=null)
-					hidden2.setChangeSpeed(changespeed.getText());
-					if(hiddneinstance.getText()!=null)
-					hidden2.setHiddenInstance(hiddneinstance.getText());
-					if(doubletest.getText()!=null)
-					hidden2.setDoubletest(Double.parseDouble(doubletest.getText()));
-					if(floattest.getText()!=null)
-					hidden2.setFloattest(Float.parseFloat(floattest.getText()));
-					if(longtest.getText()!=null)
-					hidden2.setLongtest(Long.parseLong(longtest.getText()));
-					hidden2.setTime(date);
-				
-				
-				
-				
-				int i=assets.updateHidden(hidden2);
-				
-				
+						roomInfo2.setRegion(changespeed.getText());
+				MyTestUtil.print(roomInfo2);
+					roomInfo2.setInDate(date);
+
+				int i=assets.updateRoomInfo(roomInfo2);						
 							 				
 				if(i==0){
 					Alert alert = new Alert(AlertType.ERROR);
@@ -166,7 +161,7 @@ public class HiddenDetailController {
 					alert.setHeaderText("更新数据");
 					alert.setContentText("写入成功");
 					alert.showAndWait();
-					hiddenTable.setItems(null);
+					roomTable.setItems(null);
 					setRoomInfoList(offset, limit,searchMap);
 					handleCancel();
 				 }
@@ -190,7 +185,7 @@ public class HiddenDetailController {
 				 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 			        alert.setTitle("安全信息");
 			        alert.setHeaderText("删除");
-			        alert.setContentText("是否删除"+hidden.getId()+"信息");
+			        alert.setContentText("是否删除"+roomInfo.getGUID()+"信息");
 
 			        ButtonType btnType1 = new ButtonType("确定");
 			        ButtonType btnType2 = new ButtonType("取消");
@@ -201,20 +196,21 @@ public class HiddenDetailController {
 			        Optional<ButtonType> result = alert.showAndWait();
 			        result.ifPresent(buttonType -> {
 			            if (buttonType == btnType1) {
-			                try{
-			                String[] where={"id=",String.valueOf(hidden.getId())};
-			            	hidden.setWhere(where);
-			                int i=assets.deleteHidden(hidden);
+			              try{
+			                String[] where={"GUID=",roomInfo.getGUID()};
+			                RoomInfo roomInfo2=new RoomInfo();
+			            	roomInfo2.setWhere(where);
+			               int i=assets.deleteRoomInfo(roomInfo2);
 			                if(i==1){
 			                	alert.setTitle("安全信息");
 								alert.setHeaderText("操作");
-								alert.setContentText("删除"+hidden.getId()+"成功");
+								alert.setContentText("删除"+roomInfo.getAddress()+"成功");
 								alert.showAndWait();
 			                }else{
 			                	Alert alert2 = new Alert(AlertType.ERROR);
 								alert2.setTitle("异常堆栈对话框");
 								alert2.setHeaderText("错误");
-								alert2.setContentText("删除"+hidden.getId()+"失败");
+								alert2.setContentText("删除"+roomInfo.getAddress()+"失败");
 								alert2.showAndWait();
 			                }
 			                }catch (Exception e) {
@@ -222,7 +218,7 @@ public class HiddenDetailController {
 			                	Alert alert2 = new Alert(AlertType.ERROR);
 								alert2.setTitle("异常堆栈对话框");
 								alert2.setHeaderText("错误");
-								alert2.setContentText("删除"+hidden.getId()+"失败");
+								alert2.setContentText("删除"+roomInfo.getAddress()+"失败");
 								alert2.showAndWait();
 							}
 			            } else if (buttonType == btnType2) {
@@ -247,16 +243,15 @@ public class HiddenDetailController {
 	        dialogStage.close();
 	    }
 	    
-	 public void setHidden(Hidden hidden){
-		 this.hidden=hidden;
-		 id.setText(String.valueOf(hidden.getId()));
-		 hiddenlevel.setText(String.valueOf(hidden.getHiddenLevel()));
-		 hiddneinstance.setText(hidden.getHiddenInstance());
-		 changespeed.setText(hidden.getChangeSpeed());
-		 doubletest.setText(String.valueOf(hidden.getDoubletest()));
-		 floattest.setText(String.valueOf(hidden.getFloattest()));
-		 longtest.setText(String.valueOf(hidden.getLongtest()));
-		 time.setText(String.valueOf(hidden.getTime()));
+	 public void setAssets(RoomInfo_Position roomInfo2){
+		 this.roomInfo=roomInfo2;
+		 id.setText(roomInfo2.getGUID());
+		 hiddenlevel.setText(roomInfo2.getAddress());
+		 changespeed.setText(roomInfo2.getRegion());
+		 time.setText(String.valueOf(roomInfo2.getInDate()));
+		 Num.setText(roomInfo2.getNum());
+		  Lat.setText(String.valueOf(roomInfo2.getLat()));
+		  Lng.setText(String.valueOf(roomInfo2.getLng()));
 	 }
 	 
 	 void setRoomInfoList(Integer offset,Integer limit,Map search){
@@ -269,35 +264,33 @@ public class HiddenDetailController {
 		  Assets assets= new Connect().get();
 		  map=assets.selectAllHidden(limit, offset, sort, order, search);
 
-	     hiddens= (List<Hidden>) map.get("rows");
+	     roomInfos= (List<RoomInfo_Position>) map.get("rows");
 	     
-	     MyTestUtil.print(hiddens);
+	     MyTestUtil.print(roomInfos);
 	     
-	     hiddenList= (ObservableList<HiddenProperty>) new RowData(hiddens,HiddenProperty.class).get();
-	     java.util.Iterator<HiddenProperty> iterator=hiddenList.iterator();
+	     roomList=  (ObservableList<RoomInfo_PositionProperty>) new RowData(roomInfos,RoomInfo_PositionProperty.class).get();
+	     Iterator<RoomInfo_PositionProperty> iterator=roomList.iterator();
 	    
 	     while (iterator.hasNext()) {
-			System.out.println("hiddenlist="+iterator.next().getTime());
+			System.out.println("hiddenlist="+iterator.next().getAddress());
 		}
 	     
-	    hiddenTable.setItems(hiddenList);
+	    roomTable.setItems(roomList);
 
 	     C1.setCellValueFactory(
-	                cellData -> cellData.getValue().getId().asObject());
+	                cellData -> cellData.getValue().getAddress());
 	     C2.setCellValueFactory(
-	   		    cellData->cellData.getValue().getHiddenLevel().asObject());
+	   		    cellData->cellData.getValue().getGUID());
 	     C3.setCellValueFactory(
-	    		    cellData->cellData.getValue().getHiddenInstance());
+	    		    cellData->cellData.getValue().getNum());
 	     C4.setCellValueFactory(
-	    		    cellData->cellData.getValue().getChangeSpeed());
+	    		    cellData->cellData.getValue().getRegion());
 	     C5.setCellValueFactory(
-	    		    cellData->cellData.getValue().getDoubletest().asObject());
+	    		    cellData->cellData.getValue().getInDate());
 	     C6.setCellValueFactory(
-	    		    cellData->cellData.getValue().getFloattest().asObject());
+	    		 cellData->cellData.getValue().getLat().asObject());
 	     C7.setCellValueFactory(
-	    		    cellData->cellData.getValue().getLongtest().asObject());
-	     C8.setCellValueFactory(
-	    		 cellData->cellData.getValue().getTime());
+	    		 cellData->cellData.getValue().getLng().asObject());
 	     
 	     int total=(int) map.get("total");
 	     int page=total/10;
@@ -310,3 +303,4 @@ public class HiddenDetailController {
 	 }
 	 
 }
+
