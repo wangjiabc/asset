@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.Map;
 
 import com.voucher.manage.daoModel.Hidden;
+import com.voucher.manage.daoModel.Position;
 import com.voucher.manage.daoModel.RoomInfo;
 
 public interface Assets {	
@@ -37,5 +38,7 @@ public interface Assets {
 	public Integer updateHidden(Hidden hidden);
 	
 	public Integer deleteHidden(Hidden hidden);
+	
+	public Integer updatePosition(Position position);
 	
 }

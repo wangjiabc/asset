@@ -5,16 +5,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="498.0" prefWidth="556.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.map.PositionDetailController">
+<AnchorPane prefHeight="513.0" prefWidth="755.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.map.PositionDetailController">
    <children>
-      <TextField fx:id="province" layoutX="65.0" layoutY="29.0" />
-      <TextField fx:id="city" layoutX="65.0" layoutY="84.0" />
-      <TextField fx:id="district" layoutX="65.0" layoutY="146.0" />
-      <TextField fx:id="street" layoutX="65.0" layoutY="203.0" />
-      <Button layoutX="337.0" layoutY="339.0" mnemonicParsing="false" text="Button" />
-      <Button layoutX="330.0" layoutY="61.0" mnemonicParsing="false" text="Button" />
-      <TextField fx:id="streetNumber" layoutX="65.0" layoutY="252.0" />
-      <TextField fx:id="lat" layoutX="65.0" layoutY="307.0" />
-      <TextField fx:id="lng" layoutX="65.0" layoutY="355.0" />
+      <TextField fx:id="province" layoutX="101.0" layoutY="130.0" />
+      <TextField fx:id="city" layoutX="399.0" layoutY="130.0" />
+      <TextField fx:id="district" layoutX="92.0" layoutY="208.0" />
+      <TextField fx:id="street" layoutX="393.0" layoutY="208.0" />
+      <Button fx:id="button" layoutX="584.0" layoutY="387.0" mnemonicParsing="false" text="Button" />
+      <TextField fx:id="lat" layoutX="408.0" layoutY="273.0" />
+      <TextField fx:id="lng" layoutX="92.0" layoutY="279.0" />
+      <Label fx:id="text" layoutX="101.0" layoutY="38.0" text="Label" />
    </children>
 </AnchorPane>

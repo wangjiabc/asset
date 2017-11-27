@@ -11,27 +11,17 @@
    <children>
       <HBox layoutX="14.0" layoutY="516.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <children>
-            <Button fx:id="button1" layoutX="14.0" layoutY="516.0" mnemonicParsing="false" text="Button">
+            <Button fx:id="appendMap" layoutX="14.0" layoutY="516.0" mnemonicParsing="false" text="append">
                <HBox.margin>
                   <Insets left="10.0" right="5.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="button2" mnemonicParsing="false" text="Button">
+            <Button fx:id="queryMap" mnemonicParsing="false" text="query">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>
             </Button>
             <Button fx:id="button3" mnemonicParsing="false" text="Button">
-               <HBox.margin>
-                  <Insets left="5.0" right="5.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" text="Button">
-               <HBox.margin>
-                  <Insets left="5.0" right="5.0" />
-               </HBox.margin>
-            </Button>
-            <Button mnemonicParsing="false" text="Button">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" />
                </HBox.margin>

@@ -18,7 +18,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class AppendAssetController{
+public class QueryAssetController{
 
 	@FXML
 	private WebView mapview;
@@ -27,8 +27,8 @@ public class AppendAssetController{
 	
 	@FXML
 	private Button button;
-
-	public AppendAssetController(WebView mapview,WebEngine webEngine,Button button){
+	
+	public QueryAssetController(WebView mapview,WebEngine webEngine,Button button){
 		this.mapview=mapview;
 		this.webEngine=webEngine;
 		this.button=button;
@@ -40,7 +40,7 @@ public class AppendAssetController{
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO Auto-generated method stub
-					webEngine.load("http://localhost:8080/voucher/baidumap/appendMap.html");
+					webEngine.load("http://localhost:8080/voucher/baidumap/queryMap.html");
 					mapview.getEngine().setOnAlert((WebEvent<String> wEvent)->{
 						//System.out.println(wEvent);
 						table(wEvent.getData());
@@ -70,21 +70,37 @@ public class AppendAssetController{
 		 try {
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(AppendAssetsQueryController.class.getResource("AppendAssetsQuery.fxml"));
+	            loader.setLocation(PositionDetailController.class.getResource("PositionDetail.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle("选择要添加位置的资产");
+	            dialogStage.setTitle("隐患");
 	            dialogStage.initModality(Modality.WINDOW_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
 
 	            // Set the person into the controller.
-	            AppendAssetsQueryController controller = loader.getController();
+	            PositionDetailController controller = loader.getController();
+	            /*
+	            Map map=assets.selectAllHidden(limit, offset, null, null, searchMap);
+
+	   	        hiddens= (List<Hidden>) map.get("rows");
 	            
-	            controller.setPosition(position);
+	            Iterator<Hidden> iterator=hiddens.iterator();
 	            
+	            Hidden hidden=null;
+	           
+	            while(iterator.hasNext()){
+	            	Hidden h=iterator.next();
+	            	if(newValue.getId().get()==h.getId()){
+	            		hidden=h;
+	            		break;
+	            	}
+	            }
+	            */
+
+                 
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();
 
