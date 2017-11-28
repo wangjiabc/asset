@@ -125,7 +125,8 @@ public class AssetsQueryController {
 				 String search="%"+keyWord.getText()+"%";
 				 
 				 if(!search.equals("")){
-				   searchMap.put("HiddenInstance like ", search);
+					 searchMap.put("[Assets].[dbo].[RoomInfo].GUID like ", search);
+					// searchMap.put("[Assets].[dbo].[RoomInfo].Address like ", search);
 				 }else {
 					searchMap.clear();
 				}

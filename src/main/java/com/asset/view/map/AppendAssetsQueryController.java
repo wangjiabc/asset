@@ -131,8 +131,10 @@ public class AppendAssetsQueryController {
 					alert.showAndWait();
 				 String search="%"+keyWord.getText()+"%";
 				 
+				 System.out.println("keyWord="+keyWord.getText());
+				 
 				 if(!search.equals("")){
-				   searchMap.put("HiddenInstance like ", search);
+				   searchMap.put("[Assets].[dbo].[RoomInfo].Address like ", search);
 				 }else {
 					searchMap.clear();
 				}
@@ -193,14 +195,16 @@ public class AppendAssetsQueryController {
 	            // Set the person into the controller.
 	            PositionDetailController controller = loader.getController();
 	       
-	            String Address=newValue.getAddress().toString();
-	            String GUID=newValue.getGUID().toString();
+	            String Address=newValue.getAddress().getValue();
+	            String GUID=newValue.getGUID().getValue();
+	            
+	            position.setGUID(GUID);
 	            
 	            controller.setPosition(position,Address,GUID);
 	            controller.setDialogStage(dialogStage);
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();
-
+	            handleCancel();
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
@@ -256,6 +260,11 @@ public class AppendAssetsQueryController {
 	 
 	 public void setDialogStage(Stage dialogStage) {
 	        this.dialogStage = dialogStage;
-	    }
+	  }
+	 
+	 @FXML
+	 private void handleCancel() {
+	       dialogStage.close();
+	 }
 }
 

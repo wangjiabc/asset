@@ -84,6 +84,7 @@ public class AppendAssetController{
 	            AppendAssetsQueryController controller = loader.getController();
 	            
 	            controller.setPosition(position);
+	            controller.setDialogStage(dialogStage);
 	            
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();
