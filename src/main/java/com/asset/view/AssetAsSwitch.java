@@ -6,7 +6,6 @@ import java.util.Iterator;
 
 import com.asset.Main;
 import com.asset.view.hidden.HiddenDetailController;
-import com.asset.view.hidden.HiddenQueryController;
 import com.asset.view.infowrite.InfoWriteController;
 import com.asset.view.map.BaiduMapController;
 
@@ -60,9 +59,6 @@ public abstract class AssetAsSwitch {
 	  Button hiddenWrite;
 	 
 	 @FXML
-	  Button hiddenQuery;
-	 
-	 @FXML
 	  Button hiddenMap;
 	 
 	 @FXML
@@ -107,7 +103,7 @@ public abstract class AssetAsSwitch {
 				            // Create the dialog Stage.
 				            Stage dialogStage = new Stage();
 				            dialogStage.setTitle("信息录入");
-				            dialogStage.initModality(Modality.WINDOW_MODAL);
+				            dialogStage.initModality(Modality.APPLICATION_MODAL);
 				            Scene scene = new Scene(page);
 				            dialogStage.setScene(scene);
 
@@ -123,39 +119,7 @@ public abstract class AssetAsSwitch {
 					}
 				}
 			});
-            
-            hiddenQuery.setOnAction(new EventHandler<ActionEvent>() {
-				
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					try {
-						 // Load the fxml file and create a new stage for the popup dialog.
-			            FXMLLoader loader = new FXMLLoader();
-			            loader.setLocation(AssetAsSwitch.class.getResource("hidden/HiddenQuery.fxml"));
-			            AnchorPane page = (AnchorPane) loader.load();
-
-			            // Create the dialog Stage.
-			            Stage dialogStage = new Stage();
-			            dialogStage.setTitle("隐患查询");
-			            dialogStage.initModality(Modality.WINDOW_MODAL);
-			            Scene scene = new Scene(page);
-			            dialogStage.setScene(scene);
-
-			            // Set the person into the controller.
-			            HiddenQueryController controller = loader.getController();
-			            controller.setDialogStage(dialogStage);
-			            
-			            // Show the dialog and wait until the user closes it
-			            dialogStage.show();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-				}
-			});
-            
+                  
             
             hiddenMap.setOnAction(new EventHandler<ActionEvent>() {
 				
@@ -221,5 +185,10 @@ public abstract class AssetAsSwitch {
 	 private void workButtonAction(){
 	     // get a handle to the stage
 	    main.showAssetWork();
+	 }
+	 @FXML
+	 private void hiddenButtonAction(){
+	     // get a handle to the stage
+	    main.showHiddenQuery();
 	 }
 }

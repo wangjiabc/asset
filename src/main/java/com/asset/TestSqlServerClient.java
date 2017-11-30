@@ -34,7 +34,7 @@ public class TestSqlServerClient {
 		  List<RoomInfo> roomInfo;
 	      Map<String,Object> map; 
 	     // map=assets.getRoomInfo(limit, offset, sort, order, search);  
-	      List<RoomChangeHireLog_RoomChartLog> changeHireLog_RoomChartLogs;
+	    /*  List<RoomChangeHireLog_RoomChartLog> changeHireLog_RoomChartLogs;
 	      map=assets.findAllChangehire_CharLog(limit, offset, sort, order, search); 
 	      MyTestUtil.print(map);
          int total=(int) map.get("rows");
@@ -45,7 +45,7 @@ public class TestSqlServerClient {
 			System.out.println(iterator.next().getAddress());
 			System.out.println(iterator.next().getOriginalAddress());
 	       }
-	       */
+	    
           
            Iterator iterator=changeHireLog_RoomChartLogs.iterator();
           

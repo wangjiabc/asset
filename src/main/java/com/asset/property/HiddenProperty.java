@@ -2,40 +2,36 @@ package com.asset.property;
 
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class HiddenProperty {
 	 
-		private IntegerProperty id;
+	private IntegerProperty id;
 
+	private StringProperty GUID;
 
-		private IntegerProperty HiddenLevel;
+	private StringProperty name;
 
-	 
-		private StringProperty ChangeSpeed;
+	private IntegerProperty hidden_level;
 
-	
-		private StringProperty HiddenInstance;
+	private StringProperty detail;
 
+	private StringProperty happen_time;
 
-		private DoubleProperty doubletest;
+	private IntegerProperty principal;
 
-		private FloatProperty floattest;
+	private IntegerProperty type;
 
-		private LongProperty longtest;
-		
-		private StringProperty time;
+	private StringProperty state;
+
+	private StringProperty remark;
+
+	private StringProperty date;
+
 		
 		public IntegerProperty getId() {
 			return id;
@@ -48,75 +44,107 @@ public class HiddenProperty {
 		}
 
 
-		public IntegerProperty getHiddenLevel() {
-			return HiddenLevel;
+		public StringProperty getGUID() {
+			return GUID;
 		}
 
 
-		public void setHiddenLevel(Integer hiddenLevel) {
-			HiddenLevel = new SimpleIntegerProperty(hiddenLevel);
+		public void setGUID(String gUID) {
+			GUID = new SimpleStringProperty(gUID);
 		}
 
 
-		public StringProperty getChangeSpeed() {
-			return ChangeSpeed;
+		public StringProperty getName() {
+			return name;
 		}
 
 
-		public void setChangeSpeed(String changeSpeed) {
-			ChangeSpeed = new SimpleStringProperty(changeSpeed);
+		public void setName(String name) {
+			this.name = new SimpleStringProperty(name);
 		}
 
 
-		public StringProperty getHiddenInstance() {
-			return HiddenInstance;
+		public IntegerProperty getHidden_level() {
+			return hidden_level;
 		}
 
 
-		public void setHiddenInstance(String hiddenInstance) {
-			HiddenInstance = new SimpleStringProperty(hiddenInstance);
+		public void setHidden_level(Integer hidden_level) {
+			this.hidden_level = new SimpleIntegerProperty(hidden_level);
 		}
 
 
-		public DoubleProperty getDoubletest() {
-			return doubletest;
+		public StringProperty getDetail() {
+			return detail;
 		}
 
 
-		public void setDoubletest(Double doubletest) {
-			this.doubletest = new SimpleDoubleProperty(doubletest);
+		public void setDetail(String detail) {
+			this.detail = new SimpleStringProperty(detail);
 		}
 
 
-		public FloatProperty getFloattest() {
-			return floattest;
+		public IntegerProperty getPrincipal() {
+			return principal;
 		}
 
 
-		public void setFloattest(Float floattest) {
-			this.floattest = new SimpleFloatProperty(floattest);
+		public void setPrincipal(Integer principal) {
+			this.principal = new SimpleIntegerProperty(principal);
 		}
 
 
-		public LongProperty getLongtest() {
-			return longtest;
+		public IntegerProperty getType() {
+			return type;
 		}
 
 
-		public void setLongtest(Long longtest) {
-			this.longtest = new SimpleLongProperty(longtest);
+		public void setType(Integer type) {
+			this.type = new SimpleIntegerProperty(type);
 		}
 
 
-		public StringProperty getTime() {
-			return time;
+		public StringProperty getState() {
+			return state;
 		}
 
 
-		public void setTime(Date time) {
+		public void setState(String state) {
+			this.state = new SimpleStringProperty(state);
+		}
+
+
+		public StringProperty getRemark() {
+			return remark;
+		}
+
+
+		public void setRemark(String remark) {
+			this.remark = new SimpleStringProperty(remark);
+		}
+
+
+		public StringProperty getHappen_time() {
+			return happen_time;
+		}
+
+
+		public void setHappen_time(StringProperty happen_time) {
 			SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " ); 
-			String datestr = sdf.format(time); 
-			this.time = new SimpleStringProperty(datestr);
+			String datestr = sdf.format(happen_time); 
+			this.happen_time = new SimpleStringProperty(datestr);
+		}
+
+
+		public StringProperty getDate() {
+			return date;
+		}
+
+
+		public void setDate(StringProperty date) {
+			SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " ); 
+			String datestr = sdf.format(date); 
+			this.date = new SimpleStringProperty(datestr);
 		}
 
 

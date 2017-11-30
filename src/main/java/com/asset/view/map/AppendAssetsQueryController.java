@@ -18,10 +18,9 @@ import com.asset.property.RoomInfoProperty;
 import com.asset.property.RoomInfo_PositionProperty;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
-
+import com.voucher.manage.daoModel.Assets.Position;
 import com.voucher.manage.daoModelJoin.RoomInfo_Position;
 
-import com.voucher.manage.daoModel.Position;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

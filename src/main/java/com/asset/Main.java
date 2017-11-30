@@ -8,6 +8,7 @@ import com.asset.view.AssetInformController;
 import com.asset.view.AssetMessageController;
 import com.asset.view.AssetOverviewController;
 import com.asset.view.AssetWorkController;
+import com.asset.view.HiddenQueryController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -145,6 +146,25 @@ public class Main extends Application{
 	        }
 	    }
 	    
+	    //work界面
+	    public void showHiddenQuery() {
+	        try {
+	            // Load person overview.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(MainApp.class.getResource("view/HiddenQuery.fxml"));
+	            AnchorPane personOverview = (AnchorPane) loader.load();
+
+	            // Set person overview into the center of root layout.
+	            rootLayout.setCenter(personOverview);
+
+	            // Give the controller access to the main app.
+	            HiddenQueryController controller = loader.getController();
+	            controller.setMain(this);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	    
 	    public static void main(String args[]) {
 			new Main().launch("");

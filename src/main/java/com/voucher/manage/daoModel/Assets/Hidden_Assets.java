@@ -1,39 +1,22 @@
-package com.voucher.manage.daoModel;
-
-import java.util.Date;
+package com.voucher.manage.daoModel.Assets;
 
 import java.io.Serializable;
 
 import com.voucher.manage.daoSQL.annotations.*;
 
-@DBTable(name="[Assets].[dbo].[Hidden]")
-public class Hidden implements Serializable{
+@DBTable(name="[Assets].[dbo].[Hidden_Assets]")
+public class Hidden_Assets implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
     @SQLInteger(name="id")
 	private Integer id;
 
-    @SQLInteger(name="HiddenLevel")
-	private Integer HiddenLevel;
+    @SQLString(name="asset_GUID")
+	private String asset_GUID;
 
-    @SQLString(name="ChangeSpeed")
-	private String ChangeSpeed;
-
-    @SQLString(name="HiddenInstance")
-	private String HiddenInstance;
-
-    @SQLDouble(name="doubletest")
-	private Double doubletest;
-
-    @SQLFloat(name="floattest")
-	private Float floattest;
-
-    @SQLLong(name="longtest")
-	private Long longtest;
-
-    @SQLDateTime(name="time")
-	private Date time;
+    @SQLString(name="hidden_GUID")
+	private String hidden_GUID;
 
 	public void setId(Integer id){
 		this.id = id;
@@ -43,60 +26,20 @@ public class Hidden implements Serializable{
 		return id;
 	}
 
-	public void setHiddenLevel(Integer HiddenLevel){
-		this.HiddenLevel = HiddenLevel;
+	public void setAsset_GUID(String asset_GUID){
+		this.asset_GUID = asset_GUID;
 	}
 
-	public Integer getHiddenLevel(){
-		return HiddenLevel;
+	public String getAsset_GUID(){
+		return asset_GUID;
 	}
 
-	public void setChangeSpeed(String ChangeSpeed){
-		this.ChangeSpeed = ChangeSpeed;
+	public void setHidden_GUID(String hidden_GUID){
+		this.hidden_GUID = hidden_GUID;
 	}
 
-	public String getChangeSpeed(){
-		return ChangeSpeed;
-	}
-
-	public void setHiddenInstance(String HiddenInstance){
-		this.HiddenInstance = HiddenInstance;
-	}
-
-	public String getHiddenInstance(){
-		return HiddenInstance;
-	}
-
-	public void setDoubletest(Double doubletest){
-		this.doubletest = doubletest;
-	}
-
-	public Double getDoubletest(){
-		return doubletest;
-	}
-
-	public void setFloattest(Float floattest){
-		this.floattest = floattest;
-	}
-
-	public Float getFloattest(){
-		return floattest;
-	}
-
-	public void setLongtest(Long longtest){
-		this.longtest = longtest;
-	}
-
-	public Long getLongtest(){
-		return longtest;
-	}
-
-	public void setTime(Date time){
-		this.time = time;
-	}
-
-	public Date getTime(){
-		return time;
+	public String getHidden_GUID(){
+		return hidden_GUID;
 	}
 
 

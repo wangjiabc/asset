@@ -47,8 +47,8 @@ public class BaiduMapController {
 	
 	 @FXML
      private void initialize() throws URISyntaxException, ClientProtocolException, IOException {
-		 final URI loginUri=new URI("http://localhost:8080/voucher/seller/toLogin.do");
-		 final URI betakeUri=new URI("http://localhost:8080/voucher/baiduMap/get.do");
+		 final URI loginUri=new URI("http://220.166.104.133/voucher/seller/toLogin.do");
+		 final URI betakeUri=new URI("http://220.166.104.133/voucher/baiduMap/get.do");
 		 BasicNameValuePair user;
 		 BasicNameValuePair password;
 		 String c;

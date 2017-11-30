@@ -1,4 +1,4 @@
-package com.voucher.manage.daoModel;
+package com.voucher.manage.daoModel.Assets;
 
 import java.util.Date;
 
@@ -6,37 +6,30 @@ import java.io.Serializable;
 
 import com.voucher.manage.daoSQL.annotations.*;
 
-@DBTable(name="[Assets].[dbo].[Position]")
-public class Position implements Serializable{
+@DBTable(name="[Assets].[dbo].[neaten]")
+public class Neaten implements Serializable{
 
     private static final long serialVersionUID = 1L;
+
+    @SQLInteger(name="id")
+	private Integer id;
 
     @SQLString(name="GUID")
 	private String GUID;
 
-    @SQLString(name="province")
-	private String province;
-
-    @SQLString(name="city")
-	private String city;
-
-    @SQLString(name="district")
-	private String district;
-
-    @SQLString(name="street")
-	private String street;
-
-    @SQLString(name="street_number")
-	private String street_number;
-
-    @SQLDouble(name="lng")
-	private Double lng;
-
-    @SQLDouble(name="lat")
-	private Double lat;
+    @SQLString(name="instance")
+	private String instance;
 
     @SQLDateTime(name="date")
 	private Date date;
+
+	public void setId(Integer id){
+		this.id = id;
+	}
+
+	public Integer getId(){
+		return id;
+	}
 
 	public void setGUID(String GUID){
 		this.GUID = GUID;
@@ -46,60 +39,12 @@ public class Position implements Serializable{
 		return GUID;
 	}
 
-	public void setProvince(String province){
-		this.province = province;
+	public void setInstance(String instance){
+		this.instance = instance;
 	}
 
-	public String getProvince(){
-		return province;
-	}
-
-	public void setCity(String city){
-		this.city = city;
-	}
-
-	public String getCity(){
-		return city;
-	}
-
-	public void setDistrict(String district){
-		this.district = district;
-	}
-
-	public String getDistrict(){
-		return district;
-	}
-
-	public void setStreet(String street){
-		this.street = street;
-	}
-
-	public String getStreet(){
-		return street;
-	}
-
-	public void setStreet_number(String street_number){
-		this.street_number = street_number;
-	}
-
-	public String getStreet_number(){
-		return street_number;
-	}
-
-	public void setLng(Double lng){
-		this.lng = lng;
-	}
-
-	public Double getLng(){
-		return lng;
-	}
-
-	public void setLat(Double lat){
-		this.lat = lat;
-	}
-
-	public Double getLat(){
-		return lat;
+	public String getInstance(){
+		return instance;
 	}
 
 	public void setDate(Date date){

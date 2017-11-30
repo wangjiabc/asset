@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.AssetInformController">
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.HiddenQueryController">
    <children>
       <SplitPane dividerPositions="0.5" layoutX="6.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -100,6 +100,18 @@
                         <Insets right="10.0" />
                      </padding>
                   </HBox>
+                  <ToolBar layoutX="7.0" layoutY="60.0" prefHeight="46.0" prefWidth="735.0">
+                     <items>
+                        <Label text="Label" />
+                     </items>
+                  </ToolBar>
+                  <ListView layoutX="7.0" layoutY="106.0" prefHeight="120.0" prefWidth="735.0" />
+                  <ToolBar layoutX="7.0" layoutY="236.0" prefHeight="46.0" prefWidth="735.0">
+                     <items>
+                        <Label text="Label" />
+                     </items>
+                  </ToolBar>
+                  <ListView layoutX="3.0" layoutY="289.0" prefHeight="151.0" prefWidth="735.0" />
                </children></AnchorPane>
         </items>
       </SplitPane>

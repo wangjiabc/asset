@@ -7,7 +7,7 @@ import org.controlsfx.dialog.Dialogs;
 
 import com.asset.database.Connect;
 import com.rmi.server.Assets;
-import com.voucher.manage.daoModel.Hidden;
+import com.voucher.manage.daoModel.Assets.Hidden;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -99,19 +99,14 @@ public class InfoWriteController {
 				Hidden hidden=new Hidden();
 				Date date=new Date();
 				try{
-					if(!hiddenlevel.getText().equals(""))
-					hidden.setHiddenLevel(Integer.parseInt(hiddenlevel.getText()));
-					if(!changespeed.getText().equals(""))
-					hidden.setChangeSpeed(changespeed.getText());
-					if(!hiddneinstance.getText().equals(""))
-					hidden.setHiddenInstance(hiddneinstance.getText());
-					if(!doubletest.getText().equals(""))
-					hidden.setDoubletest(Double.parseDouble(doubletest.getText()));
-					if(!floattest.getText().equals(""))
-					hidden.setFloattest(Float.parseFloat(floattest.getText()));
-					if(!longtest.getText().equals(""))
-					hidden.setLongtest(Long.parseLong(longtest.getText()));
-					hidden.setTime(date);
+					if(hiddenlevel.getText()!=null)
+						hidden.setHidden_level(Integer.parseInt(hiddenlevel.getText()));
+						if(changespeed.getText()!=null)
+						hidden.setDetail(changespeed.getText());
+						if(hiddneinstance.getText()!=null)
+						hidden.setName(hiddneinstance.getText());
+		
+						hidden.setDate(date);
 				
 				Assets assets=new Connect().getAssets();
 				

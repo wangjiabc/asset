@@ -3,8 +3,8 @@ package com.asset.view.map;
 import java.io.IOException;
 
 import com.alibaba.fastjson.JSONObject;
+import com.voucher.manage.daoModel.Assets.Position;
 
-import com.voucher.manage.daoModel.Position;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,7 +40,7 @@ public class AppendAssetController{
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO Auto-generated method stub
-					webEngine.load("http://localhost:8080/voucher/baidumap/appendMap.html");
+					webEngine.load("http://220.166.104.133/voucher/baidumap/appendMap.html");
 					mapview.getEngine().setOnAlert((WebEvent<String> wEvent)->{
 						//System.out.println(wEvent);
 						table(wEvent.getData());

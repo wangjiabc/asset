@@ -3,9 +3,9 @@ package com.rmi.server;
 import java.io.File;
 import java.util.Map;
 
-import com.voucher.manage.daoModel.Hidden;
-import com.voucher.manage.daoModel.Position;
 import com.voucher.manage.daoModel.RoomInfo;
+import com.voucher.manage.daoModel.Assets.Hidden;
+import com.voucher.manage.daoModel.Assets.Position;
 
 public interface Assets {	
 	
@@ -18,9 +18,6 @@ public interface Assets {
 	
 	public Map<String, Object> findAllRoomInfo_Position(Integer limit, Integer offset, String sort,
 			String order,Map search);
-	
-	public Map<String, Object> findAllChangehire_CharLog(Integer limit, Integer offset, String sort,
-			String order,String search);
 	
 	public String uploadImageFile(String name, byte[] file);
 	

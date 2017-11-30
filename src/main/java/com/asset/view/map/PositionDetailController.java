@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.asset.database.Connect;
 import com.rmi.server.Assets;
-import com.voucher.manage.daoModel.Position;
+import com.voucher.manage.daoModel.Assets.Position;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
