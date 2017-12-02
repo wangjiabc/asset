@@ -205,6 +205,9 @@ public class HiddenDetailController {
 								alert.setHeaderText("操作");
 								alert.setContentText("删除"+hidden.getId()+"成功");
 								alert.showAndWait();
+								hiddenTable.setItems(null);
+								setRoomInfoList(offset, limit,searchMap);
+								handleCancel();
 			                }else{
 			                	Alert alert2 = new Alert(AlertType.ERROR);
 								alert2.setTitle("异常堆栈对话框");

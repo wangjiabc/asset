@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="432.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.detail.HiddenLevelDetailController">
+   <children>
+      <Label layoutX="58.0" layoutY="50.0" text="Label" />
+      <Label layoutX="58.0" layoutY="110.0" text="Label" />
+      <TextField fx:id="hiddenlevel" layoutX="147.0" layoutY="54.0" />
+      <TextField fx:id="levelText" layoutX="147.0" layoutY="104.0" />
+      <Button fx:id="update" layoutX="240.0" layoutY="255.0" mnemonicParsing="false" text="update" />
+   </children>
+</AnchorPane>

@@ -15,8 +15,8 @@ public class Hidden_level implements Serializable{
     @SQLInteger(name="hidden_level")
 	private Integer hidden_level;
 
-    @SQLString(name="levle_text")
-	private String levle_text;
+    @SQLString(name="level_text")
+	private String level_text;
 
     @SQLInteger(name="state")
 	private Integer state;
@@ -37,12 +37,12 @@ public class Hidden_level implements Serializable{
 		return hidden_level;
 	}
 
-	public void setLevle_text(String levle_text){
-		this.levle_text = levle_text;
+	public void setLevel_text(String level_text){
+		this.level_text = level_text;
 	}
 
-	public String getLevle_text(){
-		return levle_text;
+	public String getLevel_text(){
+		return level_text;
 	}
 
 	public void setState(Integer state){

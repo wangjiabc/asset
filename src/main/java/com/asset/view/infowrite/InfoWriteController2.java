@@ -6,13 +6,17 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.controlsfx.dialog.Dialogs;
 
 import com.asset.database.Connect;
+import com.asset.propert.RowData;
+import com.asset.property.HiddenProperty;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
@@ -21,6 +25,7 @@ import com.voucher.manage.daoModel.Assets.Hidden_level;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,12 +35,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Pagination;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.scene.control.Alert.AlertType;
 
-public class InfoWriteController {
+public class InfoWriteController2 {
 	@FXML
 	private TextField hiddenName;
 	@FXML
@@ -62,9 +70,57 @@ public class InfoWriteController {
 	
 	private Stage dialogStage;
 	
+	private ObservableList<HiddenProperty> hiddenList;
+	
+	@FXML
+	 private TableView<HiddenProperty> hiddenTable;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,Integer> C1;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,String> C2;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,String> C3;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,Integer> C4;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,String> C5;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,String> C6;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,Integer> C7;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,Integer> C8;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,String> C9;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,String> C10;
+	 
+	 @FXML
+	 private TableColumn<HiddenProperty,String> C11;
+	
+	 private List<Hidden> hiddens;
+	 
+	 private Pagination pagination;
+	 
+     private Integer offset;
+	 
+	 private Integer limit;
+	
+	 private Map<String,String> searchMap;
+	 
 	Assets assets= new Connect().get();
 	
-	public InfoWriteController() {
+	public InfoWriteController2() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -188,6 +244,7 @@ public class InfoWriteController {
 					alert.setHeaderText("插入数据");
 					alert.setContentText("写入成功");
 					alert.showAndWait();
+					setRoomInfoList(offset, limit, searchMap);
 					handleCancel();
 				 }
 				}catch (Exception e) {
@@ -212,6 +269,79 @@ public class InfoWriteController {
 		
 		
 	}
+	
+	
+	public void setTableView(TableView<HiddenProperty> hiddenTable,Integer offset,Integer limit,
+			Map<String,String> searchMap,Pagination pagination,TableColumn<HiddenProperty,Integer> C1,
+			TableColumn<HiddenProperty,String> C2,TableColumn<HiddenProperty,String> C3,TableColumn<HiddenProperty,Integer> C4,
+			TableColumn<HiddenProperty,String> C5,TableColumn<HiddenProperty,String> C6,
+			TableColumn<HiddenProperty,Integer> C7,TableColumn<HiddenProperty,Integer> C8,
+			Map<String,String> searchMap1) {
+		this.hiddenTable=hiddenTable;
+		this.offset=offset;
+		this.limit=limit;
+		this.searchMap=searchMap1;
+		this.pagination=pagination;
+		this.C1=C1;
+		this.C2=C2;
+		this.C3=C3;
+		this.C4=C4;
+		this.C5=C5;
+		this.C6=C6;
+		this.C7=C7;
+		this.C8=C8;
+		this.searchMap=searchMap1;
+	}
+	
+	void setRoomInfoList(Integer offset,Integer limit,Map search){
+
+	      String sort=null;
+	      String order=null;
+	     
+		  Map map=new HashMap<>();
+		  
+		  Assets assets= new Connect().get();
+		  map=assets.selectAllHidden(limit, offset, sort, order, search);
+
+	     hiddens= (List<Hidden>) map.get("rows");
+	     
+	     MyTestUtil.print(hiddens);
+	     
+	     hiddenList= (ObservableList<HiddenProperty>) new RowData(hiddens,HiddenProperty.class).get();
+	     java.util.Iterator<HiddenProperty> iterator=hiddenList.iterator();
+	    
+	     while (iterator.hasNext()) {
+			System.out.println("hiddenlist="+iterator.next().getDate());
+		}
+	     
+	    hiddenTable.setItems(hiddenList);
+
+	    C1.setCellValueFactory(
+              cellData -> cellData.getValue().getId().asObject());
+      C2.setCellValueFactory(
+ 		    cellData->cellData.getValue().getGUID());
+      C3.setCellValueFactory(
+  		    cellData->cellData.getValue().getName());
+      C4.setCellValueFactory(
+  		    cellData->cellData.getValue().getHidden_level().asObject());
+      C5.setCellValueFactory(
+  		    cellData->cellData.getValue().getDetail());
+      C6.setCellValueFactory(
+  		    cellData->cellData.getValue().getHappen_time());
+      C7.setCellValueFactory(
+  		    cellData->cellData.getValue().getPrincipal().asObject());
+      C8.setCellValueFactory(
+  		 cellData->cellData.getValue().getType().asObject());
+	     
+	     int total=(int) map.get("total");
+	     int page=total/10;
+	     
+	     if(total-page*10>0)
+        page++;	     
+	     
+	     pagination.setPageCount(page);
+	 
+	 }
 	
 	 public void setDialogStage(Stage dialogStage) {
 	        this.dialogStage = dialogStage;

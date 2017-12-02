@@ -16,11 +16,15 @@ import com.asset.property.HiddenProperty;
 import com.asset.tool.MyTestUtil;
 import com.asset.view.assets.AssetsQueryController;
 import com.asset.view.hidden.HiddenDetailController;
+import com.asset.view.infowrite.InfoWriteController;
+import com.asset.view.infowrite.InfoWriteController2;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
+import com.voucher.manage.daoModel.Assets.Hidden_level;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,11 +35,13 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
@@ -59,7 +65,10 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 @FXML
 	 private TextField keyWord;
 	 @FXML
-	 private SplitMenuButton level;	 
+	 private ChoiceBox hiddenLevel;	 
+	 
+	 private int hiddenLevelValue;
+	 
 	 @FXML
 	 private SplitMenuButton plan;	 
 	 @FXML
@@ -116,8 +125,6 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 
 	 private Stage dialogStage;
 	 
-	 private int i=0;
-	 
 	 private Integer offset=0;
 	 
 	 private Integer limit=10;
@@ -145,20 +152,28 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     searchImage.setImage(image2);
 		 
 	     	     
-	     List<MenuItem> menuItems=new ArrayList<>();
-	     String a[]={"1","2","3"};
-	     for(int i=0;i<3;i++){
-	    	 menuItems.add(new MenuItem(String.valueOf(i)));
-	    	 String aa=a[i];
-	    	 menuItems.get(i).setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					level.setText(aa);
-				}
-			});
-	    	level.getItems().add(menuItems.get(i));
-	     }
+	     List<Hidden_level> hidden_levels=assets.setctAllHiddenLevel();
+			Iterator<Hidden_level> iterator=hidden_levels.iterator();
+			List levels = new ArrayList<>();
+			while (iterator.hasNext()) {
+				levels.add(iterator.next().getLevel_text());
+			}
+
+			hiddenLevel.setItems(FXCollections.observableArrayList(levels));
+			
+			hiddenLevel.getSelectionModel().selectedIndexProperty().addListener(new
+					 ChangeListener<Number>() {
+
+						@Override
+						public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+								Number newValue) {
+							// TODO Auto-generated method stub
+							int i=(int) newValue;
+	                        hiddenLevelValue=hidden_levels.get(i).getHidden_level();						
+							System.out.println(hiddenLevelValue);
+						}
+				        
+					});
 	     
 	     
 	     
@@ -197,13 +212,13 @@ public class AssetOverviewController extends AssetAsSwitch{
 				// TODO Auto-generated method stub
 				 Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("search");
-					alert.setHeaderText(level.getText());
+					alert.setHeaderText(String.valueOf(hidden_levels));
 					alert.setContentText(keyWord.getText());
 					alert.showAndWait();
-				 String search="%"+keyWord.getText()+"%";
-				 
+				 String search=String.valueOf(hiddenLevelValue);
+				 System.out.println("hiddenLevelValue="+hiddenLevelValue);
 				 if(!search.equals("")){
-				   searchMap.put("HiddenInstance like ", search);
+				   searchMap.put("hidden_level like ", search);
 				 }else {
 					searchMap.clear();
 				}
@@ -231,22 +246,62 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 //   hiddenTable.getSelectionModel().selectedItemProperty().addListener(
 	  //  		(observable, oldValue, newValue) ->table(newValue));
 	    
-	    hiddenTable.getSelectionModel().selectedItemProperty().addListener(
+	 /*   hiddenTable.getSelectionModel().selectedItemProperty().addListener(
 	    		new ChangeListener<HiddenProperty>() {
 
 					@Override
 					public void changed(ObservableValue<? extends HiddenProperty> observable, HiddenProperty oldValue,
 							HiddenProperty newValue) {
 						// TODO Auto-generated method stub
-						if(i>=1){
-							if(newValue!=null)
 						      table(newValue);
-						}else{
-							i++;
-						}
-					}
-				 }
-	    		);
+	
+					      }
+				     }
+	    		);*/
+	    
+	    hiddenTable.setRowFactory( tv -> {
+	        TableRow<HiddenProperty> row = new TableRow<>();
+	        row.setOnMouseClicked(event -> {
+	            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+	            	HiddenProperty rowData = row.getItem();
+	            	table(rowData);
+	            }
+	        });
+	        return row ;
+	    });
+	    
+	    
+	    hiddenWrite.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				try {
+					   FXMLLoader loader = new FXMLLoader();
+			            loader.setLocation(AssetOverviewController.class.getResource("infowrite/InfoWrite2.fxml"));
+			            AnchorPane page = (AnchorPane) loader.load();
+
+			            // Create the dialog Stage.
+			            Stage dialogStage = new Stage();
+			            dialogStage.setTitle("信息录入");
+			            dialogStage.initModality(Modality.APPLICATION_MODAL);
+			            Scene scene = new Scene(page);
+			            dialogStage.setScene(scene);
+
+			            // Set the person into the controller.
+			            InfoWriteController2 controller = loader.getController();
+			            controller.setTableView(hiddenTable, offset, limit, searchMap, pagination, C1, C2, C3, C4, C5, C6, C7, C8,searchMap);
+			            controller.setDialogStage(dialogStage);
+			            
+			            // Show the dialog and wait until the user closes it
+			            dialogStage.show();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+	    
 	    
 	 }
 	 
@@ -254,7 +309,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 		 try {
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(AssetOverviewController.class.getResource("detail/AssetOverviewDetail.fxml"));
+	            loader.setLocation(AssetOverviewController.class.getResource("hidden/HiddenDetail.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
 
 	            // Create the dialog Stage.
@@ -279,13 +334,18 @@ public class AssetOverviewController extends AssetAsSwitch{
 	            
 	            while(iterator.hasNext()){
 	            	Hidden h=iterator.next();
-	            	if(newValue.getId().get()==h.getId()){
+	            	try{
+	            	 if(newValue.getId().get()==h.getId()){
 	            		hidden=h;
+	    	            controller.setHidden(hidden);
 	            		break;
-	            	}
+	            	  }
+	            	}catch (NullPointerException e) {
+						// TODO: handle exception
+					}
 	            }
 	            
-	            controller.setHidden(hidden);
+
 
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();
@@ -317,7 +377,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 		}
 	     
 	    hiddenTable.setItems(hiddenList);
-
+        
 	     C1.setCellValueFactory(
 	                cellData -> cellData.getValue().getId().asObject());
 	     C2.setCellValueFactory(

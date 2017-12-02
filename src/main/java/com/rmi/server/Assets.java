@@ -1,10 +1,12 @@
 package com.rmi.server;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import com.voucher.manage.daoModel.RoomInfo;
 import com.voucher.manage.daoModel.Assets.Hidden;
+import com.voucher.manage.daoModel.Assets.Hidden_level;
 import com.voucher.manage.daoModel.Assets.Position;
 
 public interface Assets {	
@@ -37,5 +39,11 @@ public interface Assets {
 	public Integer deleteHidden(Hidden hidden);
 	
 	public Integer updatePosition(Position position);
+	
+    public List<Hidden_level> setctAllHiddenLevel();
+	
+	public Integer insertHiddenLevel(Hidden_level hidden_level);
+	
+	public Integer deleteHiddenLevel(Hidden_level hidden_level);
 	
 }

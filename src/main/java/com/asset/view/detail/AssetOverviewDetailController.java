@@ -203,8 +203,10 @@ public class AssetOverviewDetailController {
 			                if(i==1){
 			                	alert.setTitle("安全信息");
 								alert.setHeaderText("操作");
-								alert.setContentText("删除"+hidden.getId()+"成功");
+								alert.setContentText("删除"+hidden.getId()+"成功");								
 								alert.showAndWait();
+								hiddenTable.setItems(null);
+								setRoomInfoList(offset, limit,searchMap);
 			                }else{
 			                	Alert alert2 = new Alert(AlertType.ERROR);
 								alert2.setTitle("异常堆栈对话框");
