@@ -1,12 +1,12 @@
 package com.rmi.server;
 
-import java.io.File;
+
 import java.util.List;
 import java.util.Map;
 
 import com.voucher.manage.daoModel.RoomInfo;
 import com.voucher.manage.daoModel.Assets.Hidden;
-import com.voucher.manage.daoModel.Assets.Hidden_level;
+import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Position;
 
 public interface Assets {	
@@ -21,16 +21,21 @@ public interface Assets {
 	public Map<String, Object> findAllRoomInfo_Position(Integer limit, Integer offset, String sort,
 			String order,Map search);
 	
-	public String uploadImageFile(String name, byte[] file);
+	public Integer uploadImageFile(String GUID,List<String> names, List<byte[]> files);
 	
-	public String uploadPdfFile(String name, byte[] file);
+	public Integer uploadPdfFile(String GUID,List<String> names, List<byte[]> files);
 	
-	public String uploadDocFile(String name, byte[] file);
+	public Integer uploadDocFile(String GUID,List<String> names, List<byte[]> files);
 	
-	public String uploadXlsFile(String name, byte[] file);
+	public Integer uploadXlsFile(String GUID,List<String> names, List<byte[]> files);
+	
+	public Map<String,Object> selectAllHiddenDate(String GUID);
 	
 	public Map<String, Object> selectAllHidden(Integer limit,Integer offset,String sort,String order,
 			Map search);
+	
+	public Map<String, Object> selectAllHidden_Jion(Integer limit, Integer offset, String sort,
+			String order,Map<String, String> search);
 	
 	public Integer insertIntoHidden(Hidden hidden);
 	
@@ -40,10 +45,10 @@ public interface Assets {
 	
 	public Integer updatePosition(Position position);
 	
-    public List<Hidden_level> setctAllHiddenLevel();
+    public List<Hidden_Level> setctAllHiddenLevel();
 	
-	public Integer insertHiddenLevel(Hidden_level hidden_level);
+	public Integer insertHiddenLevel(Hidden_Level hidden_level);
 	
-	public Integer deleteHiddenLevel(Hidden_level hidden_level);
+	public Integer deleteHiddenLevel(Hidden_Level hidden_level);
 	
 }

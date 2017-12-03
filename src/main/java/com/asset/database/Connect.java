@@ -12,6 +12,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.rmi.server.Assets;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+
 public class Connect {
 
 	private ClassPathXmlApplicationContext context;
@@ -46,19 +49,19 @@ public class Connect {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			Dialogs.create()
-	          .title("错误")
-	          .message("网络连接错误")
-	          .owner(null)
-	          .showWarning();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("错误");
+			alert.setContentText("网络连接错误");
+
+			alert.showAndWait();
 		} catch (ExecutionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			Dialogs.create()
-	          .title("错误")
-	          .message("网络连接错误")
-	          .owner(null)
-	          .showWarning();
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("错误");
+			alert.setContentText("网络连接错误");
+
+			alert.showAndWait();
 		}
 		System.out.println("assets="+assets.getClass());
 		return assets;

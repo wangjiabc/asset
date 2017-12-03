@@ -6,8 +6,8 @@ import java.io.Serializable;
 
 import com.voucher.manage.daoSQL.annotations.*;
 
-@DBTable(name="[Assets].[dbo].[neaten]")
-public class Neaten implements Serializable{
+@DBTable(name="[Assets].[dbo].[Hidden_Check]")
+public class Hidden_Check implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -17,11 +17,17 @@ public class Neaten implements Serializable{
     @SQLString(name="GUID")
 	private String GUID;
 
-    @SQLString(name="instance")
-	private String instance;
+    @SQLInteger(name="check_id")
+	private Integer check_id;
+
+    @SQLString(name="check_circs")
+	private String check_circs;
 
     @SQLDateTime(name="date")
 	private Date date;
+
+    @SQLString(name="remark")
+	private String remark;
 
 	public void setId(Integer id){
 		this.id = id;
@@ -39,12 +45,20 @@ public class Neaten implements Serializable{
 		return GUID;
 	}
 
-	public void setInstance(String instance){
-		this.instance = instance;
+	public void setCheck_id(Integer check_id){
+		this.check_id = check_id;
 	}
 
-	public String getInstance(){
-		return instance;
+	public Integer getCheck_id(){
+		return check_id;
+	}
+
+	public void setCheck_circs(String check_circs){
+		this.check_circs = check_circs;
+	}
+
+	public String getCheck_circs(){
+		return check_circs;
 	}
 
 	public void setDate(Date date){
@@ -53,6 +67,14 @@ public class Neaten implements Serializable{
 
 	public Date getDate(){
 		return date;
+	}
+
+	public void setRemark(String remark){
+		this.remark = remark;
+	}
+
+	public String getRemark(){
+		return remark;
 	}
 
 

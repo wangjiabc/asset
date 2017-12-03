@@ -23,7 +23,9 @@
       <TextField fx:id="floattest" layoutX="558.0" layoutY="155.0" />
       <TextField fx:id="longtest" layoutX="153.0" layoutY="213.0" />
       <TextField fx:id="time" layoutX="558.0" layoutY="213.0" />
-      <Button fx:id="update" layoutX="520.0" layoutY="361.0" mnemonicParsing="false" text="update" />
-      <Button fx:id="delete" layoutX="651.0" layoutY="361.0" mnemonicParsing="false" text="delete" />
+      <Button fx:id="update" layoutX="440.0" layoutY="425.0" mnemonicParsing="false" text="update" />
+      <Button fx:id="delete" layoutX="624.0" layoutY="432.0" mnemonicParsing="false" text="delete" />
+      <Button fx:id="switchDate" layoutX="658.0" layoutY="343.0" mnemonicParsing="false" text="switch" />
+      <HBox fx:id="hBox" layoutX="42.0" layoutY="293.0" prefHeight="117.0" prefWidth="595.0" />
    </children>
 </AnchorPane>

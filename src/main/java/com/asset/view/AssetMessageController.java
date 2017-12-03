@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
@@ -160,7 +162,11 @@ public class AssetMessageController extends AssetAsSwitch{
 				// TODO Auto-generated method stub
 				Assets assets=new Connect().getAssets();
 				byte[] fileByte=FileConvect.fileToByte(file);
-				assets.uploadImageFile(file.getName(),fileByte);
+				List<String> names=new ArrayList<>();
+				List<byte[]> fileBytes=new ArrayList<byte[]>();
+				names.add("aaa");
+				fileBytes.add(fileByte);
+				assets.uploadImageFile("aaaaaa", names, fileBytes);
 			}
 		});
 	
@@ -199,7 +205,11 @@ public class AssetMessageController extends AssetAsSwitch{
 				// TODO Auto-generated method stub
 				Assets assets=new Connect().getAssets();
 				byte[] fileByte=FileConvect.fileToByte(docFile);
-				assets.uploadDocFile(docFile.getName(),fileByte);
+				List<String> names=new ArrayList<>();
+				List<byte[]> fileBytes=new ArrayList<byte[]>();
+				names.add(docFile.getName());
+				fileBytes.add(fileByte);
+				assets.uploadDocFile("bbbb", names, fileBytes);
 			}
 		});
 		

@@ -1,19 +1,38 @@
 package com.asset.view.hidden;
 
+import java.awt.Desktop;
+import java.awt.image.BufferedImage;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.prefs.Preferences;
+
+import javax.imageio.ImageIO;
 
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
+import com.asset.property.join.Hidden_JoinProperty;
+import com.asset.tool.FileConvect;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
 
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,7 +43,12 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class HiddenDetailController {
@@ -46,20 +70,27 @@ public class HiddenDetailController {
 	private TextField time;
 	
 	@FXML
+	private HBox hBox;
+	
+	@FXML
+	private Button switchDate;
+	
+	@FXML
 	private Button update;
 	
 	@FXML
 	private Button delete;
-	
-	private Hidden hidden;
+		
+	private Hidden_Jion hidden_Jion;
 	
 	private Stage dialogStage;
 	
-	private ObservableList<HiddenProperty> hiddenList;
+	private ObservableList<Hidden_JoinProperty> hiddenList;
 
-	private TableView<HiddenProperty> hiddenTable;
+	@FXML
+	 private TableView<Hidden_JoinProperty> hiddenTable;
 	
-	private List<Hidden> hiddens;
+	 private List<Hidden_Jion> hidden_Jions;
 	
 	private Pagination pagination;
 	
@@ -70,38 +101,60 @@ public class HiddenDetailController {
 	 private Map<String,String> searchMap;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,Integer> C1;
+	 private TableColumn<Hidden_JoinProperty,Integer> C1;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty, String> C2;
+	 private TableColumn<Hidden_JoinProperty,String> C2;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,String> C3;
+	 private TableColumn<Hidden_JoinProperty,String> C3;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty, Integer> C4;
+	 private TableColumn<Hidden_JoinProperty,String> C4;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty, String> C5;
+	 private TableColumn<Hidden_JoinProperty,String> C5;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty, String> C6;
+	 private TableColumn<Hidden_JoinProperty,String> C6;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty, Integer> C7;
+	 private TableColumn<Hidden_JoinProperty,Integer> C7;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty, Integer> C8;
+	 private TableColumn<Hidden_JoinProperty,Integer> C8;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C9;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C10;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C11;
 	
-	public HiddenDetailController() {
+	 private final Desktop desktop = Desktop.getDesktop();
+	 
+	 private Stage stage;
+	 
+	 private File file;
+	 
+	 private List<String> names=new ArrayList<String>();
+	 
+	 private List<byte[]> fileBytes=new ArrayList<byte[]>();
+	 
+	 Assets assets= new Connect().get();
+	 
+	 public HiddenDetailController() {
 		// TODO Auto-generated constructor stub
-	}
+	 }
 	
-	public void setTableView(TableView<HiddenProperty> hiddenTable,Integer offset,Integer limit,
-			Map<String,String> searchMap,Pagination pagination,TableColumn<HiddenProperty,Integer> C1,
-			TableColumn<HiddenProperty,String> C2,TableColumn<HiddenProperty,String> C3,TableColumn<HiddenProperty,Integer> C4,
-			TableColumn<HiddenProperty,String> C5,TableColumn<HiddenProperty,String> C6,
-			TableColumn<HiddenProperty,Integer> C7,TableColumn<HiddenProperty,Integer> C8) {
+	 public void setTableView(TableView<Hidden_JoinProperty> hiddenTable,Integer offset,Integer limit,
+			Map<String,String> searchMap,Pagination pagination,TableColumn<Hidden_JoinProperty,Integer> C1,
+			TableColumn<Hidden_JoinProperty,String> C2,TableColumn<Hidden_JoinProperty,String> C3,TableColumn<Hidden_JoinProperty,String> C4,
+			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,String> C6,
+			TableColumn<Hidden_JoinProperty,Integer> C7,TableColumn<Hidden_JoinProperty,Integer> C8,
+			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,TableColumn<Hidden_JoinProperty,String> C11) {
 		this.hiddenTable=hiddenTable;
 		this.offset=offset;
 		this.limit=limit;
@@ -115,12 +168,64 @@ public class HiddenDetailController {
 		this.C6=C6;
 		this.C7=C7;
 		this.C8=C8;
-	}
+		this.C9=C9;
+		this.C10=C10;
+		this.C11=C11;
+	 }
 	
 	 @FXML
 	 private void initialize() {
 		 
 		 Assets assets=new Connect().getAssets();
+
+		 FileChooser fileChooser = new FileChooser();
+		 
+		 switchDate.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				Preferences prefs = Preferences.userRoot().node(this.getClass().getName()); 
+				String lastPath=prefs.get("lastPath", "");
+				System.out.println("lastpath="+lastPath);
+				if(!lastPath.equals(""))
+				fileChooser.setInitialDirectory(new File(lastPath));
+				fileChooser.getExtensionFilters().addAll(
+						new FileChooser.ExtensionFilter("PNG", "*.png"),
+						new FileChooser.ExtensionFilter("GIF", "*.gif"),
+						new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
+					    new FileChooser.ExtensionFilter("JPG", "*.jpg"),					    
+					    new FileChooser.ExtensionFilter("BMP", "*.bmp")
+					);
+				file = fileChooser.showOpenDialog(stage);
+				fileChooser.getExtensionFilters().clear();
+                if (file != null) {
+                  //  openFile(file);
+                	BufferedImage bufImg = null;
+                	try {
+                        bufImg = ImageIO.read(file);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                	Image image=SwingFXUtils.toFXImage(bufImg, null);
+                	ImageView imageFile=new ImageView();
+                    imageFile.setImage(image);
+                    imageFile.setFitWidth(50);
+                    imageFile.setFitHeight(50);
+                    hBox.getChildren().add(imageFile);
+                    names.add(file.getName());
+                    byte[] fileByte=FileConvect.fileToByte(file);
+                    fileBytes.add(fileByte);
+                }
+                try{
+                	 String filePath=file.getPath();
+					 prefs.put("lastPath", filePath.substring(0,filePath.lastIndexOf(File.separator)));
+					}catch(Exception e1){
+						
+					}
+			}
+		});
+			 
 		 
 		 update.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -130,26 +235,29 @@ public class HiddenDetailController {
 				Date date=new Date();
 				Hidden hidden2=new Hidden();
 				hidden2.setId(null);
-				String[] where={"id=",String.valueOf(hidden.getId())};
+				String[] where={"id=",String.valueOf(hidden_Jion.getId())};
 				hidden2.setWhere(where);
 				try{
-					if(hiddenlevel.getText()!=null)
-					hidden2.setHidden_level(Integer.parseInt(hiddenlevel.getText()));
 					if(changespeed.getText()!=null)
 					hidden2.setDetail(changespeed.getText());
 					if(hiddneinstance.getText()!=null)
 					hidden2.setName(hiddneinstance.getText());
 	
 					hidden2.setDate(date);
+	
+		     	int i=assets.updateHidden(hidden2);
 				
-				
-				
-				
-				int i=assets.updateHidden(hidden2);
-				
-				
+			    if(names!=null&&fileBytes!=null){
+				   int j=assets.uploadImageFile(hidden_Jion.getGUID(), names, fileBytes);
+				   if(j==0){
+					 Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("异常堆栈对话框0");
+						alert.setHeaderText("错误");
+						alert.setContentText("上传图片失败");
+						alert.showAndWait();
+				  }
 							 				
-				if(i==0){
+				 if(i==0){
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("异常堆栈对话框0");
 					alert.setHeaderText("错误");
@@ -165,7 +273,9 @@ public class HiddenDetailController {
 					setRoomInfoList(offset, limit,searchMap);
 					handleCancel();
 				 }
-				}catch (Exception e) {
+	 
+				}
+			 }catch (Exception e) {
 					// TODO: handle exception
 					e.printStackTrace();
 					Alert alert = new Alert(AlertType.ERROR);
@@ -185,7 +295,7 @@ public class HiddenDetailController {
 				 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 			        alert.setTitle("安全信息");
 			        alert.setHeaderText("删除");
-			        alert.setContentText("是否删除"+hidden.getId()+"信息");
+			        alert.setContentText("是否删除"+hidden_Jion.getId()+"信息");
 
 			        ButtonType btnType1 = new ButtonType("确定");
 			        ButtonType btnType2 = new ButtonType("取消");
@@ -197,13 +307,15 @@ public class HiddenDetailController {
 			        result.ifPresent(buttonType -> {
 			            if (buttonType == btnType1) {
 			                try{
-			                String[] where={"id=",String.valueOf(hidden.getId())};
+			                String[] where={"id=",String.valueOf(hidden_Jion.getId())};
+			                Hidden hidden =new Hidden();
+			                hidden.setId(null);
 			            	hidden.setWhere(where);
 			                int i=assets.deleteHidden(hidden);
 			                if(i==1){
 			                	alert.setTitle("安全信息");
 								alert.setHeaderText("操作");
-								alert.setContentText("删除"+hidden.getId()+"成功");
+								alert.setContentText("删除"+hidden_Jion.getId()+"成功");
 								alert.showAndWait();
 								hiddenTable.setItems(null);
 								setRoomInfoList(offset, limit,searchMap);
@@ -212,7 +324,7 @@ public class HiddenDetailController {
 			                	Alert alert2 = new Alert(AlertType.ERROR);
 								alert2.setTitle("异常堆栈对话框");
 								alert2.setHeaderText("错误");
-								alert2.setContentText("删除"+hidden.getId()+"失败");
+								alert2.setContentText("删除"+hidden_Jion.getId()+"失败");
 								alert2.showAndWait();
 			                }
 			                }catch (Exception e) {
@@ -220,8 +332,9 @@ public class HiddenDetailController {
 			                	Alert alert2 = new Alert(AlertType.ERROR);
 								alert2.setTitle("异常堆栈对话框");
 								alert2.setHeaderText("错误");
-								alert2.setContentText("删除"+hidden.getId()+"失败");
+								alert2.setContentText("删除"+hidden_Jion.getId()+"失败");
 								alert2.showAndWait();
+								e.printStackTrace();
 							}
 			            } else if (buttonType == btnType2) {
 			            	System.out.println("点击了取消");
@@ -245,16 +358,55 @@ public class HiddenDetailController {
 	        dialogStage.close();
 	    }
 	    
-	 public void setHidden(Hidden hidden){
-		 this.hidden=hidden;
-		 id.setText(String.valueOf(hidden.getId()));
-		 hiddenlevel.setText(String.valueOf(hidden.getDetail()));
-		 hiddneinstance.setText(hidden.getGUID());
-		 changespeed.setText(hidden.getName());
-		 doubletest.setText(String.valueOf(hidden.getHappen_time()));
-		 floattest.setText(String.valueOf(hidden.getHidden_level()));
-		 longtest.setText(String.valueOf(hidden.getType()));
-		 time.setText(String.valueOf(hidden.getDate()));
+	 public void setHidden(Hidden_Jion hidden_Jion){
+		 this.hidden_Jion=hidden_Jion;
+		 System.out.println("guid="+hidden_Jion.getGUID());
+		 id.setText(String.valueOf(hidden_Jion.getId()));
+		 hiddenlevel.setText(String.valueOf(hidden_Jion.getDetail()));
+		 hiddneinstance.setText(hidden_Jion.getGUID());
+		 changespeed.setText(hidden_Jion.getName());
+		 doubletest.setText(String.valueOf(hidden_Jion.getHappen_time()));
+		 floattest.setText(String.valueOf(hidden_Jion.getHidden_level()));
+		 longtest.setText(String.valueOf(hidden_Jion.getType()));
+		 time.setText(String.valueOf(hidden_Jion.getDate()));
+		 
+         Map<String, Object> map=assets.selectAllHiddenDate(hidden_Jion.getGUID().toString());
+		 
+		 List<byte[]> fileBytes2=(List<byte[]>) map.get("fileBytes");
+		 
+		 Iterator<byte[]> iterator=fileBytes2.iterator();
+		 
+		 while(iterator.hasNext()){
+			 byte[] byt=iterator.next();
+			 System.out.println("byt="+byt);
+			try {
+				
+				File file = new File("C:\\Users\\WangJing\\Desktop\\bb\\doc\\111");
+			    OutputStream output = new FileOutputStream(file);
+			    BufferedOutputStream bufferedOutput = new BufferedOutputStream(output);
+			    bufferedOutput.write(byt);
+				
+				ByteArrayInputStream in = new ByteArrayInputStream(byt);    //将b作为输入流；
+				BufferedImage bufImg = ImageIO.read(in);     //将in作为输入流，读取图片存入image
+
+            	Image image=SwingFXUtils.toFXImage(bufImg, null);
+            	ImageView imageFile=new ImageView();
+                imageFile.setImage(image);
+                imageFile.setFitWidth(50);
+                imageFile.setFitHeight(50);
+                System.out.println("imageFile="+imageFile);
+                hBox.getChildren().add(imageFile);
+
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 
+		 }
+		 
 	 }
 	 
 	 void setRoomInfoList(Integer offset,Integer limit,Map search){
@@ -264,38 +416,49 @@ public class HiddenDetailController {
 	     
 		  Map map=new HashMap<>();
 		  
-		  Assets assets= new Connect().get();
-		  map=assets.selectAllHidden(limit, offset, sort, order, search);
+		  
+		//  map=assets.selectAllHidden(limit, offset, sort, order, search);
 
-	     hiddens= (List<Hidden>) map.get("rows");
+		//  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
+		  
+		  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
+		  
+	     hidden_Jions= (List<Hidden_Jion>) map.get("rows");
 	     
-	     MyTestUtil.print(hiddens);
+	     MyTestUtil.print(hidden_Jions);
 	     
-	     hiddenList= (ObservableList<HiddenProperty>) new RowData(hiddens,HiddenProperty.class).get();
-	     java.util.Iterator<HiddenProperty> iterator=hiddenList.iterator();
+	     hiddenList= (ObservableList<Hidden_JoinProperty>) new RowData(hidden_Jions,Hidden_JoinProperty.class).get();
+	     java.util.Iterator<Hidden_JoinProperty> iterator=hiddenList.iterator();
 	    
 	     while (iterator.hasNext()) {
 			System.out.println("hiddenlist="+iterator.next().getDate());
 		}
 	     
 	    hiddenTable.setItems(hiddenList);
-
-	    C1.setCellValueFactory(
-                cellData -> cellData.getValue().getId().asObject());
-        C2.setCellValueFactory(
-   		    cellData->cellData.getValue().getGUID());
-        C3.setCellValueFactory(
-    		    cellData->cellData.getValue().getName());
-        C4.setCellValueFactory(
-    		    cellData->cellData.getValue().getHidden_level().asObject());
-        C5.setCellValueFactory(
-    		    cellData->cellData.getValue().getDetail());
-        C6.setCellValueFactory(
-    		    cellData->cellData.getValue().getHappen_time());
-        C7.setCellValueFactory(
-    		    cellData->cellData.getValue().getPrincipal().asObject());
-        C8.setCellValueFactory(
-    		 cellData->cellData.getValue().getType().asObject());
+       
+	     C1.setCellValueFactory(
+	                cellData -> cellData.getValue().getId().asObject());
+	     C2.setCellValueFactory(
+	   		    cellData->cellData.getValue().getGUID());
+	     C3.setCellValueFactory(
+	    		    cellData->cellData.getValue().getName());
+	     C4.setCellValueFactory(
+	    		    cellData->cellData.getValue().getLevel_text());
+	     C5.setCellValueFactory(
+	    		    cellData->cellData.getValue().getDetail());
+	     C6.setCellValueFactory(
+	    		    cellData->cellData.getValue().getHappen_time());
+	     C7.setCellValueFactory(
+	    		    cellData->cellData.getValue().getPrincipal().asObject());
+	     C8.setCellValueFactory(
+	    		 cellData->cellData.getValue().getType().asObject());
+	     C9.setCellValueFactory(
+	    		 cellData->cellData.getValue().getState());
+	     C10.setCellValueFactory(
+	    		 cellData->cellData.getValue().getRemark());
+	     
+	     C11.setCellValueFactory(
+	    		 cellData->cellData.getValue().getDate());
 	     
 	     int total=(int) map.get("total");
 	     int page=total/10;
@@ -304,7 +467,7 @@ public class HiddenDetailController {
           page++;	     
 	     
 	     pagination.setPageCount(page);
-	 
+	     	     
 	 }
 	 
 }

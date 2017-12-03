@@ -1,6 +1,5 @@
 package com.asset.view.infowrite;
 
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -17,10 +16,12 @@ import org.controlsfx.dialog.Dialogs;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
+import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
-import com.voucher.manage.daoModel.Assets.Hidden_level;
+import com.voucher.manage.daoModel.Assets.Hidden_Level;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -70,45 +71,47 @@ public class InfoWriteController2 {
 	
 	private Stage dialogStage;
 	
-	private ObservableList<HiddenProperty> hiddenList;
+	private ObservableList<Hidden_JoinProperty> hiddenList;
+	 
+	 @FXML
+	 private TableView<Hidden_JoinProperty> hiddenTable;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,Integer> C1;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C2;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C3;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C4;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C5;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C6;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,Integer> C7;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,Integer> C8;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C9;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C10;
+	 
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C11;
 	
-	@FXML
-	 private TableView<HiddenProperty> hiddenTable;
+	// private List<Hidden> hiddens;
 	 
-	 @FXML
-	 private TableColumn<HiddenProperty,Integer> C1;
-	 
-	 @FXML
-	 private TableColumn<HiddenProperty,String> C2;
-	 
-	 @FXML
-	 private TableColumn<HiddenProperty,String> C3;
-	 
-	 @FXML
-	 private TableColumn<HiddenProperty,Integer> C4;
-	 
-	 @FXML
-	 private TableColumn<HiddenProperty,String> C5;
-	 
-	 @FXML
-	 private TableColumn<HiddenProperty,String> C6;
-	 
-	 @FXML
-	 private TableColumn<HiddenProperty,Integer> C7;
-	 
-	 @FXML
-	 private TableColumn<HiddenProperty,Integer> C8;
-	 
-	 @FXML
-	 private TableColumn<HiddenProperty,String> C9;
-	 
-	 @FXML
-	 private TableColumn<HiddenProperty,String> C10;
-	 
-	 @FXML
-	 private TableColumn<HiddenProperty,String> C11;
-	
-	 private List<Hidden> hiddens;
+	 private List<Hidden_Jion> hidden_Jions;
 	 
 	 private Pagination pagination;
 	 
@@ -127,8 +130,8 @@ public class InfoWriteController2 {
 	@FXML
     private void initialize() {
 		
-		List<Hidden_level> hidden_levels=assets.setctAllHiddenLevel();
-		Iterator<Hidden_level> iterator=hidden_levels.iterator();
+		List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
+		Iterator<Hidden_Level> iterator=hidden_levels.iterator();
 		List levels = new ArrayList<>();
 		while (iterator.hasNext()) {
 			levels.add(iterator.next().getLevel_text());
@@ -254,6 +257,7 @@ public class InfoWriteController2 {
 					alert.setHeaderText("错误");
 					alert.setContentText("写入失败");
 					alert.showAndWait();
+					e.printStackTrace();
 				}
 			}
 		});
@@ -271,16 +275,16 @@ public class InfoWriteController2 {
 	}
 	
 	
-	public void setTableView(TableView<HiddenProperty> hiddenTable,Integer offset,Integer limit,
-			Map<String,String> searchMap,Pagination pagination,TableColumn<HiddenProperty,Integer> C1,
-			TableColumn<HiddenProperty,String> C2,TableColumn<HiddenProperty,String> C3,TableColumn<HiddenProperty,Integer> C4,
-			TableColumn<HiddenProperty,String> C5,TableColumn<HiddenProperty,String> C6,
-			TableColumn<HiddenProperty,Integer> C7,TableColumn<HiddenProperty,Integer> C8,
-			Map<String,String> searchMap1) {
+	public void setTableView(TableView<Hidden_JoinProperty> hiddenTable,Integer offset,Integer limit,
+			Map<String,String> searchMap,Pagination pagination,TableColumn<Hidden_JoinProperty,Integer> C1,
+			TableColumn<Hidden_JoinProperty,String> C2,TableColumn<Hidden_JoinProperty,String> C3,TableColumn<Hidden_JoinProperty,String> C4,
+			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,String> C6,
+			TableColumn<Hidden_JoinProperty,Integer> C7,TableColumn<Hidden_JoinProperty,Integer> C8,
+			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,TableColumn<Hidden_JoinProperty,String> C11) {
 		this.hiddenTable=hiddenTable;
 		this.offset=offset;
 		this.limit=limit;
-		this.searchMap=searchMap1;
+		this.searchMap=searchMap;
 		this.pagination=pagination;
 		this.C1=C1;
 		this.C2=C2;
@@ -290,7 +294,9 @@ public class InfoWriteController2 {
 		this.C6=C6;
 		this.C7=C7;
 		this.C8=C8;
-		this.searchMap=searchMap1;
+		this.C9=C9;
+		this.C10=C10;
+		this.C11=C11;
 	}
 	
 	void setRoomInfoList(Integer offset,Integer limit,Map search){
@@ -300,38 +306,49 @@ public class InfoWriteController2 {
 	     
 		  Map map=new HashMap<>();
 		  
-		  Assets assets= new Connect().get();
-		  map=assets.selectAllHidden(limit, offset, sort, order, search);
+		  
+		//  map=assets.selectAllHidden(limit, offset, sort, order, search);
 
-	     hiddens= (List<Hidden>) map.get("rows");
+		//  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
+		  
+		  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
+		  
+	     hidden_Jions= (List<Hidden_Jion>) map.get("rows");
 	     
-	     MyTestUtil.print(hiddens);
+	     MyTestUtil.print(hidden_Jions);
 	     
-	     hiddenList= (ObservableList<HiddenProperty>) new RowData(hiddens,HiddenProperty.class).get();
-	     java.util.Iterator<HiddenProperty> iterator=hiddenList.iterator();
+	     hiddenList= (ObservableList<Hidden_JoinProperty>) new RowData(hidden_Jions,Hidden_JoinProperty.class).get();
+	     java.util.Iterator<Hidden_JoinProperty> iterator=hiddenList.iterator();
 	    
 	     while (iterator.hasNext()) {
 			System.out.println("hiddenlist="+iterator.next().getDate());
 		}
 	     
 	    hiddenTable.setItems(hiddenList);
-
-	    C1.setCellValueFactory(
-              cellData -> cellData.getValue().getId().asObject());
-      C2.setCellValueFactory(
- 		    cellData->cellData.getValue().getGUID());
-      C3.setCellValueFactory(
-  		    cellData->cellData.getValue().getName());
-      C4.setCellValueFactory(
-  		    cellData->cellData.getValue().getHidden_level().asObject());
-      C5.setCellValueFactory(
-  		    cellData->cellData.getValue().getDetail());
-      C6.setCellValueFactory(
-  		    cellData->cellData.getValue().getHappen_time());
-      C7.setCellValueFactory(
-  		    cellData->cellData.getValue().getPrincipal().asObject());
-      C8.setCellValueFactory(
-  		 cellData->cellData.getValue().getType().asObject());
+     
+	     C1.setCellValueFactory(
+	                cellData -> cellData.getValue().getId().asObject());
+	     C2.setCellValueFactory(
+	   		    cellData->cellData.getValue().getGUID());
+	     C3.setCellValueFactory(
+	    		    cellData->cellData.getValue().getName());
+	     C4.setCellValueFactory(
+	    		    cellData->cellData.getValue().getLevel_text());
+	     C5.setCellValueFactory(
+	    		    cellData->cellData.getValue().getDetail());
+	     C6.setCellValueFactory(
+	    		    cellData->cellData.getValue().getHappen_time());
+	     C7.setCellValueFactory(
+	    		    cellData->cellData.getValue().getPrincipal().asObject());
+	     C8.setCellValueFactory(
+	    		 cellData->cellData.getValue().getType().asObject());
+	     C9.setCellValueFactory(
+	    		 cellData->cellData.getValue().getState());
+	     C10.setCellValueFactory(
+	    		 cellData->cellData.getValue().getRemark());
+	     
+	     C11.setCellValueFactory(
+	    		 cellData->cellData.getValue().getDate());
 	     
 	     int total=(int) map.get("total");
 	     int page=total/10;
@@ -340,7 +357,7 @@ public class InfoWriteController2 {
         page++;	     
 	     
 	     pagination.setPageCount(page);
-	 
+	     	     
 	 }
 	
 	 public void setDialogStage(Stage dialogStage) {

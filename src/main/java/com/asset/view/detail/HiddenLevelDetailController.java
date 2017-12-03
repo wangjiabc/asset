@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.asset.database.Connect;
 import com.rmi.server.Assets;
-import com.voucher.manage.daoModel.Assets.Hidden_level;
+import com.voucher.manage.daoModel.Assets.Hidden_Level;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -58,7 +58,7 @@ public class HiddenLevelDetailController {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				Hidden_level hidden_level=new Hidden_level();
+				Hidden_Level hidden_level=new Hidden_Level();
 				
 				if(hiddenlevel.getText()!=null)
 					hidden_level.setHidden_level(Integer.parseInt(hiddenlevel.getText()));
@@ -80,12 +80,12 @@ public class HiddenLevelDetailController {
 		 hiddenLevel1.getChildren().clear();
 			levelText1.getChildren().clear();
 			levelButton1.getChildren().clear();
-			List<Hidden_level> hidden_levels=assets.setctAllHiddenLevel();
+			List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
 		     
-		     Iterator<Hidden_level> iterator=hidden_levels.iterator();
+		     Iterator<Hidden_Level> iterator=hidden_levels.iterator();
 		     
 		     while(iterator.hasNext()){
-		    	 Hidden_level hidden_level2=iterator.next();
+		    	 Hidden_Level hidden_level2=iterator.next();
 		    	 Label label=new Label();
 		    	 label.setText(hidden_level2.getHidden_level().toString());
 		    	 hiddenLevel1.getChildren().add(label);

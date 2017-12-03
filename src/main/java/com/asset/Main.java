@@ -2,7 +2,6 @@ package com.asset;
 
 import java.io.IOException;
 
-import org.controlsfx.dialog.Dialogs;
 
 import com.asset.view.AssetInformController;
 import com.asset.view.AssetMessageController;
@@ -13,6 +12,8 @@ import com.asset.view.HiddenQueryController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -76,11 +77,7 @@ public class Main extends Application{
 
 	        } catch (IOException e) {
 	            e.printStackTrace();
-	            Dialogs.create()
-		          .title("错误")
-		          .message("网络连接错误")
-		          .owner(null)
-		          .showWarning();
+
 	        }
 	    }
 

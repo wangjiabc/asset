@@ -12,7 +12,7 @@ import com.asset.view.detail.HiddenLevelDetailController;
 import com.asset.view.hidden.HiddenDetailController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
-import com.voucher.manage.daoModel.Assets.Hidden_level;
+import com.voucher.manage.daoModel.Assets.Hidden_Level;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -71,12 +71,12 @@ public class AssetWorkController extends AssetAsSwitch{
 	     levelText.setSpacing(20);
 	     levelButton.setSpacing(10);
 
-	     List<Hidden_level> hidden_levels=assets.setctAllHiddenLevel();
+	     List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
 	     
-	     Iterator<Hidden_level> iterator=hidden_levels.iterator();
+	     Iterator<Hidden_Level> iterator=hidden_levels.iterator();
 	     
 	     while(iterator.hasNext()){
-	    	 Hidden_level hidden_level=iterator.next();
+	    	 Hidden_Level hidden_level=iterator.next();
 	    	 Label label=new Label();
 	    	 label.setText(hidden_level.getHidden_level().toString());
 	    	 hiddenLevel.getChildren().add(label);
@@ -135,12 +135,12 @@ public class AssetWorkController extends AssetAsSwitch{
 		 hiddenLevel.getChildren().clear();
 			levelText.getChildren().clear();
 			levelButton.getChildren().clear();
-			List<Hidden_level> hidden_levels=assets.setctAllHiddenLevel();
+			List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
 		     
-		     Iterator<Hidden_level> iterator=hidden_levels.iterator();
+		     Iterator<Hidden_Level> iterator=hidden_levels.iterator();
 		     
 		     while(iterator.hasNext()){
-		    	 Hidden_level hidden_level2=iterator.next();
+		    	 Hidden_Level hidden_level2=iterator.next();
 		    	 Label label=new Label();
 		    	 label.setText(hidden_level2.getHidden_level().toString());
 		    	 hiddenLevel.getChildren().add(label);

@@ -1,6 +1,5 @@
 package com.asset.view.infowrite;
 
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -16,7 +15,7 @@ import com.asset.database.Connect;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
-import com.voucher.manage.daoModel.Assets.Hidden_level;
+import com.voucher.manage.daoModel.Assets.Hidden_Level;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -71,8 +70,8 @@ public class InfoWriteController {
 	@FXML
     private void initialize() {
 		
-		List<Hidden_level> hidden_levels=assets.setctAllHiddenLevel();
-		Iterator<Hidden_level> iterator=hidden_levels.iterator();
+		List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
+		Iterator<Hidden_Level> iterator=hidden_levels.iterator();
 		List levels = new ArrayList<>();
 		while (iterator.hasNext()) {
 			levels.add(iterator.next().getLevel_text());

@@ -1,5 +1,4 @@
-package com.asset.property;
-
+package com.asset.property.join;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,8 +8,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class HiddenProperty {
-	 
+public class Hidden_JoinProperty {
 	private IntegerProperty id;
 
 	private StringProperty GUID;
@@ -33,6 +31,10 @@ public class HiddenProperty {
 
 	private StringProperty date;
 
+	/*
+    * Hidden_Level
+    */
+	private StringProperty level_text;
 		
 		public IntegerProperty getId() {
 			return id;
@@ -130,7 +132,7 @@ public class HiddenProperty {
 		}
 
 
-		public void setHappen_time(StringProperty happen_time) {
+		public void setHappen_time(Date happen_time) {
 			SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " ); 
 			String datestr = sdf.format(happen_time); 
 			this.happen_time = new SimpleStringProperty(datestr);
@@ -149,5 +151,12 @@ public class HiddenProperty {
 		}
 
 
-		
+		public StringProperty getLevel_text() {
+			return level_text;
+		}
+
+
+		public void setLevel_text(String level_text) {
+			this.level_text = new SimpleStringProperty(level_text);
+		}
 }

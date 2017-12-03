@@ -13,6 +13,7 @@ import org.controlsfx.dialog.Dialogs;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
+import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.MyTestUtil;
 import com.asset.view.assets.AssetsQueryController;
 import com.asset.view.hidden.HiddenDetailController;
@@ -20,7 +21,8 @@ import com.asset.view.infowrite.InfoWriteController;
 import com.asset.view.infowrite.InfoWriteController2;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
-import com.voucher.manage.daoModel.Assets.Hidden_level;
+import com.voucher.manage.daoModel.Assets.Hidden_Level;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -80,48 +82,50 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 @FXML
 	 private ImageView searchImage;
 	 
-	 private ObservableList<HiddenProperty> hiddenList;
+	 private ObservableList<Hidden_JoinProperty> hiddenList;
 	 
 	 @FXML
-	 private TableView<HiddenProperty> hiddenTable;
+	 private TableView<Hidden_JoinProperty> hiddenTable;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,Integer> C1;
+	 private TableColumn<Hidden_JoinProperty,Integer> C1;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,String> C2;
+	 private TableColumn<Hidden_JoinProperty,String> C2;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,String> C3;
+	 private TableColumn<Hidden_JoinProperty,String> C3;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,Integer> C4;
+	 private TableColumn<Hidden_JoinProperty,String> C4;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,String> C5;
+	 private TableColumn<Hidden_JoinProperty,String> C5;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,String> C6;
+	 private TableColumn<Hidden_JoinProperty,String> C6;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,Integer> C7;
+	 private TableColumn<Hidden_JoinProperty,Integer> C7;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,Integer> C8;
+	 private TableColumn<Hidden_JoinProperty,Integer> C8;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,String> C9;
+	 private TableColumn<Hidden_JoinProperty,String> C9;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,String> C10;
+	 private TableColumn<Hidden_JoinProperty,String> C10;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty,String> C11;
+	 private TableColumn<Hidden_JoinProperty,String> C11;
 	 
 	 @FXML
 	 private Pagination pagination;
 	 
-	 private List<Hidden> hiddens;
+	// private List<Hidden> hiddens;
+	 
+	 private List<Hidden_Jion> hidden_Jions;
 	 
 	 private Stage dialogStage;
 	 
@@ -130,6 +134,10 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 private Integer limit=10;
 	 
 	 private Map<String,String> searchMap=new HashMap<>();
+	 
+	 private List<String> names=new ArrayList<String>();
+	 
+	 private List<byte[]> fileBytes=new ArrayList<byte[]>();
 	 
 	 Assets assets= new Connect().get();
 	 
@@ -152,8 +160,8 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     searchImage.setImage(image2);
 		 
 	     	     
-	     List<Hidden_level> hidden_levels=assets.setctAllHiddenLevel();
-			Iterator<Hidden_level> iterator=hidden_levels.iterator();
+	     List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
+			Iterator<Hidden_Level> iterator=hidden_levels.iterator();
 			List levels = new ArrayList<>();
 			while (iterator.hasNext()) {
 				levels.add(iterator.next().getLevel_text());
@@ -175,9 +183,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 				        
 					});
 	     
-	     
-	     
-	     
+     
 	    //整改进度 :
 	     MenuItem exhale=new MenuItem("已发整改通知");
 	    
@@ -218,7 +224,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 				 String search=String.valueOf(hiddenLevelValue);
 				 System.out.println("hiddenLevelValue="+hiddenLevelValue);
 				 if(!search.equals("")){
-				   searchMap.put("hidden_level like ", search);
+				   searchMap.put("[Assets].[dbo].[Hidden].hidden_level like ", search);
 				 }else {
 					searchMap.clear();
 				}
@@ -260,10 +266,10 @@ public class AssetOverviewController extends AssetAsSwitch{
 	    		);*/
 	    
 	    hiddenTable.setRowFactory( tv -> {
-	        TableRow<HiddenProperty> row = new TableRow<>();
+	        TableRow<Hidden_JoinProperty> row = new TableRow<>();
 	        row.setOnMouseClicked(event -> {
 	            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-	            	HiddenProperty rowData = row.getItem();
+	            	Hidden_JoinProperty rowData = row.getItem();
 	            	table(rowData);
 	            }
 	        });
@@ -290,7 +296,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 
 			            // Set the person into the controller.
 			            InfoWriteController2 controller = loader.getController();
-			            controller.setTableView(hiddenTable, offset, limit, searchMap, pagination, C1, C2, C3, C4, C5, C6, C7, C8,searchMap);
+			            controller.setTableView(hiddenTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8,C9,C10,C11);
 			            controller.setDialogStage(dialogStage);
 			            
 			            // Show the dialog and wait until the user closes it
@@ -305,7 +311,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	    
 	 }
 	 
-	 private void table(HiddenProperty newValue){
+	 private void table(Hidden_JoinProperty newValue){
 		 try {
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
@@ -315,29 +321,31 @@ public class AssetOverviewController extends AssetAsSwitch{
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
 	            dialogStage.setTitle("隐患");
-	            dialogStage.initModality(Modality.WINDOW_MODAL);
+	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
 
 	            // Set the person into the controller.
 	            HiddenDetailController controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
-	            controller.setTableView(hiddenTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
+	            controller.setTableView(hiddenTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8,C9,C10,C11);
 	            
-	            Map map=assets.selectAllHidden(limit, offset, null, null, searchMap);
+	           // Map map=assets.selectAllHidden(limit, offset, null, null, searchMap);
 
-	   	        hiddens= (List<Hidden>) map.get("rows");
+	            Map map=assets.selectAllHidden_Jion(limit, offset, null, null, searchMap);
 	            
-	            Iterator<Hidden> iterator=hiddens.iterator();
+	   	        hidden_Jions= (List<Hidden_Jion>) map.get("rows");
 	            
-	            Hidden hidden=null;
+	            Iterator<Hidden_Jion> iterator=hidden_Jions.iterator();
+	            
+	            Hidden_Jion hidden_Jion=null;
 	            
 	            while(iterator.hasNext()){
-	            	Hidden h=iterator.next();
+	            	Hidden_Jion h=iterator.next();
 	            	try{
 	            	 if(newValue.getId().get()==h.getId()){
-	            		hidden=h;
-	    	            controller.setHidden(hidden);
+	            		hidden_Jion=h;
+	    	            controller.setHidden(hidden_Jion);
 	            		break;
 	            	  }
 	            	}catch (NullPointerException e) {
@@ -363,14 +371,18 @@ public class AssetOverviewController extends AssetAsSwitch{
 		  Map map=new HashMap<>();
 		  
 		  
-		  map=assets.selectAllHidden(limit, offset, sort, order, search);
+		//  map=assets.selectAllHidden(limit, offset, sort, order, search);
 
-	     hiddens= (List<Hidden>) map.get("rows");
+		//  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
+		  
+		  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
+		  
+	     hidden_Jions= (List<Hidden_Jion>) map.get("rows");
 	     
-	     MyTestUtil.print(hiddens);
+	     MyTestUtil.print(hidden_Jions);
 	     
-	     hiddenList= (ObservableList<HiddenProperty>) new RowData(hiddens,HiddenProperty.class).get();
-	     java.util.Iterator<HiddenProperty> iterator=hiddenList.iterator();
+	     hiddenList= (ObservableList<Hidden_JoinProperty>) new RowData(hidden_Jions,Hidden_JoinProperty.class).get();
+	     java.util.Iterator<Hidden_JoinProperty> iterator=hiddenList.iterator();
 	    
 	     while (iterator.hasNext()) {
 			System.out.println("hiddenlist="+iterator.next().getDate());
@@ -385,7 +397,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     C3.setCellValueFactory(
 	    		    cellData->cellData.getValue().getName());
 	     C4.setCellValueFactory(
-	    		    cellData->cellData.getValue().getHidden_level().asObject());
+	    		    cellData->cellData.getValue().getLevel_text());
 	     C5.setCellValueFactory(
 	    		    cellData->cellData.getValue().getDetail());
 	     C6.setCellValueFactory(
