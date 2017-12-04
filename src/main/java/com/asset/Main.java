@@ -2,7 +2,6 @@ package com.asset;
 
 import java.io.IOException;
 
-
 import com.asset.view.AssetInformController;
 import com.asset.view.AssetMessageController;
 import com.asset.view.AssetOverviewController;
@@ -12,8 +11,6 @@ import com.asset.view.HiddenQueryController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;

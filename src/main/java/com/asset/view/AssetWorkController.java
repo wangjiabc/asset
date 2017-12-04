@@ -62,7 +62,7 @@ public class AssetWorkController extends AssetAsSwitch{
 		 Image image = new Image(filePath+"/work.jpg");
 	     homepage.setImage(image);
 	     
-	     rightTitleLabel.setText("工作动态");
+	     rightTitleLabel.setText("设置");
 	     
 	     Insets insets=new Insets(10, 10, 10, 10);
 	     hiddenLevel.setPadding(insets);

@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,6 +22,8 @@ import java.util.prefs.Preferences;
 
 import javax.imageio.ImageIO;
 
+import org.apache.poi.ss.formula.functions.T;
+
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
@@ -29,8 +32,12 @@ import com.asset.tool.FileConvect;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
+import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -39,6 +46,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -53,27 +63,41 @@ import javafx.stage.Stage;
 
 public class HiddenDetailController {
 	@FXML
-	private TextField id;
+	private TextField hiddenName;//隐患名称
+	//@FXML
+	//private TextField progress;//整改进度
 	@FXML
-	private TextField hiddenlevel;
+	private TextField hiddenDetail;//隐患情况
 	@FXML
-	private TextField changespeed;
+	private TextField hiddenState;//隐患状态
 	@FXML
-	private TextField hiddneinstance;
+	private ChoiceBox<T> hiddenLevel;//隐患类别
+	private List<Hidden_Level> hidden_Levels;
+	private Integer hiddenLevelValue;
+	
 	@FXML
-	private TextField doubletest;
+	private TextField hiddenRemark;//备注
 	@FXML
-	private TextField floattest;
+	private TextField hiddenType;//隐患详情
 	@FXML
-	private TextField longtest;
+	private TextField hiddenPrincipal;//负责人
 	@FXML
-	private TextField time;
+	private DatePicker happenTime;//发生时间
 	
 	@FXML
 	private HBox hBox;
 	
 	@FXML
-	private Button switchDate;
+	private Button switchImage;
+	
+	@FXML
+	private Button switchDoc;
+	
+	@FXML
+	private Button switchExcel;
+	
+	@FXML
+	private Button switchPdf;
 	
 	@FXML
 	private Button update;
@@ -88,9 +112,9 @@ public class HiddenDetailController {
 	private ObservableList<Hidden_JoinProperty> hiddenList;
 
 	@FXML
-	 private TableView<Hidden_JoinProperty> hiddenTable;
+	private TableView<Hidden_JoinProperty> hiddenTable;
 	
-	 private List<Hidden_Jion> hidden_Jions;
+	private List<Hidden_Jion> hidden_Jions;
 	
 	private Pagination pagination;
 	
@@ -180,7 +204,21 @@ public class HiddenDetailController {
 
 		 FileChooser fileChooser = new FileChooser();
 		 
-		 switchDate.setOnAction(new EventHandler<ActionEvent>() {
+		 hiddenLevel.getSelectionModel().selectedIndexProperty().addListener(new
+				 ChangeListener<Number>() {
+
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+							Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+                        hiddenLevelValue=hidden_Levels.get(i).getHidden_level();						
+						System.out.println(hiddenLevelValue);
+					}
+			        
+				});
+		 
+		 switchImage.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
@@ -207,12 +245,17 @@ public class HiddenDetailController {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                	VBox vBox=new VBox();
                 	Image image=SwingFXUtils.toFXImage(bufImg, null);
                 	ImageView imageFile=new ImageView();
                     imageFile.setImage(image);
                     imageFile.setFitWidth(50);
                     imageFile.setFitHeight(50);
-                    hBox.getChildren().add(imageFile);
+                    vBox.getChildren().add(imageFile);
+                    Label label=new Label();
+                    label.setText(file.getName());
+                    vBox.getChildren().add(label);
+                    hBox.getChildren().add(vBox);
                     names.add(file.getName());
                     byte[] fileByte=FileConvect.fileToByte(file);
                     fileBytes.add(fileByte);
@@ -225,7 +268,151 @@ public class HiddenDetailController {
 					}
 			}
 		});
-			 
+		
+		 
+		 switchDoc.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					Preferences prefs = Preferences.userRoot().node(this.getClass().getName()); 
+					String lastPath=prefs.get("lastPath", "");
+					System.out.println("lastpath="+lastPath);
+					if(!lastPath.equals(""))
+					fileChooser.setInitialDirectory(new File(lastPath));
+					fileChooser.getExtensionFilters().addAll(
+						    new FileChooser.ExtensionFilter("DOC", "*.doc")
+						);
+					file = fileChooser.showOpenDialog(stage);
+					fileChooser.getExtensionFilters().clear();
+	                if (file != null) {
+	                  //  openFile(file);
+	                	BufferedImage bufImg = null;
+	                	try {
+	                		URL url = getClass().getResource("");	            	    	
+	            	    	File image=new File(url.getPath()+"/word.jpg");
+	            	    	System.out.println("image="+image);
+	                        bufImg = ImageIO.read(image);
+	                    } catch (IOException e) {
+	                        e.printStackTrace();
+	                    }
+	                	VBox vBox=new VBox();
+	                	Image image=SwingFXUtils.toFXImage(bufImg, null);
+	                	ImageView imageFile=new ImageView();
+	                    imageFile.setImage(image);
+	                    imageFile.setFitWidth(50);
+	                    imageFile.setFitHeight(50);
+	                    vBox.getChildren().add(imageFile);
+	                    Label label=new Label();
+	                    label.setText(file.getName());
+	                    vBox.getChildren().add(label);
+	                    hBox.getChildren().add(vBox);
+	                    names.add(file.getName());
+	                    byte[] fileByte=FileConvect.fileToByte(file);
+	                    fileBytes.add(fileByte);
+	                }
+	                try{
+	                	 String filePath=file.getPath();
+						 prefs.put("lastPath", filePath.substring(0,filePath.lastIndexOf(File.separator)));
+						}catch(Exception e1){
+							
+						}
+				}
+			});
+		 
+		/* 
+		 switchExcel.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					Preferences prefs = Preferences.userRoot().node(this.getClass().getName()); 
+					String lastPath=prefs.get("lastPath", "");
+					System.out.println("lastpath="+lastPath);
+					if(!lastPath.equals(""))
+					fileChooser.setInitialDirectory(new File(lastPath));
+					fileChooser.getExtensionFilters().addAll(
+							new FileChooser.ExtensionFilter("PNG", "*.png"),
+							new FileChooser.ExtensionFilter("GIF", "*.gif"),
+							new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
+						    new FileChooser.ExtensionFilter("JPG", "*.jpg"),					    
+						    new FileChooser.ExtensionFilter("BMP", "*.bmp")
+						);
+					file = fileChooser.showOpenDialog(stage);
+					fileChooser.getExtensionFilters().clear();
+	                if (file != null) {
+	                  //  openFile(file);
+	                	BufferedImage bufImg = null;
+	                	try {
+	                        bufImg = ImageIO.read(file);
+	                    } catch (IOException e) {
+	                        e.printStackTrace();
+	                    }
+	                	Image image=SwingFXUtils.toFXImage(bufImg, null);
+	                	ImageView imageFile=new ImageView();
+	                    imageFile.setImage(image);
+	                    imageFile.setFitWidth(50);
+	                    imageFile.setFitHeight(50);
+	                    hBox.getChildren().add(imageFile);
+	                    names.add(file.getName());
+	                    byte[] fileByte=FileConvect.fileToByte(file);
+	                    fileBytes.add(fileByte);
+	                }
+	                try{
+	                	 String filePath=file.getPath();
+						 prefs.put("lastPath", filePath.substring(0,filePath.lastIndexOf(File.separator)));
+						}catch(Exception e1){
+							
+						}
+				}
+			});
+		 
+		 switchPdf.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					Preferences prefs = Preferences.userRoot().node(this.getClass().getName()); 
+					String lastPath=prefs.get("lastPath", "");
+					System.out.println("lastpath="+lastPath);
+					if(!lastPath.equals(""))
+					fileChooser.setInitialDirectory(new File(lastPath));
+					fileChooser.getExtensionFilters().addAll(
+							new FileChooser.ExtensionFilter("PNG", "*.png"),
+							new FileChooser.ExtensionFilter("GIF", "*.gif"),
+							new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
+						    new FileChooser.ExtensionFilter("JPG", "*.jpg"),					    
+						    new FileChooser.ExtensionFilter("BMP", "*.bmp")
+						);
+					file = fileChooser.showOpenDialog(stage);
+					fileChooser.getExtensionFilters().clear();
+	                if (file != null) {
+	                  //  openFile(file);
+	                	BufferedImage bufImg = null;
+	                	try {
+	                        bufImg = ImageIO.read(file);
+	                    } catch (IOException e) {
+	                        e.printStackTrace();
+	                    }
+	                	Image image=SwingFXUtils.toFXImage(bufImg, null);
+	                	ImageView imageFile=new ImageView();
+	                    imageFile.setImage(image);
+	                    imageFile.setFitWidth(50);
+	                    imageFile.setFitHeight(50);
+	                    hBox.getChildren().add(imageFile);
+	                    names.add(file.getName());
+	                    byte[] fileByte=FileConvect.fileToByte(file);
+	                    fileBytes.add(fileByte);
+	                }
+	                try{
+	                	 String filePath=file.getPath();
+						 prefs.put("lastPath", filePath.substring(0,filePath.lastIndexOf(File.separator)));
+						}catch(Exception e1){
+							
+						}
+				}
+			});
+		*/
 		 
 		 update.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -238,11 +425,13 @@ public class HiddenDetailController {
 				String[] where={"id=",String.valueOf(hidden_Jion.getId())};
 				hidden2.setWhere(where);
 				try{
-					if(changespeed.getText()!=null)
-					hidden2.setDetail(changespeed.getText());
-					if(hiddneinstance.getText()!=null)
-					hidden2.setName(hiddneinstance.getText());
-	
+					if(hiddenState.getText()!=null)
+					 hidden2.setDetail(hiddenState.getText());
+					if(hiddenName.getText()!=null)
+					 hidden2.setName(hiddenName.getText());
+	                if(hiddenLevelValue!=null)
+	                 hidden2.setHidden_level(hiddenLevelValue);
+					
 					hidden2.setDate(date);
 	
 		     	int i=assets.updateHidden(hidden2);
@@ -361,27 +550,53 @@ public class HiddenDetailController {
 	 public void setHidden(Hidden_Jion hidden_Jion){
 		 this.hidden_Jion=hidden_Jion;
 		 System.out.println("guid="+hidden_Jion.getGUID());
-		 id.setText(String.valueOf(hidden_Jion.getId()));
-		 hiddenlevel.setText(String.valueOf(hidden_Jion.getDetail()));
-		 hiddneinstance.setText(hidden_Jion.getGUID());
-		 changespeed.setText(hidden_Jion.getName());
-		 doubletest.setText(String.valueOf(hidden_Jion.getHappen_time()));
-		 floattest.setText(String.valueOf(hidden_Jion.getHidden_level()));
-		 longtest.setText(String.valueOf(hidden_Jion.getType()));
-		 time.setText(String.valueOf(hidden_Jion.getDate()));
+		 hiddenName.setText(String.valueOf(hidden_Jion.getName()));
+		 hiddenDetail.setText(hidden_Jion.getDetail());
+		 hiddenState.setText(hidden_Jion.getState());
+		 
+		 hidden_Levels=assets.setctAllHiddenLevel();
+		 Integer level=null;
+		 int i=0;
+		 Iterator<Hidden_Level> iterator=hidden_Levels.iterator();
+			List levels = new ArrayList<>();
+			while (iterator.hasNext()) {
+				String level_text=iterator.next().getLevel_text();
+				levels.add(level_text);
+				if(level_text.equals(hidden_Jion.getLevel_text())){
+					level=i;
+				}
+				i++;
+			}
+		 hiddenLevel.setItems(FXCollections.observableArrayList(levels));
+		 System.out.println("hidden_level="+hidden_Jion.getHidden_level());
+		 if(level!=null)
+		  hiddenLevel.getSelectionModel().select(level);
+		 
+		 hiddenRemark.setText(String.valueOf(hidden_Jion.getRemark()));
+		 hiddenType.setText(String.valueOf(hidden_Jion.getType()));
+		 hiddenPrincipal.setText(String.valueOf(hidden_Jion.getPrincipal()));
 		 
          Map<String, Object> map=assets.selectAllHiddenDate(hidden_Jion.getGUID().toString());
 		 
 		 List<byte[]> fileBytes2=(List<byte[]>) map.get("fileBytes");
+		 List<String> names=(List<String>) map.get("names");
 		 
-		 Iterator<byte[]> iterator=fileBytes2.iterator();
+		 Iterator<byte[]> iterator2=fileBytes2.iterator();
 		 
-		 while(iterator.hasNext()){
-			 byte[] byt=iterator.next();
+		 int n=0;
+		 while(iterator2.hasNext()){
+			 byte[] byt=iterator2.next();
 			 System.out.println("byt="+byt);
 			try {
-				
-				File file = new File("C:\\Users\\WangJing\\Desktop\\bb\\doc\\111");
+				String fileName=names.get(n);
+				String path="C:\\Users\\WangJing\\Desktop\\bb\\doc\\";
+				File file = new File(path+fileName);
+				if (!file.getParentFile().exists()) {  
+			        boolean result = file.getParentFile().mkdirs();  
+			        if (!result) {  
+			            System.out.println("创建失败");  
+			        }  
+			    }  								
 			    OutputStream output = new FileOutputStream(file);
 			    BufferedOutputStream bufferedOutput = new BufferedOutputStream(output);
 			    bufferedOutput.write(byt);
@@ -389,13 +604,17 @@ public class HiddenDetailController {
 				ByteArrayInputStream in = new ByteArrayInputStream(byt);    //将b作为输入流；
 				BufferedImage bufImg = ImageIO.read(in);     //将in作为输入流，读取图片存入image
 
+            	VBox vBox=new VBox();
             	Image image=SwingFXUtils.toFXImage(bufImg, null);
             	ImageView imageFile=new ImageView();
                 imageFile.setImage(image);
                 imageFile.setFitWidth(50);
                 imageFile.setFitHeight(50);
-                System.out.println("imageFile="+imageFile);
-                hBox.getChildren().add(imageFile);
+                vBox.getChildren().add(imageFile);
+                Label label=new Label();
+                label.setText(file.getName());
+                vBox.getChildren().add(label);
+                hBox.getChildren().add(vBox);
 
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -404,7 +623,8 @@ public class HiddenDetailController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			 
+			
+			n++;
 		 }
 		 
 	 }

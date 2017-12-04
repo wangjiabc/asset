@@ -216,15 +216,10 @@ public class AssetOverviewController extends AssetAsSwitch{
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				 Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("search");
-					alert.setHeaderText(String.valueOf(hidden_levels));
-					alert.setContentText(keyWord.getText());
-					alert.showAndWait();
 				 String search=String.valueOf(hiddenLevelValue);
 				 System.out.println("hiddenLevelValue="+hiddenLevelValue);
 				 if(!search.equals("")){
-				   searchMap.put("[Assets].[dbo].[Hidden].hidden_level like ", search);
+				   searchMap.put("[Assets].[dbo].[Hidden].Hidden_Level=", search);
 				 }else {
 					searchMap.clear();
 				}
