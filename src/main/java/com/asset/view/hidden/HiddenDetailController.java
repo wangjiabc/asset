@@ -29,6 +29,7 @@ import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
 import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.FileConvect;
+import com.asset.tool.FileType;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
@@ -43,6 +44,9 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -246,6 +250,8 @@ public class HiddenDetailController {
                         e.printStackTrace();
                     }
                 	VBox vBox=new VBox();
+                	vBox.setAlignment(Pos.CENTER);
+                	vBox.setMaxWidth(130);
                 	Image image=SwingFXUtils.toFXImage(bufImg, null);
                 	ImageView imageFile=new ImageView();
                     imageFile.setImage(image);
@@ -255,6 +261,8 @@ public class HiddenDetailController {
                     Label label=new Label();
                     label.setText(file.getName());
                     vBox.getChildren().add(label);
+                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
+                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
                     hBox.getChildren().add(vBox);
                     names.add(file.getName());
                     byte[] fileByte=FileConvect.fileToByte(file);
@@ -281,12 +289,14 @@ public class HiddenDetailController {
 					if(!lastPath.equals(""))
 					fileChooser.setInitialDirectory(new File(lastPath));
 					fileChooser.getExtensionFilters().addAll(
-						    new FileChooser.ExtensionFilter("DOC", "*.doc")
+						    new FileChooser.ExtensionFilter("DOC", "*.doc"),
+						    new FileChooser.ExtensionFilter("DOCX", "*.docx"),
+						    new FileChooser.ExtensionFilter("DOCM", "*.docm"),
+						    new FileChooser.ExtensionFilter("DOTX", "*.dotx")
 						);
 					file = fileChooser.showOpenDialog(stage);
 					fileChooser.getExtensionFilters().clear();
 	                if (file != null) {
-	                  //  openFile(file);
 	                	BufferedImage bufImg = null;
 	                	try {
 	                		URL url = getClass().getResource("");	            	    	
@@ -297,6 +307,8 @@ public class HiddenDetailController {
 	                        e.printStackTrace();
 	                    }
 	                	VBox vBox=new VBox();
+	                	vBox.setAlignment(Pos.CENTER);
+	                	vBox.setMaxWidth(130);
 	                	Image image=SwingFXUtils.toFXImage(bufImg, null);
 	                	ImageView imageFile=new ImageView();
 	                    imageFile.setImage(image);
@@ -306,6 +318,8 @@ public class HiddenDetailController {
 	                    Label label=new Label();
 	                    label.setText(file.getName());
 	                    vBox.getChildren().add(label);
+	                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
+	                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
 	                    hBox.getChildren().add(vBox);
 	                    names.add(file.getName());
 	                    byte[] fileByte=FileConvect.fileToByte(file);
@@ -320,7 +334,7 @@ public class HiddenDetailController {
 				}
 			});
 		 
-		/* 
+		
 		 switchExcel.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
@@ -332,28 +346,39 @@ public class HiddenDetailController {
 					if(!lastPath.equals(""))
 					fileChooser.setInitialDirectory(new File(lastPath));
 					fileChooser.getExtensionFilters().addAll(
-							new FileChooser.ExtensionFilter("PNG", "*.png"),
-							new FileChooser.ExtensionFilter("GIF", "*.gif"),
-							new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
-						    new FileChooser.ExtensionFilter("JPG", "*.jpg"),					    
-						    new FileChooser.ExtensionFilter("BMP", "*.bmp")
+							new FileChooser.ExtensionFilter("XLS", "*.xls"),
+							new FileChooser.ExtensionFilter("XLSX", "*.xlsx"),
+							new FileChooser.ExtensionFilter("XLSM", "*.xlsm"),
+						    new FileChooser.ExtensionFilter("XLTM", "*.xltm"),					    
+						    new FileChooser.ExtensionFilter("XLSB", "*.xlsb")
 						);
 					file = fileChooser.showOpenDialog(stage);
 					fileChooser.getExtensionFilters().clear();
 	                if (file != null) {
-	                  //  openFile(file);
 	                	BufferedImage bufImg = null;
 	                	try {
-	                        bufImg = ImageIO.read(file);
+	                		URL url = getClass().getResource("");	            	    	
+	            	    	File image=new File(url.getPath()+"/excel.jpg");
+	            	    	System.out.println("image="+image);
+	                        bufImg = ImageIO.read(image);
 	                    } catch (IOException e) {
 	                        e.printStackTrace();
 	                    }
+	                	VBox vBox=new VBox();
+	                	vBox.setAlignment(Pos.CENTER);
+	                	vBox.setMaxWidth(130);
 	                	Image image=SwingFXUtils.toFXImage(bufImg, null);
 	                	ImageView imageFile=new ImageView();
 	                    imageFile.setImage(image);
 	                    imageFile.setFitWidth(50);
 	                    imageFile.setFitHeight(50);
-	                    hBox.getChildren().add(imageFile);
+	                    vBox.getChildren().add(imageFile);
+	                    Label label=new Label();
+	                    label.setText(file.getName());
+	                    vBox.getChildren().add(label);
+	                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
+	                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
+	                    hBox.getChildren().add(vBox);
 	                    names.add(file.getName());
 	                    byte[] fileByte=FileConvect.fileToByte(file);
 	                    fileBytes.add(fileByte);
@@ -378,28 +403,35 @@ public class HiddenDetailController {
 					if(!lastPath.equals(""))
 					fileChooser.setInitialDirectory(new File(lastPath));
 					fileChooser.getExtensionFilters().addAll(
-							new FileChooser.ExtensionFilter("PNG", "*.png"),
-							new FileChooser.ExtensionFilter("GIF", "*.gif"),
-							new FileChooser.ExtensionFilter("JPEG", "*.jpeg"),
-						    new FileChooser.ExtensionFilter("JPG", "*.jpg"),					    
-						    new FileChooser.ExtensionFilter("BMP", "*.bmp")
+							new FileChooser.ExtensionFilter("PDF", "*.pdf")
 						);
 					file = fileChooser.showOpenDialog(stage);
 					fileChooser.getExtensionFilters().clear();
 	                if (file != null) {
-	                  //  openFile(file);
 	                	BufferedImage bufImg = null;
 	                	try {
-	                        bufImg = ImageIO.read(file);
+	                		URL url = getClass().getResource("");	            	    	
+	            	    	File image=new File(url.getPath()+"/pdf.jpg");
+	            	    	System.out.println("image="+image);
+	                        bufImg = ImageIO.read(image);
 	                    } catch (IOException e) {
 	                        e.printStackTrace();
 	                    }
+	                	VBox vBox=new VBox();
+	                	vBox.setAlignment(Pos.CENTER);
+	                	vBox.setMaxWidth(130);
 	                	Image image=SwingFXUtils.toFXImage(bufImg, null);
 	                	ImageView imageFile=new ImageView();
 	                    imageFile.setImage(image);
 	                    imageFile.setFitWidth(50);
 	                    imageFile.setFitHeight(50);
-	                    hBox.getChildren().add(imageFile);
+	                    vBox.getChildren().add(imageFile);
+	                    Label label=new Label();
+	                    label.setText(file.getName());
+	                    vBox.getChildren().add(label);
+	                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
+	                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
+	                    hBox.getChildren().add(vBox);
 	                    names.add(file.getName());
 	                    byte[] fileByte=FileConvect.fileToByte(file);
 	                    fileBytes.add(fileByte);
@@ -412,7 +444,7 @@ public class HiddenDetailController {
 						}
 				}
 			});
-		*/
+		
 		 
 		 update.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -580,15 +612,16 @@ public class HiddenDetailController {
 		 
 		 List<byte[]> fileBytes2=(List<byte[]>) map.get("fileBytes");
 		 List<String> names=(List<String>) map.get("names");
+		 List<String> types=(List<String>) map.get("types");
 		 
 		 Iterator<byte[]> iterator2=fileBytes2.iterator();
 		 
 		 int n=0;
 		 while(iterator2.hasNext()){
 			 byte[] byt=iterator2.next();
-			 System.out.println("byt="+byt);
 			try {
 				String fileName=names.get(n);
+				String fileType=types.get(n);
 				String path="C:\\Users\\WangJing\\Desktop\\bb\\doc\\";
 				File file = new File(path+fileName);
 				if (!file.getParentFile().exists()) {  
@@ -600,11 +633,35 @@ public class HiddenDetailController {
 			    OutputStream output = new FileOutputStream(file);
 			    BufferedOutputStream bufferedOutput = new BufferedOutputStream(output);
 			    bufferedOutput.write(byt);
-				
-				ByteArrayInputStream in = new ByteArrayInputStream(byt);    //将b作为输入流；
-				BufferedImage bufImg = ImageIO.read(in);     //将in作为输入流，读取图片存入image
-
-            	VBox vBox=new VBox();
+			    ByteArrayInputStream in;
+			    BufferedImage bufImg = null;
+			    
+			    
+			    System.out.println("fileType="+fileType);
+			    if(FileType.testImage(fileType)){
+			    	System.out.println(fileName);
+				     in = new ByteArrayInputStream(byt);    //将b作为输入流；
+				     bufImg = ImageIO.read(in);     //将in作为输入流，读取图片存入image
+			    }else if(FileType.testDoc(fileType)){
+			    	System.out.println(fileName);
+			    	URL url = getClass().getResource("");	            	    	
+        	    	File image=new File(url.getPath()+"/word.jpg");
+                    bufImg = ImageIO.read(image);
+			    }else if(FileType.testXls(fileType)){
+			    	System.out.println(fileName);
+			    	URL url = getClass().getResource("");	            	    	
+        	    	File image=new File(url.getPath()+"/excel.jpg");
+                    bufImg = ImageIO.read(image);
+			    }else if(FileType.testPdf(fileType)){
+			    	System.out.println(fileName);
+			    	URL url = getClass().getResource("");	            	    	
+        	    	File image=new File(url.getPath()+"/pdf.jpg");
+                    bufImg = ImageIO.read(image);
+			    }
+			    
+				VBox vBox=new VBox();            	
+				vBox.setAlignment(Pos.CENTER);
+            	vBox.setMaxWidth(130);
             	Image image=SwingFXUtils.toFXImage(bufImg, null);
             	ImageView imageFile=new ImageView();
                 imageFile.setImage(image);
@@ -614,6 +671,8 @@ public class HiddenDetailController {
                 Label label=new Label();
                 label.setText(file.getName());
                 vBox.getChildren().add(label);
+                vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
+                vBox.setMargin(label, new Insets(0, 10, 0, 10));                
                 hBox.getChildren().add(vBox);
 
 			} catch (FileNotFoundException e) {

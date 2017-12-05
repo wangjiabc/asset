@@ -7,8 +7,8 @@
 
 <AnchorPane prefHeight="585.0" prefWidth="859.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.hidden.HiddenDetailController">
    <children>
-      <Button fx:id="update" layoutX="676.0" layoutY="507.0" mnemonicParsing="false" text="更新" />
-      <Button fx:id="delete" layoutX="770.0" layoutY="507.0" mnemonicParsing="false" text="删除" />
+      <Button fx:id="update" layoutX="676.0" layoutY="529.0" mnemonicParsing="false" text="更新" />
+      <Button fx:id="delete" layoutX="776.0" layoutY="529.0" mnemonicParsing="false" text="删除" />
       <Button fx:id="switchImage" layoutX="703.0" layoutY="315.0" mnemonicParsing="false" text="选择图片" />
       <HBox fx:id="hBox" layoutX="52.0" layoutY="338.0" prefHeight="126.0" prefWidth="614.0" />
       <GridPane layoutX="42.0" layoutY="27.0" prefHeight="282.0" prefWidth="739.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="27.0">
@@ -47,5 +47,7 @@
          </children>
       </GridPane>
       <Button fx:id="switchDoc" layoutX="700.0" layoutY="369.0" mnemonicParsing="false" text="选择word" />
+      <Button fx:id="switchExcel" layoutX="703.0" layoutY="417.0" mnemonicParsing="false" text="选择excel" />
+      <Button fx:id="switchPdf" layoutX="703.0" layoutY="464.0" mnemonicParsing="false" text="选择pdf" />
    </children>
 </AnchorPane>

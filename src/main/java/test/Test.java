@@ -3,7 +3,10 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
- 
+import java.util.regex.Pattern;
+
+import com.asset.tool.FileType;
+
 import test.annotations.Constraints;
 import test.annotations.DBTable;
 import test.annotations.SQLDateTime;
@@ -137,12 +140,19 @@ public class Test {
     }
     
     public static void main(String[] args) throws ClassNotFoundException {
-       
+       /*
         String tableCreate = tableCreate(User.class);
         System.out.println(tableCreate);                        //打印出来
         
         tableCreate = select(User.class);
         System.out.println(tableCreate);                        //打印出来
+         */
+    	String fileType = "apple.jpeg";
+
+    	 
+    	      boolean isMatch = FileType.testImage(fileType);
+    	      System.out.println("字符串中是否包含了 'runoob' 子字符串? " + isMatch);
+    	
     }
  
 }
