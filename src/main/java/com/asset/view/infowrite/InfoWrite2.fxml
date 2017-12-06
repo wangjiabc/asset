@@ -16,18 +16,16 @@
         <Label text="隐患情况" GridPane.rowIndex="1" />
         <Label text="隐患类别 " GridPane.rowIndex="2" />
         <Label text="隐患详情" GridPane.rowIndex="3" />
-        <Label text="整改进度" GridPane.rowIndex="4" />
-        <Label text="发生时间" GridPane.rowIndex="8" />
+        <Label text="发生时间" GridPane.rowIndex="7" />
         <TextField fx:id="hiddenDetail" GridPane.columnIndex="1" GridPane.rowIndex="1" />
         <TextField fx:id="hiddenType" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="hiddenRemark" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label text="备注" GridPane.rowIndex="6" />
-            <Label text="负责人" GridPane.rowIndex="7" />
-            <TextField fx:id="hiddenPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label text="隐患状态" GridPane.rowIndex="5" />
-            <TextField fx:id="hiddenState" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <DatePicker fx:id="happenTime" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8">
+            <TextField fx:id="hiddenRemark" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="备注" GridPane.rowIndex="5" />
+            <Label text="负责人" GridPane.rowIndex="6" />
+            <TextField fx:id="hiddenPrincipal" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label text="隐患状态" GridPane.rowIndex="4" />
+            <TextField fx:id="hiddenState" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <DatePicker fx:id="happenTime" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -39,7 +37,6 @@
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="240.0" />
       </columnConstraints>
       <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

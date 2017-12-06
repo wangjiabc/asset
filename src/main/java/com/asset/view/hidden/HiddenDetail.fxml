@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -40,10 +41,19 @@
             <Label text="负责人" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label text="发生时间" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
             <DatePicker fx:id="happenTime" prefHeight="23.0" prefWidth="333.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="3" />
             <TextField fx:id="hiddenState" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <TextField fx:id="hiddenRemark" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <TextField fx:id="hiddenPrincipal" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <ProgressIndicator fx:id="pi" progress="0.0" GridPane.columnIndex="3">
+               <GridPane.margin>
+                  <Insets left="250.0" />
+               </GridPane.margin>
+            </ProgressIndicator>
+            <Slider fx:id="slider" GridPane.columnIndex="3">
+               <GridPane.margin>
+                  <Insets right="50.0" />
+               </GridPane.margin>
+            </Slider>
          </children>
       </GridPane>
       <Button fx:id="switchDoc" layoutX="700.0" layoutY="369.0" mnemonicParsing="false" text="选择word" />

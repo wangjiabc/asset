@@ -23,6 +23,8 @@ import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -37,12 +39,15 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Pagination;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Callback;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 
 public class InfoWriteController2 {
 	@FXML
@@ -92,7 +97,7 @@ public class InfoWriteController2 {
 	 private TableColumn<Hidden_JoinProperty,String> C5;
 	 
 	 @FXML
-	 private TableColumn<Hidden_JoinProperty,String> C6;
+	 private TableColumn<Hidden_JoinProperty,ProgressBar> C6;
 	 
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,Integer> C7;
@@ -278,7 +283,7 @@ public class InfoWriteController2 {
 	public void setTableView(TableView<Hidden_JoinProperty> hiddenTable,Integer offset,Integer limit,
 			Map<String,String> searchMap,Pagination pagination,TableColumn<Hidden_JoinProperty,Integer> C1,
 			TableColumn<Hidden_JoinProperty,String> C2,TableColumn<Hidden_JoinProperty,String> C3,TableColumn<Hidden_JoinProperty,String> C4,
-			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,String> C6,
+			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,ProgressBar> C6,
 			TableColumn<Hidden_JoinProperty,Integer> C7,TableColumn<Hidden_JoinProperty,Integer> C8,
 			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,TableColumn<Hidden_JoinProperty,String> C11) {
 		this.hiddenTable=hiddenTable;
@@ -326,29 +331,40 @@ public class InfoWriteController2 {
 	     
 	    hiddenTable.setItems(hiddenList);
      
-	     C1.setCellValueFactory(
-	                cellData -> cellData.getValue().getId().asObject());
-	     C2.setCellValueFactory(
-	   		    cellData->cellData.getValue().getGUID());
-	     C3.setCellValueFactory(
-	    		    cellData->cellData.getValue().getName());
-	     C4.setCellValueFactory(
-	    		    cellData->cellData.getValue().getLevel_text());
-	     C5.setCellValueFactory(
-	    		    cellData->cellData.getValue().getDetail());
-	     C6.setCellValueFactory(
-	    		    cellData->cellData.getValue().getHappen_time());
-	     C7.setCellValueFactory(
-	    		    cellData->cellData.getValue().getPrincipal().asObject());
-	     C8.setCellValueFactory(
-	    		 cellData->cellData.getValue().getType().asObject());
-	     C9.setCellValueFactory(
-	    		 cellData->cellData.getValue().getState());
-	     C10.setCellValueFactory(
-	    		 cellData->cellData.getValue().getRemark());
-	     
-	     C11.setCellValueFactory(
-	    		 cellData->cellData.getValue().getDate());
+	    C1.setCellValueFactory(
+                cellData -> cellData.getValue().getId().asObject());
+     C2.setCellValueFactory(
+   		    cellData->cellData.getValue().getName());
+     C3.setCellValueFactory(
+    		    cellData->cellData.getValue().getLevel_text());
+     C4.setCellValueFactory(
+    		    cellData->cellData.getValue().getDetail());
+     C5.setCellValueFactory(
+    		    cellData->cellData.getValue().getHappen_time());
+     C6.setCellValueFactory(
+ 		    new Callback<TableColumn.CellDataFeatures<Hidden_JoinProperty,ProgressBar>, ObservableValue<ProgressBar>>() {
+					
+					@Override
+					public ObservableValue<ProgressBar> call(CellDataFeatures<Hidden_JoinProperty, ProgressBar> param) {
+						// TODO Auto-generated method stub
+						DoubleProperty d=param.getValue().getProgress();
+						Double dd=d.doubleValue();
+						ProgressBar progressBar=new ProgressBar();
+						progressBar.setProgress(dd);
+						return new SimpleObjectProperty<ProgressBar>(progressBar);
+					}
+				});
+     C7.setCellValueFactory(
+    		    cellData->cellData.getValue().getPrincipal().asObject());
+     C8.setCellValueFactory(
+    		 cellData->cellData.getValue().getType().asObject());
+     C9.setCellValueFactory(
+    		 cellData->cellData.getValue().getState());
+     C10.setCellValueFactory(
+    		 cellData->cellData.getValue().getRemark());
+     
+     C11.setCellValueFactory(
+    		 cellData->cellData.getValue().getDate());
 	     
 	     int total=(int) map.get("total");
 	     int page=total/10;

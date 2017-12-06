@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.voucher.manage.daoSQL.annotations.SQLDateTime;
+import com.voucher.manage.daoSQL.annotations.SQLDouble;
 import com.voucher.manage.daoSQL.annotations.SQLInteger;
 import com.voucher.manage.daoSQL.annotations.SQLString;
 
@@ -26,6 +27,9 @@ public class Hidden_Jion implements Serializable{
     @SQLString(name="detail")
 	private String detail;
 
+    @SQLDouble(name="progress")
+   	private Double progress;
+    
     @SQLDateTime(name="happen_time")
 	private Date happen_time;
 
@@ -92,6 +96,14 @@ public class Hidden_Jion implements Serializable{
 		return detail;
 	}
 
+	public void setProgress(Double progress){
+		this.progress = progress;
+	}
+
+	public Double getProgress(){
+		return progress;
+	}
+	
 	public void setHappen_time(Date happen_time){
 		this.happen_time = happen_time;
 	}

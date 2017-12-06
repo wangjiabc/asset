@@ -11,6 +11,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,6 +39,8 @@ import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -54,16 +59,21 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class HiddenDetailController {
 	@FXML
@@ -118,6 +128,14 @@ public class HiddenDetailController {
 	@FXML
 	private TableView<Hidden_JoinProperty> hiddenTable;
 	
+	@FXML
+	private Slider slider;
+	
+	@FXML
+	private ProgressIndicator pi;
+	
+	private Double progress;
+	
 	private List<Hidden_Jion> hidden_Jions;
 	
 	private Pagination pagination;
@@ -144,7 +162,7 @@ public class HiddenDetailController {
 	 private TableColumn<Hidden_JoinProperty,String> C5;
 	 
 	 @FXML
-	 private TableColumn<Hidden_JoinProperty,String> C6;
+	 private TableColumn<Hidden_JoinProperty,ProgressBar> C6;
 	 
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,Integer> C7;
@@ -180,7 +198,7 @@ public class HiddenDetailController {
 	 public void setTableView(TableView<Hidden_JoinProperty> hiddenTable,Integer offset,Integer limit,
 			Map<String,String> searchMap,Pagination pagination,TableColumn<Hidden_JoinProperty,Integer> C1,
 			TableColumn<Hidden_JoinProperty,String> C2,TableColumn<Hidden_JoinProperty,String> C3,TableColumn<Hidden_JoinProperty,String> C4,
-			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,String> C6,
+			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,ProgressBar> C6,
 			TableColumn<Hidden_JoinProperty,Integer> C7,TableColumn<Hidden_JoinProperty,Integer> C8,
 			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,TableColumn<Hidden_JoinProperty,String> C11) {
 		this.hiddenTable=hiddenTable;
@@ -207,6 +225,16 @@ public class HiddenDetailController {
 		 Assets assets=new Connect().getAssets();
 
 		 FileChooser fileChooser = new FileChooser();
+		 
+	     slider.setMin(0);  
+	     slider.setMax(50);  
+	     
+	     slider.valueProperty().addListener(  
+	          (ObservableValue<? extends Number> ov, Number old_val,   
+	            Number new_val) -> {  
+	                pi.setProgress(new_val.doubleValue()/50);  	
+	                progress=new_val.doubleValue()/50;
+	       });  
 		 
 		 hiddenLevel.getSelectionModel().selectedIndexProperty().addListener(new
 				 ChangeListener<Number>() {
@@ -463,7 +491,15 @@ public class HiddenDetailController {
 					 hidden2.setName(hiddenName.getText());
 	                if(hiddenLevelValue!=null)
 	                 hidden2.setHidden_level(hiddenLevelValue);
-					
+	                if(happenTime.getValue()!=null){
+						LocalDate localDate=happenTime.getValue();
+						Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+						Date date2 = Date.from(instant);
+						hidden2.setHappen_time(date2);
+					}
+	                if(progress!=null){
+	                	hidden2.setProgress(progress);
+	                }
 					hidden2.setDate(date);
 	
 		     	int i=assets.updateHidden(hidden2);
@@ -585,7 +621,8 @@ public class HiddenDetailController {
 		 hiddenName.setText(String.valueOf(hidden_Jion.getName()));
 		 hiddenDetail.setText(hidden_Jion.getDetail());
 		 hiddenState.setText(hidden_Jion.getState());
-		 
+		 slider.setValue(hidden_Jion.getProgress()*50); 
+	     pi.setProgress(hidden_Jion.getProgress());
 		 hidden_Levels=assets.setctAllHiddenLevel();
 		 Integer level=null;
 		 int i=0;
@@ -715,29 +752,40 @@ public class HiddenDetailController {
 	     
 	    hiddenTable.setItems(hiddenList);
        
-	     C1.setCellValueFactory(
-	                cellData -> cellData.getValue().getId().asObject());
-	     C2.setCellValueFactory(
-	   		    cellData->cellData.getValue().getGUID());
-	     C3.setCellValueFactory(
-	    		    cellData->cellData.getValue().getName());
-	     C4.setCellValueFactory(
-	    		    cellData->cellData.getValue().getLevel_text());
-	     C5.setCellValueFactory(
-	    		    cellData->cellData.getValue().getDetail());
-	     C6.setCellValueFactory(
-	    		    cellData->cellData.getValue().getHappen_time());
-	     C7.setCellValueFactory(
-	    		    cellData->cellData.getValue().getPrincipal().asObject());
-	     C8.setCellValueFactory(
-	    		 cellData->cellData.getValue().getType().asObject());
-	     C9.setCellValueFactory(
-	    		 cellData->cellData.getValue().getState());
-	     C10.setCellValueFactory(
-	    		 cellData->cellData.getValue().getRemark());
-	     
-	     C11.setCellValueFactory(
-	    		 cellData->cellData.getValue().getDate());
+	    C1.setCellValueFactory(
+                cellData -> cellData.getValue().getId().asObject());
+     C2.setCellValueFactory(
+   		    cellData->cellData.getValue().getName());
+     C3.setCellValueFactory(
+    		    cellData->cellData.getValue().getLevel_text());
+     C4.setCellValueFactory(
+    		    cellData->cellData.getValue().getDetail());
+     C5.setCellValueFactory(
+    		    cellData->cellData.getValue().getHappen_time());
+     C6.setCellValueFactory(
+ 		    new Callback<TableColumn.CellDataFeatures<Hidden_JoinProperty,ProgressBar>, ObservableValue<ProgressBar>>() {
+					
+					@Override
+					public ObservableValue<ProgressBar> call(CellDataFeatures<Hidden_JoinProperty, ProgressBar> param) {
+						// TODO Auto-generated method stub
+						DoubleProperty d=param.getValue().getProgress();
+						Double dd=d.doubleValue();
+						ProgressBar progressBar=new ProgressBar();
+						progressBar.setProgress(dd);
+						return new SimpleObjectProperty<ProgressBar>(progressBar);
+					}
+				});
+     C7.setCellValueFactory(
+    		    cellData->cellData.getValue().getPrincipal().asObject());
+     C8.setCellValueFactory(
+    		 cellData->cellData.getValue().getType().asObject());
+     C9.setCellValueFactory(
+    		 cellData->cellData.getValue().getState());
+     C10.setCellValueFactory(
+    		 cellData->cellData.getValue().getRemark());
+     
+     C11.setCellValueFactory(
+    		 cellData->cellData.getValue().getDate());
 	     
 	     int total=(int) map.get("total");
 	     int page=total/10;

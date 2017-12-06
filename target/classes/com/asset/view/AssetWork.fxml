@@ -100,14 +100,16 @@
                         <Insets right="10.0" />
                      </padding>
                   </HBox>
-                  <FlowPane layoutX="82.0" layoutY="58.0" prefHeight="664.0" prefWidth="360.0">
+                  <FlowPane layoutX="82.0" layoutY="80.0" prefHeight="664.0" prefWidth="360.0">
                      <children>
                         <VBox fx:id="hiddenLevel" prefHeight="500.0" prefWidth="100.0" />
                         <VBox fx:id="levelText" prefHeight="500.0" prefWidth="100.0" />
                         <VBox fx:id="levelButton" prefHeight="500.0" prefWidth="100.0" />
                      </children>
                   </FlowPane>
-                  <Button fx:id="button" layoutX="545.0" layoutY="202.0" mnemonicParsing="false" text="Button" />
+                  <Button fx:id="button" layoutX="442.0" layoutY="53.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="76.0" text="添加" />
+                  <Label layoutX="96.0" layoutY="57.0" text="隐患级别" />
+                  <Label layoutX="201.0" layoutY="57.0" text="隐患状态" />
                </children></AnchorPane>
         </items>
       </SplitPane>

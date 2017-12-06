@@ -24,6 +24,8 @@ import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -41,6 +43,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Pagination;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -48,6 +51,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -55,6 +59,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 public class AssetOverviewController extends AssetAsSwitch{
 
@@ -103,7 +108,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 private TableColumn<Hidden_JoinProperty,String> C5;
 	 
 	 @FXML
-	 private TableColumn<Hidden_JoinProperty,String> C6;
+	 private TableColumn<Hidden_JoinProperty,ProgressBar> C6;
 	 
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,Integer> C7;
@@ -388,15 +393,26 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     C1.setCellValueFactory(
 	                cellData -> cellData.getValue().getId().asObject());
 	     C2.setCellValueFactory(
-	   		    cellData->cellData.getValue().getGUID());
+	   		    cellData->cellData.getValue().getName());
 	     C3.setCellValueFactory(
-	    		    cellData->cellData.getValue().getName());
-	     C4.setCellValueFactory(
 	    		    cellData->cellData.getValue().getLevel_text());
-	     C5.setCellValueFactory(
+	     C4.setCellValueFactory(
 	    		    cellData->cellData.getValue().getDetail());
+	     C5.setCellValueFactory(
+	    		    cellData->cellData.getValue().getHappen_time());	     
 	     C6.setCellValueFactory(
-	    		    cellData->cellData.getValue().getHappen_time());
+	    		    new Callback<TableColumn.CellDataFeatures<Hidden_JoinProperty,ProgressBar>, ObservableValue<ProgressBar>>() {
+						
+						@Override
+						public ObservableValue<ProgressBar> call(CellDataFeatures<Hidden_JoinProperty, ProgressBar> param) {
+							// TODO Auto-generated method stub
+							DoubleProperty d=param.getValue().getProgress();
+							Double dd=d.doubleValue();
+							ProgressBar progressBar=new ProgressBar();
+							progressBar.setProgress(dd);
+							return new SimpleObjectProperty<ProgressBar>(progressBar);
+						}
+					});
 	     C7.setCellValueFactory(
 	    		    cellData->cellData.getValue().getPrincipal().asObject());
 	     C8.setCellValueFactory(

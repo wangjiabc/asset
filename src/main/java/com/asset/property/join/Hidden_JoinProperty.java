@@ -3,7 +3,9 @@ package com.asset.property.join;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -19,6 +21,8 @@ public class Hidden_JoinProperty {
 
 	private StringProperty detail;
 
+	private DoubleProperty progress;
+	
 	private StringProperty happen_time;
 
 	private IntegerProperty principal;
@@ -158,5 +162,15 @@ public class Hidden_JoinProperty {
 
 		public void setLevel_text(String level_text) {
 			this.level_text = new SimpleStringProperty(level_text);
+		}
+
+
+		public DoubleProperty getProgress() {
+			return progress;
+		}
+
+
+		public void setProgress(Double progress) {
+			this.progress = new SimpleDoubleProperty(progress);
 		}
 }
