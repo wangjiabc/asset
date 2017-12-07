@@ -37,6 +37,7 @@ import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
+import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
 
 import javafx.beans.property.DoubleProperty;
@@ -82,8 +83,10 @@ public class HiddenDetailController {
 	//private TextField progress;//整改进度
 	@FXML
 	private TextField hiddenDetail;//隐患情况
+
 	@FXML
 	private TextField hiddenState;//隐患状态
+		
 	@FXML
 	private ChoiceBox<T> hiddenLevel;//隐患类别
 	private List<Hidden_Level> hidden_Levels;
@@ -91,10 +94,14 @@ public class HiddenDetailController {
 	
 	@FXML
 	private TextField hiddenRemark;//备注
+	
 	@FXML
-	private TextField hiddenType;//隐患详情
+	private ChoiceBox<T> hiddenType;//隐患类型
+	private List<Hidden_Type> hidden_Types;
+	private Integer hiddenTypeValue;
+	
 	@FXML
-	private TextField hiddenPrincipal;//负责人
+	private ChoiceBox<T> hiddenPrincipal;//负责人
 	@FXML
 	private DatePicker happenTime;//发生时间
 	
@@ -168,7 +175,7 @@ public class HiddenDetailController {
 	 private TableColumn<Hidden_JoinProperty,Integer> C7;
 	 
 	 @FXML
-	 private TableColumn<Hidden_JoinProperty,Integer> C8;
+	 private TableColumn<Hidden_JoinProperty,String> C8;
 	 
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,String> C9;
@@ -199,7 +206,7 @@ public class HiddenDetailController {
 			Map<String,String> searchMap,Pagination pagination,TableColumn<Hidden_JoinProperty,Integer> C1,
 			TableColumn<Hidden_JoinProperty,String> C2,TableColumn<Hidden_JoinProperty,String> C3,TableColumn<Hidden_JoinProperty,String> C4,
 			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,ProgressBar> C6,
-			TableColumn<Hidden_JoinProperty,Integer> C7,TableColumn<Hidden_JoinProperty,Integer> C8,
+			TableColumn<Hidden_JoinProperty,Integer> C7,TableColumn<Hidden_JoinProperty,String> C8,
 			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,TableColumn<Hidden_JoinProperty,String> C11) {
 		this.hiddenTable=hiddenTable;
 		this.offset=offset;
@@ -248,6 +255,17 @@ public class HiddenDetailController {
 						System.out.println(hiddenLevelValue);
 					}
 			        
+				});
+		 
+		 hiddenType.getSelectionModel().selectedIndexProperty().addListener(new 
+				 ChangeListener<Number>() {
+					
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+						hiddenTypeValue=hidden_Types.get(i).getType();
+					}
 				});
 		 
 		 switchImage.setOnAction(new EventHandler<ActionEvent>() {
@@ -484,21 +502,33 @@ public class HiddenDetailController {
 				hidden2.setId(null);
 				String[] where={"id=",String.valueOf(hidden_Jion.getId())};
 				hidden2.setWhere(where);
-				try{
-					if(hiddenState.getText()!=null)
-					 hidden2.setDetail(hiddenState.getText());
-					if(hiddenName.getText()!=null)
+				try{					
+					if(hiddenName!=null){
 					 hidden2.setName(hiddenName.getText());
-	                if(hiddenLevelValue!=null)
+					}
+	                if(hiddenLevelValue!=null){
 	                 hidden2.setHidden_level(hiddenLevelValue);
+	                }
+	                if(hiddenTypeValue!=null){
+	                 hidden2.setType(hiddenTypeValue);
+	                }
 	                if(happenTime.getValue()!=null){
 						LocalDate localDate=happenTime.getValue();
 						Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
 						Date date2 = Date.from(instant);
 						hidden2.setHappen_time(date2);
 					}
+	                if(hiddenState!=null){
+	                	hidden2.setState(hiddenState.getText());
+	                }
 	                if(progress!=null){
 	                	hidden2.setProgress(progress);
+	                }
+	                if(hiddenDetail!=null){
+						 hidden2.setDetail(hiddenDetail.getText());
+	                }
+	                if(hiddenRemark!=null){
+	                	hidden2.setRemark(hiddenRemark.getText());
 	                }
 					hidden2.setDate(date);
 	
@@ -621,14 +651,16 @@ public class HiddenDetailController {
 		 hiddenName.setText(String.valueOf(hidden_Jion.getName()));
 		 hiddenDetail.setText(hidden_Jion.getDetail());
 		 hiddenState.setText(hidden_Jion.getState());
+		 
 		 slider.setValue(hidden_Jion.getProgress()*50); 
 	     pi.setProgress(hidden_Jion.getProgress());
-		 hidden_Levels=assets.setctAllHiddenLevel();
+		
+	     hidden_Levels=assets.setctAllHiddenLevel();		 
 		 Integer level=null;
 		 int i=0;
 		 Iterator<Hidden_Level> iterator=hidden_Levels.iterator();
-			List levels = new ArrayList<>();
-			while (iterator.hasNext()) {
+		 List levels = new ArrayList<>();
+		 while (iterator.hasNext()) {
 				String level_text=iterator.next().getLevel_text();
 				levels.add(level_text);
 				if(level_text.equals(hidden_Jion.getLevel_text())){
@@ -637,13 +669,32 @@ public class HiddenDetailController {
 				i++;
 			}
 		 hiddenLevel.setItems(FXCollections.observableArrayList(levels));
-		 System.out.println("hidden_level="+hidden_Jion.getHidden_level());
-		 if(level!=null)
-		  hiddenLevel.getSelectionModel().select(level);
+		 if(level!=null){
+			  hiddenLevel.getSelectionModel().select(level);
+		 }
+		 
+		 Integer type=null;
+		 i=0;
+		 hidden_Types=assets.selectAllHiddenType();
+		 Iterator<Hidden_Type> iterator3=hidden_Types.iterator();
+		 List hidden_types=new ArrayList<>();
+		 while(iterator3.hasNext()){
+			 String type_text=iterator3.next().getHidden_type();
+			 hidden_types.add(type_text);
+			 if(type_text.equals(hidden_Jion.getHidden_type())){
+				 type=i;
+			 }
+			 i++;
+		 }
+		 hiddenType.setItems(FXCollections.observableArrayList(hidden_types));
+		 if(type!=null){
+			 hiddenType.getSelectionModel().select(type);
+		 }
+
+
 		 
 		 hiddenRemark.setText(String.valueOf(hidden_Jion.getRemark()));
-		 hiddenType.setText(String.valueOf(hidden_Jion.getType()));
-		 hiddenPrincipal.setText(String.valueOf(hidden_Jion.getPrincipal()));
+		// hiddenPrincipal.setText(String.valueOf(hidden_Jion.getPrincipal()));
 		 
          Map<String, Object> map=assets.selectAllHiddenDate(hidden_Jion.getGUID().toString());
 		 
@@ -778,7 +829,7 @@ public class HiddenDetailController {
      C7.setCellValueFactory(
     		    cellData->cellData.getValue().getPrincipal().asObject());
      C8.setCellValueFactory(
-    		 cellData->cellData.getValue().getType().asObject());
+    		 cellData->cellData.getValue().getHidden_type());
      C9.setCellValueFactory(
     		 cellData->cellData.getValue().getState());
      C10.setCellValueFactory(

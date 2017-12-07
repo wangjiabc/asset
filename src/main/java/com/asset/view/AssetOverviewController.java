@@ -114,7 +114,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 private TableColumn<Hidden_JoinProperty,Integer> C7;
 	 
 	 @FXML
-	 private TableColumn<Hidden_JoinProperty,Integer> C8;
+	 private TableColumn<Hidden_JoinProperty,String> C8;
 	 
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,String> C9;
@@ -416,7 +416,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     C7.setCellValueFactory(
 	    		    cellData->cellData.getValue().getPrincipal().asObject());
 	     C8.setCellValueFactory(
-	    		 cellData->cellData.getValue().getType().asObject());
+	    		 cellData->cellData.getValue().getHidden_type());
 	     C9.setCellValueFactory(
 	    		 cellData->cellData.getValue().getState());
 	     C10.setCellValueFactory(

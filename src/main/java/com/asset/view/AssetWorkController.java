@@ -9,10 +9,12 @@ import java.util.Optional;
 
 import com.asset.database.Connect;
 import com.asset.view.detail.HiddenLevelDetailController;
+import com.asset.view.detail.HiddenTypeDetailController;
 import com.asset.view.hidden.HiddenDetailController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
+import com.voucher.manage.daoModel.Assets.Hidden_Type;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -46,7 +48,16 @@ public class AssetWorkController extends AssetAsSwitch{
 	private VBox levelButton;
 	
 	@FXML
+	private VBox hiddenType;
+		
+	@FXML
+	private VBox hiddenTypeButton;
+	
+	@FXML
 	private Button button;
+	
+	@FXML
+	private Button button2;
 	
 	Assets assets= new Connect().get();
 	
@@ -99,36 +110,92 @@ public class AssetWorkController extends AssetAsSwitch{
 	     
 	     button.setOnAction(new EventHandler<ActionEvent>() {
 
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				  FXMLLoader loader = new FXMLLoader();
-		            loader.setLocation(AssetWorkController.class.getResource("detail/HiddenLevelDetail.fxml"));
-		            AnchorPane page = null;
-					try {
-						page = (AnchorPane) loader.load();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					  FXMLLoader loader = new FXMLLoader();
+			            loader.setLocation(AssetWorkController.class.getResource("detail/HiddenLevelDetail.fxml"));
+			            AnchorPane page = null;
+						try {
+							page = (AnchorPane) loader.load();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 
-		            // Create the dialog Stage.
-		            Stage dialogStage = new Stage();
-		            dialogStage.setTitle("隐患");
-		            dialogStage.initModality(Modality.WINDOW_MODAL);
-		            Scene scene = new Scene(page);
-		            dialogStage.setScene(scene);
+			            // Create the dialog Stage.
+			            Stage dialogStage = new Stage();
+			            dialogStage.setTitle("隐患");
+			            dialogStage.initModality(Modality.WINDOW_MODAL);
+			            Scene scene = new Scene(page);
+			            dialogStage.setScene(scene);
 
-		            // Set the person into the controller.
-		            HiddenLevelDetailController controller = loader.getController();
-		            controller.setDialogStage(dialogStage);
-                    controller.setHiddenLevel(hiddenLevel, levelText, levelButton);
-		            
-		            // Show the dialog and wait until the user closes it
-		            dialogStage.show();
-			}
-		});
+			            // Set the person into the controller.
+			            HiddenLevelDetailController controller = loader.getController();
+			            controller.setDialogStage(dialogStage);
+	                    controller.setHiddenLevel(hiddenLevel, levelText, levelButton);
+			            
+			            // Show the dialog and wait until the user closes it
+			            dialogStage.show();
+				}
+			});
+	     
+	     List<Hidden_Type> hidden_Types=assets.selectAllHiddenType();
+	     
+	     Iterator<Hidden_Type> iterator2=hidden_Types.iterator();
+	     
+	     while(iterator2.hasNext()){
+	    	 Hidden_Type hidden_Type=iterator2.next();
+	    	 Label label=new Label();
+	    	 label.setText(hidden_Type.getHidden_type());
+	    	 hiddenType.getChildren().add(label);
+	    	 Button button=new Button();
+	    	 button.setText("删除");
+	    	 hiddenTypeButton.getChildren().add(button);
+	    	 button.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					setFlowPane2(assets);
+				}
+			});
+	     }
+	     
+	     button2.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					  FXMLLoader loader = new FXMLLoader();
+			            loader.setLocation(AssetWorkController.class.getResource("detail/HiddenTypeDetail.fxml"));
+			            AnchorPane page = null;
+						try {
+							page = (AnchorPane) loader.load();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+			            // Create the dialog Stage.
+			            Stage dialogStage = new Stage();
+			            dialogStage.setTitle("隐患");
+			            dialogStage.initModality(Modality.WINDOW_MODAL);
+			            Scene scene = new Scene(page);
+			            dialogStage.setScene(scene);
+
+			            // Set the person into the controller.
+			            HiddenTypeDetailController controller = loader.getController();
+			            controller.setDialogStage(dialogStage);
+	                    controller.setHiddenType(hiddenType, hiddenTypeButton);
+			            
+			            // Show the dialog and wait until the user closes it
+			            dialogStage.show();
+				}
+			});
 	    
+	     
+	     
 	 }
 	 
 	 private void setFlowPane(Assets assets){
@@ -203,4 +270,74 @@ public class AssetWorkController extends AssetAsSwitch{
 				});
 		     }
 	 }
+	 
+	 
+	 private void setFlowPane2(Assets assets){
+		   hiddenType.getChildren().clear();
+		   hiddenTypeButton.getChildren().clear();
+		   List<Hidden_Type> hidden_Types=assets.selectAllHiddenType();
+		     
+		     Iterator<Hidden_Type> iterator=hidden_Types.iterator();
+		     
+		     while(iterator.hasNext()){
+		    	 Hidden_Type hidden_Type=iterator.next();
+		    	 Label label=new Label();
+		    	 label.setText(hidden_Type.getHidden_type());
+		    	 hiddenType.getChildren().add(label);
+		    	 Button button=new Button();
+		    	 button.setText("删除");
+		    	 hiddenTypeButton.getChildren().add(button);
+			     button.setOnAction(new EventHandler<ActionEvent>() {
+					
+					@Override
+					public void handle(ActionEvent event) {
+						// TODO Auto-generated method stub
+						Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+				        alert.setTitle("安全信息");
+				        alert.setHeaderText("删除");
+				        alert.setContentText("是否删除"+hidden_Type.getHidden_type()+"信息");
+
+				        ButtonType btnType1 = new ButtonType("确定");
+				        ButtonType btnType2 = new ButtonType("取消");
+				     
+
+				        alert.getButtonTypes().setAll(btnType1, btnType2);
+
+				        Optional<ButtonType> result = alert.showAndWait();
+				        result.ifPresent(buttonType -> {
+				            if (buttonType == btnType1) {
+				                try{
+				                String[] where={"id=",String.valueOf(hidden_Type.getId())};
+				            	hidden_Type.setWhere(where);
+				                int i=assets.deleteHiddenType(hidden_Type);
+				                if(i==1){
+				                	alert.setTitle("安全信息");
+									alert.setHeaderText("操作");
+									alert.setContentText("删除"+hidden_Type.getId()+"成功");
+									setFlowPane2(assets);
+									alert.showAndWait();
+				                }else{
+				                	Alert alert2 = new Alert(AlertType.ERROR);
+									alert2.setTitle("异常堆栈对话框");
+									alert2.setHeaderText("错误");
+									alert2.setContentText("删除"+hidden_Type.getId()+"失败");
+									alert2.showAndWait();
+				                }
+				                }catch (Exception e) {
+									// TODO: handle exception
+				                	Alert alert2 = new Alert(AlertType.ERROR);
+									alert2.setTitle("异常堆栈对话框");
+									alert2.setHeaderText("错误");
+									alert2.setContentText("删除"+hidden_Type.getId()+"失败");
+									alert2.showAndWait();
+								}
+				            } else if (buttonType == btnType2) {
+				            	System.out.println("点击了取消");
+				            } 
+				        });
+					}
+				});
+		     }
+	 }
+	 
 }

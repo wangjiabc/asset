@@ -91,7 +91,7 @@ public class AssetOverviewDetailController {
 	 private TableColumn<HiddenProperty, Integer> C7;
 	 
 	 @FXML
-	 private TableColumn<HiddenProperty, Integer> C8;
+	 private TableColumn<HiddenProperty, String> C8;
 	
 	public AssetOverviewDetailController() {
 		// TODO Auto-generated constructor stub
@@ -101,7 +101,7 @@ public class AssetOverviewDetailController {
 			Map<String,String> searchMap,Pagination pagination,TableColumn<HiddenProperty,Integer> C1,
 			TableColumn<HiddenProperty,String> C2,TableColumn<HiddenProperty,String> C3,TableColumn<HiddenProperty,Integer> C4,
 			TableColumn<HiddenProperty,String> C5,TableColumn<HiddenProperty,String> C6,
-			TableColumn<HiddenProperty,Integer> C7,TableColumn<HiddenProperty,Integer> C8) {
+			TableColumn<HiddenProperty,Integer> C7,TableColumn<HiddenProperty,String> C8) {
 		this.hiddenTable=hiddenTable;
 		this.offset=offset;
 		this.limit=limit;
@@ -293,8 +293,7 @@ public class AssetOverviewDetailController {
     		    cellData->cellData.getValue().getHappen_time());
         C7.setCellValueFactory(
     		    cellData->cellData.getValue().getPrincipal().asObject());
-        C8.setCellValueFactory(
-    		 cellData->cellData.getValue().getType().asObject());
+
 	     
 	     int total=(int) map.get("total");
 	     int page=total/10;

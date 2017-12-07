@@ -3,6 +3,8 @@ package com.asset.property.join;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.voucher.manage.daoSQL.annotations.SQLString;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -39,7 +41,14 @@ public class Hidden_JoinProperty {
     * Hidden_Level
     */
 	private StringProperty level_text;
-		
+	
+	
+	/*
+     * Hidden_Type
+     */
+    
+	private StringProperty hidden_type;
+	
 		public IntegerProperty getId() {
 			return id;
 		}
@@ -172,5 +181,15 @@ public class Hidden_JoinProperty {
 
 		public void setProgress(Double progress) {
 			this.progress = new SimpleDoubleProperty(progress);
+		}
+
+
+		public StringProperty getHidden_type() {
+			return hidden_type;
+		}
+
+
+		public void setHidden_type(String hidden_type) {
+			this.hidden_type = new SimpleStringProperty(hidden_type);
 		}
 }

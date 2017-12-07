@@ -56,6 +56,13 @@ public class Hidden_Jion implements Serializable{
     @SQLString(name="level_text")
 	private String level_text;
     
+    /*
+     * Hidden_Type
+     */
+    
+    @SQLString(name="hidden_type")
+	private String hidden_type;
+    
     public void setId(Integer id){
 		this.id = id;
 	}
@@ -159,6 +166,14 @@ public class Hidden_Jion implements Serializable{
 
 	public String getLevel_text(){
 		return level_text;
+	}
+	
+	public void setHidden_type(String hidden_type){
+		this.hidden_type = hidden_type;
+	}
+
+	public String getHidden_type(){
+		return hidden_type;
 	}
 	
 }

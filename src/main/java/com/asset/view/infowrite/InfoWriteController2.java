@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.controlsfx.dialog.Dialogs;
 
 import com.asset.database.Connect;
@@ -21,6 +22,7 @@ import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
+import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
 
 import javafx.beans.property.DoubleProperty;
@@ -61,8 +63,12 @@ public class InfoWriteController2 {
 	private TextField hiddenDetail;
 	@FXML
 	private TextField hiddenPrincipal;
+	
 	@FXML
-	private TextField hiddenType;
+	private ChoiceBox<T> hiddenType;//隐患类型
+	private List<Hidden_Type> hidden_Types;
+	private Integer hiddenTypeValue;
+	
 	@FXML
 	private TextField hiddenState;
 	@FXML
@@ -103,7 +109,7 @@ public class InfoWriteController2 {
 	 private TableColumn<Hidden_JoinProperty,Integer> C7;
 	 
 	 @FXML
-	 private TableColumn<Hidden_JoinProperty,Integer> C8;
+	 private TableColumn<Hidden_JoinProperty,String> C8;
 	 
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,String> C9;
@@ -158,6 +164,24 @@ public class InfoWriteController2 {
 			        
 				});
 		
+		
+		 hidden_Types=assets.selectAllHiddenType();
+		 Iterator<Hidden_Type> iterator3=hidden_Types.iterator();
+		 List hidden_types=new ArrayList<>();	
+		 while(iterator3.hasNext()){
+			 hidden_types.add(iterator3.next().getHidden_type());
+		 }
+		 hiddenType.setItems(FXCollections.observableArrayList(hidden_types));
+		 hiddenType.getSelectionModel().selectedIndexProperty().addListener(new 
+				 ChangeListener<Number>() {
+					
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+						hiddenTypeValue=hidden_Types.get(i).getType();
+					}
+				});
 		//限制输入为数字
 		/* hiddenlevel.textProperty().addListener(new ChangeListener<String>() {
 		        @Override
@@ -208,27 +232,26 @@ public class InfoWriteController2 {
 				Hidden hidden=new Hidden();
 				Date date=new Date();
 				try{
-                    if(hiddenLevelValue!=null)
-                    	hidden.setHidden_level(hiddenLevelValue);
-					if(hiddenName.getText()!=null)
-						hidden.setDetail(hiddenName.getText());
-					if(hiddenDetail.getText()!=null)
-						hidden.setName(hiddenDetail.getText());
-					if(hiddenPrincipal.getText()!=null)
-						hidden.setDetail(hiddenPrincipal.getText());
-					if(hiddenType.getText()!=null)
-						hidden.setName(hiddenType.getText());
-					if(hiddenState.getText()!=null)
-						hidden.setName(hiddenState.getText());
-					if(hiddenPrincipal.getText()!=null)
-						hidden.setDetail(hiddenPrincipal.getText());
-					if(hiddenRemark.getText()!=null)
-						hidden.setName(hiddenRemark.getText());
-					if(happenTime.getValue()!=null){
-						LocalDate localDate=happenTime.getValue();
-						Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
-						Date date2 = Date.from(instant);
-						hidden.setHappen_time(date2);
+					 if(hiddenLevelValue!=null)
+	                    	hidden.setHidden_level(hiddenLevelValue);
+						if(hiddenName.getText()!=null)
+							hidden.setName(hiddenName.getText());
+						if(hiddenDetail.getText()!=null)
+							hidden.setDetail(hiddenDetail.getText());
+						if(hiddenPrincipal.getText()!=null)
+							hidden.setDetail(hiddenPrincipal.getText());
+						if(hiddenTypeValue!=null)
+							hidden.setType(hiddenTypeValue);
+						if(hiddenState.getText()!=null)
+							hidden.setName(hiddenState.getText());
+
+						if(hiddenRemark.getText()!=null)
+							hidden.setRemark(hiddenRemark.getText());
+						if(happenTime.getValue()!=null){
+							LocalDate localDate=happenTime.getValue();
+							Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+							Date date2 = Date.from(instant);
+							hidden.setHappen_time(date2);
 					}
 					UUID uuid=UUID.randomUUID();
 					hidden.setGUID(String.valueOf(uuid));
@@ -284,7 +307,7 @@ public class InfoWriteController2 {
 			Map<String,String> searchMap,Pagination pagination,TableColumn<Hidden_JoinProperty,Integer> C1,
 			TableColumn<Hidden_JoinProperty,String> C2,TableColumn<Hidden_JoinProperty,String> C3,TableColumn<Hidden_JoinProperty,String> C4,
 			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,ProgressBar> C6,
-			TableColumn<Hidden_JoinProperty,Integer> C7,TableColumn<Hidden_JoinProperty,Integer> C8,
+			TableColumn<Hidden_JoinProperty,Integer> C7,TableColumn<Hidden_JoinProperty,String> C8,
 			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,TableColumn<Hidden_JoinProperty,String> C11) {
 		this.hiddenTable=hiddenTable;
 		this.offset=offset;
@@ -357,7 +380,7 @@ public class InfoWriteController2 {
      C7.setCellValueFactory(
     		    cellData->cellData.getValue().getPrincipal().asObject());
      C8.setCellValueFactory(
-    		 cellData->cellData.getValue().getType().asObject());
+    		 cellData->cellData.getValue().getHidden_type());
      C9.setCellValueFactory(
     		 cellData->cellData.getValue().getState());
      C10.setCellValueFactory(

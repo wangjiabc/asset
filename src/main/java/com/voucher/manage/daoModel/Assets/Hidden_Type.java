@@ -12,6 +12,9 @@ public class Hidden_Type implements Serializable{
     @SQLInteger(name="id")
 	private Integer id;
 
+    @SQLInteger(name="type")
+	private Integer type;
+    
     @SQLString(name="hidden_type")
 	private String hidden_type;
 
@@ -107,6 +110,14 @@ public class Hidden_Type implements Serializable{
 
 	public String getWhereTerm(){
 		return whereTerm;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
+	public void setType(Integer type) {
+		this.type = type;
 	}
 
 }

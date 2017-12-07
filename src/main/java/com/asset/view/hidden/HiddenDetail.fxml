@@ -31,7 +31,6 @@
             <Label text="隐患类型" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label text="隐患级别 " GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <TextField fx:id="hiddenName" GridPane.columnIndex="1" />
-            <TextField fx:id="hiddenType" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ChoiceBox fx:id="hiddenLevel" prefHeight="23.0" prefWidth="319.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="隐患详情" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <TextField fx:id="hiddenDetail" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -43,7 +42,6 @@
             <DatePicker fx:id="happenTime" prefHeight="23.0" prefWidth="333.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <TextField fx:id="hiddenState" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <TextField fx:id="hiddenRemark" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <TextField fx:id="hiddenPrincipal" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <ProgressIndicator fx:id="pi" progress="0.0" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets left="250.0" />
@@ -54,6 +52,8 @@
                   <Insets right="50.0" />
                </GridPane.margin>
             </Slider>
+            <ChoiceBox fx:id="hiddenType" prefWidth="319.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ChoiceBox fx:id="hiddenPrincipal" prefWidth="319.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <Button fx:id="switchDoc" layoutX="700.0" layoutY="369.0" mnemonicParsing="false" text="选择word" />

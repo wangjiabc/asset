@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="431.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.detail.HiddenTypeDetailController">
+   <children>
+      <Button fx:id="update" layoutX="430.0" layoutY="301.0" mnemonicParsing="false" text="Button" />
+      <TextField fx:id="hiddenType" layoutX="245.0" layoutY="116.0" />
+      <Label layoutX="98.0" layoutY="122.0" text="隐患类型" />
+   </children>
+</AnchorPane>

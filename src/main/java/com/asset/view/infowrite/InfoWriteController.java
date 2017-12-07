@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.controlsfx.dialog.Dialogs;
 
 import com.asset.database.Connect;
@@ -16,6 +17,7 @@ import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
+import com.voucher.manage.daoModel.Assets.Hidden_Type;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -46,8 +48,12 @@ public class InfoWriteController {
 	private TextField hiddenDetail;
 	@FXML
 	private TextField hiddenPrincipal;
+	
 	@FXML
-	private TextField hiddenType;
+	private ChoiceBox<T> hiddenType;//隐患类型
+	private List<Hidden_Type> hidden_Types;
+	private Integer hiddenTypeValue;
+	
 	@FXML
 	private TextField hiddenState;
 	@FXML
@@ -76,9 +82,7 @@ public class InfoWriteController {
 		while (iterator.hasNext()) {
 			levels.add(iterator.next().getLevel_text());
 		}
-
-		hiddenLevel.setItems(FXCollections.observableArrayList(levels));
-		
+		hiddenLevel.setItems(FXCollections.observableArrayList(levels));		
 		hiddenLevel.getSelectionModel().selectedIndexProperty().addListener(new
 				 ChangeListener<Number>() {
 
@@ -91,6 +95,26 @@ public class InfoWriteController {
 						System.out.println(hiddenLevelValue);
 					}
 			        
+				});
+		
+		
+
+		 hidden_Types=assets.selectAllHiddenType();
+		 Iterator<Hidden_Type> iterator3=hidden_Types.iterator();
+		 List hidden_types=new ArrayList<>();	
+		 while(iterator3.hasNext()){
+			 hidden_types.add(iterator3.next().getHidden_type());
+		 }
+		 hiddenType.setItems(FXCollections.observableArrayList(hidden_types));
+		 hiddenType.getSelectionModel().selectedIndexProperty().addListener(new 
+				 ChangeListener<Number>() {
+					
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+						hiddenTypeValue=hidden_Types.get(i).getType();
+					}
 				});
 		
 		//限制输入为数字
@@ -146,19 +170,18 @@ public class InfoWriteController {
                     if(hiddenLevelValue!=null)
                     	hidden.setHidden_level(hiddenLevelValue);
 					if(hiddenName.getText()!=null)
-						hidden.setDetail(hiddenName.getText());
+						hidden.setName(hiddenName.getText());
 					if(hiddenDetail.getText()!=null)
-						hidden.setName(hiddenDetail.getText());
+						hidden.setDetail(hiddenDetail.getText());
 					if(hiddenPrincipal.getText()!=null)
 						hidden.setDetail(hiddenPrincipal.getText());
-					if(hiddenType.getText()!=null)
-						hidden.setName(hiddenType.getText());
+					if(hiddenTypeValue!=null)
+						hidden.setType(hiddenTypeValue);
 					if(hiddenState.getText()!=null)
 						hidden.setName(hiddenState.getText());
-					if(hiddenPrincipal.getText()!=null)
-						hidden.setDetail(hiddenPrincipal.getText());
+
 					if(hiddenRemark.getText()!=null)
-						hidden.setName(hiddenRemark.getText());
+						hidden.setRemark(hiddenRemark.getText());
 					if(happenTime.getValue()!=null){
 						LocalDate localDate=happenTime.getValue();
 						Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
