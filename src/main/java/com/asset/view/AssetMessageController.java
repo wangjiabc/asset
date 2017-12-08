@@ -88,7 +88,7 @@ public class AssetMessageController extends AssetAsSwitch{
 		 Image image = new Image(filePath+"/message.jpg");
 	     homepage.setImage(image);
 	     
-	     rightTitleLabel.setText("最新消息");
+	     rightTitleLabel.setText("检查记录");
 	     
 	     Parent root;
 	     

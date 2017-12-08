@@ -49,6 +49,13 @@ public class Hidden_JoinProperty {
     
 	private StringProperty hidden_type;
 	
+	
+	/*
+	 * Hidden_User
+	 */
+
+	private StringProperty principal_name;
+	
 		public IntegerProperty getId() {
 			return id;
 		}
@@ -191,5 +198,15 @@ public class Hidden_JoinProperty {
 
 		public void setHidden_type(String hidden_type) {
 			this.hidden_type = new SimpleStringProperty(hidden_type);
+		}
+
+
+		public StringProperty getPrincipal_name() {
+			return principal_name;
+		}
+
+
+		public void setPrincipal_name(String principal_name) {
+			this.principal_name = new SimpleStringProperty(principal_name);
 		}
 }

@@ -63,6 +63,15 @@ public class Hidden_Jion implements Serializable{
     @SQLString(name="hidden_type")
 	private String hidden_type;
     
+    /*
+     * Hidden_User
+     */
+    @SQLString(name="principal_name")
+   	private String principal_name;
+
+       @SQLString(name="business")
+   	private String business;
+    
     public void setId(Integer id){
 		this.id = id;
 	}
@@ -174,6 +183,23 @@ public class Hidden_Jion implements Serializable{
 
 	public String getHidden_type(){
 		return hidden_type;
+	}
+	
+
+	public void setPrincipal_name(String principal_name){
+		this.principal_name = principal_name;
+	}
+
+	public String getPrincipal_name(){
+		return principal_name;
+	}
+
+	public void setBusiness(String business){
+		this.business = business;
+	}
+
+	public String getBusiness(){
+		return business;
 	}
 	
 }

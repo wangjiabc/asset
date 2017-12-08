@@ -8,6 +8,7 @@ import com.voucher.manage.daoModel.RoomInfo;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
+import com.voucher.manage.daoModel.Assets.Hidden_User;
 import com.voucher.manage.daoModel.Assets.Position;
 
 public interface Assets {	
@@ -57,5 +58,11 @@ public interface Assets {
 	public Integer insertHiddenType(Hidden_Type hidden_Type);
 	
 	public Integer deleteHiddenType(Hidden_Type hidden_Type);
+	
+    public List<Hidden_User> selectAllHiddenUser();
+	
+	public Integer insertHiddenUser(Hidden_User hidden_User);
+	
+	public Integer deleteHiddenUser(Hidden_User hidden_User);
 	
 }

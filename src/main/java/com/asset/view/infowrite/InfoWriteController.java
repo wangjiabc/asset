@@ -178,7 +178,7 @@ public class InfoWriteController {
 					if(hiddenTypeValue!=null)
 						hidden.setType(hiddenTypeValue);
 					if(hiddenState.getText()!=null)
-						hidden.setName(hiddenState.getText());
+						hidden.setState(hiddenState.getText());
 
 					if(hiddenRemark.getText()!=null)
 						hidden.setRemark(hiddenRemark.getText());

@@ -111,7 +111,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 private TableColumn<Hidden_JoinProperty,ProgressBar> C6;
 	 
 	 @FXML
-	 private TableColumn<Hidden_JoinProperty,Integer> C7;
+	 private TableColumn<Hidden_JoinProperty,String> C7;
 	 
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,String> C8;
@@ -414,7 +414,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 						}
 					});
 	     C7.setCellValueFactory(
-	    		    cellData->cellData.getValue().getPrincipal().asObject());
+	    		    cellData->cellData.getValue().getPrincipal_name());
 	     C8.setCellValueFactory(
 	    		 cellData->cellData.getValue().getHidden_type());
 	     C9.setCellValueFactory(

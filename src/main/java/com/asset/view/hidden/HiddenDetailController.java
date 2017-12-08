@@ -38,6 +38,7 @@ import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
+import com.voucher.manage.daoModel.Assets.Hidden_User;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
 
 import javafx.beans.property.DoubleProperty;
@@ -102,6 +103,9 @@ public class HiddenDetailController {
 	
 	@FXML
 	private ChoiceBox<T> hiddenPrincipal;//负责人
+	private List<Hidden_User> hidden_Principals;
+	private Integer hiddenPrincipalValue;
+	
 	@FXML
 	private DatePicker happenTime;//发生时间
 	
@@ -172,7 +176,7 @@ public class HiddenDetailController {
 	 private TableColumn<Hidden_JoinProperty,ProgressBar> C6;
 	 
 	 @FXML
-	 private TableColumn<Hidden_JoinProperty,Integer> C7;
+	 private TableColumn<Hidden_JoinProperty,String> C7;
 	 
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,String> C8;
@@ -206,7 +210,7 @@ public class HiddenDetailController {
 			Map<String,String> searchMap,Pagination pagination,TableColumn<Hidden_JoinProperty,Integer> C1,
 			TableColumn<Hidden_JoinProperty,String> C2,TableColumn<Hidden_JoinProperty,String> C3,TableColumn<Hidden_JoinProperty,String> C4,
 			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,ProgressBar> C6,
-			TableColumn<Hidden_JoinProperty,Integer> C7,TableColumn<Hidden_JoinProperty,String> C8,
+			TableColumn<Hidden_JoinProperty,String> C7,TableColumn<Hidden_JoinProperty,String> C8,
 			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,TableColumn<Hidden_JoinProperty,String> C11) {
 		this.hiddenTable=hiddenTable;
 		this.offset=offset;
@@ -265,6 +269,17 @@ public class HiddenDetailController {
 						// TODO Auto-generated method stub
 						int i=(int) newValue;
 						hiddenTypeValue=hidden_Types.get(i).getType();
+					}
+				});
+		 
+		 hiddenPrincipal.getSelectionModel().selectedIndexProperty().addListener(new 
+				 ChangeListener<Number>() {
+					
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+						hiddenPrincipalValue=hidden_Principals.get(i).getPrincipal();
 					}
 				});
 		 
@@ -512,6 +527,9 @@ public class HiddenDetailController {
 	                if(hiddenTypeValue!=null){
 	                 hidden2.setType(hiddenTypeValue);
 	                }
+	                if(hiddenPrincipalValue!=null){
+	                	hidden2.setPrincipal(hiddenPrincipalValue);
+	                }
 	                if(happenTime.getValue()!=null){
 						LocalDate localDate=happenTime.getValue();
 						Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
@@ -691,7 +709,25 @@ public class HiddenDetailController {
 			 hiddenType.getSelectionModel().select(type);
 		 }
 
-
+		 
+		 Integer principal=null;
+		 i=0;
+		 hidden_Principals=assets.selectAllHiddenUser();
+		 Iterator<Hidden_User> iterator4=hidden_Principals.iterator();
+		 List hidden_principals=new ArrayList<>();
+		 while(iterator4.hasNext()){
+			 String principals_text=iterator4.next().getPrincipal_name();
+			 hidden_principals.add(principals_text);
+			 if(principals_text.equals(hidden_Jion.getPrincipal_name())){
+				 principal=i;
+			 }
+			 i++;
+		 }
+		 
+		 hiddenPrincipal.setItems(FXCollections.observableArrayList(hidden_principals));
+		 if(principal!=null){
+			 hiddenPrincipal.getSelectionModel().select(principal);
+		 }
 		 
 		 hiddenRemark.setText(String.valueOf(hidden_Jion.getRemark()));
 		// hiddenPrincipal.setText(String.valueOf(hidden_Jion.getPrincipal()));
@@ -827,7 +863,7 @@ public class HiddenDetailController {
 					}
 				});
      C7.setCellValueFactory(
-    		    cellData->cellData.getValue().getPrincipal().asObject());
+    		    cellData->cellData.getValue().getPrincipal_name());
      C8.setCellValueFactory(
     		 cellData->cellData.getValue().getHidden_type());
      C9.setCellValueFactory(

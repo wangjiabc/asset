@@ -106,7 +106,7 @@ public class InfoWriteController2 {
 	 private TableColumn<Hidden_JoinProperty,ProgressBar> C6;
 	 
 	 @FXML
-	 private TableColumn<Hidden_JoinProperty,Integer> C7;
+	 private TableColumn<Hidden_JoinProperty,String> C7;
 	 
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,String> C8;
@@ -307,7 +307,7 @@ public class InfoWriteController2 {
 			Map<String,String> searchMap,Pagination pagination,TableColumn<Hidden_JoinProperty,Integer> C1,
 			TableColumn<Hidden_JoinProperty,String> C2,TableColumn<Hidden_JoinProperty,String> C3,TableColumn<Hidden_JoinProperty,String> C4,
 			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,ProgressBar> C6,
-			TableColumn<Hidden_JoinProperty,Integer> C7,TableColumn<Hidden_JoinProperty,String> C8,
+			TableColumn<Hidden_JoinProperty,String> C7,TableColumn<Hidden_JoinProperty,String> C8,
 			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,TableColumn<Hidden_JoinProperty,String> C11) {
 		this.hiddenTable=hiddenTable;
 		this.offset=offset;
@@ -378,7 +378,7 @@ public class InfoWriteController2 {
 					}
 				});
      C7.setCellValueFactory(
-    		    cellData->cellData.getValue().getPrincipal().asObject());
+    		    cellData->cellData.getValue().getPrincipal_name());
      C8.setCellValueFactory(
     		 cellData->cellData.getValue().getHidden_type());
      C9.setCellValueFactory(

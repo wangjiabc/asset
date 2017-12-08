@@ -23,6 +23,6 @@ public class AssetInformController extends AssetAsSwitch{
 		 Image image = new Image(filePath+"/inform.jpg");
 	     homepage.setImage(image);
 	     
-	     rightTitleLabel.setText("公告通知");
+	     rightTitleLabel.setText("整改记录");
 	 }
 }

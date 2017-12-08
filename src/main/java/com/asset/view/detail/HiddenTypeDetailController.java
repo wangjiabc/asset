@@ -63,6 +63,12 @@ public class HiddenTypeDetailController {
 					
 					if(i==1){
 						setFlowPane2(assets);
+						  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+		                	alert.setTitle("隐患类型");
+							alert.setHeaderText("操作");
+							alert.setContentText("新建"+hiddenType.getText()+"成功");								
+							alert.showAndWait();
+							handleCancel();
 					}
 				}
 			}
@@ -144,5 +150,13 @@ public class HiddenTypeDetailController {
 		this.dialogStage=dialogStage;
 	}
 	
+    /**
+     * Called when the user clicks cancel.
+     */
+     @FXML
+     private void handleCancel() {
+        dialogStage.close();
+     }
+
 	
 }

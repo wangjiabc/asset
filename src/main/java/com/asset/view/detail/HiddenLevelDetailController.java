@@ -69,6 +69,12 @@ public class HiddenLevelDetailController {
 				
 				if(i==1){
 					setFlowPane(assets);
+					Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                	alert.setTitle("隐患级别");
+					alert.setHeaderText("操作");
+					alert.setContentText("新建"+hiddenlevel.getText()+"成功");								
+					alert.showAndWait();
+					handleCancel();
 				}
 			}
 			 
