@@ -20,8 +20,17 @@ public class Hidden_Check implements Serializable{
     @SQLInteger(name="check_id")
 	private Integer check_id;
 
+    @SQLString(name="check_name")
+	private String check_name;
+
+    @SQLString(name="principal")
+	private String principal;
+
     @SQLString(name="check_circs")
 	private String check_circs;
+
+    @SQLDateTime(name="happen_time")
+	private Date happen_time;
 
     @SQLDateTime(name="date")
 	private Date date;
@@ -53,12 +62,36 @@ public class Hidden_Check implements Serializable{
 		return check_id;
 	}
 
+	public void setCheck_name(String check_name){
+		this.check_name = check_name;
+	}
+
+	public String getCheck_name(){
+		return check_name;
+	}
+
+	public void setPrincipal(String principal){
+		this.principal = principal;
+	}
+
+	public String getPrincipal(){
+		return principal;
+	}
+
 	public void setCheck_circs(String check_circs){
 		this.check_circs = check_circs;
 	}
 
 	public String getCheck_circs(){
 		return check_circs;
+	}
+
+	public void setHappen_time(Date happen_time){
+		this.happen_time = happen_time;
+	}
+
+	public Date getHappen_time(){
+		return happen_time;
 	}
 
 	public void setDate(Date date){

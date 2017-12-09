@@ -22,7 +22,7 @@ import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
-import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

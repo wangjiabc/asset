@@ -1,6 +1,7 @@
 package com.asset.view.hidden;
 
 import java.awt.Desktop;
+import java.awt.EventQueue;
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
@@ -39,7 +40,7 @@ import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
-import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -73,6 +74,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -110,7 +112,16 @@ public class HiddenDetailController {
 	private DatePicker happenTime;//发生时间
 	
 	@FXML
-	private HBox hBox;
+	private HBox imageHBox;
+	
+	@FXML
+	private HBox wordHBox;
+	
+	@FXML
+	private HBox excelHBox;
+	
+	@FXML
+	private HBox pdfHBox;
 	
 	@FXML
 	private Button switchImage;
@@ -130,7 +141,7 @@ public class HiddenDetailController {
 	@FXML
 	private Button delete;
 		
-	private Hidden_Jion hidden_Jion;
+	private Hidden_Join hidden_Jion;
 	
 	private Stage dialogStage;
 	
@@ -147,7 +158,7 @@ public class HiddenDetailController {
 	
 	private Double progress;
 	
-	private List<Hidden_Jion> hidden_Jions;
+	private List<Hidden_Join> hidden_Jions;
 	
 	private Pagination pagination;
 	
@@ -232,6 +243,34 @@ public class HiddenDetailController {
 	
 	 @FXML
 	 private void initialize() {
+		 
+		 imageHBox.setStyle("-fx-padding: 10;" + 
+                 "-fx-border-style: solid inside;" + 
+                 "-fx-border-width: 2;" +
+                 "-fx-border-insets: 5;" + 
+                 "-fx-border-radius: 5;" + 
+                 "-fx-border-color: blue;");
+		 
+		 wordHBox.setStyle("-fx-padding: 10;" + 
+                 "-fx-border-style: solid inside;" + 
+                 "-fx-border-width: 2;" +
+                 "-fx-border-insets: 5;" + 
+                 "-fx-border-radius: 5;" + 
+                 "-fx-border-color: blue;");
+		 
+		 excelHBox.setStyle("-fx-padding: 10;" + 
+                 "-fx-border-style: solid inside;" + 
+                 "-fx-border-width: 2;" +
+                 "-fx-border-insets: 5;" + 
+                 "-fx-border-radius: 5;" + 
+                 "-fx-border-color: blue;");
+		 
+		 pdfHBox.setStyle("-fx-padding: 10;" + 
+                 "-fx-border-style: solid inside;" + 
+                 "-fx-border-width: 2;" +
+                 "-fx-border-insets: 5;" + 
+                 "-fx-border-radius: 5;" + 
+                 "-fx-border-color: blue;");
 		 
 		 Assets assets=new Connect().getAssets();
 
@@ -324,7 +363,7 @@ public class HiddenDetailController {
                     vBox.getChildren().add(label);
                     vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
                     vBox.setMargin(label, new Insets(0, 10, 0, 10));
-                    hBox.getChildren().add(vBox);
+                    imageHBox.getChildren().add(vBox);
                     names.add(file.getName());
                     byte[] fileByte=FileConvect.fileToByte(file);
                     fileBytes.add(fileByte);
@@ -381,7 +420,7 @@ public class HiddenDetailController {
 	                    vBox.getChildren().add(label);
 	                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
 	                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
-	                    hBox.getChildren().add(vBox);
+	                    wordHBox.getChildren().add(vBox);
 	                    names.add(file.getName());
 	                    byte[] fileByte=FileConvect.fileToByte(file);
 	                    fileBytes.add(fileByte);
@@ -439,7 +478,7 @@ public class HiddenDetailController {
 	                    vBox.getChildren().add(label);
 	                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
 	                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
-	                    hBox.getChildren().add(vBox);
+	                    excelHBox.getChildren().add(vBox);
 	                    names.add(file.getName());
 	                    byte[] fileByte=FileConvect.fileToByte(file);
 	                    fileBytes.add(fileByte);
@@ -492,7 +531,7 @@ public class HiddenDetailController {
 	                    vBox.getChildren().add(label);
 	                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
 	                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
-	                    hBox.getChildren().add(vBox);
+	                    pdfHBox.getChildren().add(vBox);
 	                    names.add(file.getName());
 	                    byte[] fileByte=FileConvect.fileToByte(file);
 	                    fileBytes.add(fileByte);
@@ -663,7 +702,7 @@ public class HiddenDetailController {
 	        dialogStage.close();
 	    }
 	    
-	 public void setHidden(Hidden_Jion hidden_Jion){
+	 public void setHidden(Hidden_Join hidden_Jion){
 		 this.hidden_Jion=hidden_Jion;
 		 System.out.println("guid="+hidden_Jion.getGUID());
 		 hiddenName.setText(String.valueOf(hidden_Jion.getName()));
@@ -783,9 +822,12 @@ public class HiddenDetailController {
                     bufImg = ImageIO.read(image);
 			    }
 			    
+			    output.close();
+			    
 				VBox vBox=new VBox();            	
 				vBox.setAlignment(Pos.CENTER);
             	vBox.setMaxWidth(130);
+            	vBox.setMinWidth(130);
             	Image image=SwingFXUtils.toFXImage(bufImg, null);
             	ImageView imageFile=new ImageView();
                 imageFile.setImage(image);
@@ -797,8 +839,26 @@ public class HiddenDetailController {
                 vBox.getChildren().add(label);
                 vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
                 vBox.setMargin(label, new Insets(0, 10, 0, 10));                
-                hBox.getChildren().add(vBox);
 
+                if(FileType.testImage(fileType)){
+                     imageHBox.getChildren().add(vBox);
+			    }else if(FileType.testDoc(fileType)){
+                      wordHBox.getChildren().add(vBox);
+			    }else if(FileType.testXls(fileType)){
+                      excelHBox.getChildren().add(vBox);
+			    }else if(FileType.testPdf(fileType)){
+                      pdfHBox.getChildren().add(vBox);
+			    }
+                
+                imageFile.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+        			@Override
+        			public void handle(MouseEvent event) {
+        				// TODO Auto-generated method stub
+        				openFile(file);
+        			}
+        		});
+                
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -811,6 +871,16 @@ public class HiddenDetailController {
 		 }
 		 
 	 }
+	 
+	 private void openFile(File file) {
+	        EventQueue.invokeLater(() -> {
+	            try {
+	                desktop.open(file);
+	            } catch (IOException ex) {
+                 ex.printStackTrace();
+	            }
+	        });
+	    }
 	 
 	 void setRoomInfoList(Integer offset,Integer limit,Map search){
 
@@ -826,7 +896,7 @@ public class HiddenDetailController {
 		  
 		  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
 		  
-	     hidden_Jions= (List<Hidden_Jion>) map.get("rows");
+	     hidden_Jions= (List<Hidden_Join>) map.get("rows");
 	     
 	     MyTestUtil.print(hidden_Jions);
 	     

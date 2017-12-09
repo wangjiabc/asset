@@ -23,7 +23,8 @@ import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
-import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
+import com.voucher.manage.daoModel.Assets.Hidden_User;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -61,8 +62,11 @@ public class InfoWriteController2 {
 	
 	@FXML
 	private TextField hiddenDetail;
+	
 	@FXML
-	private TextField hiddenPrincipal;
+	private ChoiceBox<T> hiddenPrincipal;//负责人
+	private List<Hidden_User> hidden_Principals;
+	private Integer hiddenPrincipalValue;
 	
 	@FXML
 	private ChoiceBox<T> hiddenType;//隐患类型
@@ -122,7 +126,7 @@ public class InfoWriteController2 {
 	
 	// private List<Hidden> hiddens;
 	 
-	 private List<Hidden_Jion> hidden_Jions;
+	 private List<Hidden_Join> hidden_Jions;
 	 
 	 private Pagination pagination;
 	 
@@ -182,6 +186,28 @@ public class InfoWriteController2 {
 						hiddenTypeValue=hidden_Types.get(i).getType();
 					}
 				});
+		 
+		 
+		 hidden_Principals=assets.selectAllHiddenUser();
+		 Iterator<Hidden_User> iterator4=hidden_Principals.iterator();
+		 List hidden_principals=new ArrayList<>();
+		 while(iterator4.hasNext()){
+			 String principals_text=iterator4.next().getPrincipal_name();
+			 hidden_principals.add(principals_text);
+		 }
+		 
+		 hiddenPrincipal.setItems(FXCollections.observableArrayList(hidden_principals));
+		 hiddenPrincipal.getSelectionModel().selectedIndexProperty().addListener(new 
+				 ChangeListener<Number>() {
+					
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+						hiddenPrincipalValue=hidden_Principals.get(i).getPrincipal();
+					}
+				});
+		 
 		//限制输入为数字
 		/* hiddenlevel.textProperty().addListener(new ChangeListener<String>() {
 		        @Override
@@ -238,12 +264,13 @@ public class InfoWriteController2 {
 							hidden.setName(hiddenName.getText());
 						if(hiddenDetail.getText()!=null)
 							hidden.setDetail(hiddenDetail.getText());
-						if(hiddenPrincipal.getText()!=null)
-							hidden.setDetail(hiddenPrincipal.getText());
+						 if(hiddenPrincipalValue!=null){
+			                	hidden.setPrincipal(hiddenPrincipalValue);
+			                }
 						if(hiddenTypeValue!=null)
 							hidden.setType(hiddenTypeValue);
 						if(hiddenState.getText()!=null)
-							hidden.setName(hiddenState.getText());
+							hidden.setState(hiddenState.getText());
 
 						if(hiddenRemark.getText()!=null)
 							hidden.setRemark(hiddenRemark.getText());
@@ -341,7 +368,7 @@ public class InfoWriteController2 {
 		  
 		  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
 		  
-	     hidden_Jions= (List<Hidden_Jion>) map.get("rows");
+	     hidden_Jions= (List<Hidden_Join>) map.get("rows");
 	     
 	     MyTestUtil.print(hidden_Jions);
 	     

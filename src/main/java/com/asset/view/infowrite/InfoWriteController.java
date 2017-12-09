@@ -18,6 +18,7 @@ import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
+import com.voucher.manage.daoModel.Assets.Hidden_User;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -46,8 +47,11 @@ public class InfoWriteController {
 	
 	@FXML
 	private TextField hiddenDetail;
+	
 	@FXML
-	private TextField hiddenPrincipal;
+	private ChoiceBox<T> hiddenPrincipal;//负责人
+	private List<Hidden_User> hidden_Principals;
+	private Integer hiddenPrincipalValue;
 	
 	@FXML
 	private ChoiceBox<T> hiddenType;//隐患类型
@@ -117,6 +121,27 @@ public class InfoWriteController {
 					}
 				});
 		
+		 
+		 hidden_Principals=assets.selectAllHiddenUser();
+		 Iterator<Hidden_User> iterator4=hidden_Principals.iterator();
+		 List hidden_principals=new ArrayList<>();
+		 while(iterator4.hasNext()){
+			 String principals_text=iterator4.next().getPrincipal_name();
+			 hidden_principals.add(principals_text);
+		 }
+		 
+		 hiddenPrincipal.setItems(FXCollections.observableArrayList(hidden_principals));		 
+		 hiddenPrincipal.getSelectionModel().selectedIndexProperty().addListener(new 
+				 ChangeListener<Number>() {
+					
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+						hiddenPrincipalValue=hidden_Principals.get(i).getPrincipal();
+					}
+				});
+		 
 		//限制输入为数字
 		/* hiddenlevel.textProperty().addListener(new ChangeListener<String>() {
 		        @Override
@@ -173,8 +198,9 @@ public class InfoWriteController {
 						hidden.setName(hiddenName.getText());
 					if(hiddenDetail.getText()!=null)
 						hidden.setDetail(hiddenDetail.getText());
-					if(hiddenPrincipal.getText()!=null)
-						hidden.setDetail(hiddenPrincipal.getText());
+					  if(hiddenPrincipalValue!=null){
+		                	hidden.setPrincipal(hiddenPrincipalValue);
+		                }
 					if(hiddenTypeValue!=null)
 						hidden.setType(hiddenTypeValue);
 					if(hiddenState.getText()!=null)

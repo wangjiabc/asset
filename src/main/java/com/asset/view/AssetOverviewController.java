@@ -22,7 +22,8 @@ import com.asset.view.infowrite.InfoWriteController2;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
-import com.voucher.manage.daoModelJoin.Assets.Hidden_Jion;
+import com.voucher.manage.daoModel.Assets.Hidden_Type;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -74,12 +75,16 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 @FXML
 	 private ChoiceBox hiddenLevel;	 
 	 
-	 private int hiddenLevelValue;
+	 private Integer hiddenLevelValue;
 	 
 	 @FXML
-	 private SplitMenuButton plan;	 
+	 private ChoiceBox hiddenProgress;	 
+	 
 	 @FXML
-	 private SplitMenuButton instance;	 
+	 private ChoiceBox hiddenType;	 
+	 private List<Hidden_Type> hidden_Types;
+	 private Integer hiddenTypeValue;
+	 
 	 //查询按钮
 	 @FXML
 	 private Button search;
@@ -130,7 +135,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 
 	// private List<Hidden> hiddens;
 	 
-	 private List<Hidden_Jion> hidden_Jions;
+	 private List<Hidden_Join> hidden_Jions;
 	 
 	 private Stage dialogStage;
 	 
@@ -190,44 +195,48 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     
      
 	    //整改进度 :
-	     MenuItem exhale=new MenuItem("已发整改通知");
 	    
-	     plan.getItems().addAll(exhale);
-	     
-	     exhale.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				plan.setText("已发整改通知");
-			}
-		  });
 	     
 	    //隐患情况 :
-	     MenuItem bigness=new MenuItem("具有重大消防隐患");
-	     
-	     instance.getItems().addAll(bigness);
-	     
-	     bigness.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				instance.setText("具有重大消防隐患");
-			}
-		  });
+		hidden_Types=assets.selectAllHiddenType();
+		Iterator<Hidden_Type> iterator3=hidden_Types.iterator();
+		List hidden_types=new ArrayList<>();
+		while(iterator3.hasNext()){
+			    String type_text=iterator3.next().getHidden_type();
+				 hidden_types.add(type_text);
+
+		  }
+	    hiddenType.setItems(FXCollections.observableArrayList(hidden_types));
 	    
-	    //搜索
+	    hiddenType.getSelectionModel().selectedIndexProperty().addListener(new 
+				 ChangeListener<Number>() {
+					
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+						hiddenTypeValue=hidden_Types.get(i).getType();
+					}
+				});
 	    
+	    //搜索	    
 	     search.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				 String search=String.valueOf(hiddenLevelValue);
-				 System.out.println("hiddenLevelValue="+hiddenLevelValue);
-				 if(!search.equals("")){
+				if(hiddenLevelValue!=null){
+				   String search=String.valueOf(hiddenLevelValue);
 				   searchMap.put("[Assets].[dbo].[Hidden].Hidden_Level=", search);
-				 }else {
-					searchMap.clear();
-				}
+				 }
+				
+				 if(keyWord.getText()!=null){
+					 searchMap.put("[Assets].[dbo].[Hidden].name like ", "%"+keyWord.getText()+"%");
+				 }
+				 
+				 if(hiddenTypeValue!=null){
+					 searchMap.put("[Assets].[dbo].[Hidden].type=", String.valueOf(hiddenTypeValue));
+				 }
+				 
 				 setRoomInfoList(0,10,searchMap);
 			}
 		  });
@@ -334,14 +343,14 @@ public class AssetOverviewController extends AssetAsSwitch{
 
 	            Map map=assets.selectAllHidden_Jion(limit, offset, null, null, searchMap);
 	            
-	   	        hidden_Jions= (List<Hidden_Jion>) map.get("rows");
+	   	        hidden_Jions= (List<Hidden_Join>) map.get("rows");
 	            
-	            Iterator<Hidden_Jion> iterator=hidden_Jions.iterator();
+	            Iterator<Hidden_Join> iterator=hidden_Jions.iterator();
 	            
-	            Hidden_Jion hidden_Jion=null;
+	            Hidden_Join hidden_Jion=null;
 	            
 	            while(iterator.hasNext()){
-	            	Hidden_Jion h=iterator.next();
+	            	Hidden_Join h=iterator.next();
 	            	try{
 	            	 if(newValue.getId().get()==h.getId()){
 	            		hidden_Jion=h;
@@ -377,7 +386,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 		  
 		  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
 		  
-	     hidden_Jions= (List<Hidden_Jion>) map.get("rows");
+	     hidden_Jions= (List<Hidden_Join>) map.get("rows");
 	     
 	     MyTestUtil.print(hidden_Jions);
 	     

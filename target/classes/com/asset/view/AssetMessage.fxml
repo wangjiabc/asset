@@ -102,15 +102,43 @@
                   </HBox>
                   <AnchorPane fx:id="anchorPane" layoutX="10.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
                      <children>
-                        <Button fx:id="button" layoutX="465.0" layoutY="57.0" mnemonicParsing="false" text="Button" />
-                        <Button fx:id="button2" layoutX="465.0" layoutY="112.0" mnemonicParsing="false" text="Button2" />
-                        <Button fx:id="imageButton" layoutX="470.0" layoutY="170.0" mnemonicParsing="false" text="image" />
                         <ImageView fx:id="imageFile" fitHeight="60.0" fitWidth="60.0" layoutX="337.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="uploadButton" layoutX="465.0" layoutY="232.0" mnemonicParsing="false" text="upload" />
-                        <Button fx:id="docButton" layoutX="469.0" layoutY="283.0" mnemonicParsing="false" text="doc" />
-                        <Button fx:id="upload2Button" layoutX="478.0" layoutY="337.0" mnemonicParsing="false" text="upload2" />
                         <Label fx:id="docLabel" layoutX="212.0" layoutY="289.0" />
+                        <Label layoutX="35.0" layoutY="14.0" text="检查纪录" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="20.0">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                        </Label>
+                        <HBox layoutX="427.0" layoutY="44.0" prefHeight="30.0" prefWidth="320.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+                           <children>
+                              <Label text="隐患名称">
+                                 <padding>
+                                    <Insets top="5.0" />
+                                 </padding>
+                              </Label>
+                              <ChoiceBox fx:id="hiddenName" prefWidth="150.0">
+                                 <HBox.margin>
+                                    <Insets left="20.0" right="20.0" />
+                                 </HBox.margin>
+                              </ChoiceBox>
+                              <Button fx:id="search" mnemonicParsing="false" text="搜索" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="addCheckInfoButton" layoutX="251.0" layoutY="675.0" mnemonicParsing="false" prefWidth="120.0" text="添加" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="30.0" />
+                        <TableView fx:id="hiddenCheckTable" layoutX="14.0" layoutY="72.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                          <columns>
+                              <TableColumn fx:id="C1" minWidth="-1.0" prefWidth="75.0" text="ID" />
+                            <TableColumn fx:id="C2" prefWidth="75.0" text="隐患名称" />
+                            <TableColumn fx:id="C3" prefWidth="100.0" text="检查人员" />
+                              <TableColumn fx:id="C4" prefWidth="83.0" text="标题" />
+                              <TableColumn fx:id="C5" prefWidth="119.0" text="检查情况" />
+                              <TableColumn fx:id="C6" prefWidth="102.0" text="检查时间" />
+                              <TableColumn fx:id="C7" prefWidth="101.0" text="整改进度" />
+                              <TableColumn fx:id="C8" prefWidth="102.0" text="录入时间" />
+                          </columns>
+                        </TableView>
                      </children></AnchorPane>
+                  <Pagination fx:id="pagination" layoutX="74.0" layoutY="10.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                </children></AnchorPane>
         </items>
       </SplitPane>

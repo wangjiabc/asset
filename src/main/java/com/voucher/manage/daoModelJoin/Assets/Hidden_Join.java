@@ -8,7 +8,7 @@ import com.voucher.manage.daoSQL.annotations.SQLDouble;
 import com.voucher.manage.daoSQL.annotations.SQLInteger;
 import com.voucher.manage.daoSQL.annotations.SQLString;
 
-public class Hidden_Jion implements Serializable{
+public class Hidden_Join implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
