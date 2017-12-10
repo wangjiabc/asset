@@ -14,13 +14,16 @@ import org.apache.poi.ss.formula.functions.T;
 
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
-import com.asset.property.join.HiddenCheck_JoinProperty;
+import com.asset.property.join.HiddenNeaten_JoinProperty;
 import com.asset.property.join.HiddenNeaten_JoinProperty;
 import com.asset.tool.MyTestUtil;
+import com.asset.view.check.CheckInfoDetailController;
 import com.asset.view.detail.AddCheckInfoDetailController;
+import com.asset.view.neaten.NeatenDetailController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
-import com.voucher.manage.daoModelJoin.Assets.Hidden_Check_Join;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Neaten_Join;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Neaten_Join;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -39,6 +42,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
@@ -95,7 +99,7 @@ public class AssetInformController extends AssetAsSwitch{
 	 
 	 private Map<String,String> searchMap=new HashMap<>();
 	 
-	 private List<Hidden_Check_Join> hidden_Checks;
+	 private List<Hidden_Neaten_Join> hidden_Neaten_Joins;
 	 
      private Stage dialogStage;
 	 
@@ -158,7 +162,7 @@ public class AssetInformController extends AssetAsSwitch{
 					
 					 if(hiddenValue!=null){
 					   String search=hidden.get(hiddenValue).getGUID();
-					   searchMap.put("[Assets].[dbo].[Hidden_Check].GUID=", search);
+					   searchMap.put("[Assets].[dbo].[Hidden_Neaten].GUID=", search);
 					 }
 					 
 					 setHiddenNeaten(0,10,searchMap);
@@ -180,10 +184,64 @@ public class AssetInformController extends AssetAsSwitch{
 		            }
 			    });
 		     
-		     
+		     hiddenNeatenTable.setRowFactory( tv -> {
+			        TableRow<HiddenNeaten_JoinProperty> row = new TableRow<>();
+			        row.setOnMouseClicked(event -> {
+			            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+			            	HiddenNeaten_JoinProperty rowData = row.getItem();
+			            	table(rowData);
+			            }
+			        });
+			        return row ;
+			    });
+
 		     
 		 }
 		 
+	 
+	  private void table(HiddenNeaten_JoinProperty newValue){
+		  try {
+	            // Load the fxml file and create a new stage for the popup dialog.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(getClass().getResource("neaten/NeatenDetail.fxml"));
+	            AnchorPane page = (AnchorPane) loader.load();
+
+	            // Create the dialog Stage.
+	            Stage dialogStage = new Stage();
+	            dialogStage.setTitle("添加隐患整顿记录");
+	            dialogStage.initModality(Modality.APPLICATION_MODAL);
+	            Scene scene = new Scene(page);
+	            dialogStage.setScene(scene);
+
+	            // Set the person into the controller.
+	            NeatenDetailController controller = loader.getController();
+	            controller.setDialogStage(dialogStage);
+	            controller.setTableView(hiddenNeatenTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
+	            	     
+	            System.out.println("neaten_id="+newValue.getNeaten_id());
+	            searchMap.put("[Assets].[dbo].[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
+	            
+	            System.out.println("neatenid="+newValue.getNeaten_id().get());
+	            
+	            Map map=assets.selectAllHiddenNeaten(limit, offset, null, null, searchMap);
+	            MyTestUtil.print(map);
+	            List<Hidden_Neaten_Join> hidden_Neaten_Joins= (List<Hidden_Neaten_Join>) map.get("rows");
+	            MyTestUtil.print(hidden_Neaten_Joins);
+
+	            try{
+	               Hidden_Neaten_Join hidden_Neaten_Join=hidden_Neaten_Joins.get(0);          
+	               controller.setHiddenNeaten(hidden_Neaten_Join);
+	            }catch (Exception e) {
+					// TODO: handle exception
+	            	e.printStackTrace();
+				}
+	            // Show the dialog and wait until the user closes it
+	            dialogStage.show();
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	   }
 		 
 		 void setHiddenNeaten(Integer offset,Integer limit,Map search){
 
@@ -195,10 +253,10 @@ public class AssetInformController extends AssetAsSwitch{
 			  	
 			  map=assets.selectAllHiddenNeaten(limit, offset, sort, order, search);
 			  
-		     hidden_Checks= (List<Hidden_Check_Join>) map.get("rows");
-		     MyTestUtil.print(hidden_Checks);
+		     hidden_Neaten_Joins=  (List<Hidden_Neaten_Join>) map.get("rows");
+		     MyTestUtil.print( hidden_Neaten_Joins);
 		     
-		     hiddenNeaten= (ObservableList<HiddenNeaten_JoinProperty>) new RowData(hidden_Checks,HiddenNeaten_JoinProperty.class).get();
+		     hiddenNeaten= (ObservableList<HiddenNeaten_JoinProperty>) new RowData(hidden_Neaten_Joins,HiddenNeaten_JoinProperty.class).get();
 		     
 
 		    hiddenNeatenTable.setItems(hiddenNeaten);
@@ -208,13 +266,13 @@ public class AssetInformController extends AssetAsSwitch{
 		     C2.setCellValueFactory(
 		   		    cellData->cellData.getValue().getName());
 		     C3.setCellValueFactory(
-		    		    cellData->cellData.getValue().getDetail());
+		    		    cellData->cellData.getValue().getPrincipal());
 		     C4.setCellValueFactory(
-		    		    cellData->cellData.getValue().getHappen_time());
+		    		    cellData->cellData.getValue().getNeaten_name());
 		     C5.setCellValueFactory(
-		    		    cellData->cellData.getValue().getDate());
+		    		    cellData->cellData.getValue().getNeaten_instance());
 		     C6.setCellValueFactory(
-		    		    cellData->cellData.getValue().getInstance());	
+		    		    cellData->cellData.getValue().getHappen_time());	
 		     
 		     C7.setCellValueFactory(
 		    		    new Callback<TableColumn.CellDataFeatures<HiddenNeaten_JoinProperty,ProgressBar>, ObservableValue<ProgressBar>>() {

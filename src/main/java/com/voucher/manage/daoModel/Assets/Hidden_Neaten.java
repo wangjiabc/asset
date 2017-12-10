@@ -17,11 +17,26 @@ public class Hidden_Neaten implements Serializable{
     @SQLString(name="GUID")
 	private String GUID;
 
-    @SQLString(name="instance")
-	private String instance;
+    @SQLString(name="neaten_id")
+	private String neaten_id;
+
+    @SQLString(name="neaten_name")
+	private String neaten_name;
+
+    @SQLString(name="principal")
+	private String principal;
+
+    @SQLDateTime(name="happen_time")
+	private Date happen_time;
+
+    @SQLString(name="neaten_instance")
+	private String neaten_instance;
 
     @SQLDateTime(name="date")
 	private Date date;
+
+    @SQLString(name="remark")
+	private String remark;
 
 	public void setId(Integer id){
 		this.id = id;
@@ -39,12 +54,44 @@ public class Hidden_Neaten implements Serializable{
 		return GUID;
 	}
 
-	public void setInstance(String instance){
-		this.instance = instance;
+	public void setNeaten_id(String neaten_id){
+		this.neaten_id = neaten_id;
 	}
 
-	public String getInstance(){
-		return instance;
+	public String getNeaten_id(){
+		return neaten_id;
+	}
+
+	public void setNeaten_name(String neaten_name){
+		this.neaten_name = neaten_name;
+	}
+
+	public String getNeaten_name(){
+		return neaten_name;
+	}
+
+	public void setPrincipal(String principal){
+		this.principal = principal;
+	}
+
+	public String getPrincipal(){
+		return principal;
+	}
+
+	public void setHappen_time(Date happen_time){
+		this.happen_time = happen_time;
+	}
+
+	public Date getHappen_time(){
+		return happen_time;
+	}
+
+	public void setNeaten_instance(String neaten_instance){
+		this.neaten_instance = neaten_instance;
+	}
+
+	public String getNeaten_instance(){
+		return neaten_instance;
 	}
 
 	public void setDate(Date date){
@@ -53,6 +100,14 @@ public class Hidden_Neaten implements Serializable{
 
 	public Date getDate(){
 		return date;
+	}
+
+	public void setRemark(String remark){
+		this.remark = remark;
+	}
+
+	public String getRemark(){
+		return remark;
 	}
 
 

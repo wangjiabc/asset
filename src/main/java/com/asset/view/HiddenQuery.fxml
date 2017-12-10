@@ -73,7 +73,7 @@
                   <ImageView fx:id="danger" fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
                   <ImageView fx:id="report" fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
                   <ImageView fx:id="file" fitHeight="20.0" fitWidth="20.0" layoutX="50.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
-                  <Button fx:id="hiddenMap" layoutX="32.0" layoutY="496.0" mnemonicParsing="false" text="隐患地图" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
+                  <Button layoutX="32.0" layoutY="496.0" mnemonicParsing="false" onAction="#hiddenMapAction" text="隐患地图" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="798.0" prefWidth="738.0">
@@ -100,18 +100,219 @@
                         <Insets right="10.0" />
                      </padding>
                   </HBox>
-                  <ToolBar layoutX="7.0" layoutY="60.0" prefHeight="46.0" prefWidth="735.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <FlowPane layoutX="10.0" layoutY="112.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
+                                 <image>
+                                    <Image url="@../1.jpg" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患名称" textOverrun="CLIP">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患详情" textOverrun="CLIP" />
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="发生时间" textOverrun="CLIP" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
+                                 <image>
+                                    <Image url="@../1.jpg" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患名称" textOverrun="CLIP">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患详情" textOverrun="CLIP" />
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="发生时间" textOverrun="CLIP" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
+                                 <image>
+                                    <Image url="@../1.jpg" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患名称" textOverrun="CLIP">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患详情" textOverrun="CLIP" />
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="发生时间" textOverrun="CLIP" />
+                           </children>
+                        </VBox>
+                        <HBox />
+                     </children>
+                  </FlowPane>
+                  <ToolBar layoutX="10.0" layoutY="50.0" prefHeight="40.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <items>
-                        <Label text="Label" />
+                        <Label text="重大隐患" textFill="#867777">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
                      </items>
                   </ToolBar>
-                  <ListView layoutX="7.0" layoutY="106.0" prefHeight="120.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                  <ToolBar layoutX="7.0" layoutY="236.0" prefHeight="46.0" prefWidth="735.0">
+                  <FlowPane layoutY="399.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
+                                 <image>
+                                    <Image url="@../1.jpg" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患名称" textOverrun="CLIP">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患详情" textOverrun="CLIP" />
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="发生时间" textOverrun="CLIP" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
+                                 <image>
+                                    <Image url="@../1.jpg" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患名称" textOverrun="CLIP">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患详情" textOverrun="CLIP" />
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="发生时间" textOverrun="CLIP" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
+                                 <image>
+                                    <Image url="@../1.jpg" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患名称" textOverrun="CLIP">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患详情" textOverrun="CLIP" />
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="发生时间" textOverrun="CLIP" />
+                           </children>
+                        </VBox>
+                        <HBox />
+                     </children>
+                  </FlowPane>
+                  <ToolBar layoutX="10.0" layoutY="338.0" prefHeight="46.0" prefWidth="723.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <items>
-                        <Label text="Label" />
+                        <Label text="一类隐患" textFill="#867777">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
                      </items>
                   </ToolBar>
-                  <ListView layoutX="3.0" layoutY="289.0" prefHeight="151.0" prefWidth="735.0" />
+                  <ToolBar layoutY="627.0" prefHeight="40.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                     <items>
+                        <Label text="二类隐患" textFill="#867777">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
+                     </items>
+                  </ToolBar>
+                  <FlowPane layoutY="685.0" prefHeight="200.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
+                                 <image>
+                                    <Image url="@../1.jpg" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患名称" textOverrun="CLIP">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患详情" textOverrun="CLIP" />
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="发生时间" textOverrun="CLIP" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
+                                 <image>
+                                    <Image url="@../1.jpg" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患名称" textOverrun="CLIP">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患详情" textOverrun="CLIP" />
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="发生时间" textOverrun="CLIP" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);">
+                                 <image>
+                                    <Image url="@../1.jpg" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患名称" textOverrun="CLIP">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="隐患详情" textOverrun="CLIP" />
+                              <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="发生时间" textOverrun="CLIP" />
+                           </children>
+                        </VBox>
+                        <HBox />
+                     </children>
+                  </FlowPane>
                </children></AnchorPane>
         </items>
       </SplitPane>

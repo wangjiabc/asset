@@ -12,7 +12,7 @@ import javafx.beans.property.StringProperty;
 
 public class HiddenCheck_JoinProperty {
 	private IntegerProperty id;
-	private IntegerProperty check_id;
+	private StringProperty check_id;
 	private StringProperty guid;
 	private StringProperty check_circs;
 	private StringProperty date;
@@ -43,11 +43,11 @@ public class HiddenCheck_JoinProperty {
 	public void setId(Integer id) {
 		this.id = new SimpleIntegerProperty(id);
 	}
-	public IntegerProperty getCheck_id() {
+	public StringProperty getCheck_id() {
 		return check_id;
 	}
-	public void setCheck_id(Integer check_id) {
-		this.check_id = new SimpleIntegerProperty(check_id);
+	public void setCheck_id(String check_id) {
+		this.check_id = new SimpleStringProperty(check_id);
 	}
 	public StringProperty getGuid() {
 		return guid;

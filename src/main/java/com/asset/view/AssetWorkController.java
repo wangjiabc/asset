@@ -111,7 +111,10 @@ public class AssetWorkController extends AssetAsSwitch{
 	     levelText.setPadding(insets);
 	     levelText.setSpacing(20);
 	     levelButton.setSpacing(10);
-
+         hiddenType.setPadding(insets);
+         hiddenType.setSpacing(20);
+         hiddenTypeButton.setSpacing(10);
+         
 	     List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
 	     
 	     Iterator<Hidden_Level> iterator=hidden_levels.iterator();
@@ -124,7 +127,6 @@ public class AssetWorkController extends AssetAsSwitch{
 	    	 Label label2=new Label();
 	    	 label2.setText(hidden_level.getLevel_text());
 	    	 levelText.getChildren().add(label2);
-	    	 Insets insets2=new Insets(5, 5, 5, 5);
 	    	 Button button=new Button();	     
 		     button.setText("删除");
 		     levelButton.getChildren().add(button);
@@ -356,12 +358,15 @@ public class AssetWorkController extends AssetAsSwitch{
 		     Iterator<Hidden_Type> iterator=hidden_Types.iterator();
 		     
 		     while(iterator.hasNext()){
+		    	 Insets insets2=new Insets(5, 5, 5, 5);
 		    	 Hidden_Type hidden_Type=iterator.next();
 		    	 Label label=new Label();
 		    	 label.setText(hidden_Type.getHidden_type());
 		    	 hiddenType.getChildren().add(label);
+		    	 hiddenType.setMargin(label, insets2); 
 		    	 Button button=new Button();
 		    	 button.setText("删除");
+		    	 hiddenType.setMargin(button, insets2);
 		    	 hiddenTypeButton.getChildren().add(button);
 			     button.setOnAction(new EventHandler<ActionEvent>() {
 					

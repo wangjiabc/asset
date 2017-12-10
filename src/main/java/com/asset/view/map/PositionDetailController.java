@@ -100,7 +100,7 @@ public class PositionDetailController {
 		this.position=position;
 		this.Address=Address;
 		this.GUID=GUID;
-		text.setText("你要更新"+Address+"GUID="+GUID+"的位置为");
+		text.setText("你要更新"+Address+"的位置为");
 		province.setText(position.getProvince());
 		city.setText(position.getCity());
 		district.setText(position.getDistrict());

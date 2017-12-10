@@ -121,36 +121,7 @@ public abstract class AssetAsSwitch {
 			});
                   
             
-            hiddenMap.setOnAction(new EventHandler<ActionEvent>() {
-				
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					try {
-						 // Load the fxml file and create a new stage for the popup dialog.
-			            FXMLLoader loader = new FXMLLoader();
-			            loader.setLocation(AssetAsSwitch.class.getResource("map/baiduMap.fxml"));
-			            AnchorPane page = (AnchorPane) loader.load();
-
-			            // Create the dialog Stage.
-			            Stage dialogStage = new Stage();
-			            dialogStage.setTitle("隐患地图");
-			            dialogStage.initModality(Modality.WINDOW_MODAL);
-			            Scene scene = new Scene(page);
-			            dialogStage.setScene(scene);
-
-			            // Set the person into the controller.
-			            BaiduMapController controller = loader.getController();
-			            
-			            // Show the dialog and wait until the user closes it
-			            dialogStage.show();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-				}
-			});
+           
             
             initCurrent();
 	        
@@ -190,5 +161,9 @@ public abstract class AssetAsSwitch {
 	 private void hiddenButtonAction(){
 	     // get a handle to the stage
 	    main.showHiddenQuery();
+	 }
+	 @FXML
+	 private void hiddenMapAction(){
+		 main.showHiddenMap();
 	 }
 }

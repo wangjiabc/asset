@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="804.0" prefWidth="941.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.check.AugmentCheckInfoDetailController">
+   <children>
+      <GridPane layoutX="16.0" layoutY="27.0" prefHeight="127.0" prefWidth="542.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.0" minWidth="10.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="435.0" minWidth="10.0" prefWidth="205.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="435.0" minWidth="10.0" prefWidth="30.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="435.0" minWidth="10.0" prefWidth="190.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="检查人员" GridPane.halignment="CENTER" />
+            <Label text="检查时间" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label text="标题" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <Label text="备注" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <TextField fx:id="principal" GridPane.columnIndex="1" />
+            <TextField fx:id="checkName" prefHeight="23.0" prefWidth="132.0" GridPane.columnIndex="3" />
+            <DatePicker fx:id="happenTime" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="remark" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <TextArea fx:id="checkCrics" layoutX="21.0" layoutY="143.0" prefHeight="210.0" prefWidth="845.0" promptText="内容详情" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0" />
+      <HBox layoutX="412.0" layoutY="302.0" prefHeight="39.0" prefWidth="146.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Button fx:id="post" mnemonicParsing="false" prefHeight="23.0" prefWidth="71.0" text="添加" />
+            <Button fx:id="cancel" mnemonicParsing="false" prefHeight="23.0" prefWidth="73.0" text="取消" />
+         </children>
+      </HBox>
+      <Label layoutX="50.0" layoutY="147.0" text="输入检查记录 :" AnchorPane.leftAnchor="60.0" />
+      <VBox prefHeight="404.0" prefWidth="614.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="330.0">
+         <children>
+            <HBox fx:id="imageHBox" layoutX="73.0" layoutY="338.0" maxWidth="1.7976931348623157E308" prefHeight="100.0" style="-fx-border-width: black;" />
+            <HBox fx:id="wordHBox" layoutX="100.0" layoutY="530.0" maxWidth="1.7976931348623157E308" prefHeight="100.0" />
+            <HBox fx:id="excelHBox" layoutX="92.0" layoutY="625.0" maxWidth="1.7976931348623157E308" prefHeight="100.0" />
+            <HBox fx:id="pdfHBox" maxWidth="1.7976931348623157E308" prefHeight="100.0" />
+         </children>
+      </VBox>
+      <Label layoutX="44.0" layoutY="377.0" text="图片" />
+      <Label layoutX="44.0" layoutY="469.0" text="文档" />
+      <Label layoutX="44.0" layoutY="561.0" text="表格" />
+      <Label layoutX="47.0" layoutY="660.0" text="pdf" />
+      <VBox AnchorPane.bottomAnchor="150.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Button fx:id="switchImage" layoutX="763.0" layoutY="512.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传图片">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="switchDoc" layoutX="763.0" layoutY="564.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传word">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="switchExcel" layoutX="762.0" layoutY="619.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传excel">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+            <Button fx:id="switchPdf" layoutX="766.0" layoutY="675.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传pdf">
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

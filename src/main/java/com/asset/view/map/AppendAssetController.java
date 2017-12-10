@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebEvent;
@@ -24,29 +25,24 @@ public class AppendAssetController{
 	private WebView mapview;
 	
 	private WebEngine webEngine;
-	
-	@FXML
-	private Button button;
 
-	public AppendAssetController(WebView mapview,WebEngine webEngine,Button button){
+
+	public AppendAssetController(WebView mapview,WebEngine webEngine){
 		this.mapview=mapview;
 		this.webEngine=webEngine;
-		this.button=button;
+
 	}
 	
-	void initCurrent(){
-		 button.setOnAction(new EventHandler<ActionEvent>() {
-				
-				@Override
-				public void handle(ActionEvent event) {
+	public void initCurrent(){
+
 					// TODO Auto-generated method stub
-					webEngine.load("http://220.166.104.133/voucher/baidumap/appendMap.html");
+					webEngine.load("http://localhost:8080/voucher/baidumap/appendMap.html");
 					mapview.getEngine().setOnAlert((WebEvent<String> wEvent)->{
-						//System.out.println(wEvent);
+						System.out.println(wEvent);
 						table(wEvent.getData());
 					});
-				}
-			 });
+				
+			
 	}
 	
 	 private void table(String webEvent){

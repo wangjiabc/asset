@@ -16,8 +16,8 @@ public class Hidden_Check_Join implements Serializable{
     @SQLString(name="GUID")
 	private String GUID;
 
-    @SQLInteger(name="check_id")
-	private Integer check_id;
+    @SQLString(name="check_id")
+	private String check_id;
 
     @SQLString(name="check_circs")
 	private String check_circs;
@@ -71,11 +71,11 @@ public class Hidden_Check_Join implements Serializable{
 		return GUID;
 	}
 
-	public void setCheck_id(Integer check_id){
+	public void setCheck_id(String check_id){
 		this.check_id = check_id;
 	}
 
-	public Integer getCheck_id(){
+	public String getCheck_id(){
 		return check_id;
 	}
 

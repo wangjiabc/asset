@@ -116,7 +116,7 @@ public class AppendAssetsQueryController {
 	 }
 	 
 	 @FXML
-     private void initialize() {
+     public void initialize() {
 	    
 	    //搜索
 	    

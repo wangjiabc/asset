@@ -26,12 +26,15 @@ import com.asset.property.join.HiddenCheck_JoinProperty;
 import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.FileConvect;
 import com.asset.tool.MyTestUtil;
+import com.asset.view.check.CheckInfoDetailController;
 import com.asset.view.detail.AddCheckInfoDetailController;
+import com.asset.view.hidden.HiddenDetailController;
 import com.asset.view.infowrite.InfoWriteController2;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Check;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Check_Join;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -52,6 +55,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
@@ -73,9 +77,6 @@ public class AssetMessageController extends AssetAsSwitch{
 	
 	@FXML
 	 private AnchorPane anchorPane;
-	
-	 @FXML
-	 private Button addCheckInfoButton;
 
 	 @FXML
 	 ImageView imageFile;
@@ -191,6 +192,7 @@ public class AssetMessageController extends AssetAsSwitch{
 				
 				 if(hiddenValue!=null){
 				   String search=hidden.get(hiddenValue).getGUID();
+				   System.out.println("search="+search);
 				   searchMap.put("[Assets].[dbo].[Hidden_Check].GUID=", search);
 				 }
 				 
@@ -213,41 +215,62 @@ public class AssetMessageController extends AssetAsSwitch{
 	            }
 		    });
 	     
-	     
-	      addCheckInfoButton.setOnAction(new EventHandler<ActionEvent>() {
-	    	   
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				try {
-					   FXMLLoader loader = new FXMLLoader();
-			            loader.setLocation(AssetMessageController.class.getResource("detail/AddCheckInfoDetail.fxml"));
-			            AnchorPane page = (AnchorPane) loader.load();
+  
+			 hiddenCheckTable.setRowFactory( tv -> {
+			        TableRow<HiddenCheck_JoinProperty> row = new TableRow<>();
+			        row.setOnMouseClicked(event -> {
+			            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+			            	HiddenCheck_JoinProperty rowData = row.getItem();
+			            	table(rowData);
+			            }
+			        });
+			        return row ;
+			    });
 
-			            // Create the dialog Stage.
-			            Stage dialogStage = new Stage();
-			            dialogStage.setTitle("添加隐患检查记录");
-			            dialogStage.initModality(Modality.APPLICATION_MODAL);
-			            Scene scene = new Scene(page);
-			            dialogStage.setScene(scene);
-
-			            // Set the person into the controller.
-			            AddCheckInfoDetailController controller = loader.getController();
-			            controller.setTableView(hiddenCheckTable, offset, limit, searchMap, pagination, C1, C2, C3, C4, C5, C6, C7, C8);
-			            controller.setDialogStage(dialogStage);
-			            
-			            // Show the dialog and wait until the user closes it
-			            dialogStage.show();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			   }
-			
-		   });
-	     
+			 
 	 }
 	 
+	 
+	 private void table(HiddenCheck_JoinProperty newValue){
+		 try {
+	            // Load the fxml file and create a new stage for the popup dialog.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(getClass().getResource("check/CheckInfoDetail.fxml"));
+	            AnchorPane page = (AnchorPane) loader.load();
+
+	            // Create the dialog Stage.
+	            Stage dialogStage = new Stage();
+	            dialogStage.setTitle("隐患");
+	            dialogStage.initModality(Modality.APPLICATION_MODAL);
+	            Scene scene = new Scene(page);
+	            dialogStage.setScene(scene);
+
+	            // Set the person into the controller.
+	            CheckInfoDetailController controller = loader.getController();
+	            controller.setDialogStage(dialogStage);
+	            controller.setTableView(hiddenCheckTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
+	            	     
+	            System.out.println("check_id="+newValue.getCheck_id());
+	            searchMap.put("[Assets].[dbo].[Hidden_Check].check_id=",newValue.getCheck_id().get());
+	            
+	            Map map=assets.selectAllHiddenCheck(limit, offset, null, null, searchMap);
+	            
+	            List<Hidden_Check_Join> hidden_Check_Joins= (List<Hidden_Check_Join>) map.get("rows");
+	            MyTestUtil.print(hidden_Check_Joins);
+	            try{
+	               Hidden_Check_Join hidden_Check_Join=hidden_Check_Joins.get(0);            
+	               controller.setHiddenCheckInfo(hidden_Check_Join);
+	            }catch (Exception e) {
+					// TODO: handle exception
+	            	e.printStackTrace();
+				}
+	            // Show the dialog and wait until the user closes it
+	            dialogStage.show();
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	 }
 	 
 	 void setHiddenCheckList(Integer offset,Integer limit,Map search){
 

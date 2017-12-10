@@ -6,37 +6,28 @@ import java.io.Serializable;
 
 import com.voucher.manage.daoSQL.annotations.*;
 
-@DBTable(name="[Assets].[dbo].[Hidden_Check]")
-public class Hidden_Check implements Serializable{
+@DBTable(name="[Assets].[dbo].[Hidden_Check_Date]")
+public class Hidden_Check_Date implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
     @SQLInteger(name="id")
 	private Integer id;
 
-    @SQLString(name="GUID")
-	private String GUID;
-
     @SQLString(name="check_id")
 	private String check_id;
 
-    @SQLString(name="check_name")
-	private String check_name;
+    @SQLString(name="NAME")
+	private String NAME;
 
-    @SQLString(name="principal")
-	private String principal;
+    @SQLString(name="TYPE")
+	private String TYPE;
 
-    @SQLString(name="check_circs")
-	private String check_circs;
-
-    @SQLDateTime(name="happen_time")
-	private Date happen_time;
+    @SQLString(name="URI")
+	private String URI;
 
     @SQLDateTime(name="date")
 	private Date date;
-
-    @SQLString(name="remark")
-	private String remark;
 
 	public void setId(Integer id){
 		this.id = id;
@@ -44,14 +35,6 @@ public class Hidden_Check implements Serializable{
 
 	public Integer getId(){
 		return id;
-	}
-
-	public void setGUID(String GUID){
-		this.GUID = GUID;
-	}
-
-	public String getGUID(){
-		return GUID;
 	}
 
 	public void setCheck_id(String check_id){
@@ -62,36 +45,28 @@ public class Hidden_Check implements Serializable{
 		return check_id;
 	}
 
-	public void setCheck_name(String check_name){
-		this.check_name = check_name;
+	public void setNAME(String NAME){
+		this.NAME = NAME;
 	}
 
-	public String getCheck_name(){
-		return check_name;
+	public String getNAME(){
+		return NAME;
 	}
 
-	public void setPrincipal(String principal){
-		this.principal = principal;
+	public void setTYPE(String TYPE){
+		this.TYPE = TYPE;
 	}
 
-	public String getPrincipal(){
-		return principal;
+	public String getTYPE(){
+		return TYPE;
 	}
 
-	public void setCheck_circs(String check_circs){
-		this.check_circs = check_circs;
+	public void setURI(String URI){
+		this.URI = URI;
 	}
 
-	public String getCheck_circs(){
-		return check_circs;
-	}
-
-	public void setHappen_time(Date happen_time){
-		this.happen_time = happen_time;
-	}
-
-	public Date getHappen_time(){
-		return happen_time;
+	public String getURI(){
+		return URI;
 	}
 
 	public void setDate(Date date){
@@ -100,14 +75,6 @@ public class Hidden_Check implements Serializable{
 
 	public Date getDate(){
 		return date;
-	}
-
-	public void setRemark(String remark){
-		this.remark = remark;
-	}
-
-	public String getRemark(){
-		return remark;
 	}
 
 

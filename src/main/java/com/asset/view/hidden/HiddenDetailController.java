@@ -35,8 +35,12 @@ import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.FileConvect;
 import com.asset.tool.FileType;
 import com.asset.tool.MyTestUtil;
+import com.asset.view.AssetOverviewController;
+import com.asset.view.check.AugmentCheckInfoDetailController;
+import com.asset.view.neaten.AugmentNeatenDetailController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
+import com.voucher.manage.daoModel.Assets.Hidden_Data;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
@@ -52,9 +56,11 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -68,6 +74,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Alert.AlertType;
@@ -76,6 +83,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -140,7 +148,13 @@ public class HiddenDetailController {
 	
 	@FXML
 	private Button delete;
-		
+	
+	@FXML
+	private Button addCheckInfo;
+	
+	@FXML
+	private Button addNeaten;
+	
 	private Hidden_Join hidden_Jion;
 	
 	private Stage dialogStage;
@@ -286,6 +300,73 @@ public class HiddenDetailController {
 	                progress=new_val.doubleValue()/50;
 	       });  
 		 
+	     addCheckInfo.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				try {
+		            // Load the fxml file and create a new stage for the popup dialog.
+		            FXMLLoader loader = new FXMLLoader();
+		            loader.setLocation(AssetOverviewController.class.getResource("check/AugmentCheckInfoDetail.fxml"));
+		            AnchorPane page = (AnchorPane) loader.load();
+
+		            // Create the dialog Stage.
+		            Stage dialogStage = new Stage();
+		            dialogStage.setTitle("添加"+hidden_Jion.getName()+"安全检查记录");
+		            dialogStage.initModality(Modality.APPLICATION_MODAL);
+		            Scene scene = new Scene(page);
+		            dialogStage.setScene(scene);
+
+		            // Set the person into the controller.
+		            AugmentCheckInfoDetailController controller = loader.getController();
+		            controller.setDialogStage(dialogStage);
+		            
+		            controller.setHiddenCheckInfo(hidden_Jion);
+		              		          
+		            // Show the dialog and wait until the user closes it
+		            dialogStage.show();
+
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+			}
+			
+		 });
+	     
+	     addNeaten.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				try {
+		            // Load the fxml file and create a new stage for the popup dialog.
+		            FXMLLoader loader = new FXMLLoader();
+		            loader.setLocation(AssetOverviewController.class.getResource("neaten/AugmentNeatenDetail.fxml"));
+		            AnchorPane page = (AnchorPane) loader.load();
+
+		            // Create the dialog Stage.
+		            Stage dialogStage = new Stage();
+		            dialogStage.setTitle("添加"+hidden_Jion.getName()+"安全整顿记录");
+		            dialogStage.initModality(Modality.APPLICATION_MODAL);
+		            Scene scene = new Scene(page);
+		            dialogStage.setScene(scene);
+
+		            // Set the person into the controller.
+		            AugmentNeatenDetailController controller = loader.getController();
+		            controller.setDialogStage(dialogStage);
+		            
+		            controller.setHiddenCheckInfo(hidden_Jion);
+		              		          
+		            // Show the dialog and wait until the user closes it
+		            dialogStage.show();
+
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
+			}
+		});
+	     
 		 hiddenLevel.getSelectionModel().selectedIndexProperty().addListener(new
 				 ChangeListener<Number>() {
 
@@ -592,7 +673,7 @@ public class HiddenDetailController {
 		     	int i=assets.updateHidden(hidden2);
 				
 			    if(names!=null&&fileBytes!=null){
-				   int j=assets.uploadImageFile(hidden_Jion.getGUID(), names, fileBytes);
+				   int j=assets.uploadImageFile(Hidden_Data.class,hidden_Jion.getGUID(), names, fileBytes);
 				   if(j==0){
 					 Alert alert = new Alert(AlertType.ERROR);
 						alert.setTitle("异常堆栈对话框0");

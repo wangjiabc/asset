@@ -47,9 +47,9 @@ public class BaiduMapController {
 	
 	 @FXML
      private void initialize() throws URISyntaxException, ClientProtocolException, IOException {
-		 final URI loginUri=new URI("http://220.166.104.133/voucher/seller/toLogin.do");
-		 final URI betakeUri=new URI("http://220.166.104.133/voucher/baiduMap/get.do");
-		 BasicNameValuePair user;
+		 final URI loginUri=new URI("http://localhost/voucher/seller/toLogin.do");
+		 final URI betakeUri=new URI("http://localhost/voucher/baiduMap/get.do");
+		/* BasicNameValuePair user;
 		 BasicNameValuePair password;
 		 String c;
 		 user = new BasicNameValuePair("campusAdmin", "1");
@@ -62,7 +62,7 @@ public class BaiduMapController {
 	      }catch(NullPointerException e) {
 				// TODO: handle exception
 		 }
-	     
+	     */
 	     webEngine=mapview.getEngine();
 	     
 	     button3.setOnAction(new EventHandler<ActionEvent>() {
@@ -74,9 +74,9 @@ public class BaiduMapController {
 				}
 			 });
 	
-	     new AppendAssetController(mapview,webEngine,appendMap).initCurrent(); 
+	     new AppendAssetController(mapview,webEngine).initCurrent(); 
 	     
-	     new QueryAssetController(mapview, webEngine, queryMap).initCurrent();
+	     new QueryAssetController(mapview, webEngine).initCurrent();
 	}
 
 	 

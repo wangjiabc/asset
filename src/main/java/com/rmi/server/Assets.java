@@ -12,6 +12,7 @@ import com.voucher.manage.daoModel.Assets.Hidden_Neaten;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
 import com.voucher.manage.daoModel.Assets.Position;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 public interface Assets {	
 	
@@ -25,15 +26,19 @@ public interface Assets {
 	public Map<String, Object> findAllRoomInfo_Position(Integer limit, Integer offset, String sort,
 			String order,Map search);
 	
-	public Integer uploadImageFile(String GUID,List<String> names, List<byte[]> files);
+	public Integer uploadImageFile(Object object,String GUID,List<String> names, List<byte[]> files);
 	
-	public Integer uploadPdfFile(String GUID,List<String> names, List<byte[]> files);
+	public Integer uploadPdfFile(Object object,String GUID,List<String> names, List<byte[]> files);
 	
-	public Integer uploadDocFile(String GUID,List<String> names, List<byte[]> files);
+	public Integer uploadDocFile(Object object,String GUID,List<String> names, List<byte[]> files);
 	
-	public Integer uploadXlsFile(String GUID,List<String> names, List<byte[]> files);
+	public Integer uploadXlsFile(Object object,String GUID,List<String> names, List<byte[]> files);
 	
 	public Map<String,Object> selectAllHiddenDate(String GUID);
+	
+	public Map<String,Object> selectAllHiddenCheckDate(String check_id);
+	
+	public Map<String,Object> selectAllHiddenNeatenDate(String neaten_id);
 	
 	public Map<String, Object> selectAllHidden(Integer limit,Integer offset,String sort,String order,
 			Map search);
@@ -72,6 +77,8 @@ public interface Assets {
 	
 	public Integer insertHiddenCheck(Hidden_Check hidden_Check);
 	
+	public Integer updateHiddenCheck(Hidden_Check hidden_Check);
+	
 	public Integer deleteHiddenCheck(Hidden_Check hidden_Check);
 	
 	public Map<String, Object> selectAllHiddenNeaten(Integer limit, Integer offset, String sort,
@@ -79,6 +86,10 @@ public interface Assets {
 	
 	public Integer insertHiddenNeaten(Hidden_Neaten hidden_Neaten);
 	
+	public Integer updateHiddenNeaten(Hidden_Neaten hidden_Neaten);
+	
 	public Integer deleteHiddenNeaten(Hidden_Neaten hidden_Neaten);
+	
+	public List<Hidden_Join> selectHiddenOfMap(Map<String, String> search);
 	
 }
