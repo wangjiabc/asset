@@ -123,6 +123,16 @@
             <TableColumn fx:id="C10" prefWidth="75.0" text="备注" />
                               <TableColumn fx:id="C11" prefWidth="75.0" text="录入时间" />
          </columns>
+         <contextMenu>
+                <ContextMenu fx:id="contextMenu">
+                    <items><MenuItem fx:id="m1" text="删除" /></items>
+                    <items><MenuItem fx:id="m2" text="增加检查记录" /></items>
+                    <items><MenuItem fx:id="m3" text="增加安全整顿记录" /></items>
+                    <items><MenuItem fx:id="m4" text="查看检查记录" /></items>
+                    <items><MenuItem fx:id="m5" text="查看整顿记录" /></items>
+                    <items><MenuItem fx:id="m6" text="查看详情" /></items>
+                </ContextMenu>
+            </contextMenu>
       </TableView>
                         <Pagination fx:id="pagination" layoutX="64.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                         <ListView layoutX="20.0" layoutY="24.0" prefHeight="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />

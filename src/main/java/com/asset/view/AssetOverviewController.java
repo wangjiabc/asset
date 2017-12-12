@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.controlsfx.dialog.Dialogs;
 
@@ -14,6 +15,7 @@ import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
 import com.asset.property.join.Hidden_JoinProperty;
+import com.asset.tool.MenuType;
 import com.asset.tool.MyTestUtil;
 import com.asset.view.assets.AssetsQueryController;
 import com.asset.view.hidden.HiddenDetailController;
@@ -40,8 +42,12 @@ import javafx.scene.Scene;
 import javafx.scene.SubScene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ProgressBar;
@@ -131,7 +137,13 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 private TableColumn<Hidden_JoinProperty,String> C11;
 	 
 	 @FXML
+	 private ContextMenu contextMenu;
+	 
+	 @FXML
 	 private Pagination pagination;
+	 
+	 @FXML
+	 private MenuItem m1;
 	 
 	// private List<Hidden> hiddens;
 	 
@@ -281,6 +293,77 @@ public class AssetOverviewController extends AssetAsSwitch{
 	            	Hidden_JoinProperty rowData = row.getItem();
 	            	table(rowData);
 	            }
+	        });
+	        
+	        row.setOnContextMenuRequested(event->{
+	
+	        	    contextMenu.setOnAction(new EventHandler<ActionEvent>() {
+
+						@Override
+						public void handle(ActionEvent event) {
+							// TODO Auto-generated method stub
+							try{
+								
+							  String GUID=row.getItem().getGUID().get();
+							  String Name=row.getItem().getName().get();
+							  String menuType=MenuType.get(event.getTarget().toString());
+							  
+							  if(menuType.equals("m1")){
+								  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+							        alert.setTitle("安全信息");
+							        alert.setHeaderText("删除");
+							        alert.setContentText("是否删除"+Name+"信息");
+
+							        ButtonType btnType1 = new ButtonType("确定");
+							        ButtonType btnType2 = new ButtonType("取消");
+							     
+
+							        alert.getButtonTypes().setAll(btnType1, btnType2);
+
+							        Optional<ButtonType> result = alert.showAndWait();
+							        result.ifPresent(buttonType -> {
+							            if (buttonType == btnType1) {
+							                try{
+							                String[] where={"GUID=",GUID};
+							                Hidden hidden =new Hidden();
+							                hidden.setId(null);
+							            	hidden.setWhere(where);
+							                int i=assets.deleteHidden(hidden);
+							                if(i==1){
+							                	alert.setTitle("安全信息");
+												alert.setHeaderText("操作");
+												alert.setContentText("删除"+Name+"成功");
+												alert.showAndWait();
+												hiddenTable.setItems(null);
+												setRoomInfoList(offset, limit,searchMap);
+							                }else{
+							                	Alert alert2 = new Alert(AlertType.ERROR);
+												alert2.setTitle("异常堆栈对话框");
+												alert2.setHeaderText("错误");
+												alert2.setContentText("删除"+Name+"失败");
+												alert2.showAndWait();
+							                }
+							                }catch (Exception e) {
+												// TODO: handle exception
+							                	Alert alert2 = new Alert(AlertType.ERROR);
+												alert2.setTitle("异常堆栈对话框");
+												alert2.setHeaderText("错误");
+												alert2.setContentText("删除"+Name+"失败");
+												alert2.showAndWait();
+												e.printStackTrace();
+											}
+							            } else if (buttonType == btnType2) {
+							            	System.out.println("点击了取消");
+							            } 
+							        });
+							  }
+							  
+							 }catch(Exception e){
+								
+							}
+							
+						}
+					});
 	        });
 	        return row ;
 	    });
@@ -433,7 +516,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     
 	     C11.setCellValueFactory(
 	    		 cellData->cellData.getValue().getDate());
-	     
+
 	     int total=(int) map.get("total");
 	     int page=total/10;
 	     

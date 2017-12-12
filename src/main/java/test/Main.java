@@ -1,42 +1,75 @@
 package test;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    private Label msgLbl = new Label("FXML is coll!");
-    private Button sayHelloBtn = new Button("Say Hello");
-    
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
 
-    @Override
-    public void start(Stage stage) {
-        msgLbl.setPrefWidth(150);
-        
-        sayHelloBtn.setOnAction(this::sayHello);
+  @Override
+  public void start(Stage primaryStage) {
+    BorderPane root = new BorderPane();
+    Scene scene = new Scene(root, 300, 250, Color.WHITE);
 
-        VBox root = new VBox(10);
-        root.getChildren().addAll(msgLbl, sayHelloBtn);
-        root.setStyle("-fx-padding: 10;" + 
-                      "-fx-border-style: solid inside;" + 
-                      "-fx-border-width: 2;" +
-                      "-fx-border-insets: 5;" + 
-                      "-fx-border-radius: 5;" + 
-                      "-fx-border-color: blue;");
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Hello FXML");
-        stage.show();       
-    }
-    
-    public void sayHello(ActionEvent e) {
-        msgLbl.setText("Hello from FXML!");
-    }
+    MenuBar menuBar = new MenuBar();
+    menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
+    root.setTop(menuBar);
+
+    // File menu - new, save, exit
+    Menu fileMenu = new Menu("File");
+    MenuItem newMenuItem = new MenuItem("New");
+    MenuItem saveMenuItem = new MenuItem("Save");
+    MenuItem exitMenuItem = new MenuItem("Exit");
+    exitMenuItem.setOnAction(actionEvent -> Platform.exit());
+
+    fileMenu.getItems().addAll(newMenuItem, saveMenuItem,
+        new SeparatorMenuItem(), exitMenuItem);
+
+    Menu webMenu = new Menu("Web");
+    CheckMenuItem htmlMenuItem = new CheckMenuItem("HTML");
+    htmlMenuItem.setSelected(true);
+    webMenu.getItems().add(htmlMenuItem);
+
+    CheckMenuItem cssMenuItem = new CheckMenuItem("CSS");
+    cssMenuItem.setSelected(true);
+    webMenu.getItems().add(cssMenuItem);
+
+    Menu sqlMenu = new Menu("SQL");
+    ToggleGroup tGroup = new ToggleGroup();
+    RadioMenuItem mysqlItem = new RadioMenuItem("MySQL");
+    mysqlItem.setToggleGroup(tGroup);
+
+    RadioMenuItem oracleItem = new RadioMenuItem("Oracle");
+    oracleItem.setToggleGroup(tGroup);
+    oracleItem.setSelected(true);
+
+    sqlMenu.getItems().addAll(mysqlItem, oracleItem,
+        new SeparatorMenuItem());
+
+    Menu tutorialManeu = new Menu("Tutorial");
+    tutorialManeu.getItems().addAll(
+        new CheckMenuItem("Java"),
+        new CheckMenuItem("JavaFX"),
+        new CheckMenuItem("Swing"));
+
+    sqlMenu.getItems().add(tutorialManeu);
+
+    menuBar.getMenus().addAll(fileMenu, webMenu, sqlMenu);
+
+    primaryStage.setScene(scene);
+    primaryStage.show();
+  }
+  public static void main(String[] args) {
+    launch(args);
+  }
 }
