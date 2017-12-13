@@ -37,8 +37,6 @@ import com.asset.tool.FileType;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
-import com.voucher.manage.daoModel.Assets.Hidden_Check;
-import com.voucher.manage.daoModel.Assets.Hidden_Check_Date;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Neaten;
 import com.voucher.manage.daoModel.Assets.Hidden_Neaten_Date;

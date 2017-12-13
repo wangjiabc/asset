@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.voucher.manage.daoModel.RoomInfo;
 import com.voucher.manage.daoModel.Assets.Hidden;
+import com.voucher.manage.daoModel.Assets.Hidden_Assets;
 import com.voucher.manage.daoModel.Assets.Hidden_Check;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Neaten;
@@ -91,5 +92,7 @@ public interface Assets {
 	public Integer deleteHiddenNeaten(Hidden_Neaten hidden_Neaten);
 	
 	public List<Hidden_Join> selectHiddenOfMap(Map<String, String> search);
+	
+	public Integer insertIntoHidden_Assets(Hidden_Assets hidden_Assets);
 	
 }

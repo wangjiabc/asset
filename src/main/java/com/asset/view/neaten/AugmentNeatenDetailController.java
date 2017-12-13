@@ -28,13 +28,10 @@ import com.asset.tool.FileConvect;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
-import com.voucher.manage.daoModel.Assets.Hidden_Check;
-import com.voucher.manage.daoModel.Assets.Hidden_Check_Date;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Neaten;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
-import com.voucher.manage.daoModelJoin.Assets.Hidden_Check_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Neaten_Join;
 
@@ -150,20 +147,12 @@ public class AugmentNeatenDetailController {
 		
 		this.hidden_Join=hidden_Join;
 		
-		searchMap.put("[Assets].[dbo].[Hidden_Check].GUID=", hidden_Join.getGUID());
+		searchMap.put("[Assets].[dbo].[Hidden_Neaten].GUID=", hidden_Join.getGUID());
 		
 		Map map=assets.selectAllHiddenNeaten(limit, offset, null, null, searchMap);
 		  
 	    List<Hidden_Neaten_Join> hidden_Neaten_Joins= (List<Hidden_Neaten_Join>) map.get("rows");
-       /*
-	    if(hidden_Check_Joins!=null){
-	    	this.hidden_Check_Join=hidden_Check_Joins.get(0);
-	    	principal.setText(hidden_Check_Join.getPrincipal());
-	    	checkName.setText(hidden_Check_Join.getCheck_name());
-	    	checkCrics.setText(hidden_Check_Join.getCheck_circs());
-	    	remark.setText(hidden_Check_Join.getRemark());
-	    }
-	    */
+
 	    
 	    
 	}

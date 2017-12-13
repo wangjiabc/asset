@@ -62,8 +62,8 @@
                   </GridPane>
                   <Button fx:id="hiddenWrite" layoutX="28.0" layoutY="301.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="信息录入" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0" />
                   <Button layoutX="18.0" layoutY="363.0" mnemonicParsing="false" onAction="#hiddenButtonAction" prefHeight="30.0" prefWidth="200.0" text="隐患查询" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="350.0" />
-                  <Button layoutX="20.0" layoutY="427.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="统计报表" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" />
-                  <Button layoutX="20.0" layoutY="477.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="安全档案" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="450.0" />
+                  <Button layoutX="20.0" layoutY="427.0" mnemonicParsing="false" onAction="#messageButtonAction" prefHeight="30.0" prefWidth="200.0" text="检查记录" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" />
+                  <Button layoutX="20.0" layoutY="477.0" mnemonicParsing="false" onAction="#informButtonAction" prefHeight="30.0" prefWidth="200.0" text="整顿记录" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="450.0" />
                   <ImageView fx:id="bar" fitHeight="30.0" fitWidth="222.0" layoutX="-37.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />                 
                   <Label fx:id="leftTitleLabel" layoutX="112.0" layoutY="17.0" text="Label" textFill="#fc0d0d" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="10.0">
                      <font>
@@ -73,7 +73,7 @@
                   <ImageView fx:id="danger" fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
                   <ImageView fx:id="report" fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
                   <ImageView fx:id="file" fitHeight="20.0" fitWidth="20.0" layoutX="50.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
-                  <Button layoutX="32.0" layoutY="496.0" mnemonicParsing="false" onAction="#hiddenMapAction" text="隐患地图" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
+                  <Button layoutX="32.0" layoutY="496.0" mnemonicParsing="false" onAction="#workButtonAction" text="设置" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="798.0" prefWidth="738.0">
@@ -91,10 +91,8 @@
                   </ToolBar>
                   <HBox layoutX="407.0" layoutY="296.0" nodeOrientation="LEFT_TO_RIGHT" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
                      <children>
-                        <Button layoutX="132.0" layoutY="311.0" mnemonicParsing="false" onAction="#mainButtonAction" text="主页" />
-                        <Button layoutX="303.0" layoutY="306.0" mnemonicParsing="false" onAction="#messageButtonAction" text="检查记录" />
-                        <Button layoutX="226.0" layoutY="315.0" mnemonicParsing="false" onAction="#informButtonAction" text="整改记录" />
-                        <Button layoutX="404.0" layoutY="310.0" mnemonicParsing="false" onAction="#workButtonAction" text="设置" />
+                        <Button layoutX="132.0" layoutY="311.0" mnemonicParsing="false" onAction="#mainButtonAction" prefHeight="32.0" prefWidth="142.0" text="列表模式" />
+                        <Button layoutX="404.0" layoutY="310.0" mnemonicParsing="false" onAction="#hiddenMapAction" prefHeight="32.0" prefWidth="134.0" text="地图模式" />
                      </children>
                      <padding>
                         <Insets right="10.0" />

@@ -18,13 +18,19 @@ import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.MenuType;
 import com.asset.tool.MyTestUtil;
 import com.asset.view.assets.AssetsQueryController;
+import com.asset.view.check.AugmentCheckInfoDetailController;
+import com.asset.view.check.CheckInfoDetailController;
+import com.asset.view.check.SelectCheckInfoController;
 import com.asset.view.hidden.HiddenDetailController;
+import com.asset.view.hiddenAndAsset.AppendAssetsQueryController;
 import com.asset.view.infowrite.InfoWriteController;
 import com.asset.view.infowrite.InfoWriteController2;
+import com.asset.view.neaten.AugmentNeatenDetailController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Check_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 import javafx.beans.property.DoubleProperty;
@@ -307,6 +313,12 @@ public class AssetOverviewController extends AssetAsSwitch{
 							  String GUID=row.getItem().getGUID().get();
 							  String Name=row.getItem().getName().get();
 							  String menuType=MenuType.get(event.getTarget().toString());
+							  System.out.println(menuType);
+							  
+							  Hidden_Join hidden_Jion=new Hidden_Join();
+							  
+							  hidden_Jion.setGUID(GUID);
+							  hidden_Jion.setName(Name);
 							  
 							  if(menuType.equals("m1")){
 								  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -356,6 +368,126 @@ public class AssetOverviewController extends AssetAsSwitch{
 							            	System.out.println("点击了取消");
 							            } 
 							        });
+							  }
+							  
+							  if(menuType.equals("m2")){
+								  try {
+							            // Load the fxml file and create a new stage for the popup dialog.
+							            FXMLLoader loader = new FXMLLoader();
+							            loader.setLocation(getClass().getResource("check/AugmentCheckInfoDetail.fxml"));
+							            AnchorPane page = (AnchorPane) loader.load();
+
+							            // Create the dialog Stage.
+							            Stage dialogStage = new Stage();
+							            dialogStage.setTitle("添加"+hidden_Jion.getName()+"安全检查记录");
+							            dialogStage.initModality(Modality.APPLICATION_MODAL);
+							            Scene scene = new Scene(page);
+							            dialogStage.setScene(scene);
+
+							            // Set the person into the controller.
+							            AugmentCheckInfoDetailController controller = loader.getController();
+							            controller.setDialogStage(dialogStage);
+							            
+							            controller.setHiddenCheckInfo(hidden_Jion);
+							              		          
+							            // Show the dialog and wait until the user closes it
+							            dialogStage.show();
+
+							        } catch (IOException e) {
+							            e.printStackTrace();
+							        }
+								 
+							  }
+							  
+							  if(menuType.equals("m3")){
+								  try {
+							            // Load the fxml file and create a new stage for the popup dialog.
+							            FXMLLoader loader = new FXMLLoader();
+							            loader.setLocation(AssetOverviewController.class.getResource("neaten/AugmentNeatenDetail.fxml"));
+							            AnchorPane page = (AnchorPane) loader.load();
+
+							            // Create the dialog Stage.
+							            Stage dialogStage = new Stage();
+							            dialogStage.setTitle("添加"+hidden_Jion.getName()+"安全整顿记录");
+							            dialogStage.initModality(Modality.APPLICATION_MODAL);
+							            Scene scene = new Scene(page);
+							            dialogStage.setScene(scene);
+
+							            // Set the person into the controller.
+							            AugmentNeatenDetailController controller = loader.getController();
+							            controller.setDialogStage(dialogStage);
+							            
+							            controller.setHiddenCheckInfo(hidden_Jion);
+							              		          
+							            // Show the dialog and wait until the user closes it
+							            dialogStage.show();
+
+							        } catch (Exception e) {
+							            e.printStackTrace();
+							        }
+								
+							  }
+							  
+							  if(menuType.equals("m4")){
+								  try {
+							            // Load the fxml file and create a new stage for the popup dialog.
+							            FXMLLoader loader = new FXMLLoader();
+							            loader.setLocation(getClass().getResource("check/SelectCheckInfo.fxml"));
+							            AnchorPane page = (AnchorPane) loader.load();
+
+							            // Create the dialog Stage.
+							            Stage dialogStage = new Stage();
+							            dialogStage.setTitle("隐患");
+							            dialogStage.initModality(Modality.APPLICATION_MODAL);
+							            Scene scene = new Scene(page);
+							            dialogStage.setScene(scene);
+
+							            // Set the person into the controller.
+							            SelectCheckInfoController controller = loader.getController();
+							          //  controller.setDialogStage(dialogStage);
+										            	     
+							            searchMap.put("[Assets].[dbo].[Hidden_Check].GUID=",GUID);
+							            
+                                        controller.setSearch(searchMap);						           
+							          
+							            // Show the dialog and wait until the user closes it
+							            dialogStage.show();
+
+							        } catch (Exception e) {
+							            e.printStackTrace();
+							        }
+							  }
+							  
+							  if(menuType.equals("m6")){
+								  try {
+							            // Load the fxml file and create a new stage for the popup dialog.
+							            FXMLLoader loader = new FXMLLoader();
+							            loader.setLocation(getClass().getResource("hiddenAndAsset/AppendAssetsQuery.fxml"));
+							            AnchorPane page = (AnchorPane) loader.load();
+										  System.out.println("xxxxx      "+menuType);
+							            // Create the dialog Stage.
+							            Stage dialogStage = new Stage();
+							            dialogStage.setTitle("选择要添加位置的资产");
+							            dialogStage.initModality(Modality.WINDOW_MODAL);
+							            Scene scene = new Scene(page);
+							            dialogStage.setScene(scene);
+
+							            // Set the person into the controller.
+							            AppendAssetsQueryController controller = loader.getController();
+							            
+							            Hidden hidden=new Hidden();
+							            hidden.setGUID(GUID);
+							            hidden.setName(Name);
+							            
+							            controller.setHidden(hidden);
+							            controller.setDialogStage(dialogStage);
+							            
+							            // Show the dialog and wait until the user closes it
+							            dialogStage.show();
+
+							        } catch (Exception e) {
+							            e.printStackTrace();
+							        }
 							  }
 							  
 							 }catch(Exception e){

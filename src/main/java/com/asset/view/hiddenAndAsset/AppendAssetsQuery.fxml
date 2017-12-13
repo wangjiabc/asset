@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="606.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.hiddenAndAsset.AppendAssetsQueryController">
+   <children>
+      <TableView fx:id="roomTable" minHeight="-Infinity" minWidth="-Infinity" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <columns>
+            <TableColumn fx:id="C1" prefWidth="75.0" text="C1" />
+            <TableColumn fx:id="C2" prefWidth="75.0" text="C2" />
+            <TableColumn fx:id="C3" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="C4" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="C5" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="C6" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="C7" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="C8" prefWidth="75.0" text="Column X" />
+         </columns>
+      </TableView>
+      <Pagination fx:id="pagination" layoutX="64.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <ListView layoutX="20.0" layoutY="24.0" prefHeight="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
+      <GridPane layoutX="40.0" layoutY="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+         <children>
+            <Label text="查询条件">
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </Label>
+            <Label text="关键词 :" GridPane.rowIndex="1">
+               <padding>
+                  <Insets left="30.0" />
+               </padding>
+            </Label>
+            <Button fx:id="search" mnemonicParsing="false" prefWidth="80.0" text="  搜索" GridPane.columnIndex="4" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Button>
+            <TextField fx:id="keyWord" maxHeight="-Infinity" maxWidth="200.0" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
+         </children>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+      </GridPane>
+   </children>
+</AnchorPane>
