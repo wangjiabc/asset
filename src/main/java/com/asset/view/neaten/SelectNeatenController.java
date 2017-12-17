@@ -1,9 +1,10 @@
-package com.asset.view.check;
+package com.asset.view.neaten;
 
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -12,10 +13,13 @@ import org.apache.poi.ss.formula.functions.T;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.join.HiddenCheck_JoinProperty;
+import com.asset.property.join.HiddenNeaten_JoinProperty;
 import com.asset.tool.MyTestUtil;
+import com.asset.view.neaten.NeatenDetailController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Check_Join;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Neaten_Join;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -38,35 +42,35 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class SelectCheckInfoController {
- private ObservableList<HiddenCheck_JoinProperty> hiddenCheckList;
+public class SelectNeatenController {
+	private ObservableList<HiddenNeaten_JoinProperty> hiddenNeatenList;
 	 
 	 @FXML
-	 private TableView<HiddenCheck_JoinProperty> hiddenCheckTable;
+	 private TableView<HiddenNeaten_JoinProperty> hiddenNeatenTable;
 	 
 	 @FXML
-	 private TableColumn<HiddenCheck_JoinProperty,Integer> C1;
+	 private TableColumn<HiddenNeaten_JoinProperty,Integer> C1;
 	 
 	 @FXML
-	 private TableColumn<HiddenCheck_JoinProperty,String> C2;
+	 private TableColumn<HiddenNeaten_JoinProperty,String> C2;
 	 
 	 @FXML
-	 private TableColumn<HiddenCheck_JoinProperty,String> C3;
+	 private TableColumn<HiddenNeaten_JoinProperty,String> C3;
 	 
 	 @FXML
-	 private TableColumn<HiddenCheck_JoinProperty,String> C4;
+	 private TableColumn<HiddenNeaten_JoinProperty,String> C4;
 	 
 	 @FXML
-	 private TableColumn<HiddenCheck_JoinProperty,String> C5;
+	 private TableColumn<HiddenNeaten_JoinProperty,String> C5;
 	 
 	 @FXML
-	 private TableColumn<HiddenCheck_JoinProperty,String> C6;
+	 private TableColumn<HiddenNeaten_JoinProperty,String> C6;
 	 
 	 @FXML
-	 private TableColumn<HiddenCheck_JoinProperty,ProgressBar> C7;
+	 private TableColumn<HiddenNeaten_JoinProperty,ProgressBar> C7;
 	 
 	 @FXML
-	 private TableColumn<HiddenCheck_JoinProperty,String> C8;
+	 private TableColumn<HiddenNeaten_JoinProperty,String> C8;
 	 
 	 @FXML
 	 private Pagination pagination;
@@ -82,9 +86,9 @@ public class SelectCheckInfoController {
 	 
 	 private Map<String,String> searchMap=new HashMap<>();
 	 
-	 private List<Hidden_Check_Join> hidden_Checks;
+	 private List<Hidden_Neaten_Join> hidden_neatens;
 	 
-     private Stage dialogStage;
+    private Stage dialogStage;
 	 
 	 private Integer offset=0;
 	 
@@ -118,11 +122,11 @@ public class SelectCheckInfoController {
 		    });
 	     
 
-			 hiddenCheckTable.setRowFactory( tv -> {
-			        TableRow<HiddenCheck_JoinProperty> row = new TableRow<>();
+			 hiddenNeatenTable.setRowFactory( tv -> {
+			        TableRow<HiddenNeaten_JoinProperty> row = new TableRow<>();
 			        row.setOnMouseClicked(event -> {
 			            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-			            	HiddenCheck_JoinProperty rowData = row.getItem();
+			            	HiddenNeaten_JoinProperty rowData = row.getItem();
 			            	table(rowData);
 			            }
 			        });
@@ -133,35 +137,35 @@ public class SelectCheckInfoController {
 	 }
 	 
 	 
-	 private void table(HiddenCheck_JoinProperty newValue){
+	 private void table(HiddenNeaten_JoinProperty newValue){
 		 try {
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(getClass().getResource("SelectCheckInfoDetail.fxml"));
+	            loader.setLocation(getClass().getResource("NeatenDetail.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle("隐患");
+	            dialogStage.setTitle(newValue.getName()+"隐患整顿记录");
 	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
 
 	            // Set the person into the controller.
-	            SelectCheckInfoDetailController controller = loader.getController();
+	            NeatenDetailController controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
-	            controller.setTableView(hiddenCheckTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
+	           controller.setTableView(hiddenNeatenTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
 	            	     
-	            System.out.println("check_id="+newValue.getCheck_id());
-	            searchMap.put("[Assets].[dbo].[Hidden_Check].check_id=",newValue.getCheck_id().get());
+	            System.out.println("check_id="+newValue.getNeaten_id());
+	            searchMap.put("[Assets].[dbo].[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
 	            
-	            Map map=assets.selectAllHiddenCheck(limit, offset, null, null, searchMap);
+	           Map map=assets.selectAllHiddenNeaten(limit, offset, null, null, searchMap);
 	            
-	            List<Hidden_Check_Join> hidden_Check_Joins= (List<Hidden_Check_Join>) map.get("rows");
-	            MyTestUtil.print(hidden_Check_Joins);
+	            List<Hidden_Neaten_Join> hidden_Neaten_Joins=  (List<Hidden_Neaten_Join>) map.get("rows");
+	            MyTestUtil.print(hidden_Neaten_Joins);
 	            try{
-	               Hidden_Check_Join hidden_Check_Join=hidden_Check_Joins.get(0);            
-	               controller.setHiddenCheckInfo(hidden_Check_Join);
+	               Hidden_Neaten_Join hidden_Check_Join=hidden_Neaten_Joins.get(0);            
+	               controller.setHiddenNeaten(hidden_Check_Join);
 	            }catch (Exception e) {
 					// TODO: handle exception
 	            	e.printStackTrace();
@@ -183,21 +187,21 @@ public class SelectCheckInfoController {
 		  Map map=new HashMap<>();
 		  
 		  	
-		  map=assets.selectAllHiddenCheck(limit, offset, sort, order, search);
+		  map=assets.selectAllHiddenNeaten(limit, offset, sort, order, search);
 		  
-	     hidden_Checks= (List<Hidden_Check_Join>) map.get("rows");
-	     MyTestUtil.print(hidden_Checks);
+	     hidden_neatens= (List<Hidden_Neaten_Join>) map.get("rows");
+	     MyTestUtil.print(hidden_neatens);
 	     
-	     hiddenCheckList= (ObservableList<HiddenCheck_JoinProperty>) new RowData(hidden_Checks,HiddenCheck_JoinProperty.class).get();
+	     hiddenNeatenList= (ObservableList<HiddenNeaten_JoinProperty>) new RowData(hidden_neatens,HiddenNeaten_JoinProperty.class).get();
 	     
-	     java.util.Iterator<HiddenCheck_JoinProperty> iterator=hiddenCheckList.iterator();
+	     Iterator<HiddenNeaten_JoinProperty> iterator=hiddenNeatenList.iterator();
 	    
 	     while (iterator.hasNext()) {
 			System.out.println("hiddenlist="+iterator.next().getDate());
 		}
 	     
-	    hiddenCheckTable.setItems(hiddenCheckList);
-   
+	    hiddenNeatenTable.setItems(hiddenNeatenList);
+  
 	     C1.setCellValueFactory(
 	                cellData -> cellData.getValue().getId().asObject());
 	     C2.setCellValueFactory(
@@ -205,17 +209,17 @@ public class SelectCheckInfoController {
 	     C3.setCellValueFactory(
 	    		    cellData->cellData.getValue().getPrincipal());
 	     C4.setCellValueFactory(
-	    		    cellData->cellData.getValue().getCheck_name());
+	    		    cellData->cellData.getValue().getNeaten_name());
 	     C5.setCellValueFactory(
-	    		    cellData->cellData.getValue().getCheck_circs());
+	    		    cellData->cellData.getValue().getNeaten_instance());
 	     C6.setCellValueFactory(
 	    		    cellData->cellData.getValue().getHappen_time());	
 	     
 	     C7.setCellValueFactory(
-	    		    new Callback<TableColumn.CellDataFeatures<HiddenCheck_JoinProperty,ProgressBar>, ObservableValue<ProgressBar>>() {
+	    		    new Callback<TableColumn.CellDataFeatures<HiddenNeaten_JoinProperty,ProgressBar>, ObservableValue<ProgressBar>>() {
 						
 						@Override
-						public ObservableValue<ProgressBar> call(CellDataFeatures<HiddenCheck_JoinProperty, ProgressBar> param) {
+						public ObservableValue<ProgressBar> call(CellDataFeatures<HiddenNeaten_JoinProperty, ProgressBar> param) {
 							// TODO Auto-generated method stub
 							DoubleProperty d=param.getValue().getProgress();
 							Double dd=d.doubleValue();
@@ -232,7 +236,7 @@ public class SelectCheckInfoController {
 	     int page=total/10;
 	     
 	     if(total-page*10>0)
-      page++;	     
+     page++;	     
 	     System.out.println("page="+page);
 	     pagination.setPageCount(page);
 	     	     
@@ -247,5 +251,4 @@ public class SelectCheckInfoController {
 			dialogStage.close();
 		}
 		
-	 
 }

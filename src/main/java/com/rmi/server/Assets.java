@@ -13,6 +13,7 @@ import com.voucher.manage.daoModel.Assets.Hidden_Neaten;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
 import com.voucher.manage.daoModel.Assets.Position;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Data_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 public interface Assets {	
@@ -95,4 +96,18 @@ public interface Assets {
 	
 	public Integer insertIntoHidden_Assets(Hidden_Assets hidden_Assets);
 	
+	public Integer deleteHidden_Assets(Hidden_Assets hidden_Assets);
+	
+	public Map findAssetByHideen(Integer limit, Integer offset, String sort, String order,
+			Map<String, String> search);
+	
+	public Integer findNotHidden();
+	
+	public Integer findInHidden();
+	
+	public String findLastHidden();
+	
+	public String  findIgnoreHidden();
+	
+	public List<Hidden_Data_Join> hiddenQuery(Integer hiddenLevel);
 }

@@ -71,11 +71,15 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
@@ -90,10 +94,7 @@ import javafx.util.Callback;
 public class HiddenDetailController {
 	@FXML
 	private TextField hiddenName;//隐患名称
-	//@FXML
-	//private TextField progress;//整改进度
-	@FXML
-	private TextField hiddenDetail;//隐患情况
+
 
 	@FXML
 	private TextField hiddenState;//隐患状态
@@ -120,16 +121,13 @@ public class HiddenDetailController {
 	private DatePicker happenTime;//发生时间
 	
 	@FXML
-	private HBox imageHBox;
+	private TextArea hiddenDetail;
 	
 	@FXML
-	private HBox wordHBox;
+	private FlowPane imagePane;
 	
 	@FXML
-	private HBox excelHBox;
-	
-	@FXML
-	private HBox pdfHBox;
+	private FlowPane filePane;
 	
 	@FXML
 	private Button switchImage;
@@ -147,14 +145,8 @@ public class HiddenDetailController {
 	private Button update;
 	
 	@FXML
-	private Button delete;
-	
-	@FXML
-	private Button addCheckInfo;
-	
-	@FXML
-	private Button addNeaten;
-	
+	private Button exit;
+		
 	private Hidden_Join hidden_Jion;
 	
 	private Stage dialogStage;
@@ -256,35 +248,7 @@ public class HiddenDetailController {
 	 }
 	
 	 @FXML
-	 private void initialize() {
-		 
-		 imageHBox.setStyle("-fx-padding: 10;" + 
-                 "-fx-border-style: solid inside;" + 
-                 "-fx-border-width: 2;" +
-                 "-fx-border-insets: 5;" + 
-                 "-fx-border-radius: 5;" + 
-                 "-fx-border-color: blue;");
-		 
-		 wordHBox.setStyle("-fx-padding: 10;" + 
-                 "-fx-border-style: solid inside;" + 
-                 "-fx-border-width: 2;" +
-                 "-fx-border-insets: 5;" + 
-                 "-fx-border-radius: 5;" + 
-                 "-fx-border-color: blue;");
-		 
-		 excelHBox.setStyle("-fx-padding: 10;" + 
-                 "-fx-border-style: solid inside;" + 
-                 "-fx-border-width: 2;" +
-                 "-fx-border-insets: 5;" + 
-                 "-fx-border-radius: 5;" + 
-                 "-fx-border-color: blue;");
-		 
-		 pdfHBox.setStyle("-fx-padding: 10;" + 
-                 "-fx-border-style: solid inside;" + 
-                 "-fx-border-width: 2;" +
-                 "-fx-border-insets: 5;" + 
-                 "-fx-border-radius: 5;" + 
-                 "-fx-border-color: blue;");
+	 private void initialize() {		 
 		 
 		 Assets assets=new Connect().getAssets();
 
@@ -300,72 +264,6 @@ public class HiddenDetailController {
 	                progress=new_val.doubleValue()/50;
 	       });  
 		 
-	     addCheckInfo.setOnAction(new EventHandler<ActionEvent>() {
-
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				try {
-		            // Load the fxml file and create a new stage for the popup dialog.
-		            FXMLLoader loader = new FXMLLoader();
-		            loader.setLocation(AssetOverviewController.class.getResource("check/AugmentCheckInfoDetail.fxml"));
-		            AnchorPane page = (AnchorPane) loader.load();
-
-		            // Create the dialog Stage.
-		            Stage dialogStage = new Stage();
-		            dialogStage.setTitle("添加"+hidden_Jion.getName()+"安全检查记录");
-		            dialogStage.initModality(Modality.APPLICATION_MODAL);
-		            Scene scene = new Scene(page);
-		            dialogStage.setScene(scene);
-
-		            // Set the person into the controller.
-		            AugmentCheckInfoDetailController controller = loader.getController();
-		            controller.setDialogStage(dialogStage);
-		            
-		            controller.setHiddenCheckInfo(hidden_Jion);
-		              		          
-		            // Show the dialog and wait until the user closes it
-		            dialogStage.show();
-
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-			}
-			
-		 });
-	     
-	     addNeaten.setOnAction(new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent event) {
-				// TODO Auto-generated method stub
-				try {
-		            // Load the fxml file and create a new stage for the popup dialog.
-		            FXMLLoader loader = new FXMLLoader();
-		            loader.setLocation(AssetOverviewController.class.getResource("neaten/AugmentNeatenDetail.fxml"));
-		            AnchorPane page = (AnchorPane) loader.load();
-
-		            // Create the dialog Stage.
-		            Stage dialogStage = new Stage();
-		            dialogStage.setTitle("添加"+hidden_Jion.getName()+"安全整顿记录");
-		            dialogStage.initModality(Modality.APPLICATION_MODAL);
-		            Scene scene = new Scene(page);
-		            dialogStage.setScene(scene);
-
-		            // Set the person into the controller.
-		            AugmentNeatenDetailController controller = loader.getController();
-		            controller.setDialogStage(dialogStage);
-		            
-		            controller.setHiddenCheckInfo(hidden_Jion);
-		              		          
-		            // Show the dialog and wait until the user closes it
-		            dialogStage.show();
-
-		        } catch (IOException e) {
-		            e.printStackTrace();
-		        }
-			}
-		});
 	     
 		 hiddenLevel.getSelectionModel().selectedIndexProperty().addListener(new
 				 ChangeListener<Number>() {
@@ -444,7 +342,7 @@ public class HiddenDetailController {
                     vBox.getChildren().add(label);
                     vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
                     vBox.setMargin(label, new Insets(0, 10, 0, 10));
-                    imageHBox.getChildren().add(vBox);
+                    imagePane.getChildren().add(vBox);
                     names.add(file.getName());
                     byte[] fileByte=FileConvect.fileToByte(file);
                     fileBytes.add(fileByte);
@@ -501,7 +399,7 @@ public class HiddenDetailController {
 	                    vBox.getChildren().add(label);
 	                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
 	                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
-	                    wordHBox.getChildren().add(vBox);
+	                    filePane.getChildren().add(vBox);
 	                    names.add(file.getName());
 	                    byte[] fileByte=FileConvect.fileToByte(file);
 	                    fileBytes.add(fileByte);
@@ -559,7 +457,7 @@ public class HiddenDetailController {
 	                    vBox.getChildren().add(label);
 	                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
 	                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
-	                    excelHBox.getChildren().add(vBox);
+	                    filePane.getChildren().add(vBox);
 	                    names.add(file.getName());
 	                    byte[] fileByte=FileConvect.fileToByte(file);
 	                    fileBytes.add(fileByte);
@@ -612,7 +510,7 @@ public class HiddenDetailController {
 	                    vBox.getChildren().add(label);
 	                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
 	                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
-	                    pdfHBox.getChildren().add(vBox);
+	                    filePane.getChildren().add(vBox);
 	                    names.add(file.getName());
 	                    byte[] fileByte=FileConvect.fileToByte(file);
 	                    fileBytes.add(fileByte);
@@ -663,7 +561,7 @@ public class HiddenDetailController {
 	                	hidden2.setProgress(progress);
 	                }
 	                if(hiddenDetail!=null){
-						 hidden2.setDetail(hiddenDetail.getText());
+	                	hidden2.setDetail(hiddenDetail.getText());
 	                }
 	                if(hiddenRemark!=null){
 	                	hidden2.setRemark(hiddenRemark.getText());
@@ -712,59 +610,12 @@ public class HiddenDetailController {
 			}		
 		 });
 		 
-		 delete.setOnAction(new EventHandler<ActionEvent>() {
+		 exit.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-			        alert.setTitle("安全信息");
-			        alert.setHeaderText("删除");
-			        alert.setContentText("是否删除"+hidden_Jion.getId()+"信息");
-
-			        ButtonType btnType1 = new ButtonType("确定");
-			        ButtonType btnType2 = new ButtonType("取消");
-			     
-
-			        alert.getButtonTypes().setAll(btnType1, btnType2);
-
-			        Optional<ButtonType> result = alert.showAndWait();
-			        result.ifPresent(buttonType -> {
-			            if (buttonType == btnType1) {
-			                try{
-			                String[] where={"id=",String.valueOf(hidden_Jion.getId())};
-			                Hidden hidden =new Hidden();
-			                hidden.setId(null);
-			            	hidden.setWhere(where);
-			                int i=assets.deleteHidden(hidden);
-			                if(i==1){
-			                	alert.setTitle("安全信息");
-								alert.setHeaderText("操作");
-								alert.setContentText("删除"+hidden_Jion.getId()+"成功");
-								alert.showAndWait();
-								hiddenTable.setItems(null);
-								setRoomInfoList(offset, limit,searchMap);
-								handleCancel();
-			                }else{
-			                	Alert alert2 = new Alert(AlertType.ERROR);
-								alert2.setTitle("异常堆栈对话框");
-								alert2.setHeaderText("错误");
-								alert2.setContentText("删除"+hidden_Jion.getId()+"失败");
-								alert2.showAndWait();
-			                }
-			                }catch (Exception e) {
-								// TODO: handle exception
-			                	Alert alert2 = new Alert(AlertType.ERROR);
-								alert2.setTitle("异常堆栈对话框");
-								alert2.setHeaderText("错误");
-								alert2.setContentText("删除"+hidden_Jion.getId()+"失败");
-								alert2.showAndWait();
-								e.printStackTrace();
-							}
-			            } else if (buttonType == btnType2) {
-			            	System.out.println("点击了取消");
-			            } 
-			        });
+			    handleCancel();
 			}
 		});
 		 
@@ -787,12 +638,12 @@ public class HiddenDetailController {
 		 this.hidden_Jion=hidden_Jion;
 		 System.out.println("guid="+hidden_Jion.getGUID());
 		 hiddenName.setText(String.valueOf(hidden_Jion.getName()));
-		 hiddenDetail.setText(hidden_Jion.getDetail());
+
 		 hiddenState.setText(hidden_Jion.getState());
 		 
 		 slider.setValue(hidden_Jion.getProgress()*50); 
 	     pi.setProgress(hidden_Jion.getProgress());
-		
+		 hiddenDetail.setText(hidden_Jion.getDetail());
 	     hidden_Levels=assets.setctAllHiddenLevel();		 
 		 Integer level=null;
 		 int i=0;
@@ -922,13 +773,13 @@ public class HiddenDetailController {
                 vBox.setMargin(label, new Insets(0, 10, 0, 10));                
 
                 if(FileType.testImage(fileType)){
-                     imageHBox.getChildren().add(vBox);
+                      imagePane.getChildren().add(vBox);
 			    }else if(FileType.testDoc(fileType)){
-                      wordHBox.getChildren().add(vBox);
+                      filePane.getChildren().add(vBox);
 			    }else if(FileType.testXls(fileType)){
-                      excelHBox.getChildren().add(vBox);
+                      filePane.getChildren().add(vBox);
 			    }else if(FileType.testPdf(fileType)){
-                      pdfHBox.getChildren().add(vBox);
+                      filePane.getChildren().add(vBox);
 			    }
                 
                 imageFile.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {

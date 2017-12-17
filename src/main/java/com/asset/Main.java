@@ -49,6 +49,7 @@ public class Main extends Application{
 	            // Show the scene containing the root layout.
 	            Scene scene = new Scene(rootLayout);
 	            primaryStage.setScene(scene);
+	          //  primaryStage.setFullScreen(true);
 	            primaryStage.show();
 	        } catch (IOException e) {
 	            e.printStackTrace();
@@ -65,14 +66,14 @@ public class Main extends Application{
 	            FXMLLoader loader = new FXMLLoader();
 	            loader.setLocation(MainApp.class.getResource("view/AssetOverview.fxml"));
 	            AnchorPane personOverview = (AnchorPane) loader.load();
-
+                
 	            // Set person overview into the center of root layout.
 	            rootLayout.setCenter(personOverview);
 
 	            // Give the controller access to the main app.
 	            AssetOverviewController controller = loader.getController();
 	            controller.setMain(this);
-
+               
 	        } catch (IOException e) {
 	            e.printStackTrace();
 

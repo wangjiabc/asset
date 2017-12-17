@@ -25,8 +25,8 @@
                   <ImageView fx:id="hardImage" fitHeight="60.0" fitWidth="60.0" layoutX="15.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="45.0" />
                   <GridPane layoutX="-18.0" layoutY="45.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="60.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="40.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="103.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.0" minWidth="10.0" prefWidth="104.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -36,13 +36,13 @@
                     </rowConstraints>
                      <children>
                         <Label text="未整改隐患:" />
-                        <Label text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="firstName3Label" prefHeight="20.0" prefWidth="50.0" text="Label" GridPane.columnIndex="1" />
                         <Label text="整改中隐患:" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label fx:id="firstName4Label" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="上一次排查:" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label fx:id="firstName5Label" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Label text="隐患忽略时间:" GridPane.rowIndex="3" />
-                        <Label text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label fx:id="firstName6Label" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                   <GridPane layoutX="88.0" layoutY="14.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0">
@@ -55,9 +55,9 @@
                         <RowConstraints prefHeight="20.0" />
                     </rowConstraints>
                      <children>
-                        <Label text="工投集团公司" />
-                        <Label fx:id="firstNameLabel" text="kk" GridPane.rowIndex="1" />
-                        <Label text="kk" GridPane.rowIndex="2" />
+                        <Label fx:id="firstName0Label" text="工投集团公司" />
+                        <Label fx:id="firstName1Label" text="kk" GridPane.rowIndex="1" />
+                        <Label fx:id="firstName2Label" text="kk" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                   <Button fx:id="hiddenWrite" layoutX="28.0" layoutY="301.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="信息录入" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0" />

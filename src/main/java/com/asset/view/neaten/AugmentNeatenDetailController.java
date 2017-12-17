@@ -63,6 +63,7 @@ import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -105,18 +106,12 @@ public class AugmentNeatenDetailController {
 	 
 	 private List<byte[]> fileBytes=new ArrayList<byte[]>();
 	 
-	 @FXML
-		private HBox imageHBox;
-		
-		@FXML
-		private HBox wordHBox;
-		
-		@FXML
-		private HBox excelHBox;
-		
-		@FXML
-		private HBox pdfHBox;
+	 	@FXML
+		private FlowPane imagePane;
 	 
+	 	@FXML
+		private FlowPane filePane;
+	 	
 		@FXML
 		private Button switchImage;
 		
@@ -160,34 +155,6 @@ public class AugmentNeatenDetailController {
 	@FXML
     private void initialize() {
 	 
-		imageHBox.setStyle("-fx-padding: 10;" + 
-                "-fx-border-style: solid inside;" + 
-                "-fx-border-width: 2;" +
-                "-fx-border-insets: 5;" + 
-                "-fx-border-radius: 5;" + 
-                "-fx-border-color: blue;");
-		 
-		 wordHBox.setStyle("-fx-padding: 10;" + 
-                "-fx-border-style: solid inside;" + 
-                "-fx-border-width: 2;" +
-                "-fx-border-insets: 5;" + 
-                "-fx-border-radius: 5;" + 
-                "-fx-border-color: blue;");
-		 
-		 excelHBox.setStyle("-fx-padding: 10;" + 
-                "-fx-border-style: solid inside;" + 
-                "-fx-border-width: 2;" +
-                "-fx-border-insets: 5;" + 
-                "-fx-border-radius: 5;" + 
-                "-fx-border-color: blue;");
-		 
-		 pdfHBox.setStyle("-fx-padding: 10;" + 
-                "-fx-border-style: solid inside;" + 
-                "-fx-border-width: 2;" +
-                "-fx-border-insets: 5;" + 
-                "-fx-border-radius: 5;" + 
-                "-fx-border-color: blue;");
-		
 		 FileChooser fileChooser = new FileChooser();
 		 
 		 switchImage.setOnAction(new EventHandler<ActionEvent>() {
@@ -231,7 +198,7 @@ public class AugmentNeatenDetailController {
 	                    vBox.getChildren().add(label);
 	                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
 	                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
-	                    imageHBox.getChildren().add(vBox);
+	                    imagePane.getChildren().add(vBox);
 	                    names.add(file.getName());
 	                    byte[] fileByte=FileConvect.fileToByte(file);
 	                    fileBytes.add(fileByte);
@@ -288,7 +255,7 @@ public class AugmentNeatenDetailController {
 		                    vBox.getChildren().add(label);
 		                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
 		                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
-		                    wordHBox.getChildren().add(vBox);
+		                    filePane.getChildren().add(vBox);
 		                    names.add(file.getName());
 		                    byte[] fileByte=FileConvect.fileToByte(file);
 		                    fileBytes.add(fileByte);
@@ -346,7 +313,7 @@ public class AugmentNeatenDetailController {
 		                    vBox.getChildren().add(label);
 		                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
 		                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
-		                    excelHBox.getChildren().add(vBox);
+		                    filePane.getChildren().add(vBox);
 		                    names.add(file.getName());
 		                    byte[] fileByte=FileConvect.fileToByte(file);
 		                    fileBytes.add(fileByte);
@@ -399,7 +366,7 @@ public class AugmentNeatenDetailController {
 		                    vBox.getChildren().add(label);
 		                    vBox.setMargin(imageFile, new Insets(0, 10, 0, 10));
 		                    vBox.setMargin(label, new Insets(0, 10, 0, 10));
-		                    pdfHBox.getChildren().add(vBox);
+		                    filePane.getChildren().add(vBox);
 		                    names.add(file.getName());
 		                    byte[] fileByte=FileConvect.fileToByte(file);
 		                    fileBytes.add(fileByte);

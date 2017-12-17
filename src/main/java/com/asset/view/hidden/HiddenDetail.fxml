@@ -8,41 +8,10 @@
 
 <AnchorPane prefHeight="823.0" prefWidth="967.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.hidden.HiddenDetailController">
    <children>
-      <Button fx:id="update" layoutX="749.0" layoutY="756.0" mnemonicParsing="false" text="更新" />
-      <Button fx:id="delete" layoutX="862.0" layoutY="756.0" mnemonicParsing="false" text="删除" />
-      <VBox layoutX="762.0" layoutY="512.0" AnchorPane.rightAnchor="40.0">
-         <children>
-            <Button fx:id="switchImage" layoutX="763.0" layoutY="512.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传图片">
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="switchDoc" layoutX="763.0" layoutY="564.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传word">
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="switchExcel" layoutX="762.0" layoutY="619.0" mnemonicParsing="false" text="选择上传excel">
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
-            </Button>
-            <Button fx:id="switchPdf" layoutX="766.0" layoutY="675.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传pdf">
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
-            </Button>
-         </children>
-      </VBox>
-      <VBox layoutX="121.0" layoutY="332.0" prefHeight="404.0" prefWidth="614.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="200.0">
-         <children>
-            <HBox fx:id="imageHBox" layoutX="73.0" layoutY="338.0" maxWidth="1.7976931348623157E308" prefHeight="100.0" style="-fx-border-width: black;" />
-            <HBox fx:id="wordHBox" layoutX="100.0" layoutY="530.0" maxWidth="1.7976931348623157E308" prefHeight="100.0" />
-            <HBox fx:id="excelHBox" layoutX="92.0" layoutY="625.0" maxWidth="1.7976931348623157E308" prefHeight="100.0" />
-            <HBox fx:id="pdfHBox" maxWidth="1.7976931348623157E308" prefHeight="100.0" />
-         </children>
-      </VBox>
-      <GridPane layoutX="42.0" layoutY="27.0" prefHeight="282.0" prefWidth="739.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="27.0">
+      <Button fx:id="update" layoutX="753.0" layoutY="772.0" mnemonicParsing="false" text="更新" />
+      <Button fx:id="exit" layoutX="864.0" layoutY="772.0" mnemonicParsing="false" text="退出" />
+      <VBox layoutX="762.0" layoutY="512.0" AnchorPane.rightAnchor="20.0" />
+      <GridPane layoutX="42.0" layoutY="27.0" prefHeight="200.0" prefWidth="739.0" AnchorPane.leftAnchor="42.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="27.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="91.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="332.0" minWidth="10.0" prefWidth="245.0" />
@@ -54,7 +23,6 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="隐患名称" GridPane.halignment="CENTER" />
@@ -62,14 +30,12 @@
             <Label text="隐患级别 " GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <TextField fx:id="hiddenName" GridPane.columnIndex="1" />
             <ChoiceBox fx:id="hiddenLevel" prefHeight="23.0" prefWidth="319.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="隐患详情" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <TextField fx:id="hiddenDetail" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label text="整改进度" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
             <Label text="隐患状态" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label text="备注" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <Label text="负责人" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label text="发生时间" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <DatePicker fx:id="happenTime" prefHeight="23.0" prefWidth="333.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="发生时间" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <DatePicker fx:id="happenTime" prefHeight="23.0" prefWidth="333.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <TextField fx:id="hiddenState" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <TextField fx:id="hiddenRemark" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <ProgressIndicator fx:id="pi" progress="0.0" GridPane.columnIndex="3">
@@ -86,11 +52,33 @@
             <ChoiceBox fx:id="hiddenPrincipal" prefWidth="319.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button fx:id="addNeaten" layoutX="789.0" layoutY="439.0" mnemonicParsing="false" text="添加安全整顿记录" AnchorPane.rightAnchor="30.0" />
-      <Button fx:id="addCheckInfo" layoutX="787.0" layoutY="348.0" mnemonicParsing="false" text="添加安全检查记录" AnchorPane.rightAnchor="30.0" />
-      <Label layoutX="40.0" layoutY="370.0" text="图片" AnchorPane.leftAnchor="40.0" />
-      <Label layoutX="40.0" layoutY="461.0" text="文档" AnchorPane.leftAnchor="40.0" />
-      <Label layoutX="40.0" layoutY="563.0" text="表格" AnchorPane.leftAnchor="40.0" />
-      <Label layoutX="43.0" layoutY="663.0" text="pdf" AnchorPane.leftAnchor="43.0" />
+      <Label layoutX="88.0" layoutY="227.0" text="隐患详情" />
+      <TextArea fx:id="hiddenDetail" layoutX="79.0" layoutY="256.0" prefHeight="101.0" prefWidth="855.0" />
+      <TabPane layoutX="79.0" layoutY="373.0" prefHeight="389.0" prefWidth="737.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="30.0">
+        <tabs>
+          <Tab text="隐患图片">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <FlowPane fx:id="imagePane" layoutX="47.0" layoutY="37.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="10.0" />
+                        <Button fx:id="switchImage" layoutX="584.0" layoutY="296.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传图片" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="隐患文档">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <FlowPane fx:id="filePane" layoutX="20.0" layoutY="24.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="10.0" />
+                        <Button fx:id="switchDoc" layoutX="584.0" layoutY="155.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传word" AnchorPane.rightAnchor="10.0" />
+                        <Button fx:id="switchExcel" layoutX="593.0" layoutY="221.0" mnemonicParsing="false" text="选择上传excel" AnchorPane.rightAnchor="7.0" />
+                        <Button fx:id="switchPdf" layoutX="600.0" layoutY="291.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="32.0" prefWidth="122.0" text="选择上传pdf" AnchorPane.rightAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

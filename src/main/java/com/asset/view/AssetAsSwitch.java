@@ -5,9 +5,11 @@ import java.net.URL;
 import java.util.Iterator;
 
 import com.asset.Main;
+import com.asset.database.Connect;
 import com.asset.view.hidden.HiddenDetailController;
 import com.asset.view.infowrite.InfoWriteController;
 import com.asset.view.map.BaiduMapController;
+import com.rmi.server.Assets;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -50,7 +52,26 @@ public abstract class AssetAsSwitch {
 	 ImageView file;
 	 
 	 @FXML
-	  Label firstNameLabel;
+	  Label firstName0Label;
+	 
+	 @FXML
+	  Label firstName1Label;
+	 
+	 @FXML
+	  Label firstName2Label;
+	 
+	 @FXML
+	  Label firstName3Label;
+	
+	 @FXML
+	  Label firstName4Label;
+	
+	 @FXML
+	  Label firstName5Label;
+	
+	 @FXML
+	  Label firstName6Label;
+	 
 	 
 	 @FXML
 	  Label leftTitleLabel;
@@ -61,19 +82,39 @@ public abstract class AssetAsSwitch {
 	 @FXML
 	  Button hiddenMap;
 	 
+	 Assets assets= new Connect().get();
+	 
 	 @FXML
 	 protected void initialize() {
 		    URL url = getClass().getResource("");
 	    	
 	    	String filePath=url.toString()+"Image";
-	        Image image = new Image(filePath+"/apple.png");
+	        Image image = new Image(filePath+"/people.jpg");
 
 	        hardImage.setImage(image);
 	        
 	        image = new Image(filePath+"/bar.jpg");
 	        bar.setImage(image);
-            firstNameLabel.setText("aaa");
-           
+	        
+	        firstName0Label.setText("兴泸投资集团");
+            firstName1Label.setText("职务");
+            firstName2Label.setText("管理员");
+            
+            int not=assets.findNotHidden();
+            
+            firstName3Label.setText(String.valueOf(not)+"处");
+            
+            int in=assets.findInHidden();
+            
+            firstName4Label.setText(String.valueOf(in)+"处");
+            
+            String last=assets.findLastHidden();
+            
+            firstName5Label.setText(String.valueOf(last));
+            
+            String ignore=assets.findIgnoreHidden();
+            
+            firstName6Label.setText(String.valueOf(ignore)+"天");
             
             image = new Image(filePath+"/note.png");
 	        note.setImage(image);

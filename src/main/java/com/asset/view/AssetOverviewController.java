@@ -26,6 +26,7 @@ import com.asset.view.hiddenAndAsset.AppendAssetsQueryController;
 import com.asset.view.infowrite.InfoWriteController;
 import com.asset.view.infowrite.InfoWriteController2;
 import com.asset.view.neaten.AugmentNeatenDetailController;
+import com.asset.view.neaten.SelectNeatenController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
@@ -437,7 +438,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 
 							            // Create the dialog Stage.
 							            Stage dialogStage = new Stage();
-							            dialogStage.setTitle("隐患");
+							            dialogStage.setTitle(Name+"隐患检查记录");
 							            dialogStage.initModality(Modality.APPLICATION_MODAL);
 							            Scene scene = new Scene(page);
 							            dialogStage.setScene(scene);
@@ -445,10 +446,41 @@ public class AssetOverviewController extends AssetAsSwitch{
 							            // Set the person into the controller.
 							            SelectCheckInfoController controller = loader.getController();
 							          //  controller.setDialogStage(dialogStage);
-										            	     
-							            searchMap.put("[Assets].[dbo].[Hidden_Check].GUID=",GUID);
+										Map searchMap4=new HashMap<>();           	     
+							            searchMap4.put("[Assets].[dbo].[Hidden_Check].GUID=",GUID);
 							            
-                                        controller.setSearch(searchMap);						           
+                                        controller.setSearch(searchMap4);						           
+							          
+							            // Show the dialog and wait until the user closes it
+							            dialogStage.show();
+
+							        } catch (Exception e) {
+							            e.printStackTrace();
+							        }
+							  }
+							  
+							  if(menuType.equals("m5")){
+								  try {
+							            // Load the fxml file and create a new stage for the popup dialog.
+							            FXMLLoader loader = new FXMLLoader();
+							            loader.setLocation(getClass().getResource("neaten/SelectNeaten.fxml"));
+							            AnchorPane page = (AnchorPane) loader.load();
+
+							            // Create the dialog Stage.
+							            Stage dialogStage = new Stage();
+							            dialogStage.setTitle(Name+"隐患整顿记录");
+							            dialogStage.initModality(Modality.APPLICATION_MODAL);
+							            Scene scene = new Scene(page);
+							            dialogStage.setScene(scene);
+
+							            // Set the person into the controller.
+							            SelectNeatenController controller = loader.getController();
+							          //  controller.setDialogStage(dialogStage);
+										
+							            Map searchMap5=new HashMap<>();
+							            searchMap5.put("[Assets].[dbo].[Hidden_Neaten].GUID=",GUID);
+							            
+                                        controller.setSearch(searchMap5);						           
 							          
 							            // Show the dialog and wait until the user closes it
 							            dialogStage.show();
@@ -467,7 +499,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 										  System.out.println("xxxxx      "+menuType);
 							            // Create the dialog Stage.
 							            Stage dialogStage = new Stage();
-							            dialogStage.setTitle("选择要添加位置的资产");
+							            dialogStage.setTitle("选择要添加"+Name+"隐患的资产");
 							            dialogStage.initModality(Modality.WINDOW_MODAL);
 							            Scene scene = new Scene(page);
 							            dialogStage.setScene(scene);
@@ -475,6 +507,39 @@ public class AssetOverviewController extends AssetAsSwitch{
 							            // Set the person into the controller.
 							            AppendAssetsQueryController controller = loader.getController();
 							            
+							            Hidden hidden=new Hidden();
+							            hidden.setGUID(GUID);
+							            hidden.setName(Name);
+							            
+							            controller.setHidden(hidden);
+							            controller.setDialogStage(dialogStage);
+							            
+							            // Show the dialog and wait until the user closes it
+							            dialogStage.show();
+
+							        } catch (Exception e) {
+							            e.printStackTrace();
+							        }
+							  }
+							  
+							  
+							  if(menuType.equals("m7")){
+								  try {
+							            // Load the fxml file and create a new stage for the popup dialog.
+							            FXMLLoader loader = new FXMLLoader();
+							            loader.setLocation(getClass().getResource("assets/AssetsQuery.fxml"));
+							            AnchorPane page = (AnchorPane) loader.load();
+										  System.out.println("xxxxx      "+menuType);
+							            // Create the dialog Stage.
+							            Stage dialogStage = new Stage();
+							            dialogStage.setTitle("查看"+Name+"隐患对应的资产");
+							            dialogStage.initModality(Modality.WINDOW_MODAL);
+							            Scene scene = new Scene(page);
+							            dialogStage.setScene(scene);
+
+							            // Set the person into the controller.
+							            AssetsQueryController controller = loader.getController();
+							           
 							            Hidden hidden=new Hidden();
 							            hidden.setGUID(GUID);
 							            hidden.setName(Name);

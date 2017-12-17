@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="804.0" prefWidth="941.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.check.CheckInfoDetailController">
+<AnchorPane prefHeight="804.0" prefWidth="941.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.check.SelectCheckInfoDetailController">
    <children>
       <GridPane layoutX="16.0" layoutY="27.0" prefHeight="127.0" prefWidth="542.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -40,7 +40,7 @@
          </children>
       </HBox>
       <Label layoutX="50.0" layoutY="147.0" text="输入检查记录 :" AnchorPane.leftAnchor="60.0" />
-       <TabPane layoutX="79.0" layoutY="373.0" prefHeight="389.0" prefWidth="737.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="30.0">
+       <TabPane layoutX="79.0" layoutY="373.0" prefHeight="389.0" prefWidth="737.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="20.0">
         <tabs>
           <Tab text="隐患图片">
             <content>

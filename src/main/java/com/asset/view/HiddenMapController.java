@@ -60,7 +60,7 @@ public class HiddenMapController extends AssetAsSwitch{
 	 	
 	 	private WebEngine webEngine2;
 	 	
-	 	private static final String mapUrl="http://220.166.104.133/voucher/"; 
+	 	private static final String mapUrl="http://127.0.0.1:8080/voucher/"; 
 	 
 	 	 Assets assets= new Connect().get();
 	 	
