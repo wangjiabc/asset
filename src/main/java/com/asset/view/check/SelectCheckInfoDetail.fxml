@@ -33,21 +33,15 @@
          </children>
       </GridPane>
       <TextArea fx:id="checkCrics" layoutX="21.0" layoutY="143.0" prefHeight="210.0" prefWidth="845.0" promptText="内容详情" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0" />
-      <HBox layoutX="412.0" layoutY="302.0" prefHeight="39.0" prefWidth="146.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0">
-         <children>
-            <Button fx:id="post" mnemonicParsing="false" prefHeight="23.0" prefWidth="71.0" text="更新" />
-            <Button fx:id="cancel" mnemonicParsing="false" prefHeight="23.0" prefWidth="73.0" text="取消" />
-         </children>
-      </HBox>
       <Label layoutX="50.0" layoutY="147.0" text="输入检查记录 :" AnchorPane.leftAnchor="60.0" />
-       <TabPane layoutX="79.0" layoutY="373.0" prefHeight="389.0" prefWidth="737.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="20.0">
+       <TabPane layoutX="79.0" layoutY="373.0" prefHeight="415.0" prefWidth="871.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="20.0">
         <tabs>
           <Tab text="隐患图片">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <FlowPane fx:id="imagePane" layoutX="47.0" layoutY="37.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="10.0" />
-                        <Button fx:id="switchImage" layoutX="584.0" layoutY="296.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传图片" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="10.0" />
+                        <FlowPane fx:id="imagePane" layoutX="3.0" layoutY="3.0" prefHeight="328.0" prefWidth="863.0" style="-fx-border-color: #C0C0C0;" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="3.0" />
+                        <Button fx:id="switchImage" layoutX="729.0" layoutY="335.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传图片" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="54.0" />
                      </children>
                   </AnchorPane>
             </content>
@@ -56,15 +50,17 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <FlowPane fx:id="filePane" layoutX="20.0" layoutY="24.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="10.0" />
-                        <Button fx:id="switchDoc" layoutX="584.0" layoutY="155.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传word" AnchorPane.rightAnchor="10.0" />
-                        <Button fx:id="switchExcel" layoutX="593.0" layoutY="221.0" mnemonicParsing="false" text="选择上传excel" AnchorPane.rightAnchor="7.0" />
-                        <Button fx:id="switchPdf" layoutX="600.0" layoutY="291.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="32.0" prefWidth="122.0" text="选择上传pdf" AnchorPane.rightAnchor="10.0" />
+                        <FlowPane fx:id="filePane" layoutX="3.0" layoutY="3.0" prefHeight="353.0" prefWidth="863.0" style="-fx-border-color: #C0C0C0;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="3.0" />
+                        <Button fx:id="switchDoc" layoutX="535.0" layoutY="361.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传word" AnchorPane.rightAnchor="242.0" />
+                        <Button fx:id="switchExcel" layoutX="651.0" layoutY="361.0" mnemonicParsing="false" text="选择上传excel" AnchorPane.rightAnchor="125.0" />
+                        <Button fx:id="switchPdf" layoutX="761.0" layoutY="361.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="23.0" prefWidth="105.0" text="选择上传pdf" AnchorPane.rightAnchor="5.0" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
         </tabs>
       </TabPane>
+      <Button fx:id="post" layoutX="702.0" layoutY="756.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="80.0" text="更新" />
+      <Button fx:id="cancel" layoutX="819.0" layoutY="756.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="80.0" text="取消" />
    </children>
 </AnchorPane>

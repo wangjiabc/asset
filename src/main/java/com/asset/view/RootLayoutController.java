@@ -11,14 +11,16 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 
 public class RootLayoutController {
+	/*
 	@FXML
 	private MenuItem exitItem;
 	
 	@FXML
 	private MenuItem aboutItem;
-	
+	*/
 	@FXML
 	private void initialize() {
+		/*
 		exitItem.setOnAction(new EventHandler<ActionEvent>() {
 			
 			@Override
@@ -41,5 +43,6 @@ public class RootLayoutController {
 				alert.showAndWait();
 			}
 		});
+		*/
 	}
 }

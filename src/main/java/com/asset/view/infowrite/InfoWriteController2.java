@@ -27,24 +27,30 @@ import java.util.prefs.Preferences;
 
 import javax.imageio.ImageIO;
 
+import org.apache.poi.ss.formula.functions.EDate;
 import org.apache.poi.ss.formula.functions.T;
 
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
+import com.asset.property.RoomInfo_PositionProperty;
 import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.FileConvect;
 import com.asset.tool.FileType;
+import com.asset.tool.MenuType;
 import com.asset.tool.MyTestUtil;
 import com.asset.view.AssetOverviewController;
 import com.asset.view.check.AugmentCheckInfoDetailController;
+import com.asset.view.hiddenAndAsset.AppendAssetsQueryController;
 import com.asset.view.neaten.AugmentNeatenDetailController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
+import com.voucher.manage.daoModel.Assets.Hidden_Assets;
 import com.voucher.manage.daoModel.Assets.Hidden_Data;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Assets_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 import javafx.beans.property.DoubleProperty;
@@ -66,6 +72,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
@@ -74,6 +81,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -218,7 +226,70 @@ public class InfoWriteController2 {
 	 
 	 private List<byte[]> fileBytes=new ArrayList<byte[]>();
 	 
+	 /*
+      * 查询条件菜单
+      */
+	 @FXML
+	 private TextField keyWord;
+
+	 //查询按钮
+	 @FXML
+	 private Button search;
+
+	 @FXML
+	 private Button addAssets;
+	 
+	 @FXML
+	 private Pagination pagination0;
+	 
+	 private ObservableList<RoomInfo_PositionProperty> roomList;
+	 
+	 @FXML
+	 private TableView<RoomInfo_PositionProperty> roomTable;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C01;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C02;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C03;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C04;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C05;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,Double> C06;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,Double> C07;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C08;
+	 
+	 @FXML
+	 private ContextMenu contextMenu;
+	 	 
+	 private List<Hidden_Assets_Join> roomInfos;
+	 
+	 private int i=0;
+	 
+	 private Integer offset0=0;
+	 
+	 private Integer limit0=10;
+	 
+	 private Map<String,String> searchMap0=new HashMap<>();
+      
+	 private Hidden hidden;
+	 	
+	 
 	 Assets assets= new Connect().get();
+	 
+	 UUID uuid=UUID.randomUUID();
 	 
 	 public InfoWriteController2() {
 		// TODO Auto-generated constructor stub
@@ -253,6 +324,8 @@ public class InfoWriteController2 {
 		 
 		 Assets assets=new Connect().getAssets();
 
+		 searchMap0.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", uuid.toString());
+		 
 		 List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
 			Iterator<Hidden_Level> iterator=hidden_levels.iterator();
 			List levels = new ArrayList<>();
@@ -594,8 +667,7 @@ public class InfoWriteController2 {
 	                }
 					hidden2.setDate(date);
 	
-			    UUID uuid=UUID.randomUUID();
-						
+			
 			    hidden2.setGUID(uuid.toString());
 					    
 		     	int i=assets.insertIntoHidden(hidden2);
@@ -622,8 +694,13 @@ public class InfoWriteController2 {
 					alert.setHeaderText("更新数据");
 					alert.setContentText("写入成功");
 					alert.showAndWait();
-					hiddenTable.setItems(null);
-					setRoomInfoList(offset, limit,searchMap);
+					try{
+						hiddenTable.setItems(null);
+						setRoomInfoList(offset, limit,searchMap);
+					}catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
 					handleCancel();
 				 }
 	 
@@ -648,6 +725,134 @@ public class InfoWriteController2 {
 			    handleCancel();
 			}
 		});
+		 
+		 
+		 addAssets.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				 try {
+			            // Load the fxml file and create a new stage for the popup dialog.
+			            FXMLLoader loader = new FXMLLoader();
+			            loader.setLocation(getClass().getResource("../hiddenAndAsset/AppendAssetsQuery.fxml"));
+			            AnchorPane page = (AnchorPane) loader.load();
+			            // Create the dialog Stage.
+			            Stage dialogStage = new Stage();
+			            dialogStage.setTitle("选择要添加此隐患的资产");
+			            dialogStage.initModality(Modality.WINDOW_MODAL);
+			            Scene scene = new Scene(page);
+			            dialogStage.setScene(scene);
+
+			            // Set the person into the controller.
+			            AppendAssetsQueryController controller = loader.getController();
+			            
+			            Hidden hidden=new Hidden();
+			            hidden.setGUID(uuid.toString());
+			            
+			            
+			            controller.setHidden(hidden);
+			            controller.setTableView(roomTable, offset, limit, searchMap0, pagination, C01, C02, C03, C04, C05, C06, C07, C08);
+			            
+			            
+			            controller.setDialogStage(dialogStage);
+			            
+			            // Show the dialog and wait until the user closes it
+			            dialogStage.show();
+
+			        } catch (Exception e) {
+			            e.printStackTrace();
+			        }
+			}
+			
+		});
+		 
+		 roomTable.setRowFactory( tv -> {
+		        TableRow<RoomInfo_PositionProperty> row = new TableRow<>();
+		        row.setOnMouseClicked(event -> {
+		            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+		            	RoomInfo_PositionProperty rowData = row.getItem();
+
+		            }
+		        });
+		      
+		        row.setOnContextMenuRequested(event->{
+		        	
+	        	    contextMenu.setOnAction(new EventHandler<ActionEvent>() {
+
+						@Override
+						public void handle(ActionEvent event) {
+							// TODO Auto-generated method stub
+							try{
+								
+							  String GUID=row.getItem().getGUID().get();
+							  String Address=row.getItem().getAddress().get();
+							  String menuType=MenuType.get(event.getTarget().toString());
+							  System.out.println(menuType);
+							  
+							  
+							  if(menuType.equals("m1")){
+								  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+							        alert.setTitle("安全信息");
+							        alert.setHeaderText("删除");
+							        alert.setContentText("是否删除"+Address+"信息");
+
+							        ButtonType btnType1 = new ButtonType("确定");
+							        ButtonType btnType2 = new ButtonType("取消");
+							     
+
+							        alert.getButtonTypes().setAll(btnType1, btnType2);
+
+							        Optional<ButtonType> result = alert.showAndWait();
+							        result.ifPresent(buttonType -> {
+							            if (buttonType == btnType1) {
+							                try{
+							                String[] where={"[Assets].[dbo].[Hidden_Assets].asset_GUID=",GUID};
+				                            Hidden_Assets hidden_Assets=new Hidden_Assets();
+				                            hidden_Assets.setWhere(where);
+				                            
+							                int i=assets.deleteHidden_Assets(hidden_Assets);
+							                if(i==1){
+							                	alert.setTitle("安全信息");
+												alert.setHeaderText("操作");
+												alert.setContentText("删除"+Address+"成功");
+												alert.showAndWait();
+												roomTable.setItems(null);
+												setRoomInfoList0(offset, limit,searchMap0);
+							                }else{
+							                	Alert alert2 = new Alert(AlertType.ERROR);
+												alert2.setTitle("异常堆栈对话框");
+												alert2.setHeaderText("错误");
+												alert2.setContentText("删除"+Address+"失败");
+												alert2.showAndWait();
+							                }
+							                }catch (Exception e) {
+												// TODO: handle exception
+							                	Alert alert2 = new Alert(AlertType.ERROR);
+												alert2.setTitle("异常堆栈对话框");
+												alert2.setHeaderText("错误");
+												alert2.setContentText("删除"+Address+"失败");
+												alert2.showAndWait();
+												e.printStackTrace();
+											}
+							            } else if (buttonType == btnType2) {
+							            	System.out.println("点击了取消");
+							            } 
+							        });
+							  }
+							}catch (Exception e) {
+								// TODO: handle exception
+								e.printStackTrace();
+							}
+						}
+	        	    });
+		        });
+		       
+		      return row;
+		   });
+		 
+		 
+		 
 		 
 	 }
 	 
@@ -914,6 +1119,55 @@ public class InfoWriteController2 {
 	     
 	     pagination.setPageCount(page);
 	     	     
+	 }
+	 
+	 
+	 void setRoomInfoList0(Integer offset,Integer limit,Map search){
+
+	      String sort=null;
+	      String order=null;
+	     
+		  Map map=new HashMap<>();
+		  
+		  
+		  map=assets.findAssetByHideen(limit, offset, sort, order, search);
+
+	     roomInfos= (List<Hidden_Assets_Join>) map.get("rows");
+	     
+	     MyTestUtil.print(roomInfos);
+	     
+	     roomList= (ObservableList<RoomInfo_PositionProperty>) new RowData(roomInfos,RoomInfo_PositionProperty.class).get();
+	     Iterator<RoomInfo_PositionProperty> iterator=roomList.iterator();
+	    
+	     while (iterator.hasNext()) {
+			System.out.println("roominfos="+iterator.next().getAddress());
+		}
+	     
+	    roomTable.setItems(roomList);
+
+	     C01.setCellValueFactory(
+	                cellData -> cellData.getValue().getAddress());
+	     C02.setCellValueFactory(
+	   		    cellData->cellData.getValue().getGUID());
+	     C03.setCellValueFactory(
+	    		    cellData->cellData.getValue().getRegion());
+	     C04.setCellValueFactory(
+	    		    cellData->cellData.getValue().getNum());
+	     C05.setCellValueFactory(
+	    		    cellData->cellData.getValue().getInDate());
+	     C06.setCellValueFactory(
+	    		 cellData->cellData.getValue().getLat().asObject());
+	     C07.setCellValueFactory(
+	    		 cellData->cellData.getValue().getLng().asObject());
+	    
+	     int total=(int) map.get("total");
+	     int page=total/10;
+	     
+	     if(total-page*10>0)
+          page++;	     
+	     
+	     pagination0.setPageCount(page);
+	 
 	 }
 	 
 }

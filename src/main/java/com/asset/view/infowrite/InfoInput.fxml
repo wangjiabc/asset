@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="362.0" prefWidth="470.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.infowrite.InfoInputController">
+  <children>
+    <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="10.0">
+      <children>
+        <Label text="隐患名称" />
+        <TextField fx:id="hiddenName" GridPane.columnIndex="1" />
+        <Label text="隐患情况" GridPane.rowIndex="1" />
+        <Label text="隐患类别 " GridPane.rowIndex="2" />
+        <Label text="所属公司" GridPane.rowIndex="3" />
+        <Label text="整改进度" GridPane.rowIndex="4" />
+        <Label text="发生时间" GridPane.rowIndex="8" />
+        <TextField fx:id="hiddenCase" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <TextField fx:id="hiddenCompany" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="hiddenProgress" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="hiddenEventSites1" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label text="最后一次事件地点" GridPane.rowIndex="6" />
+            <Label text="委托人" GridPane.rowIndex="7" />
+            <TextField fx:id="hiddenEventSites2" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="隐患状态" GridPane.rowIndex="5" />
+            <TextField fx:id="hiddenEventSites3" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <DatePicker GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </DatePicker>
+            <ChoiceBox maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      </children>
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" prefWidth="120.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="240.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <HBox spacing="5.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+      <children>
+        <Button fx:id="addInfo" mnemonicParsing="false" prefWidth="90.0" text="添加" />
+        <Button fx:id="cancel" mnemonicParsing="false" prefWidth="90.0" text="取消" />
+      </children>
+    </HBox>
+  </children>
+</AnchorPane>

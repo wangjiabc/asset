@@ -47,10 +47,11 @@ public class Login extends JFrame implements ActionListener {
   ResultSetMetaData rsmd;
   
  public Login() {
-  setTitle("aaa");
+  setTitle("安全隐患监管系统");
   setSize(400, 300);
   setLocationRelativeTo(null);
   init();
+  /*
   try {
 	connection=TestDB.getConnection();
    } catch (SQLException e) {
@@ -60,6 +61,7 @@ public class Login extends JFrame implements ActionListener {
 	// TODO Auto-generated catch block
 	e.printStackTrace();
     }
+    */
   setVisible(true);
   setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   setResizable(false);
@@ -71,23 +73,23 @@ public class Login extends JFrame implements ActionListener {
   URL url = getClass().getResource("welcome.gif");
   logoLabel.setIcon(new ImageIcon(url));
   logoLabel.setBounds(80, 10, 300, 70);
-  add(logoLabel);
+ // add(logoLabel);
  
-  userNameLabel = new JLabel("name:");
+  userNameLabel = new JLabel("姓名:");
   userNameLabel.setBounds(90, 90, 60, 40);
   add(userNameLabel);
   userNameInput = new JTextField();
   userNameInput.setBounds(150, 100, 150, 20);
   add(userNameInput);
  
-  passwordLabel = new JLabel("passwod:");
+  passwordLabel = new JLabel("密码:");
   passwordLabel.setBounds(90, 120, 60, 40);
   add(passwordLabel);
   passwordInput = new JPasswordField();
   passwordInput.setBounds(150, 130, 150, 20);
   add(passwordInput);
  
-  captchaLabel = new JLabel("code:");
+  captchaLabel = new JLabel("验证码:");
   captchaLabel.setBounds(90, 150, 60, 40);
   add(captchaLabel);
   captchaInput = new JTextField();
@@ -99,17 +101,17 @@ public class Login extends JFrame implements ActionListener {
   add(panel);
    
    
-  change = new JButton("go");
+  change = new JButton("更换");
   change.setBounds(300, 160, 80, 20);
   change.setContentAreaFilled(false);
   change.setBorderPainted(false);
   add(change);
  
-  login = new JButton("login");
+  login = new JButton("确定");
   login.setBounds(70, 200, 120, 30);
   login.setMnemonic(KeyEvent.VK_L);
   add(login);
-  logout = new JButton("exit");
+  logout = new JButton("退出");
   logout.setBounds(210, 200, 120, 30);
   logout.setMnemonic(KeyEvent.VK_X);
   add(logout);
@@ -134,7 +136,7 @@ public class Login extends JFrame implements ActionListener {
   }
   
   if (e.getSource() == login) {	
-	  try {
+	 /* try {
 		  pstmt = connection.prepareStatement("select campus_admin,password from campus_admin where campus_admin = ?");
 		  pstmt.setString(1, userName);
           rs = pstmt.executeQuery();
@@ -145,15 +147,15 @@ public class Login extends JFrame implements ActionListener {
 	     } catch (SQLException e1) {
 		  // TODO Auto-generated catch block
 		   e1.printStackTrace();
-		}
+		}*/
  
-   if ((userName.equals(userName2)) && (password2.equals(Md5.GetMD5Code(password)))) {
+   if ((userName.equals("admin")) && (password.equals("xl123"))) {
 	   System.out.println(randomcaptcha);
 	   System.out.println(captcha);
     if (captcha.equals(randomcaptcha.toLowerCase())) {
        JOptionPane.showMessageDialog(this, "登录成功");
        dispose();
-       new MainApp().launch(MainApp.class, "");     
+       new MainApp().launch(Main.class, "");     
     } else {
        JOptionPane.showMessageDialog(this, "验证码错误");
        panel.repaint();

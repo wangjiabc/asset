@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView layoutX="-722.0" layoutY="-664.0" prefHeight="494.0" prefWidth="642.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="昵称" />
+          <TableColumn prefWidth="75.0" text="openid" />
+            <TableColumn prefWidth="75.0" text="头像" />
+            <TableColumn prefWidth="75.0" text="性别" />
+            <TableColumn prefWidth="75.0" text="系统职务" />
+            <TableColumn prefWidth="75.0" text="权限修改" />
+            <TableColumn prefWidth="75.0" text="姓名" />
+            <TableColumn prefWidth="75.0" text="实际职务" />
+            <TableColumn prefWidth="75.0" text="Email" />
+            <TableColumn prefWidth="75.0" text="手机号" />
+            <TableColumn prefWidth="75.0" text="家庭住址" />
+            <TableColumn prefWidth="75.0" text="关注" />
+            <TableColumn prefWidth="75.0" text="关注时间" />
+        </columns>
+      </TableView>
+      <Pagination AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+   </children>
+</AnchorPane>

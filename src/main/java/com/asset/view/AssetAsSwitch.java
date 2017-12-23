@@ -7,10 +7,11 @@ import java.util.Iterator;
 import com.asset.Main;
 import com.asset.database.Connect;
 import com.asset.view.hidden.HiddenDetailController;
-import com.asset.view.infowrite.InfoWriteController;
+import com.asset.view.infowrite.InfoWriteController2;
 import com.asset.view.map.BaiduMapController;
 import com.rmi.server.Assets;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -54,8 +55,6 @@ public abstract class AssetAsSwitch {
 	 @FXML
 	  Label firstName0Label;
 	 
-	 @FXML
-	  Label firstName1Label;
 	 
 	 @FXML
 	  Label firstName2Label;
@@ -82,6 +81,9 @@ public abstract class AssetAsSwitch {
 	 @FXML
 	  Button hiddenMap;
 	 
+	 @FXML
+	 Button exitButton;
+	 
 	 Assets assets= new Connect().get();
 	 
 	 @FXML
@@ -96,8 +98,7 @@ public abstract class AssetAsSwitch {
 	        image = new Image(filePath+"/bar.jpg");
 	        bar.setImage(image);
 	        
-	        firstName0Label.setText("兴泸投资集团");
-            firstName1Label.setText("职务");
+	        firstName0Label.setText("兴泸资产管理有限公司");
             firstName2Label.setText("管理员");
             
             int not=assets.findNotHidden();
@@ -138,7 +139,7 @@ public abstract class AssetAsSwitch {
 					// TODO Auto-generated method stub
 					try {
 						   FXMLLoader loader = new FXMLLoader();
-				            loader.setLocation(AssetAsSwitch.class.getResource("infowrite/InfoWrite.fxml"));
+				            loader.setLocation(AssetAsSwitch.class.getResource("infowrite/InfoWrite2.fxml"));
 				            AnchorPane page = (AnchorPane) loader.load();
 
 				            // Create the dialog Stage.
@@ -149,7 +150,7 @@ public abstract class AssetAsSwitch {
 				            dialogStage.setScene(scene);
 
 				            // Set the person into the controller.
-				            InfoWriteController controller = loader.getController();
+				            InfoWriteController2 controller = loader.getController();
 				            controller.setDialogStage(dialogStage);
 				            
 				            // Show the dialog and wait until the user closes it
@@ -162,7 +163,15 @@ public abstract class AssetAsSwitch {
 			});
                   
             
-           
+            exitButton.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					Platform.exit();
+				}
+            	
+            });
             
             initCurrent();
 	        

@@ -15,14 +15,13 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <columns>
-            <TableColumn fx:id="C1" prefWidth="75.0" text="C1" />
-            <TableColumn fx:id="C2" prefWidth="75.0" text="C2" />
-            <TableColumn fx:id="C3" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="C4" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="C5" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="C6" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="C7" prefWidth="75.0" text="Column X" />
-            <TableColumn fx:id="C8" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="C1" prefWidth="75.0" text="地址" />
+            <TableColumn fx:id="C2" prefWidth="75.0" text="GUID" />
+            <TableColumn fx:id="C3" prefWidth="75.0" text="区" />
+            <TableColumn fx:id="C4" prefWidth="75.0" text="号码" />
+            <TableColumn fx:id="C5" prefWidth="75.0" text="日期" />
+            <TableColumn fx:id="C6" prefWidth="75.0" text="x坐标" />
+            <TableColumn fx:id="C7" prefWidth="75.0" text="y坐标" />
          </columns>
       </TableView>
       <Pagination fx:id="pagination" layoutX="64.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />

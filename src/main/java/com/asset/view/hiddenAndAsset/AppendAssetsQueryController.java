@@ -17,12 +17,14 @@ import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
 import com.asset.property.RoomInfoProperty;
 import com.asset.property.RoomInfo_PositionProperty;
+import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Assets;
 import com.voucher.manage.daoModel.Assets.Position;
 import com.voucher.manage.daoModelJoin.RoomInfo_Position;
+import com.voucher.manage.daoModelJoin.Assets.Hidden_Assets_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 import javafx.beans.property.IntegerProperty;
@@ -40,6 +42,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Pagination;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -108,6 +111,48 @@ public class AppendAssetsQueryController {
 	 
 	 private Map<String,String> searchMap=new HashMap<>();
 	 
+	 
+	 private Integer offset0=0;
+	 
+	 private Integer limit0=10;
+	 
+	 private Map<String,String> searchMap0=new HashMap<>();
+	 
+	 
+	 @FXML
+	 private Pagination pagination0;
+	 
+	 private ObservableList<RoomInfo_PositionProperty> roomList0;
+	 
+	 private List<Hidden_Assets_Join> roomInfos0;
+	 
+	 @FXML
+	 private TableView<RoomInfo_PositionProperty> roomTable0;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C01;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C02;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C03;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C04;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C05;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,Double> C06;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,Double> C07;
+	 
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C08;
+	 
 	 Assets assets= new Connect().get();
 	 
 	 private Hidden hidden;
@@ -119,6 +164,27 @@ public class AppendAssetsQueryController {
 	 public AppendAssetsQueryController() {
 		// TODO Auto-generated constructor stub
 	 }
+	 
+	 public void setTableView(TableView<RoomInfo_PositionProperty> roomTable0,Integer offset,Integer limit,
+				Map<String,String> searchMap,Pagination pagination0,TableColumn<RoomInfo_PositionProperty,String> C01,
+				TableColumn<RoomInfo_PositionProperty,String> C02,TableColumn<RoomInfo_PositionProperty,String> C03,
+				TableColumn<RoomInfo_PositionProperty,String> C04,TableColumn<RoomInfo_PositionProperty,String> C05,
+				TableColumn<RoomInfo_PositionProperty,Double> C06,TableColumn<RoomInfo_PositionProperty,Double> C07,
+				TableColumn<RoomInfo_PositionProperty,String> C08) {
+			   this.roomTable0=roomTable0;
+			   this.offset0=offset;
+			   this.limit0=limit;
+			   this.searchMap0=searchMap;
+			   this.pagination0=pagination0;
+			   this.C01=C01;
+			   this.C02=C02;
+			   this.C03=C03;
+			   this.C04=C04;
+			   this.C05=C05;
+			   this.C06=C06;
+			   this.C07=C07;
+			   this.C08=C08;
+		 }
 	 
 	 @FXML
      public void initialize() {
@@ -208,6 +274,7 @@ public class AppendAssetsQueryController {
 							alert.setHeaderText("操作");
 							alert.setContentText("添加"+assetName+"信息"+"成功");
 							alert.showAndWait();
+							setRoomInfoList0(offset0, limit0, searchMap0);
 							handleCancel();
 		                }else{
 		                	Alert alert2 = new Alert(AlertType.ERROR);
@@ -218,6 +285,7 @@ public class AppendAssetsQueryController {
 		                }
 		                }catch (Exception e) {
 							// TODO: handle exception
+		                	e.printStackTrace();
 		                	Alert alert2 = new Alert(AlertType.ERROR);
 							alert2.setTitle("异常堆栈对话框");
 							alert2.setHeaderText("错误");
@@ -279,6 +347,55 @@ public class AppendAssetsQueryController {
            page++;	     
 	     
 	     pagination.setPageCount(page);
+	 
+	 }
+	 
+	 
+	 void setRoomInfoList0(Integer offset,Integer limit,Map search){
+
+	      String sort=null;
+	      String order=null;
+	     
+		  Map map=new HashMap<>();
+		  
+		  
+		  map=assets.findAssetByHideen(limit, offset, sort, order, search);
+
+	     roomInfos0= (List<Hidden_Assets_Join>) map.get("rows");
+	     
+	     MyTestUtil.print(roomInfos0);
+	     
+	     roomList0= (ObservableList<RoomInfo_PositionProperty>) new RowData(roomInfos0,RoomInfo_PositionProperty.class).get();
+	     Iterator<RoomInfo_PositionProperty> iterator=roomList.iterator();
+	    
+	     while (iterator.hasNext()) {
+			System.out.println("roominfos0="+iterator.next().getAddress());
+		}
+	     
+	    roomTable0.setItems(roomList0);
+
+	     C01.setCellValueFactory(
+	                cellData -> cellData.getValue().getAddress());
+	     C02.setCellValueFactory(
+	   		    cellData->cellData.getValue().getGUID());
+	     C03.setCellValueFactory(
+	    		    cellData->cellData.getValue().getRegion());
+	     C04.setCellValueFactory(
+	    		    cellData->cellData.getValue().getNum());
+	     C05.setCellValueFactory(
+	    		    cellData->cellData.getValue().getInDate());
+	     C06.setCellValueFactory(
+	    		 cellData->cellData.getValue().getLat().asObject());
+	     C07.setCellValueFactory(
+	    		 cellData->cellData.getValue().getLng().asObject());
+	    
+	     int total=(int) map.get("total");
+	     int page=total/10;
+	     
+	     if(total-page*10>0)
+        page++;	     
+	     
+	     pagination0.setPageCount(page);
 	 
 	 }
 	 

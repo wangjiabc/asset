@@ -23,7 +23,6 @@ import com.asset.view.check.CheckInfoDetailController;
 import com.asset.view.check.SelectCheckInfoController;
 import com.asset.view.hidden.HiddenDetailController;
 import com.asset.view.hiddenAndAsset.AppendAssetsQueryController;
-import com.asset.view.infowrite.InfoWriteController;
 import com.asset.view.infowrite.InfoWriteController2;
 import com.asset.view.neaten.AugmentNeatenDetailController;
 import com.asset.view.neaten.SelectNeatenController;
@@ -526,7 +525,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 							  if(menuType.equals("m7")){
 								  try {
 							            // Load the fxml file and create a new stage for the popup dialog.
-							            FXMLLoader loader = new FXMLLoader();
+							          /*  FXMLLoader loader = new FXMLLoader();
 							            loader.setLocation(getClass().getResource("assets/AssetsQuery.fxml"));
 							            AnchorPane page = (AnchorPane) loader.load();
 										  System.out.println("xxxxx      "+menuType);
@@ -549,7 +548,10 @@ public class AssetOverviewController extends AssetAsSwitch{
 							            
 							            // Show the dialog and wait until the user closes it
 							            dialogStage.show();
-
+                                        */
+										Hidden_JoinProperty rowData = row.getItem();
+						            	table(rowData);
+									  
 							        } catch (Exception e) {
 							            e.printStackTrace();
 							        }
