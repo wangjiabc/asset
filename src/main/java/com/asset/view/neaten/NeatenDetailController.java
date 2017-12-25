@@ -651,7 +651,6 @@ public class NeatenDetailController {
 	void setHiddenNeaten(Integer offset,Integer limit,Map search){
 	      String sort=null;
 	      String order=null;
-	      search=new HashMap<>();
 	      
 		  Map map=new HashMap<>();
 		  	

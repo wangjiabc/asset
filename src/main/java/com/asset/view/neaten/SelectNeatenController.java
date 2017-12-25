@@ -152,15 +152,18 @@ public class SelectNeatenController {
 	            dialogStage.setScene(scene);
 
 	            // Set the person into the controller.
-	            NeatenDetailController controller = loader.getController();
+	                 
+	           System.out.println("neaten_id="+newValue.getNeaten_id());
+	           
+	           Map searchMap0=new HashMap<>();
+	           searchMap0.put("[Assets].[dbo].[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
+	            
+	           Map map=assets.selectAllHiddenNeaten(limit, offset, null, null, searchMap0);
+	           
+	           NeatenDetailController controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
-	           controller.setTableView(hiddenNeatenTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
-	            	     
-	            System.out.println("check_id="+newValue.getNeaten_id());
-	            searchMap.put("[Assets].[dbo].[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
-	            
-	           Map map=assets.selectAllHiddenNeaten(limit, offset, null, null, searchMap);
-	            
+	           controller.setTableView(hiddenNeatenTable,offset,limit,searchMap0,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
+	            		           
 	            List<Hidden_Neaten_Join> hidden_Neaten_Joins=  (List<Hidden_Neaten_Join>) map.get("rows");
 	            MyTestUtil.print(hidden_Neaten_Joins);
 	            try{

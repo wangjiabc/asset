@@ -153,9 +153,12 @@ public class SelectCheckInfoController {
 	            controller.setTableView(hiddenCheckTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
 	            	     
 	            System.out.println("check_id="+newValue.getCheck_id());
-	            searchMap.put("[Assets].[dbo].[Hidden_Check].check_id=",newValue.getCheck_id().get());
 	            
-	            Map map=assets.selectAllHiddenCheck(limit, offset, null, null, searchMap);
+	            Map searchMap0=new HashMap<>();
+	            
+	            searchMap0.put("[Assets].[dbo].[Hidden_Check].check_id=",newValue.getCheck_id().get());
+	            
+	            Map map=assets.selectAllHiddenCheck(limit, offset, null, null, searchMap0);
 	            
 	            List<Hidden_Check_Join> hidden_Check_Joins= (List<Hidden_Check_Join>) map.get("rows");
 	            MyTestUtil.print(hidden_Check_Joins);

@@ -647,13 +647,9 @@ public class SelectCheckInfoDetailController {
 	      String order=null;
 	      search=new HashMap<>();
 	      
-		  Map map=new HashMap<>();
+		  Map map=new HashMap<>();	
 		  
-		  Map searchMap2=new HashMap<>();
-		  
-		  searchMap2.put("[Assets].[dbo].[Hidden_Check].GUID=",hidden_Check_Join.getGUID());	
-		  
-		  map=assets.selectAllHiddenCheck(limit, offset, sort, order, searchMap2);
+		  map=assets.selectAllHiddenCheck(limit, offset, sort, order, searchMap);
 		  
 	     hidden_Checks= (List<Hidden_Check_Join>) map.get("rows");
 	     MyTestUtil.print(hidden_Checks);

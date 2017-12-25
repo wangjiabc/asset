@@ -181,6 +181,8 @@ public class HiddenDetailController {
 	
 	 private Map<String,String> searchMap;
 	 
+	 private Map<String,String> searchMap0;
+	 
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,Integer> C1;
 	 
@@ -224,6 +226,9 @@ public class HiddenDetailController {
 	 
 	 private List<byte[]> fileBytes=new ArrayList<byte[]>();
 	 
+	 @FXML
+	 private TextField keyWord;
+	 
 	//查询按钮
 		 @FXML
 		 private Button search;
@@ -260,8 +265,6 @@ public class HiddenDetailController {
 		 @FXML
 		 private TableColumn<RoomInfo_PositionProperty,Double> C07;
 		 
-		 @FXML
-		 private TableColumn<RoomInfo_PositionProperty,String> C08;
 		 
 		 @FXML
 		 private ContextMenu contextMenu;
@@ -274,8 +277,6 @@ public class HiddenDetailController {
 		 
 		 private Integer limit0=10;
 		 
-		 private Map<String,String> searchMap0=new HashMap<>();
-		 
 		 private Hidden hidden;
 	 
 	 Assets assets= new Connect().get();
@@ -285,7 +286,7 @@ public class HiddenDetailController {
 	 }
 	
 	 public void setTableView(TableView<Hidden_JoinProperty> hiddenTable,Integer offset,Integer limit,
-			Map<String,String> searchMap,Pagination pagination,TableColumn<Hidden_JoinProperty,Integer> C1,
+			Map<String,String> searchMap,Map<String,String> searchMap0,Pagination pagination,TableColumn<Hidden_JoinProperty,Integer> C1,
 			TableColumn<Hidden_JoinProperty,String> C2,TableColumn<Hidden_JoinProperty,String> C3,TableColumn<Hidden_JoinProperty,String> C4,
 			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,ProgressBar> C6,
 			TableColumn<Hidden_JoinProperty,String> C7,TableColumn<Hidden_JoinProperty,String> C8,
@@ -294,6 +295,7 @@ public class HiddenDetailController {
 		this.offset=offset;
 		this.limit=limit;
 		this.searchMap=searchMap;
+		this.searchMap0=searchMap0;
 		this.pagination=pagination;
 		this.C1=C1;
 		this.C2=C2;
@@ -654,8 +656,13 @@ public class HiddenDetailController {
 					alert.setHeaderText("更新数据");
 					alert.setContentText("写入成功");
 					alert.showAndWait();
-					hiddenTable.setItems(null);
-					setRoomInfoList(offset, limit,searchMap);
+					try{
+						hiddenTable.setItems(null);
+						setRoomInfoList(offset, limit,searchMap);
+					}catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
 					handleCancel();
 				 }
 	 
@@ -697,7 +704,7 @@ public class HiddenDetailController {
 				            hidden.setGUID(hidden_Jion.getGUID());
 				            
 				            controller.setHidden(hidden);
-				            controller.setTableView(roomTable, offset, limit, searchMap, pagination0, C01, C02, C03, C04, C05, C06, C07, C08);
+				            controller.setTableView(roomTable, offset, limit, searchMap0, pagination0, C01, C02, C03, C04, C05, C06, C07);
 				            
 				            controller.setDialogStage(dialogStage);
 				            
@@ -715,7 +722,7 @@ public class HiddenDetailController {
 		    	if (pageIndex >= 0) {
 		    		offset=pageIndex*10;
 		    		limit=10;
-		    		setRoomInfoList0(offset, limit, searchMap);
+		    		setRoomInfoList0(offset, limit, searchMap0);
 		    		 Label mLabel = new Label();  
 		                mLabel.setText("这是第" + (pageIndex+1) + "页");  
 		                return mLabel;  
@@ -775,7 +782,7 @@ public class HiddenDetailController {
 													alert.setContentText("删除"+Address+"成功");
 													alert.showAndWait();
 													roomTable.setItems(null);
-													setRoomInfoList0(offset, limit,searchMap);
+													setRoomInfoList0(offset, limit,searchMap0);
 								                }else{
 								                	Alert alert2 = new Alert(AlertType.ERROR);
 													alert2.setTitle("异常堆栈对话框1");
@@ -808,6 +815,18 @@ public class HiddenDetailController {
 			      return row;
 			   });
 		 
+	     search.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				 String searchValue="%"+keyWord.getText()+"%";
+				 searchMap0.put("[TTT].[dbo].[RoomInfo].Address like ", searchValue);
+				 setRoomInfoList0(offset, limit, searchMap0);
+			}
+
+		});
+			 
 		 exit.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -1092,13 +1111,9 @@ public class HiddenDetailController {
 	      String sort=null;
 	      String order=null;
 	     
-		  Map map=new HashMap<>();
-		  
-		  Map searchMap=new HashMap<>();
-		  
-		  searchMap.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", hidden_Jion.getGUID());
+		  Map map=new HashMap<>();		  
           
-		  map=assets.findAssetByHideen(limit, offset, sort, order, searchMap);
+		  map=assets.findAssetByHideen(limit, offset, sort, order, search);
 
 	     roomInfos= (List<Hidden_Assets_Join>) map.get("rows");
 	     

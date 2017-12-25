@@ -268,8 +268,6 @@ public class InfoWriteController2 {
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,Double> C07;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,String> C08;
 	 
 	 @FXML
 	 private ContextMenu contextMenu;
@@ -752,7 +750,7 @@ public class InfoWriteController2 {
 			            
 			            
 			            controller.setHidden(hidden);
-			            controller.setTableView(roomTable, offset, limit, searchMap0, pagination, C01, C02, C03, C04, C05, C06, C07, C08);
+			            controller.setTableView(roomTable, offset, limit, searchMap0, pagination, C01, C02, C03, C04, C05, C06, C07);
 			            
 			            
 			            controller.setDialogStage(dialogStage);

@@ -213,7 +213,13 @@ public class HiddenMapController extends AssetAsSwitch{
 	   	        Hidden_Join hidden_Join=hidden_Jions.get(0);
 	   	        
 	   	        controller.setHidden(hidden_Join);
-	   	        
+	   	    
+	   	        Map searchMap0=new HashMap<>();
+	  		  
+	  		    searchMap0.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", hidden_Join.getGUID());
+	            
+	            controller.setTableView(null,null,null,searchMap,searchMap0,null,null, null, null, null, null, null, null, null,null,null,null);
+	            
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();
 

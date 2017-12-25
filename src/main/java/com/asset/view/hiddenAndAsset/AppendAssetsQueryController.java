@@ -150,8 +150,6 @@ public class AppendAssetsQueryController {
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,Double> C07;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,String> C08;
 	 
 	 Assets assets= new Connect().get();
 	 
@@ -169,8 +167,8 @@ public class AppendAssetsQueryController {
 				Map<String,String> searchMap,Pagination pagination0,TableColumn<RoomInfo_PositionProperty,String> C01,
 				TableColumn<RoomInfo_PositionProperty,String> C02,TableColumn<RoomInfo_PositionProperty,String> C03,
 				TableColumn<RoomInfo_PositionProperty,String> C04,TableColumn<RoomInfo_PositionProperty,String> C05,
-				TableColumn<RoomInfo_PositionProperty,Double> C06,TableColumn<RoomInfo_PositionProperty,Double> C07,
-				TableColumn<RoomInfo_PositionProperty,String> C08) {
+				TableColumn<RoomInfo_PositionProperty,Double> C06,TableColumn<RoomInfo_PositionProperty,Double> C07
+				) {
 			   this.roomTable0=roomTable0;
 			   this.offset0=offset;
 			   this.limit0=limit;
@@ -183,7 +181,6 @@ public class AppendAssetsQueryController {
 			   this.C05=C05;
 			   this.C06=C06;
 			   this.C07=C07;
-			   this.C08=C08;
 		 }
 	 
 	 @FXML
