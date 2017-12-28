@@ -97,9 +97,9 @@
                         <Insets right="10.0" />
                      </padding>
                   </HBox>
-                  <FlowPane layoutX="10.0" layoutY="112.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                  <FlowPane fx:id="flowPane1" layoutX="10.0" layoutY="112.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <children>
-                        <HBox />
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
                      </children>
                   </FlowPane>
                   <ToolBar layoutX="10.0" layoutY="50.0" prefHeight="40.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
@@ -114,7 +114,6 @@
                   <FlowPane layoutY="399.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0" />
-                        <HBox />
                      </children>
                   </FlowPane>
                   <ToolBar layoutX="10.0" layoutY="338.0" prefHeight="46.0" prefWidth="723.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
@@ -138,7 +137,6 @@
                   <FlowPane layoutY="685.0" prefHeight="200.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0" />
-                        <HBox />
                      </children>
                   </FlowPane>
                </children></AnchorPane>

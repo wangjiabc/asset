@@ -45,9 +45,9 @@
                         <Label fx:id="firstName6Label" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
-                  <GridPane layoutX="121.0" layoutY="50.0" prefHeight="60.0" prefWidth="90.0" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0">
+                  <GridPane layoutX="102.0" layoutY="50.0" prefHeight="60.0" prefWidth="108.0" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -55,7 +55,10 @@
                     </rowConstraints>
                      <children>
                         <Label fx:id="firstName0Label" text="工投集团公司" />
-                        <Label fx:id="firstName2Label" text="kk" GridPane.rowIndex="1" />
+                        <Label fx:id="firstName2Label" text="kk" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding></Label>
                      </children>
                   </GridPane>
                   <Button fx:id="hiddenWrite" layoutX="28.0" layoutY="301.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="隐患录入" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0" />
@@ -122,13 +125,13 @@
          </columns>
          <contextMenu>
                 <ContextMenu fx:id="contextMenu">
-                    <items><MenuItem fx:id="m1" text="删除" /></items>                    
-                    <items><MenuItem fx:id="m2" text="增加检查记录" /></items>
-                    <items><MenuItem fx:id="m3" text="增加安全整顿记录" /></items>
-                    <items><MenuItem fx:id="m4" text="查看检查记录" /></items>
-                    <items><MenuItem fx:id="m5" text="查看整顿记录" /></items>                   
-                    <items><MenuItem fx:id="m6" text="增加资产" /></items>
-                    <items><MenuItem fx:id="m7" text="查看详情" /></items>
+                    <items><MenuItem fx:id="m1" text="    删除" /></items>                    
+                    <items><MenuItem fx:id="m2" text="    增加检查记录" /></items>
+                    <items><MenuItem fx:id="m3" text="    增加安全整顿记录" /></items>
+                    <items><MenuItem fx:id="m4" text="    查看检查记录" /></items>
+                    <items><MenuItem fx:id="m5" text="    查看整顿记录" /></items>                   
+                    <items><MenuItem fx:id="m6" text="    增加资产" /></items>
+                    <items><MenuItem fx:id="m7" text="    查看详情" /></items>
                 </ContextMenu>
             </contextMenu>
       </TableView>
@@ -138,7 +141,7 @@
                            <children>
                               <Label text="查询条件">
                                  <padding>
-                                    <Insets left="30.0" />
+                                    <Insets left="15.0" />
                                  </padding>
                               </Label>
                               <Label text="关键词 :" GridPane.halignment="CENTER" GridPane.rowIndex="1">

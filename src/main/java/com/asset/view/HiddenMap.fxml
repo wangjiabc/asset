@@ -99,12 +99,12 @@
                   </HBox>
                   <TabPane layoutX="43.0" layoutY="51.0" prefHeight="479.0" prefWidth="584.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
                     <tabs>
-                      <Tab text="隐患位置查询">
+                      <Tab fx:id="HiddenQuery" text="隐患位置查询">
                            <content>
                               <WebView fx:id="mapview" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" />
                            </content>
                         </Tab>
-                      <Tab text="添加隐患位置">
+                      <Tab fx:id="HiddenAppend" text="添加隐患位置">
                            <content>
                               <WebView fx:id="mapview2" minHeight="-1.0" minWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" />
                            </content>

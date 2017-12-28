@@ -24,6 +24,7 @@ import com.voucher.manage.daoModel.Assets.Position;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,6 +56,12 @@ public class HiddenMapController extends AssetAsSwitch{
 	 	
 		@FXML
 	 	private WebView mapview2;
+		
+		@FXML
+	 	private Tab HiddenQuery;
+		
+		@FXML
+	 	private Tab HiddenAppend;
 		
 	 	private WebEngine webEngine;
 	 	
@@ -99,23 +106,38 @@ public class HiddenMapController extends AssetAsSwitch{
 	 				// TODO: handle exception
 	 		 }
 	 	     */
-	 	     webEngine=mapview.getEngine();
-	 	     
-	 	     webEngine2=mapview2.getEngine();
-	 	
-				webEngine.load(mapUrl+"baidumap/queryMap.html");
-				mapview.getEngine().setOnAlert((WebEvent<String> wEvent)->{
-					System.out.println(wEvent);
-					queryTable(wEvent.getData());
-				});
+	 		 
+	 		webEngine=mapview.getEngine();
+	 		
+	 		webEngine2=mapview2.getEngine();
+	 		
+	 		webEngine.load(mapUrl+"baidumap/queryMap.html");
+	 		
+			mapview.getEngine().setOnAlert((WebEvent<String> wEvent)->{
+				System.out.println(wEvent);
+				queryTable(wEvent.getData());
+			});
 			
-				
-				webEngine2.load(mapUrl+"baidumap/appendMap.html");
-				mapview2.getEngine().setOnAlert((WebEvent<String> wEvent)->{
-					System.out.println(wEvent);
-					appendTable(wEvent.getData());
+			
+			webEngine2.load(mapUrl+"baidumap/appendMap.html");
+			
+			mapview2.getEngine().setOnAlert((WebEvent<String> wEvent)->{
+				System.out.println(wEvent);
+				appendTable(wEvent.getData());
+				webEngine.reload();
+			});
+			
+	 		HiddenQuery.setOnSelectionChanged(new EventHandler<Event>() {
+
+				@Override
+				public void handle(Event event) {
+					// TODO Auto-generated method stub						 	    	 	
 					webEngine.reload();
-				});
+				}
+				
+			}); 
+	 	     
+			
 				
 	}
 
@@ -217,8 +239,12 @@ public class HiddenMapController extends AssetAsSwitch{
 	   	        Map searchMap0=new HashMap<>();
 	  		  
 	  		    searchMap0.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", hidden_Join.getGUID());
-	            
-	            controller.setTableView(null,null,null,searchMap,searchMap0,null,null, null, null, null, null, null, null, null,null,null,null);
+	  		    Map searchMap2=new HashMap<>();
+	  		    searchMap2.put("[Assets].[dbo].[Hidden_Check].GUID=", hidden_Join.getGUID());
+	  		    Map searchMap3=new HashMap<>();
+	  		    searchMap3.put("[Assets].[dbo].[Hidden_Neaten].GUID=", hidden_Join.getGUID());
+	  		    
+	  		    controller.setTableView(null,null,null,searchMap,searchMap0,searchMap2,searchMap3,null,null, null, null, null, null, null, null, null,null,null,null);
 	            
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();
