@@ -97,26 +97,18 @@
                         <Insets right="10.0" />
                      </padding>
                   </HBox>
-                  <FlowPane fx:id="flowPane1" layoutX="10.0" layoutY="112.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
-                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" />
-                     </children>
-                  </FlowPane>
+                  <FlowPane fx:id="flowPane1" layoutX="10.0" layoutY="112.0" prefHeight="240.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0" />
                   <ToolBar layoutX="10.0" layoutY="50.0" prefHeight="40.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <items>
-                        <Label text="重大隐患" textFill="#867777">
+                        <Label style="-fx-text-fill: red;" text="重大隐患" textFill="#867777">
                            <font>
                               <Font size="29.0" />
                            </font>
                         </Label>
                      </items>
                   </ToolBar>
-                  <FlowPane layoutY="399.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
-                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" />
-                     </children>
-                  </FlowPane>
-                  <ToolBar layoutX="10.0" layoutY="338.0" prefHeight="46.0" prefWidth="723.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                  <FlowPane fx:id="flowPane2" layoutY="399.0" prefHeight="220.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="420.0" />
+                  <ToolBar layoutX="10.0" layoutY="338.0" prefHeight="40.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="360.0">
                      <items>
                         <Label text="一类隐患" textFill="#867777">
                            <font>
@@ -125,7 +117,7 @@
                         </Label>
                      </items>
                   </ToolBar>
-                  <ToolBar layoutY="627.0" prefHeight="40.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                  <ToolBar layoutY="627.0" prefHeight="40.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="650.0">
                      <items>
                         <Label text="二类隐患" textFill="#867777">
                            <font>
@@ -134,11 +126,7 @@
                         </Label>
                      </items>
                   </ToolBar>
-                  <FlowPane layoutY="685.0" prefHeight="200.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
-                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" />
-                     </children>
-                  </FlowPane>
+                  <FlowPane fx:id="flowPane3" layoutY="685.0" prefHeight="220.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="710.0" />
                </children></AnchorPane>
         </items>
       </SplitPane>
