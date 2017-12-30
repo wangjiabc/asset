@@ -587,7 +587,7 @@ public class NeatenDetailController {
 							hidden_Neaten.setRemark(remark.getText());
 						}
 	                    Date date2=new Date();
-	                    hidden_Neaten.setDate(date2);
+	                    hidden_Neaten.setUpdate_time(date2);
                 
 	                    String[] where={"neaten_id=",String.valueOf(Hidden_Neaten_Join.getNeaten_id())};
 	                    hidden_Neaten.setWhere(where);

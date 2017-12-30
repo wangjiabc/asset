@@ -580,7 +580,7 @@ public class SelectCheckInfoDetailController {
 							hidden_Check.setCheck_circs(checkCrics.getText());
 												
 	                    Date date2=new Date();
-	                    hidden_Check.setDate(date2);
+	                    hidden_Check.setUpdate_time(date2);
                 
 	                    String[] where={"check_id=",String.valueOf(hidden_Check_Join.getCheck_id())};
 	                    hidden_Check.setWhere(where);

@@ -36,7 +36,7 @@
       <Label layoutX="50.0" layoutY="147.0" text="输入检查记录 :" AnchorPane.leftAnchor="60.0" />
        <TabPane layoutX="51.0" layoutY="373.0" prefHeight="416.0" prefWidth="871.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="51.0" AnchorPane.rightAnchor="19.0">
         <tabs>
-          <Tab text="隐患图片">
+          <Tab text="安全检查图片">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -46,7 +46,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="隐患文档">
+          <Tab text="安全检查文档">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

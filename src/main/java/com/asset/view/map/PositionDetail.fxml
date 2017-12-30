@@ -11,9 +11,10 @@
       <TextField fx:id="city" layoutX="347.0" layoutY="130.0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="100.0" />
       <TextField fx:id="district" layoutX="101.0" layoutY="208.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="170.0" />
       <TextField fx:id="street" layoutX="355.0" layoutY="208.0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="170.0" />
-      <Button fx:id="button" layoutX="447.0" layoutY="324.0" mnemonicParsing="false" text="保存" />
+      <Button fx:id="button" layoutX="348.0" layoutY="324.0" mnemonicParsing="false" text="保存" />
       <TextField fx:id="lat" layoutX="347.0" layoutY="273.0" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="240.0" />
       <TextField fx:id="lng" layoutX="101.0" layoutY="273.0" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="240.0" />
       <Label fx:id="text" layoutX="101.0" layoutY="38.0" text="Label" />
+      <Button fx:id="cancel" layoutX="441.0" layoutY="324.0" mnemonicParsing="false" text="取消" />
    </children>
 </AnchorPane>

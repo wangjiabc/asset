@@ -48,8 +48,10 @@ import com.asset.view.neaten.NeatenDetailController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Assets;
+import com.voucher.manage.daoModel.Assets.Hidden_Check;
 import com.voucher.manage.daoModel.Assets.Hidden_Data;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
+import com.voucher.manage.daoModel.Assets.Hidden_Neaten;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Assets_Join;
@@ -258,8 +260,8 @@ public class HiddenDetailController {
 		 @FXML
 		 private TableColumn<RoomInfo_PositionProperty,String> C01;
 		 
-		 @FXML
-		 private TableColumn<RoomInfo_PositionProperty,String> C02;
+	//	 @FXML
+	//	 private TableColumn<RoomInfo_PositionProperty,String> C02;
 		 
 		 @FXML
 		 private TableColumn<RoomInfo_PositionProperty,String> C03;
@@ -267,8 +269,8 @@ public class HiddenDetailController {
 		 @FXML
 		 private TableColumn<RoomInfo_PositionProperty,String> C04;
 		 
-		 @FXML
-		 private TableColumn<RoomInfo_PositionProperty,String> C05;
+	//	 @FXML
+	//	 private TableColumn<RoomInfo_PositionProperty,String> C05;
 		 
 		 @FXML
 		 private TableColumn<RoomInfo_PositionProperty,Double> C06;
@@ -390,7 +392,11 @@ public class HiddenDetailController {
 		 
 		 private Integer limit3=10;
 		
+		 @FXML
+		 private ContextMenu contextMenuCheck;	 
 		 
+		 @FXML
+		 private ContextMenu contextMenuNeaten;
 		 
 	 Assets assets= new Connect().get();
 	 
@@ -405,7 +411,7 @@ public class HiddenDetailController {
 			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,ProgressBar> C6,
 			TableColumn<Hidden_JoinProperty,String> C7,TableColumn<Hidden_JoinProperty,String> C8,
 			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,TableColumn<Hidden_JoinProperty,String> C11) {
-		this.hiddenTable=hiddenTable;
+		this.hiddenTable=hiddenTable;		
 		this.offset=offset;
 		this.limit=limit;
 		this.searchMap=searchMap;
@@ -746,7 +752,7 @@ public class HiddenDetailController {
 	                if(hiddenRemark!=null){
 	                	hidden2.setRemark(hiddenRemark.getText());
 	                }
-					hidden2.setDate(date);
+					hidden2.setUpdate_time(date);
 	
 		     	int i=assets.updateHidden(hidden2);
 				
@@ -772,9 +778,9 @@ public class HiddenDetailController {
 					alert.setHeaderText("更新数据");
 					alert.setContentText("写入成功");
 					alert.showAndWait();
-					try{
+					try{						
 						hiddenTable.setItems(null);
-						setRoomInfoList(offset, limit,searchMap);
+						setRoomInfoList(searchMap);
 					}catch (Exception e) {
 						// TODO: handle exception
 						e.printStackTrace();
@@ -809,7 +815,7 @@ public class HiddenDetailController {
 				            // Create the dialog Stage.
 				            Stage dialogStage = new Stage();
 				            dialogStage.setTitle("选择要添加此隐患的资产");
-				            dialogStage.initModality(Modality.WINDOW_MODAL);
+				            dialogStage.initModality(Modality.APPLICATION_MODAL);
 				            Scene scene = new Scene(page);
 				            dialogStage.setScene(scene);
 
@@ -820,7 +826,7 @@ public class HiddenDetailController {
 				            hidden.setGUID(hidden_Jion.getGUID());
 				            
 				            controller.setHidden(hidden);
-				            controller.setTableView(roomTable, offset, limit, searchMap0, pagination0, C01, C02, C03, C04, C05, C06, C07);
+				            controller.setTableView(roomTable, offset, limit, searchMap0, pagination0, C01, null, C03, C04, null, C06, C07);
 				            
 				            controller.setDialogStage(dialogStage);
 				            
@@ -836,9 +842,9 @@ public class HiddenDetailController {
 			 
 		 pagination0.setPageFactory((Integer pageIndex)->{
 		    	if (pageIndex >= 0) {
-		    		offset=pageIndex*10;
-		    		limit=10;
-		    		setRoomInfoList0(offset, limit, searchMap0);
+		    		offset0=pageIndex*10;
+		    		limit0=10;
+		    		setRoomInfoList0(offset0, limit0, searchMap0);
 		    		 Label mLabel = new Label();  
 		                mLabel.setText("这是第" + (pageIndex+1) + "页");  
 		                return mLabel;  
@@ -873,8 +879,8 @@ public class HiddenDetailController {
 								  
 								  if(menuType.equals("m1")){
 									  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-								        alert.setTitle("安全信息");
-								        alert.setHeaderText("删除");
+								        alert.setTitle("删除");
+								        alert.setHeaderText("删除隐患关联资产");
 								        alert.setContentText("是否删除"+Address+"信息");
 
 								        ButtonType btnType1 = new ButtonType("确定");
@@ -893,12 +899,12 @@ public class HiddenDetailController {
 					                            
 								                int i=assets.deleteHidden_Assets(hidden_Assets);
 								                if(i==1){
-								                	alert.setTitle("安全信息");
+								                	alert.setTitle("删除隐患关联资产");
 													alert.setHeaderText("操作");
 													alert.setContentText("删除"+Address+"成功");
 													alert.showAndWait();
 													roomTable.setItems(null);
-													setRoomInfoList0(offset, limit,searchMap0);
+													setRoomInfoList0(offset0, limit0,searchMap0);
 								                }else{
 								                	Alert alert2 = new Alert(AlertType.ERROR);
 													alert2.setTitle("异常堆栈对话框1");
@@ -938,7 +944,7 @@ public class HiddenDetailController {
 				// TODO Auto-generated method stub
 				 String searchValue="%"+keyWord.getText()+"%";
 				 searchMap0.put("[TTT].[dbo].[RoomInfo].Address like ", searchValue);
-				 setRoomInfoList0(offset, limit, searchMap0);
+				 setRoomInfoList0(offset0, limit0, searchMap0);
 			}
 
 		});
@@ -980,6 +986,78 @@ public class HiddenDetailController {
 			            	table(rowData);
 			            }
 			        });
+			        
+			        row.setOnContextMenuRequested(event->{
+			        	
+		        	    contextMenuCheck.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent event) {
+								// TODO Auto-generated method stub
+								try{
+									
+								  String check_id=row.getItem().getCheck_id().get();
+								  String name=row.getItem().getCheck_name().get();
+								  String menuType=MenuType.get(event.getTarget().toString());
+								  System.out.println(menuType);								  
+								  
+								  if(menuType.equals("m1")){
+									  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+								        alert.setTitle("删除");
+								        alert.setHeaderText("安全检查记录");
+								        alert.setContentText("是否删除"+name+"信息");
+
+								        ButtonType btnType1 = new ButtonType("确定");
+								        ButtonType btnType2 = new ButtonType("取消");
+								     
+
+								        alert.getButtonTypes().setAll(btnType1, btnType2);
+
+								        Optional<ButtonType> result = alert.showAndWait();
+								        result.ifPresent(buttonType -> {
+								            if (buttonType == btnType1) {
+								                try{
+								                String[] where={"[Assets].[dbo].[Hidden_Check].check_id=",check_id};
+					                            Hidden_Check hidden_Check=new Hidden_Check();
+					                            hidden_Check.setWhere(where);
+					                            
+								                int i=assets.deleteHiddenCheck(hidden_Check);
+								                if(i==1){
+								                	alert.setTitle("安全检查记录");
+													alert.setHeaderText("操作");
+													alert.setContentText("删除"+name+"成功");
+													alert.showAndWait();
+													roomTable.setItems(null);
+													setHiddenCheckList(offset2, limit2,searchMap2);
+								                }else{
+								                	Alert alert2 = new Alert(AlertType.ERROR);
+													alert2.setTitle("异常堆栈对话框1");
+													alert2.setHeaderText("错误");
+													alert2.setContentText("删除"+name+"失败");
+													alert2.showAndWait();
+								                }
+								                }catch (Exception e) {
+													// TODO: handle exception
+								                	e.printStackTrace();
+								                	Alert alert2 = new Alert(AlertType.ERROR);
+													alert2.setTitle("异常堆栈对话框2");
+													alert2.setHeaderText("错误");
+													alert2.setContentText("删除"+name+"失败");
+													alert2.showAndWait();													
+												}
+								            } else if (buttonType == btnType2) {
+								            	System.out.println("点击了取消");
+								            } 
+								        });
+								  }
+								}catch (Exception e) {
+									// TODO: handle exception
+									e.printStackTrace();
+								}
+							}
+		        	    });
+			        });
+			        
 			        return row ;
 			    });
 	     
@@ -1018,6 +1096,78 @@ public class HiddenDetailController {
 				            	table2(rowData);
 				            }
 				        });
+				        
+				        row.setOnContextMenuRequested(event->{
+				        	
+			        	    contextMenuNeaten.setOnAction(new EventHandler<ActionEvent>() {
+
+								@Override
+								public void handle(ActionEvent event) {
+									// TODO Auto-generated method stub
+									try{
+										
+									  String neaten_id=row.getItem().getNeaten_id().get();
+									  String name=row.getItem().getNeaten_name().get();
+									  String menuType=MenuType.get(event.getTarget().toString());
+									  System.out.println(menuType);								  
+									  
+									  if(menuType.equals("m1")){
+										  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+									        alert.setTitle("删除");
+									        alert.setHeaderText("安全整顿记录");
+									        alert.setContentText("是否删除"+name+"信息");
+
+									        ButtonType btnType1 = new ButtonType("确定");
+									        ButtonType btnType2 = new ButtonType("取消");
+									     
+
+									        alert.getButtonTypes().setAll(btnType1, btnType2);
+
+									        Optional<ButtonType> result = alert.showAndWait();
+									        result.ifPresent(buttonType -> {
+									            if (buttonType == btnType1) {
+									                try{
+									                String[] where={"[Assets].[dbo].[Hidden_Neaten].neaten_id=",neaten_id};
+						                            Hidden_Neaten hidden_Neaten=new Hidden_Neaten();
+						                            hidden_Neaten.setWhere(where);
+						                            
+									                int i=assets.deleteHiddenNeaten(hidden_Neaten);
+									                if(i==1){
+									                	alert.setTitle("安全整顿记录");
+														alert.setHeaderText("操作");
+														alert.setContentText("删除"+name+"成功");
+														alert.showAndWait();
+														roomTable.setItems(null);
+														setHiddenNeatenList(offset3, limit3,searchMap3);
+									                }else{
+									                	Alert alert2 = new Alert(AlertType.ERROR);
+														alert2.setTitle("异常堆栈对话框1");
+														alert2.setHeaderText("错误");
+														alert2.setContentText("删除"+name+"失败");
+														alert2.showAndWait();
+									                }
+									                }catch (Exception e) {
+														// TODO: handle exception
+									                	e.printStackTrace();
+									                	Alert alert2 = new Alert(AlertType.ERROR);
+														alert2.setTitle("异常堆栈对话框2");
+														alert2.setHeaderText("错误");
+														alert2.setContentText("删除"+name+"失败");
+														alert2.showAndWait();													
+													}
+									            } else if (buttonType == btnType2) {
+									            	System.out.println("点击了取消");
+									            } 
+									        });
+									  }
+									}catch (Exception e) {
+										// TODO: handle exception
+										e.printStackTrace();
+									}
+								}
+			        	    });
+				        });
+				        
 				        return row ;
 				    });
 			 
@@ -1228,10 +1378,10 @@ public class HiddenDetailController {
 	        });
 	    }
 	 
-	 void setRoomInfoList(Integer offset,Integer limit,Map search){
+	 void setRoomInfoList(Map search){
 
-	      String sort=null;
-	      String order=null;
+	      String sort="date";
+	      String order="desc";
 	     
 		  Map map=new HashMap<>();
 		  
@@ -1240,6 +1390,8 @@ public class HiddenDetailController {
 
 		//  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
 		  
+		  
+		  System.out.println("1offset= "+this.offset+"    limit= "+limit);
 		  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
 		  
 	     hidden_Jions= (List<Hidden_Join>) map.get("rows");
@@ -1324,14 +1476,14 @@ public class HiddenDetailController {
 
 	     C01.setCellValueFactory(
 	                cellData -> cellData.getValue().getAddress());
-	     C02.setCellValueFactory(
-	   		    cellData->cellData.getValue().getGUID());
+	//     C02.setCellValueFactory(
+	//   		    cellData->cellData.getValue().getGUID());
 	     C03.setCellValueFactory(
 	    		    cellData->cellData.getValue().getRegion());
 	     C04.setCellValueFactory(
 	    		    cellData->cellData.getValue().getNum());
-	     C05.setCellValueFactory(
-	    		    cellData->cellData.getValue().getInDate());
+	//     C05.setCellValueFactory(
+	//    		    cellData->cellData.getValue().getInDate());
 	     C06.setCellValueFactory(
 	    		 cellData->cellData.getValue().getLat().asObject());
 	     C07.setCellValueFactory(
@@ -1361,7 +1513,7 @@ public class HiddenDetailController {
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle("隐患");
+	            dialogStage.setTitle(newValue.getName()+"安全检查记录");
 	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);

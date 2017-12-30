@@ -67,6 +67,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
@@ -91,6 +92,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 
 	 @FXML
 	 private ChoiceBox hiddenProgress;	 
+	 private String progress;
 	 
 	 @FXML
 	 private ChoiceBox hiddenType;	 
@@ -205,7 +207,8 @@ public class AssetOverviewController extends AssetAsSwitch{
 								Number newValue) {
 							// TODO Auto-generated method stub
 							int i=(int) newValue;
-	                        hiddenLevelValue=hidden_levels.get(i).getHidden_level();						
+	                        hiddenLevelValue=hidden_levels.get(i).getHidden_level();	
+	                        searchMap=new HashMap<>();  //清除查询条件
 							System.out.println(hiddenLevelValue);
 						}
 				        
@@ -213,8 +216,25 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     
      
 	    //整改进度 :
+	    List hidden_progress=new ArrayList<>();
+	    hidden_progress.add("未整改");
+	    hidden_progress.add("整改中");
+	    hidden_progress.add("已完成");
+	    hiddenProgress.setItems(FXCollections.observableArrayList(hidden_progress));
 	    
-	     
+	    hiddenProgress.getSelectionModel().selectedIndexProperty().addListener(new 
+	    		ChangeListener<Number>() {
+
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+							Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+						progress=hidden_progress.get(i).toString();
+						searchMap=new HashMap<>();  //清除查询条件
+					}
+			});
+	    
 	    //隐患情况 :
 		hidden_Types=assets.selectAllHiddenType();
 		Iterator<Hidden_Type> iterator3=hidden_Types.iterator();
@@ -234,8 +254,26 @@ public class AssetOverviewController extends AssetAsSwitch{
 						// TODO Auto-generated method stub
 						int i=(int) newValue;
 						hiddenTypeValue=hidden_Types.get(i).getType();
+						searchMap=new HashMap<>();  //清除查询条件
 					}
 				});
+	    
+	    keyWord.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			@Override
+			public void handle(KeyEvent event) {
+				// TODO Auto-generated method stub
+				String code=event.getCode().getName();
+				if(code.equals("Enter")){
+					if(keyWord.getText()!=null){
+					  searchMap.put("[Assets].[dbo].[Hidden].name like ", "%"+keyWord.getText()+"%");
+					}else{
+						searchMap=new HashMap<>();
+					}
+					setRoomInfoList(0,10,searchMap);
+				}
+			}
+		});
 	    
 	    //搜索	    
 	     search.setOnAction(new EventHandler<ActionEvent>() {
@@ -255,9 +293,19 @@ public class AssetOverviewController extends AssetAsSwitch{
 					 searchMap.put("[Assets].[dbo].[Hidden].type=", String.valueOf(hiddenTypeValue));
 				 }
 				 
-				 setRoomInfoList(0,10,searchMap);
+				 if(progress!=null){
+					 if(progress.equals("未整改")){
+						 searchMap.put("[Assets].[dbo].[Hidden].progress=","0");
+					 }else if(progress.equals("整改中")){
+						 searchMap.put("[Assets].[dbo].[Hidden].progress>", "0");
+						 searchMap.put("[Assets].[dbo].[Hidden].progress<", "1");
+					 }else{
+						 searchMap.put("[Assets].[dbo].[Hidden].progress=", "1");
+					 }
+				 }
 				 
-				 searchMap=new HashMap<>();
+				 setRoomInfoList(0,10,searchMap);
+				 				 
 			}
 		  });
 	     
@@ -339,6 +387,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 							                String[] where={"GUID=",GUID};
 							                Hidden hidden =new Hidden();
 							                hidden.setId(null);
+							                hidden.setGUID(GUID);
 							            	hidden.setWhere(where);
 							                int i=assets.deleteHidden(hidden);
 							                if(i==1){
@@ -633,7 +682,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	            
 	           // Map map=assets.selectAllHidden(limit, offset, null, null, searchMap);
 
-	            Map map=assets.selectAllHidden_Jion(limit, offset, null, null, searchMap);
+	            Map map=assets.selectAllHidden_Jion(limit, offset, "date", "desc", searchMap);
 	            
 	   	        hidden_Jions= (List<Hidden_Join>) map.get("rows");
 	            
@@ -676,7 +725,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 
 		//  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
 		  
-		  map=assets.selectAllHidden_Jion(limit, offset, sort, order, search);
+		  map=assets.selectAllHidden_Jion(limit, offset, "date", "desc", search);
 		  
 	     hidden_Jions= (List<Hidden_Join>) map.get("rows");
 	     

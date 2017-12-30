@@ -259,7 +259,7 @@ public class AppendHiddenQueryController {
 	            // Set the person into the controller.
 	            PositionDetailController controller = loader.getController();
 	            
-               Map map=assets.selectAllHidden_Jion(limit, offset, null, null, searchMap);
+               Map map=assets.selectAllHidden_Jion(limit, offset, "date", "desc", searchMap);
 	            
 	   	        hidden_Jions= (List<Hidden_Join>) map.get("rows");
 	            MyTestUtil.print(hidden_Jions);
@@ -297,8 +297,8 @@ public class AppendHiddenQueryController {
 	 
 	void setRoomInfoList(Integer offset,Integer limit,Map search){
 
-	      String sort=null;
-	      String order=null;
+		 String sort="date";
+	      String order="desc";
 	     
 		  Map map=new HashMap<>();
 		  

@@ -31,6 +31,9 @@ public class Hidden_Neaten_Join implements Serializable{
 	    @SQLString(name="neaten_instance")
 		private String neaten_instance;
 
+	    @SQLDateTime(name="update_time")
+		private Date update_time;
+	    
 	    @SQLDateTime(name="date")
 		private Date date;
 
@@ -105,6 +108,14 @@ public class Hidden_Neaten_Join implements Serializable{
 			return neaten_instance;
 		}
 
+		public void setUpdate_time(Date update_time){
+			this.update_time = update_time;
+		}
+
+		public Date getUpdate_time(){
+			return update_time;
+		}
+		
 		public void setDate(Date date){
 			this.date = date;
 		}

@@ -97,7 +97,7 @@
                         <Insets right="10.0" />
                      </padding>
                   </HBox>
-                  <FlowPane fx:id="flowPane1" layoutX="10.0" layoutY="112.0" prefHeight="240.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0" />
+                  <FlowPane fx:id="flowPane1" layoutX="10.0" layoutY="112.0" prefHeight="220.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0" />
                   <ToolBar layoutX="10.0" layoutY="50.0" prefHeight="40.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
                      <items>
                         <Label style="-fx-text-fill: red;" text="重大隐患" textFill="#867777">
@@ -107,8 +107,8 @@
                         </Label>
                      </items>
                   </ToolBar>
-                  <FlowPane fx:id="flowPane2" layoutY="399.0" prefHeight="220.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="420.0" />
-                  <ToolBar layoutX="10.0" layoutY="338.0" prefHeight="40.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="360.0">
+                  <FlowPane fx:id="flowPane2" layoutY="399.0" prefHeight="220.0" style="-fx-background-color: #ffffff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="410.0" />
+                  <ToolBar layoutX="10.0" layoutY="338.0" prefHeight="40.0" style="-fx-background-color: #d2e9ff; -fx-border-radius: 7px;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="350.0">
                      <items>
                         <Label text="一类隐患" textFill="#867777">
                            <font>

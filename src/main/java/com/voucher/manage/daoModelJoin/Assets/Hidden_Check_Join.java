@@ -22,6 +22,9 @@ public class Hidden_Check_Join implements Serializable{
     @SQLString(name="check_circs")
 	private String check_circs;
 
+    @SQLDateTime(name="update_time")
+   	private Date update_time;
+    
     @SQLDateTime(name="date")
 	private Date date;
 
@@ -87,6 +90,14 @@ public class Hidden_Check_Join implements Serializable{
 		return check_circs;
 	}
 
+	public void setUpdate_time(Date update_time){
+		this.update_time = update_time;
+	}
+
+	public Date getUpdate_time(){
+		return update_time;
+	}
+	
 	public void setDate(Date date){
 		this.date = date;
 	}

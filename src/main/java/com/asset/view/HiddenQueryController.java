@@ -81,6 +81,8 @@ public class HiddenQueryController extends AssetAsSwitch{
 	     
 	     Map<String, Object> map=assets.hiddenQuery(1);
 	     
+	     MyTestUtil.print(map);
+	     
 	     List<byte[]> fileBytes=(List<byte[]>) map.get("fileBytes");
 	     List<String> GUIDs=(List<String>) map.get("GUIDs");
 		 List<String> names=(List<String>) map.get("names");
@@ -177,6 +179,9 @@ public class HiddenQueryController extends AssetAsSwitch{
 					e.printStackTrace();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}catch (NullPointerException e) {
+					// TODO: handle exception
 					e.printStackTrace();
 				}
 				
@@ -283,6 +288,9 @@ public class HiddenQueryController extends AssetAsSwitch{
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}catch (NullPointerException e) {
+					// TODO: handle exception
+					e.printStackTrace();
 				}
 				
 				n++;
@@ -387,6 +395,9 @@ public class HiddenQueryController extends AssetAsSwitch{
 					e.printStackTrace();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}catch (NullPointerException e) {
+					// TODO: handle exception
 					e.printStackTrace();
 				}
 				

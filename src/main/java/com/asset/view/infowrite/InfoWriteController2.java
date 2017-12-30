@@ -250,8 +250,8 @@ public class InfoWriteController2 {
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,String> C01;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,String> C02;
+	// @FXML
+	// private TableColumn<RoomInfo_PositionProperty,String> C02;
 	 
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,String> C03;
@@ -259,8 +259,8 @@ public class InfoWriteController2 {
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,String> C04;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,String> C05;
+	// @FXML
+	// private TableColumn<RoomInfo_PositionProperty,String> C05;
 	 
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,Double> C06;
@@ -720,6 +720,11 @@ public class InfoWriteController2 {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
+				String[] where={"[Assets].[dbo].[Hidden_Assets].hidden_GUID =",uuid.toString()};
+                Hidden_Assets hidden_Assets=new Hidden_Assets();
+                hidden_Assets.setWhere(where);
+                
+                int i=assets.deleteHidden_Assets(hidden_Assets);
 			    handleCancel();
 			}
 		});
@@ -750,7 +755,7 @@ public class InfoWriteController2 {
 			            
 			            
 			            controller.setHidden(hidden);
-			            controller.setTableView(roomTable, offset, limit, searchMap0, pagination, C01, C02, C03, C04, C05, C06, C07);
+			            controller.setTableView(roomTable, offset, limit, searchMap0, pagination0, C01, null, C03, C04, null, C06, C07);
 			            
 			            
 			            controller.setDialogStage(dialogStage);
@@ -816,7 +821,9 @@ public class InfoWriteController2 {
 												alert.setContentText("删除"+Address+"成功");
 												alert.showAndWait();
 												roomTable.setItems(null);
-												setRoomInfoList0(offset, limit,searchMap0);
+												Map searchMap2=new HashMap<>();
+												searchMap2.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", uuid.toString());
+												setRoomInfoList0(offset, limit,searchMap2);
 							                }else{
 							                	Alert alert2 = new Alert(AlertType.ERROR);
 												alert2.setTitle("异常堆栈对话框");
@@ -1049,8 +1056,8 @@ public class InfoWriteController2 {
 	 
 	 void setRoomInfoList(Integer offset,Integer limit,Map search){
 
-	      String sort=null;
-	      String order=null;
+		 String sort="date";
+	      String order="desc";
 	     
 		  Map map=new HashMap<>();
 		  
@@ -1122,8 +1129,8 @@ public class InfoWriteController2 {
 	 
 	 void setRoomInfoList0(Integer offset,Integer limit,Map search){
 
-	      String sort=null;
-	      String order=null;
+		 String sort="date";
+	      String order="desc";
 	     
 		  Map map=new HashMap<>();
 		  
@@ -1145,14 +1152,14 @@ public class InfoWriteController2 {
 
 	     C01.setCellValueFactory(
 	                cellData -> cellData.getValue().getAddress());
-	     C02.setCellValueFactory(
-	   		    cellData->cellData.getValue().getGUID());
+	 //    C02.setCellValueFactory(
+	 //  		    cellData->cellData.getValue().getGUID());
 	     C03.setCellValueFactory(
 	    		    cellData->cellData.getValue().getRegion());
 	     C04.setCellValueFactory(
 	    		    cellData->cellData.getValue().getNum());
-	     C05.setCellValueFactory(
-	    		    cellData->cellData.getValue().getInDate());
+	 //    C05.setCellValueFactory(
+	 //   		    cellData->cellData.getValue().getInDate());
 	     C06.setCellValueFactory(
 	    		 cellData->cellData.getValue().getLat().asObject());
 	     C07.setCellValueFactory(

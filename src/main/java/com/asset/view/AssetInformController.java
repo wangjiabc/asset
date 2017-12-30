@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.poi.ss.formula.functions.T;
 
@@ -16,12 +17,14 @@ import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.join.HiddenNeaten_JoinProperty;
 import com.asset.property.join.HiddenNeaten_JoinProperty;
+import com.asset.tool.MenuType;
 import com.asset.tool.MyTestUtil;
 import com.asset.view.check.CheckInfoDetailController;
 import com.asset.view.detail.AddCheckInfoDetailController;
 import com.asset.view.neaten.NeatenDetailController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
+import com.voucher.manage.daoModel.Assets.Hidden_Neaten;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Neaten_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Neaten_Join;
 
@@ -36,14 +39,18 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -111,6 +118,9 @@ public class AssetInformController extends AssetAsSwitch{
 	 private Stage stage;
 	 private File file;
 	 private File docFile;
+	 
+	 @FXML
+	 private ContextMenu contextMenu;
 	 
 	 Assets assets= new Connect().get();
 	
@@ -192,6 +202,83 @@ public class AssetInformController extends AssetAsSwitch{
 			            	table(rowData);
 			            }
 			        });
+			        
+			        row.setOnContextMenuRequested(event->{
+			        	
+		        	    contextMenu.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent event) {
+								// TODO Auto-generated method stub
+								try{
+									
+								  String neaten_id=row.getItem().getNeaten_id().get();
+								  String name=row.getItem().getNeaten_name().get();
+								  String menuType=MenuType.get(event.getTarget().toString());
+								  System.out.println(menuType);								  
+								  
+								  if(menuType.equals("m1")){
+									  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+								        alert.setTitle("删除");
+								        alert.setHeaderText("安全整顿记录");
+								        alert.setContentText("是否删除"+name+"信息");
+
+								        ButtonType btnType1 = new ButtonType("确定");
+								        ButtonType btnType2 = new ButtonType("取消");
+								     
+
+								        alert.getButtonTypes().setAll(btnType1, btnType2);
+
+								        Optional<ButtonType> result = alert.showAndWait();
+								        result.ifPresent(buttonType -> {
+								            if (buttonType == btnType1) {
+								                try{
+								                String[] where={"[Assets].[dbo].[Hidden_Neaten].neaten_id=",neaten_id};
+					                            Hidden_Neaten hidden_Neaten=new Hidden_Neaten();
+					                            hidden_Neaten.setWhere(where);
+					                            
+								                int i=assets.deleteHiddenNeaten(hidden_Neaten);
+								                if(i==1){
+								                	alert.setTitle("安全整顿记录");
+													alert.setHeaderText("操作");
+													alert.setContentText("删除"+name+"成功");
+													alert.showAndWait();
+													hiddenNeatenTable.setItems(null);
+													setHiddenNeaten(offset, limit,searchMap);
+								                }else{
+								                	Alert alert2 = new Alert(AlertType.ERROR);
+													alert2.setTitle("异常堆栈对话框1");
+													alert2.setHeaderText("错误");
+													alert2.setContentText("删除"+name+"失败");
+													alert2.showAndWait();
+								                }
+								                }catch (Exception e) {
+													// TODO: handle exception
+								                	e.printStackTrace();
+								                	Alert alert2 = new Alert(AlertType.ERROR);
+													alert2.setTitle("异常堆栈对话框2");
+													alert2.setHeaderText("错误");
+													alert2.setContentText("删除"+name+"失败");
+													alert2.showAndWait();													
+												}
+								            } else if (buttonType == btnType2) {
+								            	System.out.println("点击了取消");
+								            } 
+								        });
+								  }
+								  
+								  if(menuType.equals("m2")){
+									  HiddenNeaten_JoinProperty rowData = row.getItem();
+						              table(rowData);
+								  }
+								}catch (Exception e) {
+									// TODO: handle exception
+									e.printStackTrace();
+								}
+							}
+		        	    });
+			        });
+			        
 			        return row ;
 			    });
 
@@ -208,7 +295,7 @@ public class AssetInformController extends AssetAsSwitch{
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle("添加隐患整顿记录");
+	            dialogStage.setTitle("安全隐患整顿记录");
 	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);

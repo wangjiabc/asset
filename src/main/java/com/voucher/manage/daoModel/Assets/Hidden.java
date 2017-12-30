@@ -44,6 +44,9 @@ public class Hidden implements Serializable{
     @SQLString(name="remark")
 	private String remark;
 
+    @SQLDateTime(name="update_time")
+	private Date update_time;
+    
     @SQLDateTime(name="date")
 	private Date date;
 
@@ -135,6 +138,14 @@ public class Hidden implements Serializable{
 		return remark;
 	}
 
+	public void setUpdate_time(Date update_time){
+		this.update_time = update_time;
+	}
+
+	public Date getUpdate_time(){
+		return update_time;
+	}
+	
 	public void setDate(Date date){
 		this.date = date;
 	}

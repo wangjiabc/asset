@@ -170,7 +170,7 @@ public class HiddenMapController extends AssetAsSwitch{
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
 	            dialogStage.setTitle("选择要添加位置的资产");
-	            dialogStage.initModality(Modality.WINDOW_MODAL);
+	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
 
@@ -244,8 +244,31 @@ public class HiddenMapController extends AssetAsSwitch{
 	  		    Map searchMap3=new HashMap<>();
 	  		    searchMap3.put("[Assets].[dbo].[Hidden_Neaten].GUID=", hidden_Join.getGUID());
 	  		    
-	  		    controller.setTableView(null,null,null,searchMap,searchMap0,searchMap2,searchMap3,null,null, null, null, null, null, null, null, null,null,null,null);
+	  		    controller.setTableView(null,0,10,searchMap,searchMap0,searchMap2,searchMap3,null,null, null, null, null, null, null, null, null,null,null,null);
 	            
+	  		    Map searchMap4=new HashMap<>();
+	  		    searchMap4.put("[Assets].[dbo].[Hidden].GUID=", hidden_Join.getGUID());
+	  		    Map map=assets.selectAllHidden_Jion(10, 0, "date", "desc", searchMap4);
+	            
+	   	        hidden_Jions= (List<Hidden_Join>) map.get("rows");
+	            
+	            Iterator<Hidden_Join> iterator=hidden_Jions.iterator();
+	            
+	            Hidden_Join hidden_Join2=null;
+	            
+	            while(iterator.hasNext()){
+	            	Hidden_Join h=iterator.next();
+	            	try{
+	            	 if(hidden_Join.getGUID().equals(h.getGUID())){
+	            		 hidden_Join2=h;
+	    	            controller.setHidden(hidden_Join2);
+	            		break;
+	            	  }
+	            	}catch (NullPointerException e) {
+						// TODO: handle exception
+					}
+	            }
+	  		    
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();
 

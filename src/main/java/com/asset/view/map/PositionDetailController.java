@@ -42,6 +42,9 @@ public class PositionDetailController {
 	@FXML
 	Button button;
 	
+	@FXML
+	Button cancel;
+	
 	private Stage dialogStage;
 	
 	private Position position;
@@ -94,6 +97,18 @@ public class PositionDetailController {
 				}
 			}
 		});
+		
+		
+		cancel.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				handleCancel();
+			}
+			
+		});
+		
 	}
 	
 	public void setPosition(Position position,String Address,String GUID){

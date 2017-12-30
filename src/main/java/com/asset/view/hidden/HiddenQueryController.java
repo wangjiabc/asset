@@ -275,7 +275,7 @@ public class HiddenQueryController {
 			// Create the dialog Stage.
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("隐患");
-			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initModality(Modality.APPLICATION_MODAL);
 			Scene scene = new Scene(page);
 			dialogStage.setScene(scene);
 
@@ -321,8 +321,8 @@ public class HiddenQueryController {
 
 	void setRoomInfoList(Integer offset,Integer limit,Map search){
 
-	      String sort=null;
-	      String order=null;
+		 String sort="date";
+	      String order="desc";
 	     
 		  Map map=new HashMap<>();
 		  
