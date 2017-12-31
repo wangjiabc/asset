@@ -15,7 +15,7 @@ import javafx.collections.ObservableList;
 public class roomInfoData {
 	 private ObservableList<RoomInfoProperty> roomInfoData = FXCollections.observableArrayList();
 	 
-	 Assets assets= new Connect().getAssets();
+	 Assets assets= new Connect().get();
 	 
 	 public Map<String, Object> get(Integer limit,Integer offset,
 			 String sort,String order,Map search) {

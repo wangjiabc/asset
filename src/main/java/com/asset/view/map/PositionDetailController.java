@@ -65,7 +65,7 @@ public class PositionDetailController {
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				
-				Assets assets=new Connect().getAssets();
+				Assets assets=new Connect().get();
 				
 			 try{
 				Date date=new Date();

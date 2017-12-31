@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.http.client.ClientProtocolException;
 
 import com.alibaba.fastjson.JSONObject;
+import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.view.hidden.HiddenDetailController;
 import com.asset.view.map.AppendAssetController;
@@ -67,7 +68,7 @@ public class HiddenMapController extends AssetAsSwitch{
 	 	
 	 	private WebEngine webEngine2;
 	 	
-	 	private static final String mapUrl="http://127.0.0.1:8080/voucher/"; 
+	 	private static final String mapUrl=Singleton.getInstance().getMapUrl();
 	 
 	 	 Assets assets= new Connect().get();
 	 	

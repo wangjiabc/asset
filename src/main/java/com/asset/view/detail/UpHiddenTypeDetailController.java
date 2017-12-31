@@ -26,7 +26,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class HiddenTypeDetailController {
+public class UpHiddenTypeDetailController {
 
 	@FXML
 	private TextField hiddenType;
@@ -42,6 +42,8 @@ public class HiddenTypeDetailController {
 	@FXML
 	 private TableColumn<HiddenTypeProperty,String> C12;
 	
+	private Hidden_Type hidden_Type;
+	
 	@FXML
 	private Button update;
 	
@@ -52,12 +54,15 @@ public class HiddenTypeDetailController {
 	
 	Assets assets=new Connect().get();
 	
-	public void setHiddenType(TableView<HiddenTypeProperty> hiddenTypeTable,TableColumn<HiddenTypeProperty,Integer> C11,
+	public void setHiddenType(Hidden_Type hidden_Type,TableView<HiddenTypeProperty> hiddenTypeTable,TableColumn<HiddenTypeProperty,Integer> C11,
 			TableColumn<HiddenTypeProperty,String> C12){
 		
+		  this.hidden_Type=hidden_Type;
 		  this.hiddenTypeTable=hiddenTypeTable;
 		  this.C11=C11;
 		  this.C12=C12;
+		  
+		  hiddenType.setText(hidden_Type.getHidden_type());
 	}
 	
 	@FXML
@@ -68,17 +73,15 @@ public class HiddenTypeDetailController {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				Hidden_Type hidden_Type=new Hidden_Type();
-				
+				System.out.println("hiientypeid="+hidden_Type.getId());
 				if(hidden_Type!=null){
 					hidden_Type.setHidden_type(hiddenType.getText());
-					Random rand = new Random();
-					int r=Math.abs(rand.nextInt());
-					hidden_Type.setType(r);
-				
-				try{
-					int i=assets.insertHiddenType(hidden_Type);
+					String[] where={"[Assets].[dbo].[Hidden_Type].id=",String.valueOf(hidden_Type.getId())};
+					hidden_Type.setWhere(where);
+					hidden_Type.setId(null);
 					
+				try{
+					int i=assets.updateHiddenType(hidden_Type);					
 					if(i==1){
 						  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		                	alert.setTitle("隐患类型");
@@ -91,7 +94,7 @@ public class HiddenTypeDetailController {
 						Alert alert2 = new Alert(AlertType.ERROR);
 						alert2.setTitle("异常堆栈对话框");
 						alert2.setHeaderText("错误");
-						alert2.setContentText("新建"+hiddenType.getText()+"失败");
+						alert2.setContentText("更新"+hiddenType.getText()+"失败");
 						alert2.showAndWait();
 					  }
 				}catch (Exception e) {
@@ -101,10 +104,10 @@ public class HiddenTypeDetailController {
 						Alert alert2 = new Alert(AlertType.ERROR);
 						alert2.setTitle("异常堆栈对话框");
 						alert2.setHeaderText("错误");
-						alert2.setContentText("新建"+hiddenType.getText()+"失败");
+						alert2.setContentText("更新"+hiddenType.getText()+"失败");
 						alert2.showAndWait();
-				 }
 				}
+			  }
 			}
 			 
 		 });

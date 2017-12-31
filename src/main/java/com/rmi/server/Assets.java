@@ -62,17 +62,24 @@ public interface Assets {
 	
 	public Integer deleteHiddenLevel(Hidden_Level hidden_level);
 	
+	public Integer updateHiddenLevel(Hidden_Level hidden_Level);
+	
     public List<Hidden_Type> selectAllHiddenType();
 	
 	public Integer insertHiddenType(Hidden_Type hidden_Type);
 	
 	public Integer deleteHiddenType(Hidden_Type hidden_Type);
 	
-    public List<Hidden_User> selectAllHiddenUser();
+	public Integer updateHiddenType(Hidden_Type hidden_Type);
+	
+	public Map<String, Object> selectAllHiddenUser(Integer limit, Integer offset, String sort,
+			String order,Map<String, String> search);
 	
 	public Integer insertHiddenUser(Hidden_User hidden_User);
 	
 	public Integer deleteHiddenUser(Hidden_User hidden_User);
+
+	public Integer updateHiddenUser(Hidden_User hidden_User);
 	
 	public Map<String, Object> selectAllHiddenCheck(Integer limit, Integer offset, String sort,
 			String order,Map<String, String> search);

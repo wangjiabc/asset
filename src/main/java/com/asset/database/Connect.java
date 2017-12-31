@@ -34,7 +34,7 @@ public class Connect {
 		public Assets call() throws Exception {
 			// TODO Auto-generated method stub
 			 URL url = getClass().getResource("applicationContext-beans.xml");
-			  context = new ClassPathXmlApplicationContext(url.toString());
+			  context = new ClassPathXmlApplicationContext(url.toString());		
 			  Assets assets= (Assets) context.getBean("assetsSpringRMI");
 			  context.close();
 			  return assets;
@@ -68,7 +68,7 @@ public class Connect {
 	}
 	
 	
-	
+	/*
 	public Assets getAssets() {
 		  URL url = getClass().getResource("applicationContext-beans.xml");
 		  context = new ClassPathXmlApplicationContext(url.toString());
@@ -76,5 +76,6 @@ public class Connect {
 		  context.close();
 		  return assets;
 	}
+	*/
 	
 }

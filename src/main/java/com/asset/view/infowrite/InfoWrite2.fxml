@@ -56,7 +56,7 @@
       <TextArea fx:id="hiddenDetail" layoutX="79.0" layoutY="256.0" prefHeight="101.0" prefWidth="855.0" />
       <TabPane layoutX="79.0" layoutY="373.0" prefHeight="389.0" prefWidth="737.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="30.0">
         <tabs>
-            <Tab text="关联资产">
+            <Tab text="隐患关联资产">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -67,11 +67,9 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                                  <columns>
-                                    <TableColumn fx:id="C01" prefWidth="75.0" text="地址" />
-                                    <TableColumn fx:id="C03" prefWidth="75.0" text="区" />
-                                    <TableColumn fx:id="C04" prefWidth="75.0" text="编号" />
-                                    <TableColumn fx:id="C06" prefWidth="75.0" text="经度" />
-                                    <TableColumn fx:id="C07" prefWidth="75.0" text="纬度" />
+                                    <TableColumn fx:id="C01" prefWidth="75.0" text="资产位置" />
+                                    <TableColumn fx:id="C03" prefWidth="75.0" text="所在区" />
+                                    <TableColumn fx:id="C04" prefWidth="75.0" text="资产编号" />
                                  </columns>
                                  <contextMenu>
                                     <ContextMenu fx:id="contextMenu">

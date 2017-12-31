@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="284.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.detail.HiddenTypeDetailController">
+<AnchorPane prefHeight="284.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.detail.UpHiddenTypeDetailController">
    <children>
       <Button fx:id="update" layoutX="302.0" layoutY="222.0" mnemonicParsing="false" prefWidth="80.0" text="确定" AnchorPane.bottomAnchor="30.0" />
       <TextField fx:id="hiddenType" layoutX="217.0" layoutY="116.0" prefWidth="250.0" AnchorPane.leftAnchor="200.0" />

@@ -11,14 +11,22 @@ import java.util.Optional;
 
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
+import com.asset.property.HiddenLevelProperty;
+import com.asset.property.HiddenTypeProperty;
 import com.asset.property.HiddenUserProperty;
+import com.asset.property.join.HiddenCheck_JoinProperty;
 import com.asset.property.join.Hidden_JoinProperty;
+import com.asset.tool.MenuType;
+import com.asset.tool.MyTestUtil;
 import com.asset.view.detail.AddUserDetailController;
 import com.asset.view.detail.HiddenLevelDetailController;
 import com.asset.view.detail.HiddenTypeDetailController;
+import com.asset.view.detail.UpHiddenLevelDetailController;
+import com.asset.view.detail.UpHiddenTypeDetailController;
 import com.asset.view.hidden.HiddenDetailController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
+import com.voucher.manage.daoModel.Assets.Hidden_Check;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
@@ -34,8 +42,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.Pagination;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -52,19 +64,16 @@ public class AssetWorkController extends AssetAsSwitch{
 	private Label rightTitleLabel;
 	
 	@FXML
-	private VBox hiddenLevel;
+	private TabPane tabPane;
 	
 	@FXML
-	private VBox levelText;
+	private Tab typeTab;
 	
 	@FXML
-	private VBox levelButton;
+	private Tab levelTab;
 	
 	@FXML
-	private VBox hiddenType;
-		
-	@FXML
-	private VBox hiddenTypeButton;
+	private Tab userTab;
 	
 	@FXML
 	private Button addHiddenTypeButton;
@@ -75,20 +84,64 @@ public class AssetWorkController extends AssetAsSwitch{
 	@FXML
 	private Button addHiddenUserButton;
 	
-	private ObservableList<HiddenUserProperty> hiddenList;
-	 
-	 @FXML
-	 private TableView<HiddenUserProperty> hiddenTable;
-	 
-	 @FXML
-	 private TableColumn<HiddenUserProperty,Integer> C1;
-	 
-	 @FXML
-	 private TableColumn<HiddenUserProperty,String> C2;
-	 
-	 @FXML
-	 private TableColumn<HiddenUserProperty,String> C3;
+	private ObservableList<HiddenTypeProperty> hiddenTypeList;	
 	
+	@FXML
+	 private TableView<HiddenTypeProperty> hiddenTypeTable;
+	
+	@FXML
+	 private TableColumn<HiddenTypeProperty,Integer> C11;
+	
+	@FXML
+	 private TableColumn<HiddenTypeProperty,String> C12;
+	
+	private ObservableList<HiddenLevelProperty> hiddenLevelList;
+	
+	@FXML
+	 private TableView<HiddenLevelProperty> hiddenLevelTable;
+	
+	@FXML
+	 private TableColumn<HiddenLevelProperty,Integer> C21;
+	
+	@FXML
+	 private TableColumn<HiddenLevelProperty,String> C22;
+	
+	 private ObservableList<HiddenUserProperty> hiddenUserList;
+	 
+	 @FXML
+	 private TableView<HiddenUserProperty> hiddenUserTable;
+	 
+	 @FXML
+	 private TableColumn<HiddenUserProperty,Integer> C31;
+	 
+	 @FXML
+	 private TableColumn<HiddenUserProperty,String> C32;
+	 
+	 @FXML
+	 private TableColumn<HiddenUserProperty,String> C33;
+	
+	 @FXML
+	 private TableColumn<HiddenUserProperty,String> C34;
+	 
+	 @FXML
+	 private TableColumn<HiddenUserProperty,String> C35;
+	 
+	 @FXML
+	 private ContextMenu contextMenuUser;
+	 
+	 @FXML
+	 private ContextMenu contextMenuLevel;
+	 
+	 @FXML
+	 private ContextMenu contextMenuType;
+	 
+	 private Integer offset=0;
+	 
+	 private Integer limit=10;
+	 
+	 @FXML
+	 private Pagination pagination;
+	 
 	Assets assets= new Connect().get();
 	
 	 public AssetWorkController() {
@@ -105,40 +158,29 @@ public class AssetWorkController extends AssetAsSwitch{
 	     
 	     rightTitleLabel.setText("设置");
 	     
-	     Insets insets=new Insets(10, 10, 10, 10);
-	     hiddenLevel.setPadding(insets);
-	     hiddenLevel.setSpacing(20);
-	     levelText.setPadding(insets);
-	     levelText.setSpacing(20);
-	     levelButton.setSpacing(10);
-         hiddenType.setPadding(insets);
-         hiddenType.setSpacing(20);
-         hiddenTypeButton.setSpacing(10);
-         
-	     List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
+	   
+	     setHiddenType();
 	     
-	     Iterator<Hidden_Level> iterator=hidden_levels.iterator();
+	     setHiddenLevel();
+     
+	     pagination.setPageFactory((Integer pageIndex)->{
+		    	if (pageIndex >= 0) {
+		    		offset=pageIndex*10;
+		    		limit=10;
+		    		setUser(offset, limit);
+		    		 Label mLabel = new Label();  
+		                mLabel.setText("这是第" + (pageIndex+1) + "页");  
+		                return mLabel;  
+	            } else {
+	                return null;
+	            }
+		    });
 	     
-	     while(iterator.hasNext()){
-	    	 Hidden_Level hidden_level=iterator.next();
-	    	 Label label=new Label();
-	    	 label.setText(hidden_level.getHidden_level().toString());
-	    	 hiddenLevel.getChildren().add(label);
-	    	 Label label2=new Label();
-	    	 label2.setText(hidden_level.getLevel_text());
-	    	 levelText.getChildren().add(label2);
-	    	 Button button=new Button();	     
-		     button.setText("删除");
-		     levelButton.getChildren().add(button);
-		     button.setOnAction(new EventHandler<ActionEvent>() {
-				
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					setFlowPane(assets);
-				}
-			});
-	     }
+	     /*
+	     typeTab.setDisable(true);
+	     SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();	     
+	     selectionModel.select(2);
+	     */
 	     
 	     addHiddenLevelButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -157,42 +199,26 @@ public class AssetWorkController extends AssetAsSwitch{
 
 			            // Create the dialog Stage.
 			            Stage dialogStage = new Stage();
-			            dialogStage.setTitle("隐患");
-			            dialogStage.initModality(Modality.WINDOW_MODAL);
+			            dialogStage.setTitle("新建隐患等级");
+			            dialogStage.initModality(Modality.APPLICATION_MODAL);
 			            Scene scene = new Scene(page);
 			            dialogStage.setScene(scene);
 
 			            // Set the person into the controller.
 			            HiddenLevelDetailController controller = loader.getController();
-			            controller.setDialogStage(dialogStage);
-	                    controller.setHiddenLevel(hiddenLevel, levelText, levelButton);
 			            
+			            controller.setHiddenLevel(hiddenLevelTable, C21, C22);
+			            
+			            controller.setDialogStage(dialogStage);
+	    	            
 			            // Show the dialog and wait until the user closes it
 			            dialogStage.show();
 				}
 			});
 	     
-	     List<Hidden_Type> hidden_Types=assets.selectAllHiddenType();
+	    
 	     
-	     Iterator<Hidden_Type> iterator2=hidden_Types.iterator();
-	     
-	     while(iterator2.hasNext()){
-	    	 Hidden_Type hidden_Type=iterator2.next();
-	    	 Label label=new Label();
-	    	 label.setText(hidden_Type.getHidden_type());
-	    	 hiddenType.getChildren().add(label);
-	    	 Button button=new Button();
-	    	 button.setText("删除");
-	    	 hiddenTypeButton.getChildren().add(button);
-	    	 button.setOnAction(new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					setFlowPane2(assets);
-				}
-			});
-	     }
+	    
 	     
 	     addHiddenTypeButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -211,16 +237,16 @@ public class AssetWorkController extends AssetAsSwitch{
 
 			            // Create the dialog Stage.
 			            Stage dialogStage = new Stage();
-			            dialogStage.setTitle("隐患");
-			            dialogStage.initModality(Modality.WINDOW_MODAL);
+			            dialogStage.setTitle("新建隐患类型");
+			            dialogStage.initModality(Modality.APPLICATION_MODAL);
 			            Scene scene = new Scene(page);
 			            dialogStage.setScene(scene);
 
 			            // Set the person into the controller.
 			            HiddenTypeDetailController controller = loader.getController();
+			            controller.setHiddenType(hiddenTypeTable, C11, C12);
 			            controller.setDialogStage(dialogStage);
-	                    controller.setHiddenType(hiddenType, hiddenTypeButton);
-			            
+	      	            
 			            // Show the dialog and wait until the user closes it
 			            dialogStage.show();
 				}
@@ -246,23 +272,22 @@ public class AssetWorkController extends AssetAsSwitch{
 			            // Create the dialog Stage.
 			            Stage dialogStage = new Stage();
 			            dialogStage.setTitle("新建员工");
-			            dialogStage.initModality(Modality.WINDOW_MODAL);
+			            dialogStage.initModality(Modality.APPLICATION_MODAL);
 			            Scene scene = new Scene(page);
 			            dialogStage.setScene(scene);
 
 			            // Set the person into the controller.
 			            AddUserDetailController controller = loader.getController();
 			            controller.setDialogStage(dialogStage);
-			            controller.setAddUser(hiddenTable, C1, C2, C3);
+			            controller.setAddUser(offset, limit, hiddenUserTable, C31, C32, C33, C34, C35, pagination);
 			            
 			            // Show the dialog and wait until the user closes it
 			            dialogStage.show();
 				}
 			});
+		     		    
 		     
-		     setUser();
-		     
-		     hiddenTable.setRowFactory( tv -> {
+		     hiddenUserTable.setRowFactory( tv -> {
 			        TableRow<HiddenUserProperty> row = new TableRow<>();
 			        row.setOnMouseClicked(event -> {
 			            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
@@ -270,248 +295,438 @@ public class AssetWorkController extends AssetAsSwitch{
 			            	table(rowData);
 			            }
 			        });
+			        
+			        row.setOnContextMenuRequested(event->{
+			        	
+		        	    contextMenuUser.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent event) {
+								// TODO Auto-generated method stub
+								try{
+									
+								  String uesrId=String.valueOf(row.getItem().getId().get());
+								  String userName=row.getItem().getPrincipal_name().get();
+								  String menuType=MenuType.get(event.getTarget().toString());
+								  System.out.println(menuType);								  
+								  
+								  if(menuType.equals("m1")){
+									  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+								        alert.setTitle("删除");
+								        alert.setHeaderText("安全员工记录");
+								        alert.setContentText("是否删除"+userName+"的信息");
+
+								        ButtonType btnType1 = new ButtonType("确定");
+								        ButtonType btnType2 = new ButtonType("取消");
+								     
+
+								        alert.getButtonTypes().setAll(btnType1, btnType2);
+
+								        Optional<ButtonType> result = alert.showAndWait();
+								        result.ifPresent(buttonType -> {
+								            if (buttonType == btnType1) {
+								                try{
+								                String[] where={"[Assets].[dbo].[Hidden_User].id =",uesrId};
+					                            Hidden_User hidden_User=new Hidden_User();
+					                            hidden_User.setWhere(where);
+					                            
+								                int i=assets.deleteHiddenUser(hidden_User);
+								                if(i==1){
+								                	alert.setTitle("安全员工记录");
+													alert.setHeaderText("操作");
+													alert.setContentText("删除"+userName+"成功");
+													alert.showAndWait();
+													hiddenUserTable.setItems(null);
+													setUser(offset,limit);
+								                }else{
+								                	Alert alert2 = new Alert(AlertType.ERROR);
+													alert2.setTitle("异常堆栈对话框1");
+													alert2.setHeaderText("错误");
+													alert2.setContentText("删除"+userName+"失败");
+													alert2.showAndWait();
+								                }
+								                }catch (Exception e) {
+													// TODO: handle exception
+								                	e.printStackTrace();
+								                	Alert alert2 = new Alert(AlertType.ERROR);
+													alert2.setTitle("异常堆栈对话框2");
+													alert2.setHeaderText("错误");
+													alert2.setContentText("删除"+userName+"失败");
+													alert2.showAndWait();													
+												}
+								            } else if (buttonType == btnType2) {
+								            	System.out.println("点击了取消");
+								            } 
+								        });
+								  }
+								  
+								  
+								  if(menuType.equals("m2")){
+									  HiddenUserProperty rowData = row.getItem();
+						              table(rowData);
+								  }
+								  
+								  
+								}catch (Exception e) {
+									// TODO: handle exception
+									e.printStackTrace();
+								}
+							}
+		        	    });
+			        });
+			        
 			        return row ;
 			    });
 	     
+		     
+		     hiddenTypeTable.setRowFactory( tv -> {
+			        TableRow<HiddenTypeProperty> row = new TableRow<>();
+			        row.setOnMouseClicked(event -> {
+			            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+			            	HiddenTypeProperty rowData = row.getItem();
+			            	table2(rowData);
+			            }
+			        });
+			        
+			        row.setOnContextMenuRequested(event->{
+			        	
+			        	contextMenuType.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent event) {
+								// TODO Auto-generated method stub
+								try{
+								  int id=row.getItem().getId().get();
+								  String typeId=String.valueOf(id);
+								  String typeName=row.getItem().getHidden_type().get();
+								  String menuType=MenuType.get(event.getTarget().toString());
+								  System.out.println(menuType);								  
+								  
+								  if(menuType.equals("m1")){
+									 
+									    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+								        alert.setTitle("删除");
+								        alert.setHeaderText("隐患等级");
+								        alert.setContentText("是否删除"+typeName+"的信息");
+
+								        ButtonType btnType1 = new ButtonType("确定");
+								        ButtonType btnType2 = new ButtonType("取消");
+								     
+
+								        alert.getButtonTypes().setAll(btnType1, btnType2);
+
+								        Optional<ButtonType> result = alert.showAndWait();
+								        result.ifPresent(buttonType -> {
+								            if (buttonType == btnType1) {
+								                try{
+								                String[] where={"[Assets].[dbo].[Hidden_Type].id =", typeId};
+					                            Hidden_Type hidden_Type=new Hidden_Type();
+					                            hidden_Type.setWhere(where);
+					                            
+								                int i=assets.deleteHiddenType(hidden_Type);
+								                if(i==1){
+								                	alert.setTitle("安全隐患等级");
+													alert.setHeaderText("操作");
+													alert.setContentText("删除"+typeName+"成功");
+													alert.showAndWait();
+													setHiddenType();
+								                }else{
+								                	Alert alert2 = new Alert(AlertType.ERROR);
+													alert2.setTitle("异常堆栈对话框1");
+													alert2.setHeaderText("错误");
+													alert2.setContentText("删除"+typeName+"失败");
+													alert2.showAndWait();
+								                }
+								                }catch (Exception e) {
+													// TODO: handle exception
+								                	e.printStackTrace();
+								                	Alert alert2 = new Alert(AlertType.ERROR);
+													alert2.setTitle("异常堆栈对话框2");
+													alert2.setHeaderText("错误");
+													alert2.setContentText("删除"+typeName+"失败");
+													alert2.showAndWait();													
+												}
+								            } else if (buttonType == btnType2) {
+								            	System.out.println("点击了取消");
+								            } 
+								        });
+									  }
+								  
+								  
+								  
+								  if(menuType.equals("m2")){
+									  HiddenTypeProperty rowData = row.getItem();
+						              table2(rowData);
+								  }
+								  
+								  
+								}catch (Exception e) {
+									// TODO: handle exception
+									e.printStackTrace();
+								}
+							}
+		        	    });
+			        });
+			        
+			       return row;
+		     });
+		     
+		     hiddenLevelTable.setRowFactory( tv -> {
+			        TableRow<HiddenLevelProperty> row = new TableRow<>();
+			        row.setOnMouseClicked(event -> {
+			            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+			            	HiddenLevelProperty rowData = row.getItem();
+			            	table3(rowData);
+			            }
+			        });
+			        
+			        row.setOnContextMenuRequested(event->{
+			        	
+		        	    contextMenuLevel.setOnAction(new EventHandler<ActionEvent>() {
+
+							@Override
+							public void handle(ActionEvent event) {
+								// TODO Auto-generated method stub
+								try{
+								  int level=row.getItem().getHidden_level().get();
+								  String levelId=String.valueOf(row.getItem().getId().get());
+								  String levelName=row.getItem().getLevel_text().get();
+								  String menuType=MenuType.get(event.getTarget().toString());
+								  System.out.println(menuType);								  
+								  
+								  if(menuType.equals("m1")){
+									  System.out.println(level);
+									 if(level==1||level==2||level==3){
+										  Alert alert = new Alert(AlertType.ERROR);
+											alert.setTitle("错误");
+											alert.setHeaderText("删除隐患等级错误");
+											alert.setContentText("默认隐患级别不能删除");
+											alert.showAndWait();
+									  }else{
+									    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+								        alert.setTitle("删除");
+								        alert.setHeaderText("隐患等级");
+								        alert.setContentText("是否删除"+levelName+"的信息");
+
+								        ButtonType btnType1 = new ButtonType("确定");
+								        ButtonType btnType2 = new ButtonType("取消");
+								     
+
+								        alert.getButtonTypes().setAll(btnType1, btnType2);
+
+								        Optional<ButtonType> result = alert.showAndWait();
+								        result.ifPresent(buttonType -> {
+								            if (buttonType == btnType1) {
+								                try{
+								                String[] where={"[Assets].[dbo].[Hidden_Level].id =", levelId};
+					                            Hidden_Level hidden_Level=new Hidden_Level();
+					                            hidden_Level.setWhere(where);
+					                            
+								                int i=assets.deleteHiddenLevel(hidden_Level);
+								                if(i==1){
+								                	alert.setTitle("安全员工记录");
+													alert.setHeaderText("操作");
+													alert.setContentText("删除"+levelName+"成功");
+													alert.showAndWait();
+													setHiddenLevel();
+								                }else{
+								                	Alert alert2 = new Alert(AlertType.ERROR);
+													alert2.setTitle("异常堆栈对话框1");
+													alert2.setHeaderText("错误");
+													alert2.setContentText("删除"+levelName+"失败");
+													alert2.showAndWait();
+								                }
+								                }catch (Exception e) {
+													// TODO: handle exception
+								                	e.printStackTrace();
+								                	Alert alert2 = new Alert(AlertType.ERROR);
+													alert2.setTitle("异常堆栈对话框2");
+													alert2.setHeaderText("错误");
+													alert2.setContentText("删除"+levelName+"失败");
+													alert2.showAndWait();													
+												}
+								            } else if (buttonType == btnType2) {
+								            	System.out.println("点击了取消");
+								            } 
+								        });
+									  }
+								  }
+								  
+								  
+								  if(menuType.equals("m2")){
+									  HiddenLevelProperty rowData = row.getItem();
+						              table3(rowData);
+								  }
+								  
+								  
+								}catch (Exception e) {
+									// TODO: handle exception
+									e.printStackTrace();
+								}
+							}
+		        	    });
+			        });
+			        
+			        return row;
+		     });
 	     
 	 }
 	 
-	 private void setFlowPane(Assets assets){
-		 hiddenLevel.getChildren().clear();
-			levelText.getChildren().clear();
-			levelButton.getChildren().clear();
-			List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
-		     
-		     Iterator<Hidden_Level> iterator=hidden_levels.iterator();
-		     
-		     while(iterator.hasNext()){
-		    	 Hidden_Level hidden_level2=iterator.next();
-		    	 Label label=new Label();
-		    	 label.setText(hidden_level2.getHidden_level().toString());
-		    	 hiddenLevel.getChildren().add(label);
-		    	 Label label2=new Label();
-		    	 label2.setText(hidden_level2.getLevel_text());
-		    	 levelText.getChildren().add(label2);
-		    	 Insets insets2=new Insets(5, 5, 5, 5);
-		    	 Button button=new Button();	     
-			     button.setText("删除");
-			     levelButton.getChildren().add(button);
-			     button.setOnAction(new EventHandler<ActionEvent>() {
-					
-					@Override
-					public void handle(ActionEvent event) {
-						// TODO Auto-generated method stub
-						Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-				        alert.setTitle("安全信息");
-				        alert.setHeaderText("删除");
-				        alert.setContentText("是否删除"+hidden_level2.getId()+"信息");
-
-				        ButtonType btnType1 = new ButtonType("确定");
-				        ButtonType btnType2 = new ButtonType("取消");
-				     
-
-				        alert.getButtonTypes().setAll(btnType1, btnType2);
-
-				        Optional<ButtonType> result = alert.showAndWait();
-				        result.ifPresent(buttonType -> {
-				            if (buttonType == btnType1) {
-				                try{
-				                String[] where={"id=",String.valueOf(hidden_level2.getId())};
-				            	hidden_level2.setWhere(where);
-				                int i=assets.deleteHiddenLevel(hidden_level2);
-				                if(i==1){
-				                	alert.setTitle("安全信息");
-									alert.setHeaderText("操作");
-									alert.setContentText("删除"+hidden_level2.getId()+"成功");
-									setFlowPane(assets);
-									alert.showAndWait();
-				                }else{
-				                	Alert alert2 = new Alert(AlertType.ERROR);
-									alert2.setTitle("异常堆栈对话框");
-									alert2.setHeaderText("错误");
-									alert2.setContentText("删除"+hidden_level2.getId()+"失败");
-									alert2.showAndWait();
-				                }
-				                }catch (Exception e) {
-									// TODO: handle exception
-				                	Alert alert2 = new Alert(AlertType.ERROR);
-									alert2.setTitle("异常堆栈对话框");
-									alert2.setHeaderText("错误");
-									alert2.setContentText("删除"+hidden_level2.getId()+"失败");
-									alert2.showAndWait();
-								}
-				            } else if (buttonType == btnType2) {
-				            	System.out.println("点击了取消");
-				            } 
-				        });
-					}
-				});
-		     }
-	 }
-	 
-	 
-	 private void setFlowPane2(Assets assets){
-		   hiddenType.getChildren().clear();
-		   hiddenTypeButton.getChildren().clear();
-		   List<Hidden_Type> hidden_Types=assets.selectAllHiddenType();
-		     
-		     Iterator<Hidden_Type> iterator=hidden_Types.iterator();
-		     
-		     while(iterator.hasNext()){
-		    	 Insets insets2=new Insets(5, 5, 5, 5);
-		    	 Hidden_Type hidden_Type=iterator.next();
-		    	 Label label=new Label();
-		    	 label.setText(hidden_Type.getHidden_type());
-		    	 hiddenType.getChildren().add(label);
-		    	 hiddenType.setMargin(label, insets2); 
-		    	 Button button=new Button();
-		    	 button.setText("删除");
-		    	 hiddenType.setMargin(button, insets2);
-		    	 hiddenTypeButton.getChildren().add(button);
-			     button.setOnAction(new EventHandler<ActionEvent>() {
-					
-					@Override
-					public void handle(ActionEvent event) {
-						// TODO Auto-generated method stub
-						Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-				        alert.setTitle("安全信息");
-				        alert.setHeaderText("删除");
-				        alert.setContentText("是否删除"+hidden_Type.getHidden_type()+"信息");
-
-				        ButtonType btnType1 = new ButtonType("确定");
-				        ButtonType btnType2 = new ButtonType("取消");
-				     
-
-				        alert.getButtonTypes().setAll(btnType1, btnType2);
-
-				        Optional<ButtonType> result = alert.showAndWait();
-				        result.ifPresent(buttonType -> {
-				            if (buttonType == btnType1) {
-				                try{
-				                String[] where={"id=",String.valueOf(hidden_Type.getId())};
-				            	hidden_Type.setWhere(where);
-				                int i=assets.deleteHiddenType(hidden_Type);
-				                if(i==1){
-				                	alert.setTitle("安全信息");
-									alert.setHeaderText("操作");
-									alert.setContentText("删除"+hidden_Type.getId()+"成功");
-									setFlowPane2(assets);
-									alert.showAndWait();
-				                }else{
-				                	Alert alert2 = new Alert(AlertType.ERROR);
-									alert2.setTitle("异常堆栈对话框");
-									alert2.setHeaderText("错误");
-									alert2.setContentText("删除"+hidden_Type.getId()+"失败");
-									alert2.showAndWait();
-				                }
-				                }catch (Exception e) {
-									// TODO: handle exception
-				                	Alert alert2 = new Alert(AlertType.ERROR);
-									alert2.setTitle("异常堆栈对话框");
-									alert2.setHeaderText("错误");
-									alert2.setContentText("删除"+hidden_Type.getId()+"失败");
-									alert2.showAndWait();
-								}
-				            } else if (buttonType == btnType2) {
-				            	System.out.println("点击了取消");
-				            } 
-				        });
-					}
-				});
-		     }
-     
-	 }
-	 
+		 	 
 	 
 	 private void table(HiddenUserProperty newValue){
 		 Integer principal=newValue.getPrincipal().get();
-		 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-	        alert.setTitle("员工信息");
-	        alert.setHeaderText("删除");
-	        alert.setContentText("是否删除"+newValue.getPrincipal_name().getValue());
 
-	        ButtonType btnType1 = new ButtonType("确定");
-	        ButtonType btnType2 = new ButtonType("取消");
-	        
-	        alert.getButtonTypes().setAll(btnType1, btnType2);
-	        
-	        Optional<ButtonType> result = alert.showAndWait();
-	        result.ifPresent(buttonType -> {
-	        if (buttonType == btnType1) {  
-		     try{
-			  Hidden_User hidden_User=new Hidden_User();
-              String[] where={"principal=",String.valueOf(principal)};
-         	  hidden_User.setWhere(where);
-              int i=assets.deleteHiddenUser(hidden_User);
-              if(i==1){
-             	alert.setTitle("安全信息");
-					alert.setHeaderText("操作");
-					alert.setContentText("删除"+newValue.getPrincipal_name().getValue()+"成功");
-					setFlowPane2(assets);
-					alert.showAndWait();
-					setUser();
-              }else{
-             	Alert alert2 = new Alert(AlertType.ERROR);
-					alert2.setTitle("异常堆栈对话框");
-					alert2.setHeaderText("错误");
-					alert2.setContentText("删除"+newValue.getPrincipal_name().getValue()+"失败");
-					alert2.showAndWait();
-             }
-             }catch (Exception e) {
-					// TODO: handle exception
-             	Alert alert2 = new Alert(AlertType.ERROR);
-					alert2.setTitle("异常堆栈对话框");
-					alert2.setHeaderText("错误");
-					alert2.setContentText("删除"+newValue.getPrincipal_name()+"失败");
-					alert2.showAndWait();
-				 }
-	           } else if (buttonType == btnType2) {
-	            	System.out.println("点击了取消");
-	          } 
-	        });
 	 }
 	 
-	/* 
-	 private void table(HiddenUserProperty newValue){
-		 try {
+	 private void table2(HiddenTypeProperty newValue){
+		 try{
+			   Integer id=newValue.getId().get();
+               String typeName=newValue.getHidden_type().get();
+			   Hidden_Type hidden_Type=new Hidden_Type();
+			   hidden_Type.setId(id);
+			   hidden_Type.setHidden_type(typeName);
+			   
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(AssetOverviewController.class.getResource("detail/AddUserDetail.fxml"));
+	            loader.setLocation(AssetOverviewController.class.getResource("detail/UpHiddenTypeDetail.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle("新建员工");
+	            dialogStage.setTitle("更新隐患等级");
 	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
 
 	            // Set the person into the controller.
-	            AddUserDetailController controller = loader.getController();
+	            UpHiddenTypeDetailController controller = loader.getController();
+	            
+	            controller.setHiddenType(hidden_Type,hiddenTypeTable, C11, C12);
+	            
 	            controller.setDialogStage(dialogStage);
-	         
-
+	            
+	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();
 
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
 	 }
-	 */
-	public void setUser(){
-		 List userList=new ArrayList<>();
-		 userList=assets.selectAllHiddenUser();
+	 
+	 private void table3(HiddenLevelProperty newValue){
+		 int level=newValue.getHidden_level().get();
+		 try {
+			 if(level==1||level==2||level==3){
+				  Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("错误");
+					alert.setHeaderText("更新隐患等级错误");
+					alert.setContentText("默认隐患级别不能更新");
+					alert.showAndWait();
+			  }else{
+			    Integer id=newValue.getId().get();
+			    Integer hidden_level=newValue.getHidden_level().get();
+			    String level_text=newValue.getLevel_text().get();
+			    Hidden_Level hidden_Level=new Hidden_Level();
+			    hidden_Level.setId(id);
+			    hidden_Level.setHidden_level(hidden_level);
+			    hidden_Level.setLevel_text(level_text);
+			    
+	            // Load the fxml file and create a new stage for the popup dialog.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(AssetOverviewController.class.getResource("detail/UpHiddenLevelDetail.fxml"));
+	            AnchorPane page = (AnchorPane) loader.load();
+
+	            // Create the dialog Stage.
+	            Stage dialogStage = new Stage();
+	            dialogStage.setTitle("更新隐患等级");
+	            dialogStage.initModality(Modality.APPLICATION_MODAL);
+	            Scene scene = new Scene(page);
+	            dialogStage.setScene(scene);
+
+	            // Set the person into the controller.
+	            UpHiddenLevelDetailController controller = loader.getController();
+	            
+	            controller.setHiddenLevel(hidden_Level,hiddenLevelTable, C21, C22);
+	            
+	            controller.setDialogStage(dialogStage);
+	            
+	            // Show the dialog and wait until the user closes it
+	            dialogStage.show();
+			  }
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	 }
+	 
+	public void setHiddenType(){
+		
+		List<Hidden_Type> hidden_Types=assets.selectAllHiddenType();
+	     
+	     hiddenTypeList=(ObservableList<HiddenTypeProperty>) new RowData(hidden_Types, HiddenTypeProperty.class).get();
+	    
+	     hiddenTypeTable.setItems(hiddenTypeList);
+	     
+	     C11.setCellValueFactory(
+	    		 cellData -> cellData.getValue().getId().asObject());
+	     
+	     C12.setCellValueFactory(
+	    		 cellData -> cellData.getValue().getHidden_type());
+	     
+	}
+	 
+	public void setHiddenLevel(){
+		
+		List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
+		
+		hiddenLevelList=(ObservableList<HiddenLevelProperty>) new RowData(hidden_levels, HiddenLevelProperty.class).get();
+		
+		hiddenLevelTable.setItems(hiddenLevelList);
+		
+		C21.setCellValueFactory(
+	    		 cellData -> cellData.getValue().getHidden_level().asObject());
+		
+		C22.setCellValueFactory(
+	    		 cellData -> cellData.getValue().getLevel_text());
+		
+	}
+	
+	public void setUser(Integer offset,Integer limit){
+
+		String sort=null;
+	     String order=null;
+		
+		 Map searchMap=new HashMap<>();
+		
+		 Map map=assets.selectAllHiddenUser(limit, offset, sort, order, searchMap);
 		 
-		 hiddenList= (ObservableList<HiddenUserProperty>) new RowData(userList,HiddenUserProperty.class).get();
+		 List userList=(List) map.get("rows");
 		 
-		 hiddenTable.setItems(hiddenList);
+		 MyTestUtil.print(userList);
 		 
-		 C1.setCellValueFactory(
+		 hiddenUserList= (ObservableList<HiddenUserProperty>) new RowData(userList,HiddenUserProperty.class).get();
+		 
+		 hiddenUserTable.setItems(hiddenUserList);
+		 
+		 C31.setCellValueFactory(
 	                cellData -> cellData.getValue().getId().asObject());
-	     C2.setCellValueFactory(
-	   		    cellData->cellData.getValue().getPrincipal_name());
-	     C3.setCellValueFactory(
+	     C32.setCellValueFactory(
+	   		    cellData->cellData.getValue().getCampusAdmin());
+	     C33.setCellValueFactory(
+		   		    cellData->cellData.getValue().getPrincipal_name());
+	     C34.setCellValueFactory(
+		   		    cellData->cellData.getValue().getPhone());
+	     C35.setCellValueFactory(
 	    		    cellData->cellData.getValue().getBusiness());
+	     
+	     int total=(int) map.get("total");
+	     int page=total/10;
+	     
+	     if(total-page*10>0)
+           page++;	     
+	     
+	     pagination.setPageCount(page);
+	     
 	 }
 	 
 }

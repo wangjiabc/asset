@@ -1,75 +1,66 @@
 package test;
 
 import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+// at W  W W.Y iI  bAI.C OM
 public class Main extends Application {
-
-  @Override
-  public void start(Stage primaryStage) {
-    BorderPane root = new BorderPane();
-    Scene scene = new Scene(root, 300, 250, Color.WHITE);
-
-    MenuBar menuBar = new MenuBar();
-    menuBar.prefWidthProperty().bind(primaryStage.widthProperty());
-    root.setTop(menuBar);
-
-    // File menu - new, save, exit
-    Menu fileMenu = new Menu("File");
-    MenuItem newMenuItem = new MenuItem("New");
-    MenuItem saveMenuItem = new MenuItem("Save");
-    MenuItem exitMenuItem = new MenuItem("Exit");
-    exitMenuItem.setOnAction(actionEvent -> Platform.exit());
-
-    fileMenu.getItems().addAll(newMenuItem, saveMenuItem,
-        new SeparatorMenuItem(), exitMenuItem);
-
-    Menu webMenu = new Menu("Web");
-    CheckMenuItem htmlMenuItem = new CheckMenuItem("HTML");
-    htmlMenuItem.setSelected(true);
-    webMenu.getItems().add(htmlMenuItem);
-
-    CheckMenuItem cssMenuItem = new CheckMenuItem("CSS");
-    cssMenuItem.setSelected(true);
-    webMenu.getItems().add(cssMenuItem);
-
-    Menu sqlMenu = new Menu("SQL");
-    ToggleGroup tGroup = new ToggleGroup();
-    RadioMenuItem mysqlItem = new RadioMenuItem("MySQL");
-    mysqlItem.setToggleGroup(tGroup);
-
-    RadioMenuItem oracleItem = new RadioMenuItem("Oracle");
-    oracleItem.setToggleGroup(tGroup);
-    oracleItem.setSelected(true);
-
-    sqlMenu.getItems().addAll(mysqlItem, oracleItem,
-        new SeparatorMenuItem());
-
-    Menu tutorialManeu = new Menu("Tutorial");
-    tutorialManeu.getItems().addAll(
-        new CheckMenuItem("Java"),
-        new CheckMenuItem("JavaFX"),
-        new CheckMenuItem("Swing"));
-
-    sqlMenu.getItems().add(tutorialManeu);
-
-    menuBar.getMenus().addAll(fileMenu, webMenu, sqlMenu);
-
-    primaryStage.setScene(scene);
-    primaryStage.show();
-  }
   public static void main(String[] args) {
     launch(args);
+  }
+
+  @Override
+  public void start(Stage stage) {
+    Scene scene = new Scene(new Group());
+    stage.setWidth(250);
+    stage.setHeight(150);
+
+    final ToggleGroup group = new ToggleGroup();
+
+    RadioButton rb1 = new RadioButton("A");
+    rb1.setToggleGroup(group);
+    rb1.setUserData("A");
+
+    RadioButton rb2 = new RadioButton("B");
+    rb2.setToggleGroup(group);
+    rb2.setUserData("B");
+
+    RadioButton rb3 = new RadioButton("C");
+    rb3.setToggleGroup(group);
+    rb3.setUserData("C");
+
+    group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+      public void changed(ObservableValue<? extends Toggle> ov,
+          Toggle old_toggle, Toggle new_toggle) {
+        if (group.getSelectedToggle() != null) {
+          System.out.println(group.getSelectedToggle().getUserData().toString());
+        }
+      }
+    });
+
+    HBox hbox = new HBox();
+    VBox vbox = new VBox();
+
+    vbox.getChildren().add(rb1);
+    vbox.getChildren().add(rb2);
+    vbox.getChildren().add(rb3);
+    vbox.setSpacing(10);
+
+    hbox.getChildren().add(vbox);
+    hbox.setSpacing(50);
+    hbox.setPadding(new Insets(20, 10, 10, 20));
+
+    ((Group) scene.getRoot()).getChildren().add(hbox);
+    stage.setScene(scene);
+    stage.show();
   }
 }

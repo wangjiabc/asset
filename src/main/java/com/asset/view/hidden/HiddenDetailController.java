@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -28,6 +29,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.poi.ss.formula.functions.T;
 
+import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
@@ -75,6 +77,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -272,11 +275,11 @@ public class HiddenDetailController {
 	//	 @FXML
 	//	 private TableColumn<RoomInfo_PositionProperty,String> C05;
 		 
-		 @FXML
-		 private TableColumn<RoomInfo_PositionProperty,Double> C06;
+	//	 @FXML
+	//	 private TableColumn<RoomInfo_PositionProperty,Double> C06;
 		 
-		 @FXML
-		 private TableColumn<RoomInfo_PositionProperty,Double> C07;
+	//	 @FXML
+	//	 private TableColumn<RoomInfo_PositionProperty,Double> C07;
 		 
 		 
 		 @FXML
@@ -435,7 +438,7 @@ public class HiddenDetailController {
 	 @FXML
 	 private void initialize() {		 
 		 
-		 Assets assets=new Connect().getAssets();
+		 Assets assets=new Connect().get();
 
 		 FileChooser fileChooser = new FileChooser();
 		 
@@ -810,7 +813,7 @@ public class HiddenDetailController {
 					 try {
 				            // Load the fxml file and create a new stage for the popup dialog.
 				            FXMLLoader loader = new FXMLLoader();
-				            loader.setLocation(getClass().getResource("../hiddenAndAsset/AppendAssetsQuery.fxml"));
+				            loader.setLocation(getClass().getResource("hiddenAndAsset/AppendAssetsQuery.fxml"));
 				            AnchorPane page = (AnchorPane) loader.load();
 				            // Create the dialog Stage.
 				            Stage dialogStage = new Stage();
@@ -826,7 +829,7 @@ public class HiddenDetailController {
 				            hidden.setGUID(hidden_Jion.getGUID());
 				            
 				            controller.setHidden(hidden);
-				            controller.setTableView(roomTable, offset, limit, searchMap0, pagination0, C01, null, C03, C04, null, C06, C07);
+				            controller.setTableView(roomTable, offset, limit, searchMap0, pagination0, C01, null, C03, C04, null);
 				            
 				            controller.setDialogStage(dialogStage);
 				            
@@ -1201,10 +1204,19 @@ public class HiddenDetailController {
 		 hiddenName.setText(String.valueOf(hidden_Jion.getName()));
 
 		 hiddenState.setText(hidden_Jion.getState());
+		 try{
 		 Date date=hidden_Jion.getHappen_time();
-		 System.out.println( new Date());
-	//	 happenTime.setValue(LocalDate.of(date, date.getMonth(), date.getDay()));
-		  
+		 SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+		 String yyyy=formatter.format(date);
+		 formatter = new SimpleDateFormat("MM");
+		 String mm=formatter.format(date);
+		 formatter = new SimpleDateFormat("dd");
+		 String dd=formatter.format(date);
+		 happenTime.setValue(LocalDate.of(Integer.parseInt(yyyy), Integer.parseInt(mm), Integer.parseInt(dd)));
+		 }catch (Exception e) {
+			// TODO: handle exception
+			 e.printStackTrace();
+		}
 		 slider.setValue(hidden_Jion.getProgress()*50); 
 	     pi.setProgress(hidden_Jion.getProgress());
 		 hiddenDetail.setText(hidden_Jion.getDetail());
@@ -1247,7 +1259,13 @@ public class HiddenDetailController {
 		 
 		 Integer principal=null;
 		 i=0;
-		 hidden_Principals=assets.selectAllHiddenUser();
+	
+		 List userList=(List)assets.selectAllHiddenUser(100, 0, null, null, new HashMap<>()).get("rows");
+		 
+		 hidden_Principals=userList;
+		 
+		 System.out.println("hidden_Principals=");
+		 MyTestUtil.print(hidden_Principals);
 		 Iterator<Hidden_User> iterator4=hidden_Principals.iterator();
 		 List hidden_principals=new ArrayList<>();
 		 while(iterator4.hasNext()){
@@ -1281,7 +1299,7 @@ public class HiddenDetailController {
 			try {
 				String fileName=names.get(n);
 				String fileType=types.get(n);
-				String path="C:\\Users\\WangJing\\Desktop\\bb\\doc\\";
+				String path=Singleton.getInstance().getPath();
 				File file = new File(path+fileName);
 				if (!file.getParentFile().exists()) {  
 			        boolean result = file.getParentFile().mkdirs();  
@@ -1484,10 +1502,10 @@ public class HiddenDetailController {
 	    		    cellData->cellData.getValue().getNum());
 	//     C05.setCellValueFactory(
 	//    		    cellData->cellData.getValue().getInDate());
-	     C06.setCellValueFactory(
-	    		 cellData->cellData.getValue().getLat().asObject());
-	     C07.setCellValueFactory(
-	    		 cellData->cellData.getValue().getLng().asObject());
+	 //    C06.setCellValueFactory(
+	  //  		 cellData->cellData.getValue().getLat().asObject());
+	  //   C07.setCellValueFactory(
+	  //  		 cellData->cellData.getValue().getLng().asObject());
 	    
 	     int total=(int) map.get("total");
 	     int page=total/10;
@@ -1508,12 +1526,12 @@ public class HiddenDetailController {
 		 try {
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(getClass().getResource("../check/SelectCheckInfoDetail.fxml"));
+	            loader.setLocation(getClass().getResource("check/SelectCheckInfoDetail.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle(newValue.getName()+"安全检查记录");
+	            dialogStage.setTitle(newValue.getName().getName()+"安全检查记录");
 	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
@@ -1620,12 +1638,12 @@ public class HiddenDetailController {
 		 try {
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(getClass().getResource("../neaten/NeatenDetail.fxml"));
+	            loader.setLocation(getClass().getResource("neaten/NeatenDetail.fxml"));
 	            AnchorPane page = (AnchorPane) loader.load();
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle(newValue.getName()+"隐患整顿记录");
+	            dialogStage.setTitle(newValue.getName().getName()+"隐患整顿记录");
 	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);

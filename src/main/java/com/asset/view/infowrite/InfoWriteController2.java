@@ -30,6 +30,7 @@ import javax.imageio.ImageIO;
 import org.apache.poi.ss.formula.functions.EDate;
 import org.apache.poi.ss.formula.functions.T;
 
+import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
@@ -262,11 +263,11 @@ public class InfoWriteController2 {
 	// @FXML
 	// private TableColumn<RoomInfo_PositionProperty,String> C05;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,Double> C06;
+	// @FXML
+	// private TableColumn<RoomInfo_PositionProperty,Double> C06;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,Double> C07;
+	// @FXML
+	// private TableColumn<RoomInfo_PositionProperty,Double> C07;
 	 
 	 
 	 @FXML
@@ -320,7 +321,7 @@ public class InfoWriteController2 {
 	 @FXML
 	 private void initialize() {		 
 		 
-		 Assets assets=new Connect().getAssets();
+		 Assets assets=new Connect().get();
 
 		 searchMap0.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", uuid.toString());
 		 
@@ -341,7 +342,8 @@ public class InfoWriteController2 {
 			 }
 			 hiddenType.setItems(FXCollections.observableArrayList(hidden_types));
 			 
-			 hidden_Principals=assets.selectAllHiddenUser();
+			 hidden_Principals=(List) assets.selectAllHiddenUser(100, 0, null, null, new HashMap<>()).get("rows");
+				
 			 Iterator<Hidden_User> iterator4=hidden_Principals.iterator();
 			 List hidden_principals=new ArrayList<>();
 			 while(iterator4.hasNext()){
@@ -372,7 +374,7 @@ public class InfoWriteController2 {
 							Number newValue) {
 						// TODO Auto-generated method stub
 						int i=(int) newValue;
-                        hiddenLevelValue=hidden_Levels.get(i).getHidden_level();						
+                        hiddenLevelValue=hidden_levels.get(i).getHidden_level();						
 						System.out.println(hiddenLevelValue);
 					}
 			        
@@ -738,7 +740,7 @@ public class InfoWriteController2 {
 				 try {
 			            // Load the fxml file and create a new stage for the popup dialog.
 			            FXMLLoader loader = new FXMLLoader();
-			            loader.setLocation(getClass().getResource("../hiddenAndAsset/AppendAssetsQuery.fxml"));
+			            loader.setLocation(getClass().getResource("hiddenAndAsset/AppendAssetsQuery.fxml"));
 			            AnchorPane page = (AnchorPane) loader.load();
 			            // Create the dialog Stage.
 			            Stage dialogStage = new Stage();
@@ -755,7 +757,7 @@ public class InfoWriteController2 {
 			            
 			            
 			            controller.setHidden(hidden);
-			            controller.setTableView(roomTable, offset, limit, searchMap0, pagination0, C01, null, C03, C04, null, C06, C07);
+			            controller.setTableView(roomTable, offset, limit, searchMap0, pagination0, C01, null, C03, C04, null);
 			            
 			            
 			            controller.setDialogStage(dialogStage);
@@ -923,7 +925,8 @@ public class InfoWriteController2 {
 		 
 		 Integer principal=null;
 		 i=0;
-		 hidden_Principals=assets.selectAllHiddenUser();
+		 hidden_Principals=(List) assets.selectAllHiddenUser(100, 0, null, null, new HashMap<>()).get("rows");
+		 
 		 Iterator<Hidden_User> iterator4=hidden_Principals.iterator();
 		 List hidden_principals=new ArrayList<>();
 		 while(iterator4.hasNext()){
@@ -957,7 +960,7 @@ public class InfoWriteController2 {
 			try {
 				String fileName=names.get(n);
 				String fileType=types.get(n);
-				String path="C:\\Users\\WangJing\\Desktop\\bb\\doc\\";
+				String path=Singleton.getInstance().getPath();
 				File file = new File(path+fileName);
 				if (!file.getParentFile().exists()) {  
 			        boolean result = file.getParentFile().mkdirs();  
@@ -1160,10 +1163,10 @@ public class InfoWriteController2 {
 	    		    cellData->cellData.getValue().getNum());
 	 //    C05.setCellValueFactory(
 	 //   		    cellData->cellData.getValue().getInDate());
-	     C06.setCellValueFactory(
-	    		 cellData->cellData.getValue().getLat().asObject());
-	     C07.setCellValueFactory(
-	    		 cellData->cellData.getValue().getLng().asObject());
+	 //    C06.setCellValueFactory(
+	 //   		 cellData->cellData.getValue().getLat().asObject());
+	 //    C07.setCellValueFactory(
+	 //   		 cellData->cellData.getValue().getLng().asObject());
 	    
 	     int total=(int) map.get("total");
 	     int page=total/10;

@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -27,6 +28,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.poi.ss.formula.functions.T;
 
+import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.join.HiddenNeaten_JoinProperty;
@@ -197,6 +199,20 @@ public class NeatenDetailController {
 	    	checkCrics.setText(Hidden_Neaten_Join.getNeaten_instance());
 	    	remark.setText(Hidden_Neaten_Join.getRemark());
 	    	
+	    	 try{
+	    	 Date date=Hidden_Neaten_Join.getHappen_time();
+			 SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
+			 String yyyy=formatter.format(date);
+			 formatter = new SimpleDateFormat("MM");
+			 String mm=formatter.format(date);
+			 formatter = new SimpleDateFormat("dd");
+			 String dd=formatter.format(date);
+			 happenTime.setValue(LocalDate.of(Integer.parseInt(yyyy), Integer.parseInt(mm), Integer.parseInt(dd)));
+	    	 }catch (Exception e) {
+	 			// TODO: handle exception
+	 			 e.printStackTrace();
+	 		}
+	    	
 	    	System.out.println("Hidden_Neaten_Join.getNeaten_id()="+Hidden_Neaten_Join.getNeaten_id());
 	    	
 	    	 Map<String, Object> map=assets.selectAllHiddenNeatenDate(Hidden_Neaten_Join.getNeaten_id());
@@ -213,7 +229,7 @@ public class NeatenDetailController {
 	 			try {
 	 				String fileName=names.get(n);
 	 				String fileType=types.get(n);
-	 				String path="C:\\Users\\WangJing\\Desktop\\bb\\doc\\";
+	 				String path=Singleton.getInstance().getPath();
 	 				File file = new File(path+fileName);
 	 				if (!file.getParentFile().exists()) {  
 	 			        boolean result = file.getParentFile().mkdirs();  

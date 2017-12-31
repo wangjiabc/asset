@@ -21,6 +21,7 @@ import java.awt.Desktop;
 
 import javax.imageio.ImageIO;
 
+import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.MyTestUtil;
@@ -98,7 +99,7 @@ public class HiddenQueryController extends AssetAsSwitch{
 			 byte[] byt=iterator.next();
 			 try {
 					String fileName=names.get(n);
-					String path="C:\\Users\\WangJing\\Desktop\\bb\\doc\\";
+					String path=Singleton.getInstance().getPath();
 					File file = new File(path+fileName);
 					if (!file.getParentFile().exists()) {  
 				        boolean result = file.getParentFile().mkdirs();  
@@ -206,7 +207,7 @@ public class HiddenQueryController extends AssetAsSwitch{
 			 byte[] byt=iterator2.next();
 			 try {
 					String fileName=names2.get(n);
-					String path="C:\\Users\\WangJing\\Desktop\\bb\\doc\\";
+					String path=Singleton.getInstance().getPath();
 					File file = new File(path+fileName);
 					if (!file.getParentFile().exists()) {  
 				        boolean result = file.getParentFile().mkdirs();  
@@ -314,7 +315,7 @@ public class HiddenQueryController extends AssetAsSwitch{
 			 byte[] byt=iterator3.next();
 			 try {
 					String fileName=names3.get(n);
-					String path="C:\\Users\\WangJing\\Desktop\\bb\\doc\\";
+					String path=Singleton.getInstance().getPath();
 					File file = new File(path+fileName);
 					if (!file.getParentFile().exists()) {  
 				        boolean result = file.getParentFile().mkdirs();  

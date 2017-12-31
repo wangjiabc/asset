@@ -1,4 +1,4 @@
-package com.asset.view.check;
+package com.asset.view.hidden.check;
 
 import java.awt.Desktop;
 import java.awt.EventQueue;
@@ -196,8 +196,7 @@ public class SelectCheckInfoDetailController {
 	    	checkCrics.setText(hidden_Check_Join.getCheck_circs());
 	    	remark.setText(hidden_Check_Join.getRemark());
 	    	
-	     try{
-	      	 Date date=hidden_Check_Join.getHappen_time();
+	    	Date date=hidden_Check_Join.getHappen_time();
 			 SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
 			 String yyyy=formatter.format(date);
 			 formatter = new SimpleDateFormat("MM");
@@ -205,10 +204,7 @@ public class SelectCheckInfoDetailController {
 			 formatter = new SimpleDateFormat("dd");
 			 String dd=formatter.format(date);
 			 happenTime.setValue(LocalDate.of(Integer.parseInt(yyyy), Integer.parseInt(mm), Integer.parseInt(dd)));
-	    }catch (Exception e) {
-			// TODO: handle exception
-			 e.printStackTrace();
-		}
+
 	    	
 	    	 Map<String, Object> map=assets.selectAllHiddenCheckDate(hidden_Check_Join.getCheck_id());
 	 		 MyTestUtil.print(map);

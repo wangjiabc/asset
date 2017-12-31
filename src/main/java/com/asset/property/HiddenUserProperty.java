@@ -11,8 +11,12 @@ public class HiddenUserProperty {
 
 	private IntegerProperty principal;
 
+	private StringProperty campusAdmin;
+	
 	private StringProperty principal_name;
 
+	private StringProperty phone;
+	
 	private StringProperty business;
 
 
@@ -53,5 +57,25 @@ public class HiddenUserProperty {
 
 	public void setBusiness(String business) {
 		this.business = new SimpleStringProperty(business);
+	}
+
+
+	public StringProperty getCampusAdmin() {
+		return campusAdmin;
+	}
+
+
+	public void setCampusAdmin(String campusAdmin) {
+		this.campusAdmin = new SimpleStringProperty(campusAdmin);
+	}
+
+
+	public StringProperty getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = new SimpleStringProperty(phone);
 	}
 }

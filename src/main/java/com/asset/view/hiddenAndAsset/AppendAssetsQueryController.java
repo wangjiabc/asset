@@ -45,6 +45,7 @@ import javafx.scene.control.Pagination;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -87,11 +88,11 @@ public class AppendAssetsQueryController {
 //	 @FXML
 //	 private TableColumn<RoomInfo_PositionProperty,String> C5;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,Double> C6;
+//	 @FXML
+//	 private TableColumn<RoomInfo_PositionProperty,Double> C6;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,Double> C7;
+//	 @FXML
+//	 private TableColumn<RoomInfo_PositionProperty,Double> C7;
 	 
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,String> C8;
@@ -144,11 +145,11 @@ public class AppendAssetsQueryController {
 //	 @FXML
 //	 private TableColumn<RoomInfo_PositionProperty,String> C05;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,Double> C06;
+//	 @FXML
+//	 private TableColumn<RoomInfo_PositionProperty,Double> C06;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,Double> C07;
+//	 @FXML
+//	 private TableColumn<RoomInfo_PositionProperty,Double> C07;
 	 
 	 
 	 Assets assets= new Connect().get();
@@ -166,8 +167,7 @@ public class AppendAssetsQueryController {
 	 public void setTableView(TableView<RoomInfo_PositionProperty> roomTable0,Integer offset,Integer limit,
 				Map<String,String> searchMap,Pagination pagination0,TableColumn<RoomInfo_PositionProperty,String> C01,
 				TableColumn<RoomInfo_PositionProperty,String> C02,TableColumn<RoomInfo_PositionProperty,String> C03,
-				TableColumn<RoomInfo_PositionProperty,String> C04,TableColumn<RoomInfo_PositionProperty,String> C05,
-				TableColumn<RoomInfo_PositionProperty,Double> C06,TableColumn<RoomInfo_PositionProperty,Double> C07
+				TableColumn<RoomInfo_PositionProperty,String> C04,TableColumn<RoomInfo_PositionProperty,String> C05
 				) {
 			   this.roomTable0=roomTable0;
 			   this.offset0=offset;
@@ -179,8 +179,8 @@ public class AppendAssetsQueryController {
 			   this.C03=C03;
 			   this.C04=C04;
 		//	   this.C05=C05;
-			   this.C06=C06;
-			   this.C07=C07;
+		//	   this.C06=C06;
+		//	   this.C07=C07;
 		 }
 	 
 	 @FXML
@@ -219,22 +219,17 @@ public class AppendAssetsQueryController {
 	    
 	   
  
-	    roomTable.getSelectionModel().selectedItemProperty().addListener(
-	    		new ChangeListener<RoomInfo_PositionProperty>() {
-
-					@Override
-					public void changed(ObservableValue<? extends RoomInfo_PositionProperty> observable, RoomInfo_PositionProperty oldValue,
-							RoomInfo_PositionProperty newValue) {
-						// TODO Auto-generated method stub
-						if(i>=1){
-							if(newValue!=null)
-						      table(newValue);
-						}else{
-							i++;
-						}
-					}
-				 }
-	    		);
+	    roomTable.setRowFactory( tv -> {
+	        TableRow<RoomInfo_PositionProperty> row = new TableRow<>();
+	        row.setOnMouseClicked(event -> {
+	            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+	            	RoomInfo_PositionProperty rowData = row.getItem();
+	            	table(rowData);
+	            }
+	        });
+	        return row;
+	    });
+	    
 	    
 	 }
 	 
@@ -273,7 +268,12 @@ public class AppendAssetsQueryController {
 							alert.showAndWait();
 							Map search2=new HashMap<>();
 							search2.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", hidden_Assets.getHidden_GUID());
-							setRoomInfoList0(offset0, limit0, search2);
+							try{
+								setRoomInfoList0(offset0, limit0, search2);
+							}catch (Exception e) {
+								// TODO: handle exception
+								e.printStackTrace();
+							}
 							handleCancel();
 		                }else{
 		                	Alert alert2 = new Alert(AlertType.ERROR);
@@ -334,10 +334,10 @@ public class AppendAssetsQueryController {
 	    		    cellData->cellData.getValue().getNum());
 //	     C5.setCellValueFactory(
 //	    		    cellData->cellData.getValue().getInDate());
-	     C6.setCellValueFactory(
-	    		 cellData->cellData.getValue().getLat().asObject());
-	     C7.setCellValueFactory(
-	    		 cellData->cellData.getValue().getLng().asObject());
+//	     C6.setCellValueFactory(
+//	    		 cellData->cellData.getValue().getLat().asObject());
+//	     C7.setCellValueFactory(
+//	    		 cellData->cellData.getValue().getLng().asObject());
 	    
 	     int total=(int) map.get("total");
 	     int page=total/10;
@@ -383,10 +383,10 @@ public class AppendAssetsQueryController {
 	    		    cellData->cellData.getValue().getNum());
 	//     C05.setCellValueFactory(
 	//    		    cellData->cellData.getValue().getInDate());
-	     C06.setCellValueFactory(
-	    		 cellData->cellData.getValue().getLat().asObject());
-	     C07.setCellValueFactory(
-	    		 cellData->cellData.getValue().getLng().asObject());
+	//     C06.setCellValueFactory(
+	//    		 cellData->cellData.getValue().getLat().asObject());
+	//     C07.setCellValueFactory(
+	//    		 cellData->cellData.getValue().getLng().asObject());
 	    
 	     int total=(int) map.get("total");
 	     int page=total/10;

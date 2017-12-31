@@ -120,7 +120,7 @@ public class AssetOverviewDetailController {
 	 @FXML
 	 private void initialize() {
 		 
-		 Assets assets=new Connect().getAssets();
+		 Assets assets=new Connect().get();
 		 
 		 update.setOnAction(new EventHandler<ActionEvent>() {
 			

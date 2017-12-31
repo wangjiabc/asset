@@ -26,7 +26,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class HiddenLevelDetailController {
+public class UpHiddenLevelDetailController {
 	@FXML
 	private TextField hiddenlevel;
 	@FXML
@@ -43,6 +43,8 @@ public class HiddenLevelDetailController {
 	@FXML
 	 private TableColumn<HiddenLevelProperty,String> C22;
 	
+	private Hidden_Level hidden_Level;
+	
 	@FXML
 	private Button update;
 	
@@ -56,12 +58,15 @@ public class HiddenLevelDetailController {
 	
 	Assets assets= new Connect().get();
 	
-	public void setHiddenLevel(TableView<HiddenLevelProperty> hiddenLevelTable,TableColumn<HiddenLevelProperty,Integer> C21,
+	public void setHiddenLevel(Hidden_Level hidden_Level,TableView<HiddenLevelProperty> hiddenLevelTable,TableColumn<HiddenLevelProperty,Integer> C21,
 			TableColumn<HiddenLevelProperty,String> C22) {
-			
+		   this.hidden_Level=hidden_Level;
 		   this.hiddenLevelTable=hiddenLevelTable;
 		   this.C21=C21;
 		   this.C22=C22;
+		   
+		   hiddenlevel.setText(String.valueOf(hidden_Level.getHidden_level()));
+		   levelText.setText(hidden_Level.getLevel_text());
 		
 	}
 	
@@ -82,13 +87,17 @@ public class HiddenLevelDetailController {
 				if(levelText.getText()!=null)
 					hidden_level.setLevel_text(levelText.getText());
 				
-				int i=assets.insertHiddenLevel(hidden_level);
+				String[] where={"[Assets].[dbo].[Hidden_Level].id=",String.valueOf(hidden_Level.getId())};
+				
+				hidden_level.setWhere(where);
+				
+				int i=assets.updateHiddenLevel(hidden_level);
 				
 				if(i==1){
 					Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 	alert.setTitle("隐患级别");
 					alert.setHeaderText("操作");
-					alert.setContentText("新建"+hiddenlevel.getText()+"成功");						
+					alert.setContentText("更新"+hiddenlevel.getText()+"成功");						
 					alert.showAndWait();
 					setHiddenLevel();
 					handleCancel();
@@ -96,7 +105,7 @@ public class HiddenLevelDetailController {
 					Alert alert2 = new Alert(AlertType.ERROR);
 					alert2.setTitle("异常堆栈对话框");
 					alert2.setHeaderText("错误");
-					alert2.setContentText("新建"+hiddenlevel.getText()+"失败");
+					alert2.setContentText("更新"+hiddenlevel.getText()+"失败");
 					alert2.showAndWait();
 				  }
 			}catch (Exception e) {
@@ -106,7 +115,7 @@ public class HiddenLevelDetailController {
 					Alert alert2 = new Alert(AlertType.ERROR);
 					alert2.setTitle("异常堆栈对话框");
 					alert2.setHeaderText("错误");
-					alert2.setContentText("新建"+hiddenlevel.getText()+"失败");
+					alert2.setContentText("更新"+hiddenlevel.getText()+"失败");
 					alert2.showAndWait();
 				}
 		   }

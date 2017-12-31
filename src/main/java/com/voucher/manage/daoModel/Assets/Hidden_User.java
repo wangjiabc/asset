@@ -15,8 +15,20 @@ public class Hidden_User implements Serializable{
     @SQLInteger(name="principal")
 	private Integer principal;
 
+    @SQLString(name="campusAdmin")
+	private String campusAdmin;
+
+    @SQLString(name="password")
+	private String password;
+
     @SQLString(name="principal_name")
 	private String principal_name;
+
+    @SQLString(name="phone")
+	private String phone;
+
+    @SQLInteger(name="purview")
+	private Integer purview;
 
     @SQLString(name="business")
 	private String business;
@@ -37,12 +49,44 @@ public class Hidden_User implements Serializable{
 		return principal;
 	}
 
+	public void setCampusAdmin(String campusAdmin){
+		this.campusAdmin = campusAdmin;
+	}
+
+	public String getCampusAdmin(){
+		return campusAdmin;
+	}
+
+	public void setPassword(String password){
+		this.password = password;
+	}
+
+	public String getPassword(){
+		return password;
+	}
+
 	public void setPrincipal_name(String principal_name){
 		this.principal_name = principal_name;
 	}
 
 	public String getPrincipal_name(){
 		return principal_name;
+	}
+
+	public void setPhone(String phone){
+		this.phone = phone;
+	}
+
+	public String getPhone(){
+		return phone;
+	}
+
+	public void setPurview(Integer purview){
+		this.purview = purview;
+	}
+
+	public Integer getPurview(){
+		return purview;
 	}
 
 	public void setBusiness(String business){
