@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import org.apache.poi.ss.formula.functions.T;
 
+import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.join.HiddenNeaten_JoinProperty;
@@ -218,6 +219,16 @@ public class AssetInformController extends AssetAsSwitch{
 								  System.out.println(menuType);								  
 								  
 								  if(menuType.equals("m1")){
+									  
+									  if(Singleton.getInstance().getHidden_User().getPurview()>1){
+											Alert alert2 = new Alert(AlertType.WARNING);
+											alert2.setTitle("警告对话框");
+											alert2.setHeaderText("警告");
+											alert2.setContentText("你没有删除安全整顿记录的的权限");
+											alert2.showAndWait();
+											return ;
+										 }
+									  
 									  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 								        alert.setTitle("删除");
 								        alert.setHeaderText("安全整顿记录");

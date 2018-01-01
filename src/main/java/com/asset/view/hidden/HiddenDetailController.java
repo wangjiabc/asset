@@ -724,7 +724,17 @@ public class HiddenDetailController {
 				System.out.println(hidden_Jion);
 				String[] where={"id=",String.valueOf(hidden_Jion.getId())};
 				hidden2.setWhere(where);
-				try{					
+				try{	
+					
+					if(Singleton.getInstance().getHidden_User().getPurview()>2){
+						Alert alert2 = new Alert(AlertType.WARNING);
+						alert2.setTitle("警告对话框");
+						alert2.setHeaderText("警告");
+						alert2.setContentText("你没有修改隐患的权限");
+						alert2.showAndWait();
+						return ;
+					}
+					
 					if(hiddenName!=null){
 					 hidden2.setName(hiddenName.getText());
 					}
@@ -811,6 +821,14 @@ public class HiddenDetailController {
 				public void handle(ActionEvent event) {
 					// TODO Auto-generated method stub
 					 try {
+						 if(Singleton.getInstance().getHidden_User().getPurview()>2){
+								Alert alert2 = new Alert(AlertType.WARNING);
+								alert2.setTitle("警告对话框");
+								alert2.setHeaderText("警告");
+								alert2.setContentText("你没有添加关联资产的权限");
+								alert2.showAndWait();
+								return ;
+							}
 				            // Load the fxml file and create a new stage for the popup dialog.
 				            FXMLLoader loader = new FXMLLoader();
 				            loader.setLocation(getClass().getResource("hiddenAndAsset/AppendAssetsQuery.fxml"));
@@ -881,6 +899,16 @@ public class HiddenDetailController {
 								  
 								  
 								  if(menuType.equals("m1")){
+									  
+									  if(Singleton.getInstance().getHidden_User().getPurview()>1){
+											Alert alert2 = new Alert(AlertType.WARNING);
+											alert2.setTitle("警告对话框");
+											alert2.setHeaderText("警告");
+											alert2.setContentText("你没有删除关联资产的权限");
+											alert2.showAndWait();
+											return ;
+										}
+									  
 									  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 								        alert.setTitle("删除");
 								        alert.setHeaderText("删除隐患关联资产");
@@ -1005,6 +1033,15 @@ public class HiddenDetailController {
 								  System.out.println(menuType);								  
 								  
 								  if(menuType.equals("m1")){
+									  if(Singleton.getInstance().getHidden_User().getPurview()>1){
+											Alert alert2 = new Alert(AlertType.WARNING);
+											alert2.setTitle("警告对话框");
+											alert2.setHeaderText("警告");
+											alert2.setContentText("你没有删除安全检查记录的权限");
+											alert2.showAndWait();
+											return ;
+										}
+									  
 									  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 								        alert.setTitle("删除");
 								        alert.setHeaderText("安全检查记录");
@@ -1115,6 +1152,16 @@ public class HiddenDetailController {
 									  System.out.println(menuType);								  
 									  
 									  if(menuType.equals("m1")){
+										  
+											if(Singleton.getInstance().getHidden_User().getPurview()>1){
+												Alert alert2 = new Alert(AlertType.WARNING);
+												alert2.setTitle("警告对话框");
+												alert2.setHeaderText("警告");
+												alert2.setContentText("你没有删除隐患整改记录的权限");
+												alert2.showAndWait();
+												return ;
+											}
+										  
 										  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 									        alert.setTitle("删除");
 									        alert.setHeaderText("安全整顿记录");

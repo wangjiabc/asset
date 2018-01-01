@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Date;
+import java.util.Map;
 import java.util.Random;
  
 import javax.swing.ImageIcon;
@@ -24,14 +26,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import org.eclipse.jetty.util.security.Credential.MD5;
+
+import com.asset.database.Connect;
 import com.asset.tool.Md5;
 import com.asset.tool.TestDB;
+import com.rmi.server.Assets;
+import com.voucher.manage.daoModel.Assets.Hidden_User;
  
 public class Login extends JFrame implements ActionListener {
  String userName;
  String password;
- String userName2;
- String password2;
  String captcha;
  public static String randomcaptcha;
  
@@ -47,8 +52,8 @@ public class Login extends JFrame implements ActionListener {
   ResultSetMetaData rsmd;
   
  public Login() {
-  setTitle("安全隐患监管系统");
-  setSize(400, 300);
+  setTitle("安全隐患监管系统登录");
+  setSize(500, 400);
   setLocationRelativeTo(null);
   init();
   /*
@@ -75,45 +80,59 @@ public class Login extends JFrame implements ActionListener {
   logoLabel.setBounds(80, 10, 300, 70);
  // add(logoLabel);
  
-  userNameLabel = new JLabel("姓名:");
-  userNameLabel.setBounds(90, 90, 60, 40);
+  Font font=new java.awt.Font("Dialog",1,16);
+  
+  userNameLabel = new JLabel("帐号:");
+  userNameLabel.setBounds(130, 60, 60, 40); 
+  userNameLabel.setFont(font);
   add(userNameLabel);
   userNameInput = new JTextField();
-  userNameInput.setBounds(150, 100, 150, 20);
+  userNameInput.setBounds(180, 70, 150, 20);
+  userNameInput.setSize(200,30);
+  userNameInput.setFont(font);
   add(userNameInput);
  
   passwordLabel = new JLabel("密码:");
-  passwordLabel.setBounds(90, 120, 60, 40);
+  passwordLabel.setBounds(130, 120, 60, 40);
+  passwordLabel.setFont(font);
   add(passwordLabel);
   passwordInput = new JPasswordField();
-  passwordInput.setBounds(150, 130, 150, 20);
+  passwordInput.setBounds(180, 130, 150, 20);
+  passwordInput.setSize(200,30);
+  passwordInput.setFont(font);
   add(passwordInput);
  
   captchaLabel = new JLabel("验证码:");
-  captchaLabel.setBounds(90, 150, 60, 40);
+  captchaLabel.setBounds(120, 180, 60, 40);
+  captchaLabel.setFont(font);
   add(captchaLabel);
   captchaInput = new JTextField();
-  captchaInput.setBounds(150, 160, 70, 20);
+  captchaInput.setBounds(180, 190, 70, 20);
+  captchaInput.setSize(80,30);
+  captchaInput.setFont(font);
   add(captchaInput);
  
   panel = new PanelDemo();
-  panel.setBounds(220, 160, 80, 20);
+  panel.setBounds(270, 196, 80, 20);
+  panel.setSize(80,30);
   add(panel);
    
    
   change = new JButton("更换");
-  change.setBounds(300, 160, 80, 20);
+  change.setBounds(330, 196, 80, 20);
   change.setContentAreaFilled(false);
   change.setBorderPainted(false);
   add(change);
  
   login = new JButton("确定");
-  login.setBounds(70, 200, 120, 30);
-  login.setMnemonic(KeyEvent.VK_L);
+  login.setBounds(120, 270, 120, 30);
+  login.setFont(new java.awt.Font("",1,14));
+ // login.setMnemonic(KeyEvent.VK_L);
   add(login);
   logout = new JButton("退出");
-  logout.setBounds(210, 200, 120, 30);
-  logout.setMnemonic(KeyEvent.VK_X);
+  logout.setBounds(270, 270, 120, 30);
+ // logout.setMnemonic(KeyEvent.VK_X);
+  logout.setFont(new java.awt.Font("",1,14));
   add(logout);
  
   userNameInput.addActionListener(this);
@@ -126,7 +145,14 @@ public class Login extends JFrame implements ActionListener {
  }
  
  public void actionPerformed(ActionEvent e) {
- 
+	 Assets assets = null;
+	 try{
+	  assets= new Connect().get();
+	 }catch (java.lang.ExceptionInInitializerError ex) {
+		// TODO: handle exception
+		 JOptionPane.showMessageDialog(this, new JLabel("<html><h2>网络连接异常</html></h2>"));
+		 dispose();
+	}
   userName = userNameInput.getText();
   password = new String(passwordInput.getPassword());
   captcha = captchaInput.getText();
@@ -135,37 +161,70 @@ public class Login extends JFrame implements ActionListener {
    panel.repaint();
   }
   
-  if (e.getSource() == login) {	
-	 /* try {
-		  pstmt = connection.prepareStatement("select campus_admin,password from campus_admin where campus_admin = ?");
-		  pstmt.setString(1, userName);
-          rs = pstmt.executeQuery();
-          while (rs.next()) { // 调试代码
-        	  userName2=rs.getString(1);
-        	  password2=rs.getString(2);
-           }
-	     } catch (SQLException e1) {
-		  // TODO Auto-generated catch block
-		   e1.printStackTrace();
-		}*/
  
-   if ((userName.equals("admin")) && (password.equals("xl123"))) {
-	   System.out.println(randomcaptcha);
-	   System.out.println(captcha);
-    if (captcha.equals(randomcaptcha.toLowerCase())) {
-       JOptionPane.showMessageDialog(this, "登录成功");
-       dispose();
-       new MainApp().launch(Main.class, "");     
-    } else {
-       JOptionPane.showMessageDialog(this, "验证码错误");
-       panel.repaint();
-    }
-   } else {
-    JOptionPane.showMessageDialog(this, "对不起，你没有登陆权限!");
+  if (e.getSource() == login) {	 
+	  
+	  if(userName.equals("")){
+		  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>帐号不能空</html></h2>"));
+		  return;
+	  }
+	  
+	  if(password.equals("")){
+		  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>密码不能空</html></h2>"));
+		  return;
+	  }
+	  
+	  if(captcha.equals("")){
+		  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>请输入验证码</html></h2>"));
+		  return;
+	  }
+	  
+	  Map map=assets.selectHiddenUser(userName);
+	  int state=(int) map.get("state");
+	  Hidden_User hidden_User=(Hidden_User) map.get("row");	 
+	  if (captcha.equals(randomcaptcha.toLowerCase())) {
+		  
+		  if(state==0){
+			  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>用户不存在</html></h2>"));
+			  return;
+		  }
+		  
+		  String campusAdmin=hidden_User.getCampusAdmin();
+		  String pw=hidden_User.getPassword();    
+		  
+		  if ((userName.equals(campusAdmin)) && (Md5.GetMD5Code(password).equals(pw))) {
+			  System.out.println(randomcaptcha);
+			  System.out.println(captcha);
+    
+			  Singleton.getInstance().setHidden_User(hidden_User);
+	 
+			  Hidden_User hidden_User2=new Hidden_User();
+			  Date date=new Date();
+			  hidden_User2.setEnter_time(date);
+			  String[] where={"[Assets].[dbo].[Hidden_User].campusAdmin = ",campusAdmin};
+			  hidden_User2.setWhere(where);
+			  assets.updateHiddenUser(hidden_User2);
+			  dispose();
+			  
+			  
+			  if(Md5.GetMD5Code(password).equals(Md5.GetMD5Code("xl123"))){
+				  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>登录后请修改默认密码</html></h2>"));  
+			  }
+			  
+			  new MainApp().launch(Main.class, "");  
+			  
+			  
+		  	} else {
+			  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>对不起，你没有登陆权限!</html></h2>"));
+		  	} 
+		  } else {    
+			  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>验证码错误</html></h2>"));
+			  panel.repaint();
+		  }   
    }
-  }
+  
   if (e.getSource() == logout) {
-   JOptionPane.showMessageDialog(this, "»¶Ó­ÏÂ´ÎÔÙÀ´£¡");
+   JOptionPane.showMessageDialog(this, new JLabel("<html><h2>退出系统</html></h2>"));
    //System.exit(0);
    dispose();
   }

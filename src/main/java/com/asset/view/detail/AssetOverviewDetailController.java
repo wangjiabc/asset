@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
@@ -181,6 +182,16 @@ public class AssetOverviewDetailController {
 
 			@Override
 			public void handle(ActionEvent event) {
+				
+				if(Singleton.getInstance().getHidden_User().getPurview()>1){
+					Alert alert2 = new Alert(AlertType.WARNING);
+					alert2.setTitle("警告对话框");
+					alert2.setHeaderText("警告");
+					alert2.setContentText("你没有删除安全检查记录的的权限");
+					alert2.showAndWait();
+					return ;
+				 }
+				
 				// TODO Auto-generated method stub
 				 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 			        alert.setTitle("安全信息");

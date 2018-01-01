@@ -72,6 +72,8 @@ public interface Assets {
 	
 	public Integer updateHiddenType(Hidden_Type hidden_Type);
 	
+	public Map<String , Object> selectHiddenUser(String campusAdmin);
+	
 	public Map<String, Object> selectAllHiddenUser(Integer limit, Integer offset, String sort,
 			String order,Map<String, String> search);
 	
@@ -80,6 +82,8 @@ public interface Assets {
 	public Integer deleteHiddenUser(Hidden_User hidden_User);
 
 	public Integer updateHiddenUser(Hidden_User hidden_User);
+	
+	public Integer updateUserPassword(Hidden_User hidden_User,String OldPw);
 	
 	public Map<String, Object> selectAllHiddenCheck(Integer limit, Integer offset, String sort,
 			String order,Map<String, String> search);

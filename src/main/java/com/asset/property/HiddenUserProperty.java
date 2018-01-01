@@ -1,5 +1,10 @@
 package com.asset.property;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.voucher.manage.daoSQL.annotations.SQLDateTime;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -19,7 +24,15 @@ public class HiddenUserProperty {
 	
 	private StringProperty business;
 
+	private IntegerProperty purview;
 
+	private StringProperty enter_time;
+
+	private StringProperty register_time;
+
+	private StringProperty rework_time;
+	
+	
 	public IntegerProperty getId() {
 		return id;
 	}
@@ -78,4 +91,51 @@ public class HiddenUserProperty {
 	public void setPhone(String phone) {
 		this.phone = new SimpleStringProperty(phone);
 	}
+
+
+	public IntegerProperty getPurview() {
+		return purview;
+	}
+
+
+	public void setPurview(Integer purview) {
+		this.purview = new SimpleIntegerProperty(purview);
+	}
+
+
+	public StringProperty getEnter_time() {
+		return enter_time;
+	}
+
+
+	public void setEnter_time(Date enter_time) {
+		SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " ); 
+		String datestr = sdf.format(enter_time); 
+		this.enter_time = new SimpleStringProperty(datestr);
+	}
+
+
+	public StringProperty getRegister_time() {
+		return register_time;
+	}
+
+
+	public void setRegister_time(Date register_time) {
+		SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " ); 
+		String datestr = sdf.format(register_time); 
+		this.register_time = new SimpleStringProperty(datestr);
+	}
+
+
+	public StringProperty getRework_time() {
+		return rework_time;
+	}
+
+	public void setRework_time(Date rework_time) {
+		SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " ); 
+		String datestr = sdf.format(rework_time); 
+		this.rework_time = new SimpleStringProperty(datestr);
+	}
+
+
 }

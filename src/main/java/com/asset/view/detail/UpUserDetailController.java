@@ -1,7 +1,6 @@
 package com.asset.view.detail;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +22,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -33,13 +33,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.scene.control.Toggle;
 
-public class AddUserDetailController {
+public class UpUserDetailController {
 
 	@FXML
-	private TextField id;
+	private Label id;
 	
 	@FXML
-	private TextField campusAdmin;
+	private Label campusAdmin;
 	
 	@FXML
 	private TextField PrincipalName;
@@ -78,7 +78,7 @@ public class AddUserDetailController {
 	 
 	 @FXML
 	 private TableColumn<HiddenUserProperty,String> C37;
-	
+	 
 	 @FXML
 	 private Pagination pagination;
 	 
@@ -101,13 +101,16 @@ public class AddUserDetailController {
 	 @FXML
 	 private RadioButton rb3;
 	 
+	 private Hidden_User hidden_User;
+	 
 	 Assets assets= new Connect().get();
 	
-	 public void setAddUser(Integer offset,Integer limit,TableView<HiddenUserProperty> hiddenUserTable,TableColumn<HiddenUserProperty,Integer> C31,
+	 public void setUpUser(Hidden_User hidden_User,Integer offset,Integer limit,TableView<HiddenUserProperty> hiddenUserTable,TableColumn<HiddenUserProperty,Integer> C31,
 			 TableColumn<HiddenUserProperty,String> C32,TableColumn<HiddenUserProperty,String> C33,
 			 TableColumn<HiddenUserProperty,String> C34,TableColumn<HiddenUserProperty,String> C35,
 			 TableColumn<HiddenUserProperty,String> C36,TableColumn<HiddenUserProperty,String> C37,
 			 Pagination pagination){
+		    this.hidden_User=hidden_User;
 		    this.offset=offset;
 		    this.limit=limit;
 		    this.hiddenUserTable=hiddenUserTable;
@@ -119,34 +122,58 @@ public class AddUserDetailController {
 		    this.C36=C36;
 		    this.C37=C37;
 		    this.pagination=pagination;
+		    try{
+		    	id.setText(String.valueOf(hidden_User.getId()));
+		    	campusAdmin.setText(hidden_User.getCampusAdmin());
+		    	PrincipalName.setText(hidden_User.getPrincipal_name());
+		    	if(!hidden_User.getPhone().equals(""))
+		    		phone.setText(hidden_User.getPhone());
+		    	
+		    	ToggleGroup group = new ToggleGroup();
+				
+				rb1.setToggleGroup(group);
+				rb1.setUserData(1);
+				rb2.setToggleGroup(group);
+				rb2.setUserData(2);
+				rb3.setToggleGroup(group);
+				rb3.setUserData(3);
+				System.out.println("hidden_User1="+hidden_User.getPurview());
+				switch (hidden_User.getPurview()) {
+					case 1:rb1.setSelected(true);
+					break;
+					case 2:rb2.setSelected(true);
+					break;
+					case 3:rb3.setSelected(true);			
+					break;
+				  default:
+					break;
+				 }
+			    
+				group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+				      public void changed(ObservableValue<? extends Toggle> ov,
+				          Toggle old_toggle, Toggle new_toggle) {
+				        if (group.getSelectedToggle() != null) {
+				           purview=(Integer) group.getSelectedToggle().getUserData();
+				           System.out.println("purview="+purview);
+				        }
+				      }
+				    });
+		    	
+		    }catch (Exception e) {
+				// TODO: handle exception
+		    	e.printStackTrace();
+			}
+	    
 	 }
 	
 	@FXML
 	private void initialize() {
-		Assets assets=new Connect().get();
-		
-		Hidden_User hidden_User=new Hidden_User();
 
-		ToggleGroup group = new ToggleGroup();
+		System.out.println("hidden_User2="+hidden_User);
 		
-		rb1.setToggleGroup(group);
-		rb1.setUserData(1);
-		rb2.setToggleGroup(group);
-		rb2.setUserData(2);
-		rb3.setToggleGroup(group);
-		rb3.setUserData(3);
 		
-		rb3.setSelected(true);
 		
-		group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-		      public void changed(ObservableValue<? extends Toggle> ov,
-		          Toggle old_toggle, Toggle new_toggle) {
-		        if (group.getSelectedToggle() != null) {
-		           purview=(Integer) group.getSelectedToggle().getUserData();
-		           System.out.println("purview="+purview);
-		        }
-		      }
-		    });
+		
 		
 		update.setOnAction(new EventHandler<ActionEvent>() {
 			
@@ -159,19 +186,12 @@ public class AddUserDetailController {
 				 Random rand = new Random();
 			     int r=Math.abs(rand.nextInt());
 			     hidden_User.setPrincipal(r);
-			    try{
-			    
-			    if(id!=null)
-					hidden_User.setId(Integer.parseInt(id.getText()));
-			    if(campusAdmin!=null)
-			    	hidden_User.setCampusAdmin(campusAdmin.getText());
+			   try{
 				if(PrincipalName!=null)
 					hidden_User.setPrincipal_name(PrincipalName.getText());
 				if(phone!=null)
 					hidden_User.setPhone(phone.getText());
-				 System.out.println("purview="+purview);
-				    
-				
+
 				    if(purview==1){
 				    	business="管理员";
 				    }else if(purview==2){
@@ -179,50 +199,37 @@ public class AddUserDetailController {
 				    }else if(purview==3){
 				    	business="观察员";
 				    }
-					
+				
+				  hidden_User.setPurview(purview);
 				  hidden_User.setBusiness(business); 	
 			   	  
-				 hidden_User.setPassword(Md5.GetMD5Code("xl123"));	
-				 hidden_User.setPurview(purview);
-				 
-				 Date date=new Date();
-				 hidden_User.setRegister_time(date);
-				 
-				 int i=assets.insertHiddenUser(hidden_User);
+				  String[] where={"[Assets].[dbo].[Hidden_User].id=",String.valueOf(hidden_User.getId())};
+				  
+				  hidden_User.setWhere(where);
+				  
+				 int i=assets.updateHiddenUser(hidden_User);
 				  
 				  if(i==1){
 					  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 	                	alert.setTitle("安全信息");
 						alert.setHeaderText("操作");
-						alert.setContentText("新建"+PrincipalName.getText()+"成功");								
+						alert.setContentText("更新"+PrincipalName.getText()+"成功");								
 						alert.showAndWait();
 						setUser(offset,limit);
 						handleCancel();
-	                }else if(i==2){
+	                }else{
 	                	Alert alert2 = new Alert(AlertType.ERROR);
 						alert2.setTitle("异常堆栈对话框");
-						alert2.setHeaderText("新建"+PrincipalName.getText()+"失败");
-						alert2.setContentText("帐号不能重复");
+						alert2.setHeaderText("错误");
+						alert2.setContentText("更新"+PrincipalName.getText()+"失败");
 						alert2.showAndWait();
-	                }else if(i==3){
-	                	Alert alert3 = new Alert(AlertType.ERROR);
-						alert3.setTitle("异常堆栈对话框");
-						alert3.setHeaderText("新建"+PrincipalName.getText()+"失败");
-						alert3.setContentText("工号不能重复");
-						alert3.showAndWait();
-	                }else{
-	                	Alert alert4 = new Alert(AlertType.ERROR);
-						alert4.setTitle("异常堆栈对话框");
-						alert4.setHeaderText("错误");
-						alert4.setContentText("新建"+PrincipalName.getText()+"失败");
-						alert4.showAndWait();
 	                }
 	                }catch (Exception e) {
 						// TODO: handle exception
 	                	Alert alert2 = new Alert(AlertType.ERROR);
 						alert2.setTitle("异常堆栈对话框");
 						alert2.setHeaderText("错误");
-						alert2.setContentText("新建"+PrincipalName.getText()+"失败");
+						alert2.setContentText("更新"+PrincipalName.getText()+"失败");
 						alert2.showAndWait();
 						e.printStackTrace();
 					}

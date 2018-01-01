@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import org.controlsfx.dialog.Dialogs;
 
+import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
@@ -358,6 +359,15 @@ public class AssetOverviewController extends AssetAsSwitch{
 							// TODO Auto-generated method stub
 							try{
 								
+								if(Singleton.getInstance().getHidden_User().getPurview()>2){
+									Alert alert2 = new Alert(AlertType.WARNING);
+									alert2.setTitle("警告对话框");
+									alert2.setHeaderText("警告");
+									alert2.setContentText("你没有修改隐患的权限");
+									alert2.showAndWait();
+									return ;
+								}
+								
 							  String GUID=row.getItem().getGUID().get();
 							  String Name=row.getItem().getName().get();
 							  String menuType=MenuType.get(event.getTarget().toString());
@@ -369,6 +379,14 @@ public class AssetOverviewController extends AssetAsSwitch{
 							  hidden_Jion.setName(Name);
 							  
 							  if(menuType.equals("m1")){
+								  if(Singleton.getInstance().getHidden_User().getPurview()>1){
+										Alert alert2 = new Alert(AlertType.WARNING);
+										alert2.setTitle("警告对话框");
+										alert2.setHeaderText("警告");
+										alert2.setContentText("你没有删除隐患的权限");
+										alert2.showAndWait();
+										return ;
+									}
 								  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 							        alert.setTitle("安全信息");
 							        alert.setHeaderText("删除");
@@ -623,6 +641,15 @@ public class AssetOverviewController extends AssetAsSwitch{
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				try {
+					
+					if(Singleton.getInstance().getHidden_User().getPurview()>2){
+						Alert alert2 = new Alert(AlertType.WARNING);
+						alert2.setTitle("警告对话框");
+						alert2.setHeaderText("警告");
+						alert2.setContentText("你没有新建隐患的权限");
+						alert2.showAndWait();
+						return ;
+					}
 					   FXMLLoader loader = new FXMLLoader();
 			            loader.setLocation(AssetOverviewController.class.getResource("infowrite/InfoWrite2.fxml"));
 			            AnchorPane page = (AnchorPane) loader.load();

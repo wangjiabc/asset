@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Iterator;
 
 import com.asset.Main;
+import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.view.hidden.HiddenDetailController;
 import com.asset.view.infowrite.InfoWriteController2;
@@ -18,6 +19,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -55,9 +58,11 @@ public abstract class AssetAsSwitch {
 	 @FXML
 	  Label firstName0Label;
 	 
-	 
 	 @FXML
 	  Label firstName2Label;
+	 
+	 @FXML
+	  Label firstName22Label;
 	 
 	 @FXML
 	  Label firstName3Label;
@@ -99,8 +104,15 @@ public abstract class AssetAsSwitch {
 	        bar.setImage(image);
 	        
 	        firstName0Label.setText("兴泸资产管理有限公司");
-            firstName2Label.setText("管理员");
-            
+	        
+	        String userName=Singleton.getInstance().getHidden_User().getPrincipal_name();
+	        String business=Singleton.getInstance().getHidden_User().getBusiness();
+            firstName2Label.setText(userName);
+            if(!userName.equals("admin")){
+            	firstName22Label.setText("("+business+")");
+            }else {
+            	firstName22Label.setText("(系统管理员)");
+			}
             int not=assets.findNotHidden();
             
             firstName3Label.setText(String.valueOf(not)+"处");
@@ -137,6 +149,14 @@ public abstract class AssetAsSwitch {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO Auto-generated method stub
+					if(Singleton.getInstance().getHidden_User().getPurview()>2){
+						Alert alert2 = new Alert(AlertType.WARNING);
+						alert2.setTitle("警告对话框");
+						alert2.setHeaderText("警告");
+						alert2.setContentText("你没有新建隐患的权限");
+						alert2.showAndWait();
+						return ;
+					}
 					try {
 						   FXMLLoader loader = new FXMLLoader();
 				            loader.setLocation(AssetAsSwitch.class.getResource("infowrite/InfoWrite2.fxml"));

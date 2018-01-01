@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenLevelProperty;
@@ -16,6 +17,7 @@ import com.asset.property.HiddenTypeProperty;
 import com.asset.property.HiddenUserProperty;
 import com.asset.property.join.HiddenCheck_JoinProperty;
 import com.asset.property.join.Hidden_JoinProperty;
+import com.asset.tool.Md5;
 import com.asset.tool.MenuType;
 import com.asset.tool.MyTestUtil;
 import com.asset.view.detail.AddUserDetailController;
@@ -23,6 +25,7 @@ import com.asset.view.detail.HiddenLevelDetailController;
 import com.asset.view.detail.HiddenTypeDetailController;
 import com.asset.view.detail.UpHiddenLevelDetailController;
 import com.asset.view.detail.UpHiddenTypeDetailController;
+import com.asset.view.detail.UpUserDetailController;
 import com.asset.view.hidden.HiddenDetailController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
@@ -45,12 +48,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -127,6 +132,12 @@ public class AssetWorkController extends AssetAsSwitch{
 	 private TableColumn<HiddenUserProperty,String> C35;
 	 
 	 @FXML
+	 private TableColumn<HiddenUserProperty,String> C36;
+	 
+	 @FXML
+	 private TableColumn<HiddenUserProperty,String> C37;
+	 
+	 @FXML
 	 private ContextMenu contextMenuUser;
 	 
 	 @FXML
@@ -141,6 +152,18 @@ public class AssetWorkController extends AssetAsSwitch{
 	 
 	 @FXML
 	 private Pagination pagination;
+	 
+	 @FXML
+	 private TextField oldPassword;
+	 
+	 @FXML
+	 private PasswordField newPassword;
+	 
+	 @FXML
+	 private PasswordField affirmPassword;
+	 
+	 @FXML
+	 private Button rework;
 	 
 	Assets assets= new Connect().get();
 	
@@ -176,11 +199,13 @@ public class AssetWorkController extends AssetAsSwitch{
 	            }
 		    });
 	     
-	     /*
-	     typeTab.setDisable(true);
-	     SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();	     
-	     selectionModel.select(2);
-	     */
+	     if(Singleton.getInstance().getHidden_User().getPurview()>0){
+	    	 typeTab.setDisable(true);
+	    	 levelTab.setDisable(true);
+	    	 userTab.setDisable(true);
+	    	 SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();	     
+	    	 selectionModel.select(3);
+	     }
 	     
 	     addHiddenLevelButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -279,7 +304,7 @@ public class AssetWorkController extends AssetAsSwitch{
 			            // Set the person into the controller.
 			            AddUserDetailController controller = loader.getController();
 			            controller.setDialogStage(dialogStage);
-			            controller.setAddUser(offset, limit, hiddenUserTable, C31, C32, C33, C34, C35, pagination);
+			            controller.setAddUser(offset, limit, hiddenUserTable, C31, C32, C33, C34, C35, C36, C37, pagination);
 			            
 			            // Show the dialog and wait until the user closes it
 			            dialogStage.show();
@@ -570,13 +595,114 @@ public class AssetWorkController extends AssetAsSwitch{
 			        return row;
 		     });
 	     
+		     rework.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+				     String oldPw=oldPassword.getText();
+				     String newPw=newPassword.getText();
+				     String affirmPw=affirmPassword.getText();
+				     
+				   try{ 
+				     if(!newPw.equals(affirmPw)){
+				    	    Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("错误");
+							alert.setHeaderText("修改密码错误");
+							alert.setContentText("两次输入的密码不一致");
+							alert.showAndWait();
+				     }else{
+				    	 Hidden_User hidden_User=new Hidden_User();
+				    	 String campusAdmin=Singleton.getInstance().getHidden_User().getCampusAdmin();
+				    	 
+				    	 System.out.println("campusAdmin="+campusAdmin);
+				    	 hidden_User.setCampusAdmin(campusAdmin);
+				    	 hidden_User.setPassword(Md5.GetMD5Code(newPw));
+				    	 int i=assets.updateUserPassword(hidden_User,Md5.GetMD5Code(oldPw));
+				    	 
+				    	 if(i==1){
+				    		   Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+								alert.setTitle("修改密码");
+								alert.setHeaderText("修改密码成功");
+								alert.showAndWait();
+								oldPassword.setText("");
+								newPassword.setText("");
+								affirmPassword.setText("");
+				    	 }else if(i==3){
+				    		   Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("错误");
+								alert.setHeaderText("修改密码错误");
+								alert.setContentText("原密码不正确");
+								alert.showAndWait();
+				    	 }else{
+				    		 Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("错误");
+								alert.setHeaderText("修改密码错误");
+								alert.setContentText("其它错误");
+								alert.showAndWait();
+				    	 }
+				    	 
+				     }
+				   }catch (Exception e) {
+					// TODO: handle exception
+					   e.printStackTrace();
+					   Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("错误");
+						alert.setHeaderText("修改密码错误");
+						alert.setContentText("其它错误");
+						alert.showAndWait();
+				  }
+				}
+				
+			});
+		     
 	 }
 	 
 		 	 
 	 
 	 private void table(HiddenUserProperty newValue){
+		 Integer id=newValue.getId().get();
 		 Integer principal=newValue.getPrincipal().get();
+		 String campusAdmin=newValue.getCampusAdmin().get();
+		 String principalName=newValue.getPrincipal_name().get();		
+		 String phone=newValue.getPhone().get();
+		 String business=newValue.getBusiness().get();
+		 Integer purview=newValue.getPurview().get(); 
+		 
+		 Hidden_User hidden_User=new Hidden_User();
+		 
+		 hidden_User.setId(id);
+		 hidden_User.setPrincipal(principal);
+		 hidden_User.setCampusAdmin(campusAdmin);
+		 hidden_User.setPrincipal_name(principalName);
+		 hidden_User.setPhone(phone);
+		 hidden_User.setBusiness(business);
+		 hidden_User.setPurview(purview);
+		 
+		 FXMLLoader loader = new FXMLLoader();
+         loader.setLocation(AssetWorkController.class.getResource("detail/UpUserDetail.fxml"));
+         AnchorPane page = null;
+			try {
+				page = (AnchorPane) loader.load();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
+         // Create the dialog Stage.
+         Stage dialogStage = new Stage();
+         dialogStage.setTitle("修改员工信息");
+         dialogStage.initModality(Modality.APPLICATION_MODAL);
+         Scene scene = new Scene(page);
+         dialogStage.setScene(scene);
+
+         // Set the person into the controller.
+         UpUserDetailController controller = loader.getController();
+         controller.setUpUser(hidden_User, offset, limit, hiddenUserTable, C31, C32, C33, C34, C35, C36, C37, pagination);
+         controller.setDialogStage(dialogStage);
+         
+         // Show the dialog and wait until the user closes it
+         dialogStage.show();
 	 }
 	 
 	 private void table2(HiddenTypeProperty newValue){
@@ -717,7 +843,11 @@ public class AssetWorkController extends AssetAsSwitch{
 	     C34.setCellValueFactory(
 		   		    cellData->cellData.getValue().getPhone());
 	     C35.setCellValueFactory(
-	    		    cellData->cellData.getValue().getBusiness());
+	    		    cellData->cellData.getValue().getBusiness());	     
+	     C36.setCellValueFactory(
+		   		    cellData->cellData.getValue().getEnter_time());
+	     C37.setCellValueFactory(
+	    		    cellData->cellData.getValue().getRegister_time());
 	     
 	     int total=(int) map.get("total");
 	     int page=total/10;

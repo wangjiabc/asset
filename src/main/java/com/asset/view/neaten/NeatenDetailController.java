@@ -586,6 +586,15 @@ public class NeatenDetailController {
 				Hidden_Neaten hidden_Neaten=new Hidden_Neaten();
 				Date date=new Date();
 				try{
+					
+					if(Singleton.getInstance().getHidden_User().getPurview()>2){
+						Alert alert2 = new Alert(AlertType.WARNING);
+						alert2.setTitle("警告对话框");
+						alert2.setHeaderText("警告");
+						alert2.setContentText("你没有更新安全整顿记录的权限");
+						alert2.showAndWait();
+						return ;
+					}
 					    if(principal.getText()!=null)
 					    	hidden_Neaten.setPrincipal(principal.getText());
 						if(checkName.getText()!=null)

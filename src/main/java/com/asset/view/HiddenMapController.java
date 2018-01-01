@@ -30,9 +30,11 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -163,6 +165,16 @@ public class HiddenMapController extends AssetAsSwitch{
 		 position.setLat(Double.valueOf(lat));
 		 position.setLng(Double.valueOf(lng));
 		 try {
+			 
+			 if(Singleton.getInstance().getHidden_User().getPurview()>2){
+					Alert alert2 = new Alert(AlertType.WARNING);
+					alert2.setTitle("警告对话框");
+					alert2.setHeaderText("警告");
+					alert2.setContentText("你没有修改位置的权限");
+					alert2.showAndWait();
+					return ;
+				}
+			 
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
 	            loader.setLocation(AppendAssetsQueryController.class.getResource("AppendHiddenQuery.fxml"));
