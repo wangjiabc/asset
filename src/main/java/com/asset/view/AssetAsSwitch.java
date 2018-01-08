@@ -79,9 +79,7 @@ public abstract class AssetAsSwitch {
 	 
 	 @FXML
 	  Label leftTitleLabel;
-	
-	 @FXML
-	  Button hiddenWrite;
+		
 	 
 	 @FXML
 	  Button hiddenMap;
@@ -142,53 +140,13 @@ public abstract class AssetAsSwitch {
 	        file.setImage(image);
 	        
             leftTitleLabel.setText("今日提醒");
-            
-            
-            hiddenWrite.setOnAction(new EventHandler<ActionEvent>() {
 
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					if(Singleton.getInstance().getHidden_User().getPurview()>2){
-						Alert alert2 = new Alert(AlertType.WARNING);
-						alert2.setTitle("警告对话框");
-						alert2.setHeaderText("警告");
-						alert2.setContentText("你没有新建隐患的权限");
-						alert2.showAndWait();
-						return ;
-					}
-					try {
-						   FXMLLoader loader = new FXMLLoader();
-				            loader.setLocation(AssetAsSwitch.class.getResource("infowrite/InfoWrite2.fxml"));
-				            AnchorPane page = (AnchorPane) loader.load();
-
-				            // Create the dialog Stage.
-				            Stage dialogStage = new Stage();
-				            dialogStage.setTitle("信息录入");
-				            dialogStage.initModality(Modality.APPLICATION_MODAL);
-				            Scene scene = new Scene(page);
-				            dialogStage.setScene(scene);
-
-				            // Set the person into the controller.
-				            InfoWriteController2 controller = loader.getController();
-				            controller.setDialogStage(dialogStage);
-				            
-				            // Show the dialog and wait until the user closes it
-				            dialogStage.show();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			});
-                  
-            
             exitButton.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO Auto-generated method stub
-					Platform.exit();
+					System.exit(0);
 				}
             	
             });

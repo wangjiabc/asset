@@ -1,6 +1,7 @@
 package com.asset;
 
 import java.io.IOException;
+import java.net.URL;
 
 import com.asset.view.AssetInformController;
 import com.asset.view.AssetMessageController;
@@ -12,6 +13,7 @@ import com.asset.view.HiddenQueryController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -20,7 +22,7 @@ import javafx.stage.Stage;
 public class Main extends Application{
 	    private Stage primaryStage;
 	    private BorderPane rootLayout;
-	    
+	    URL url = getClass().getResource("");
 	    public Main() {
 	    	
 	    }
@@ -30,6 +32,7 @@ public class Main extends Application{
 	        this.primaryStage = primaryStage;
 	        this.primaryStage.setTitle("安全隐患监管系统");
 
+	        this.primaryStage.getIcons().add(0, new Image(url.toString()+"/xl.gif"));
 	        initRootLayout();
 	        
 	       showAssetOverview();

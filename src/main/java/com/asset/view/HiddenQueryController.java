@@ -31,12 +31,14 @@ import com.voucher.manage.daoModelJoin.Assets.Hidden_Data_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -61,6 +63,9 @@ public class HiddenQueryController extends AssetAsSwitch{
 	
 	@FXML
 	private FlowPane flowPane3;
+	
+	 @FXML
+	  Button hiddenWrite;
 	
 	private final Desktop desktop = Desktop.getDesktop();
 	
@@ -92,6 +97,17 @@ public class HiddenQueryController extends AssetAsSwitch{
 		 List<Date> dates=(List<Date>) map.get("dates");
 		 
 		 Iterator<byte[]> iterator=fileBytes.iterator();
+		 
+		 hiddenWrite.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					main.showAssetOverview();
+				}
+				
+			});
+		 
 		 
 		 int n=0;
 		 

@@ -13,7 +13,11 @@ public class Singleton {
 	
 	private Hidden_User hidden_User=new Hidden_User();
 	
-    private Singleton (){}  
+    private Singleton (){
+    	hidden_User.setPrincipal_name("admin");
+    	hidden_User.setPurview(0);
+    	
+    }  
     
     public static Singleton getInstance() {  
     	return instance;  

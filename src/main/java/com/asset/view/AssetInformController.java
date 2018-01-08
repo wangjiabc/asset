@@ -123,6 +123,9 @@ public class AssetInformController extends AssetAsSwitch{
 	 @FXML
 	 private ContextMenu contextMenu;
 	 
+	 @FXML
+	  Button hiddenWrite;
+	 
 	 Assets assets= new Connect().get();
 	
 	 public AssetInformController() {
@@ -149,6 +152,17 @@ public class AssetInformController extends AssetAsSwitch{
 				System.out.println("levels="+levels);
 			}
 
+			
+			hiddenWrite.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					main.showAssetOverview();
+				}
+				
+			});
+			
 			hiddenName.setItems(FXCollections.observableArrayList(levels));
 			
 			hiddenName.getSelectionModel().selectedIndexProperty().addListener(new

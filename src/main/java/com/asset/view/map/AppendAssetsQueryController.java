@@ -199,7 +199,7 @@ public class AppendAssetsQueryController {
 	            
 	            position.setGUID(GUID);
 	            
-	            controller.setPosition(position,Address,GUID);
+	            controller.setPosition(position,Address,GUID,null);
 	            controller.setDialogStage(dialogStage);
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();

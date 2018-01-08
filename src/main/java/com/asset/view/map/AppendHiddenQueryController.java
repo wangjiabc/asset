@@ -40,6 +40,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -130,10 +131,14 @@ public class AppendHiddenQueryController {
 	 
 	 private Position position;
 	 
+	 @FXML
+	 private WebView mapview2;
+	 
 	 Assets assets= new Connect().get();
 	
-	 public void setPosition(Position position) {
+	 public void setPosition(Position position,WebView mapview2) {
 			this.position=position;
+			this.mapview2=mapview2;
 		 }
 	 
 	 @FXML
@@ -233,7 +238,7 @@ public class AppendHiddenQueryController {
 	        row.setOnMouseClicked(event -> {
 	            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
 	            	Hidden_JoinProperty rowData = row.getItem();
-	            	table(rowData);
+	            	table(rowData,mapview2);
 	            }
 	        });
 	        return row ;
@@ -242,7 +247,7 @@ public class AppendHiddenQueryController {
 	 }
 	 
 	 
-	 private void table(Hidden_JoinProperty newValue){
+	 private void table(Hidden_JoinProperty newValue,WebView mapview2){
 		 try {
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
@@ -284,7 +289,7 @@ public class AppendHiddenQueryController {
 	            
 	            position.setGUID(GUID);
 	            
-	            controller.setPosition(position,Address,GUID);
+	            controller.setPosition(position,Address,GUID,mapview2);
 	            controller.setDialogStage(dialogStage);
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();

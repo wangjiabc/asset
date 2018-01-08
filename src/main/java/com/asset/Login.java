@@ -225,8 +225,8 @@ public class Login extends JFrame implements ActionListener {
   
   if (e.getSource() == logout) {
    JOptionPane.showMessageDialog(this, new JLabel("<html><h2>退出系统</html></h2>"));
-   //System.exit(0);
-   dispose();
+   System.exit(0);
+   //dispose();
   }
  }
  public static void main(String[] args) {

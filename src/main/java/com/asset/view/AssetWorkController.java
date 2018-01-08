@@ -35,6 +35,8 @@ import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -88,6 +90,9 @@ public class AssetWorkController extends AssetAsSwitch{
 	
 	@FXML
 	private Button addHiddenUserButton;
+	
+	@FXML
+	private Button upHiddenUserButton;
 	
 	private ObservableList<HiddenTypeProperty> hiddenTypeList;	
 	
@@ -165,6 +170,11 @@ public class AssetWorkController extends AssetAsSwitch{
 	 @FXML
 	 private Button rework;
 	 
+	 @FXML
+	  Button hiddenWrite;
+	 
+	 private HiddenUserProperty hiddenUserProperty;
+	 
 	Assets assets= new Connect().get();
 	
 	 public AssetWorkController() {
@@ -186,6 +196,17 @@ public class AssetWorkController extends AssetAsSwitch{
 	     
 	     setHiddenLevel();
      
+	     
+	     hiddenWrite.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					main.showAssetOverview();
+				}
+				
+			});
+	     
 	     pagination.setPageFactory((Integer pageIndex)->{
 		    	if (pageIndex >= 0) {
 		    		offset=pageIndex*10;
@@ -310,7 +331,34 @@ public class AssetWorkController extends AssetAsSwitch{
 			            dialogStage.show();
 				}
 			});
-		     		    
+		     
+	     
+	       hiddenUserTable.getSelectionModel().selectedItemProperty().addListener(new
+					 ChangeListener<HiddenUserProperty>() {
+
+						@Override
+						public void changed(ObservableValue<? extends HiddenUserProperty> observable, HiddenUserProperty oldValue,
+								HiddenUserProperty newValue) {
+							// TODO Auto-generated method stub
+							 hiddenUserProperty=newValue;
+						}
+				        
+					});
+	     
+	       upHiddenUserButton.setOnAction(new EventHandler<ActionEvent>() {
+
+	    	   @Override
+	    	   public void handle(ActionEvent event){ 
+	    		   // TODO Auto-generated method stub
+	    		   try{
+				    table(hiddenUserProperty);
+	    		   }catch (Exception e) {
+					// TODO: handle exception
+	    			   e.printStackTrace();
+				  }
+	    	   }
+			
+		   });
 		     
 		     hiddenUserTable.setRowFactory( tv -> {
 			        TableRow<HiddenUserProperty> row = new TableRow<>();

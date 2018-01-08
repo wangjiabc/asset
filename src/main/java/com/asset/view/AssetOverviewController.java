@@ -154,6 +154,9 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 @FXML
 	 private MenuItem m1;
 	 
+	 @FXML
+	  Button hiddenWrite;
+	 
 	// private List<Hidden> hiddens;
 	 
 	 private List<Hidden_Join> hidden_Jions;

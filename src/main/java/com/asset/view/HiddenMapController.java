@@ -66,6 +66,9 @@ public class HiddenMapController extends AssetAsSwitch{
 		@FXML
 	 	private Tab HiddenAppend;
 		
+		 @FXML
+		  Button hiddenWrite;
+		
 	 	private WebEngine webEngine;
 	 	
 	 	private WebEngine webEngine2;
@@ -87,6 +90,17 @@ public class HiddenMapController extends AssetAsSwitch{
 
 	 	Assets assets= new Connect().get();
 
+	 	hiddenWrite.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				main.showAssetOverview();
+			}
+			
+		});
+	 	
+	 	
 	 		 try {
 				final URI loginUri=new URI(mapUrl+"seller/toLogin.do");
 				final URI betakeUri=new URI(mapUrl+"baiduMap/get.do");
@@ -190,7 +204,7 @@ public class HiddenMapController extends AssetAsSwitch{
 	            // Set the person into the controller.
 	            AppendHiddenQueryController controller = loader.getController();
 	            
-	            controller.setPosition(position);
+	            controller.setPosition(position,mapview2);
 	            controller.setDialogStage(dialogStage);
 	            
 	            // Show the dialog and wait until the user closes it

@@ -11,6 +11,9 @@ public class Position implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
+    @SQLInteger(name="id")
+	private Integer id;
+
     @SQLString(name="GUID")
 	private String GUID;
 
@@ -37,6 +40,14 @@ public class Position implements Serializable{
 
     @SQLDateTime(name="date")
 	private Date date;
+
+	public void setId(Integer id){
+		this.id = id;
+	}
+
+	public Integer getId(){
+		return id;
+	}
 
 	public void setGUID(String GUID){
 		this.GUID = GUID;

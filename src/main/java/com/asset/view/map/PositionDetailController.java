@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 public class PositionDetailController {
@@ -53,6 +54,9 @@ public class PositionDetailController {
 	
 	private String GUID;
 	
+	@FXML
+	private WebView mapview2;
+	
 	public PositionDetailController() {
 		// TODO Auto-generated constructor stub
 	}
@@ -84,6 +88,12 @@ public class PositionDetailController {
 					alert.setHeaderText("更新数据");
 					alert.setContentText("写入成功");
 					alert.showAndWait();
+					try{
+						mapview2.getEngine().reload();
+					}catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+					}
 					handleCancel();
 				 }
 			 }catch (Exception e) {
@@ -111,10 +121,11 @@ public class PositionDetailController {
 		
 	}
 	
-	public void setPosition(Position position,String Address,String GUID){
+	public void setPosition(Position position,String Address,String GUID,WebView mapview2){
 		this.position=position;
 		this.Address=Address;
 		this.GUID=GUID;
+		this.mapview2=mapview2;
 		text.setText("你要更新"+Address+"的位置为");
 		province.setText(position.getProvince());
 		city.setText(position.getCity());
