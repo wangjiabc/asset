@@ -11,12 +11,9 @@ public class Singleton {
 	
 	private final static String path=System.getProperties().getProperty("user.home")+"\\Desktop\\bb\\doc\\";
 	
-	private Hidden_User hidden_User=new Hidden_User();
+	private Hidden_User hidden_User=null;
 	
-    private Singleton (){
-    	hidden_User.setPrincipal_name("admin");
-    	hidden_User.setPurview(0);
-    	
+    private Singleton (){    	
     }  
     
     public static Singleton getInstance() {  
@@ -41,6 +38,12 @@ public class Singleton {
 	}
 
 	public Hidden_User getHidden_User() {
+		if(hidden_User==null){
+			hidden_User=new Hidden_User();
+	    	hidden_User.setPrincipal_name("admin");
+	    	hidden_User.setPurview(0);
+	    	hidden_User.setCampusAdmin("admin");
+		}
 		return hidden_User;
 	}
 

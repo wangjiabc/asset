@@ -86,11 +86,17 @@ public class UpHiddenTypeDetailController {
 						  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		                	alert.setTitle("隐患类型");
 							alert.setHeaderText("操作");
-							alert.setContentText("新建"+hiddenType.getText()+"成功");								
+							alert.setContentText("更新"+hiddenType.getText()+"成功");								
 							alert.showAndWait();
 							setHiddenType();
 							handleCancel();
-					}else{
+					}else if(i==3){
+						Alert alert = new Alert(Alert.AlertType.WARNING);
+	                	alert.setTitle("隐患类型");
+						alert.setHeaderText("警告");
+						alert.setContentText(hiddenType.getText()+"正在被使用,不能更新");								
+						alert.showAndWait();
+					}else {
 						Alert alert2 = new Alert(AlertType.ERROR);
 						alert2.setTitle("异常堆栈对话框");
 						alert2.setHeaderText("错误");

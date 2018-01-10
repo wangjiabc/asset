@@ -21,12 +21,12 @@ public class Hidden_Level implements Serializable{
     @SQLInteger(name="state")
 	private Integer state;
 
-	public void setId(Integer id){
-		this.id = id;
+    public Integer getId() {
+		return id;
 	}
 
-	public Integer getId(){
-		return id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public void setHidden_level(Integer hidden_level){
@@ -130,6 +130,8 @@ public class Hidden_Level implements Serializable{
 	public String getWhereTerm(){
 		return whereTerm;
 	}
+
+	
 
 }
 

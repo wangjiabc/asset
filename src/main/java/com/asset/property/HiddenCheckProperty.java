@@ -1,6 +1,7 @@
 package com.asset.property;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class HiddenCheckProperty {
@@ -10,6 +11,8 @@ public class HiddenCheckProperty {
 	private StringProperty check_circs;
 	private StringProperty date;
 	private StringProperty remark;
+	private StringProperty campusAdmin;
+	
 	public IntegerProperty getId() {
 		return id;
 	}
@@ -46,6 +49,13 @@ public class HiddenCheckProperty {
 	public void setRemark(StringProperty remark) {
 		this.remark = remark;
 	}
-	
+	public StringProperty getCampusAdmin() {
+		return campusAdmin;
+	}
+
+
+	public void setCampusAdmin(String campusAdmin) {
+		this.campusAdmin = new SimpleStringProperty(campusAdmin);
+	}
 
 }

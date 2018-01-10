@@ -107,7 +107,7 @@ public class InfoWriteController2 {
 
 
 	@FXML
-	private TextField hiddenState;//隐患状态
+	private Label note;//录入人
 		
 	@FXML
 	private ChoiceBox<T> hiddenLevel;//隐患类别
@@ -323,6 +323,10 @@ public class InfoWriteController2 {
 		 
 		 Assets assets=new Connect().get();
 
+		 pagination0.setPageCount(1);
+		 
+		 note.setText(Singleton.getInstance().getHidden_User().getCampusAdmin());
+		 
 		 searchMap0.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", uuid.toString());
 		 
 		 List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
@@ -653,9 +657,7 @@ public class InfoWriteController2 {
 						Date date2 = Date.from(instant);
 						hidden2.setHappen_time(date2);
 					}
-	                if(hiddenState!=null){
-	                	hidden2.setState(hiddenState.getText());
-	                }
+
 	                if(progress!=null){
 	                	hidden2.setProgress(progress);
 	                }
@@ -667,9 +669,12 @@ public class InfoWriteController2 {
 	                }
 					hidden2.setDate(date);
 	
-			
+			     
 			    hidden2.setGUID(uuid.toString());
-					    
+				System.out.println("campusadmin="+Singleton.getInstance().getHidden_User().getCampusAdmin());
+			    hidden2.setCampusAdmin(Singleton.getInstance().getHidden_User().getCampusAdmin());
+			    hidden2.setTerminal("PC");
+			    
 		     	int i=assets.insertIntoHidden(hidden2);
 				
 			    if(names!=null&&fileBytes!=null){
@@ -881,7 +886,7 @@ public class InfoWriteController2 {
 		 System.out.println("guid="+hidden_Jion.getGUID());
 		 hiddenName.setText(String.valueOf(hidden_Jion.getName()));
 
-		 hiddenState.setText(hidden_Jion.getState());
+		 note.setText(hidden_Jion.getCampusAdmin());
 		 
 		 slider.setValue(hidden_Jion.getProgress()*50); 
 	     pi.setProgress(hidden_Jion.getProgress());
@@ -1125,7 +1130,11 @@ public class InfoWriteController2 {
 	     if(total-page*10>0)
           page++;	     
 	     
-	     pagination.setPageCount(page);
+	     if(total>0){
+		     pagination.setPageCount(page);
+	         }else {
+	        	 pagination.setPageCount(1);
+			}
 	     	     
 	 }
 	 
@@ -1174,8 +1183,11 @@ public class InfoWriteController2 {
 	     if(total-page*10>0)
           page++;	     
 	     
+	     if(total>0){
 	     pagination0.setPageCount(page);
-	 
+	     }else {
+			pagination0.setPageCount(1);
+		}
 	 }
 	 
 }

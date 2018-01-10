@@ -92,7 +92,13 @@ public class HiddenLevelDetailController {
 					alert.showAndWait();
 					setHiddenLevel();
 					handleCancel();
-				}else{
+				}else if(i==2){
+					Alert alert2 = new Alert(AlertType.ERROR);
+					alert2.setTitle("异常堆栈对话框");
+					alert2.setHeaderText("错误");
+					alert2.setContentText(hiddenlevel.getText()+"已存在,新建失败");
+					alert2.showAndWait();
+				 }else{
 					Alert alert2 = new Alert(AlertType.ERROR);
 					alert2.setTitle("异常堆栈对话框");
 					alert2.setHeaderText("错误");

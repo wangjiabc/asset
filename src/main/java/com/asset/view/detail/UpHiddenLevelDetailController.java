@@ -101,6 +101,12 @@ public class UpHiddenLevelDetailController {
 					alert.showAndWait();
 					setHiddenLevel();
 					handleCancel();
+				}else if(i==3){
+					Alert alert = new Alert(Alert.AlertType.WARNING);
+                	alert.setTitle("隐患级别");
+					alert.setHeaderText("操作");
+					alert.setContentText(hiddenlevel.getText()+"正在被使用,不能更新!");						
+					alert.showAndWait();
 				}else{
 					Alert alert2 = new Alert(AlertType.ERROR);
 					alert2.setTitle("异常堆栈对话框");

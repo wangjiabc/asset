@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.poi.ss.formula.functions.T;
 
+import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.join.HiddenCheck_JoinProperty;
@@ -410,7 +411,10 @@ public class AugmentCheckInfoDetailController {
 						}
 						if(checkCrics.getText()!=null)
 							hidden_Check.setCheck_circs(checkCrics.getText());
-												
+						
+						hidden_Check.setCampusAdmin(Singleton.getInstance().getHidden_User().getCampusAdmin());
+						hidden_Check.setTerminal("PC");
+						
 						UUID uuid=UUID.randomUUID();
 						hidden_Check.setCheck_id(uuid.toString());
 	                    Date date2=new Date();

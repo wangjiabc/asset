@@ -115,6 +115,7 @@
                         <TableColumn fx:id="C5" prefWidth="95.0" text="整改详情" />
                         <TableColumn fx:id="C6" prefWidth="75.0" text="整改时间" />
                         <TableColumn fx:id="C7" prefWidth="95.0" text="整改进度" />
+                        <TableColumn fx:id="C9" prefWidth="75.0" text="录入人" />
                         <TableColumn fx:id="C8" prefWidth="102.0" text="录入时间" />
                      </columns>
                      <contextMenu>

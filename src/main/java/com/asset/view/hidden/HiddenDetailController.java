@@ -117,7 +117,7 @@ public class HiddenDetailController {
 
 
 	@FXML
-	private TextField hiddenState;//隐患状态
+	private Label note;//录入人
 		
 	@FXML
 	private ChoiceBox<T> hiddenLevel;//隐患类别
@@ -331,6 +331,9 @@ public class HiddenDetailController {
 		 private TableColumn<HiddenCheck_JoinProperty,String> C28;
 		 
 		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,String> C29;
+		 
+		 @FXML
 		 private Pagination pagination2;
 		 
 		 private List<Hidden> hidden;
@@ -383,6 +386,9 @@ public class HiddenDetailController {
 		 
 		 @FXML
 		 private TableColumn<HiddenNeaten_JoinProperty,String> C38;
+		 
+		 @FXML
+		 private TableColumn<HiddenNeaten_JoinProperty,String> C39;
 		 
 		 @FXML
 		 private Pagination pagination3;
@@ -753,9 +759,7 @@ public class HiddenDetailController {
 						Date date2 = Date.from(instant);
 						hidden2.setHappen_time(date2);
 					}
-	                if(hiddenState!=null){
-	                	hidden2.setState(hiddenState.getText());
-	                }
+
 	                if(progress!=null){
 	                	hidden2.setProgress(progress);
 	                }
@@ -1250,7 +1254,8 @@ public class HiddenDetailController {
 		 System.out.println("guid="+hidden_Jion.getGUID());
 		 hiddenName.setText(String.valueOf(hidden_Jion.getName()));
 
-		 hiddenState.setText(hidden_Jion.getState());
+		 note.setText(hidden_Jion.getCampusAdmin());
+
 		 try{
 		 Date date=hidden_Jion.getHappen_time();
 		 SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
@@ -1500,7 +1505,7 @@ public class HiddenDetailController {
      C8.setCellValueFactory(
     		 cellData->cellData.getValue().getHidden_type());
      C9.setCellValueFactory(
-    		 cellData->cellData.getValue().getState());
+    		 cellData->cellData.getValue().getCampusAdmin());
      C10.setCellValueFactory(
     		 cellData->cellData.getValue().getRemark());
      
@@ -1513,7 +1518,11 @@ public class HiddenDetailController {
 	     if(total-page*10>0)
           page++;	     
 	     
-	     pagination.setPageCount(page);
+	     if(total>0){
+		     pagination.setPageCount(page);
+	         }else {
+	        	 pagination.setPageCount(1);
+			}
 	     	     
 	 }
 	 
@@ -1559,8 +1568,12 @@ public class HiddenDetailController {
 	     
 	     if(total-page*10>0)
          page++;	     
-	     
-	     pagination0.setPageCount(page);
+	     System.out.println("total="+total);
+	     if(total>0){
+	    	 pagination0.setPageCount(page);
+	     }else {
+			pagination0.setPageCount(1);
+		}
 	 
 	 }
 	 
@@ -1667,13 +1680,20 @@ public class HiddenDetailController {
 	      C28.setCellValueFactory(
 	    		    cellData->cellData.getValue().getDate());
 	     
+	      C29.setCellValueFactory(
+	    		    cellData->cellData.getValue().getCampusAdmin());
+	      
 	     int total=(int) map.get("total");
 	     int page=total/10;
 	     
 	     if(total-page*10>0)
       page++;	     
 	     System.out.println("page="+page);
+	     if(total>0){
 	     pagination2.setPageCount(page);
+	     }else {
+			pagination2.setPageCount(1);
+		}
 	     	     
 	 }
 	 
@@ -1778,6 +1798,9 @@ public class HiddenDetailController {
 					
 	      C38.setCellValueFactory(
 	    		    cellData->cellData.getValue().getDate());
+	      
+	      C39.setCellValueFactory(
+	    		    cellData->cellData.getValue().getCampusAdmin());
 	     
 	     int total=(int) map.get("total");
 	     int page=total/10;
@@ -1785,7 +1808,11 @@ public class HiddenDetailController {
 	     if(total-page*10>0)
      page++;	     
 	     System.out.println("page="+page);
+	     if(total>0){
 	     pagination3.setPageCount(page);
+	     }else {
+			pagination3.setPageCount(1);
+		}
 	     	     
 	 }
 	 

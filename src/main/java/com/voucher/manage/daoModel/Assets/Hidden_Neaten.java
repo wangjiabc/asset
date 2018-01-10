@@ -17,6 +17,9 @@ public class Hidden_Neaten implements Serializable{
     @SQLString(name="GUID")
 	private String GUID;
 
+    @SQLInteger(name="exist")
+	private Integer exist;
+
     @SQLString(name="neaten_id")
 	private String neaten_id;
 
@@ -34,12 +37,18 @@ public class Hidden_Neaten implements Serializable{
 
     @SQLDateTime(name="update_time")
 	private Date update_time;
-    
+
     @SQLDateTime(name="date")
 	private Date date;
 
     @SQLString(name="remark")
 	private String remark;
+
+    @SQLString(name="campusAdmin")
+	private String campusAdmin;
+
+    @SQLString(name="terminal")
+	private String terminal;
 
 	public void setId(Integer id){
 		this.id = id;
@@ -55,6 +64,14 @@ public class Hidden_Neaten implements Serializable{
 
 	public String getGUID(){
 		return GUID;
+	}
+
+	public void setExist(Integer exist){
+		this.exist = exist;
+	}
+
+	public Integer getExist(){
+		return exist;
 	}
 
 	public void setNeaten_id(String neaten_id){
@@ -104,7 +121,7 @@ public class Hidden_Neaten implements Serializable{
 	public Date getUpdate_time(){
 		return update_time;
 	}
-	
+
 	public void setDate(Date date){
 		this.date = date;
 	}
@@ -119,6 +136,22 @@ public class Hidden_Neaten implements Serializable{
 
 	public String getRemark(){
 		return remark;
+	}
+
+	public void setCampusAdmin(String campusAdmin){
+		this.campusAdmin = campusAdmin;
+	}
+
+	public String getCampusAdmin(){
+		return campusAdmin;
+	}
+
+	public void setTerminal(String terminal){
+		this.terminal = terminal;
+	}
+
+	public String getTerminal(){
+		return terminal;
 	}
 
 

@@ -19,6 +19,7 @@ public class HiddenCheck_JoinProperty {
 	private StringProperty remark;
 	private StringProperty check_name;
 	private StringProperty principal;
+	private StringProperty campusAdmin;
 	 /*
      * Hidden
      */
@@ -129,5 +130,12 @@ public class HiddenCheck_JoinProperty {
 	public void setType(Integer type) {
 		this.type = new SimpleIntegerProperty(type);
 	}
-	
+	public StringProperty getCampusAdmin() {
+		return campusAdmin;
+	}
+
+
+	public void setCampusAdmin(String campusAdmin) {
+		this.campusAdmin = new SimpleStringProperty(campusAdmin);
+	}
 }

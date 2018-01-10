@@ -31,6 +31,8 @@ public class HiddenNeaten_JoinProperty {
 	private StringProperty date;
 
 	private StringProperty remark;
+	
+	private StringProperty campusAdmin;
 	/*
      * Hidden
      */
@@ -133,6 +135,13 @@ public class HiddenNeaten_JoinProperty {
 	public void setRemark(String remark) {
 		this.remark = new SimpleStringProperty(remark);
 	}
+	public StringProperty getCampusAdmin() {
+		return campusAdmin;
+	}
 
+
+	public void setCampusAdmin(String campusAdmin) {
+		this.campusAdmin = new SimpleStringProperty(campusAdmin);
+	}
 	
 }

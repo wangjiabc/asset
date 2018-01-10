@@ -300,7 +300,11 @@ public class AssetsQueryController {
 	     if(total-page*10>0)
            page++;	     
 	     
-	     pagination.setPageCount(page);
+	     if(total>0){
+	    	 pagination.setPageCount(page);
+	     }else {
+	    	 pagination.setPageCount(1);
+		}
 	 
 	 }
 	 

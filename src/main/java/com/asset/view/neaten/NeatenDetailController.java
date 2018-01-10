@@ -725,7 +725,11 @@ public class NeatenDetailController {
 	     if(total-page*10>0)
         page++;	     
 	     System.out.println("page="+page);
-	     pagination.setPageCount(page);
+	     if(total>0){
+		     pagination.setPageCount(page);
+	         }else {
+	        	 pagination.setPageCount(1);
+			}
 	     	     
 	 }
 

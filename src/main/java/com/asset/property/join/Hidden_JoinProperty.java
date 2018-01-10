@@ -37,6 +37,8 @@ public class Hidden_JoinProperty {
 
 	private StringProperty date;
 
+	private StringProperty campusAdmin;
+	
 	/*
     * Hidden_Level
     */
@@ -208,5 +210,14 @@ public class Hidden_JoinProperty {
 
 		public void setPrincipal_name(String principal_name) {
 			this.principal_name = new SimpleStringProperty(principal_name);
+		}
+		
+		public StringProperty getCampusAdmin() {
+			return campusAdmin;
+		}
+
+
+		public void setCampusAdmin(String campusAdmin) {
+			this.campusAdmin = new SimpleStringProperty(campusAdmin);
 		}
 }

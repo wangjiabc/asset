@@ -8,6 +8,9 @@ import javafx.beans.property.StringProperty;
 public class HiddenTypeProperty {
 	
 	private IntegerProperty id;
+	
+	private IntegerProperty type;
+	
 	private StringProperty hidden_type;
 	
 	public IntegerProperty getId() {
@@ -21,6 +24,12 @@ public class HiddenTypeProperty {
 	}
 	public void setHidden_type(String hidden_type) {
 		this.hidden_type = new SimpleStringProperty(hidden_type);
+	}
+	public IntegerProperty getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = new SimpleIntegerProperty(type);
 	}
 
 }

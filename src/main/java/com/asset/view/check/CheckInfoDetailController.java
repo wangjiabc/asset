@@ -725,9 +725,13 @@ public class CheckInfoDetailController {
 	     int page=total/10;
 	     
 	     if(total-page*10>0)
-        page++;	     
-	     System.out.println("page="+page);
+         page++;	     
+	    
+         if(total>0){
 	     pagination.setPageCount(page);
+         }else {
+        	 pagination.setPageCount(1);
+		}
 	     	     
 	 }
 	

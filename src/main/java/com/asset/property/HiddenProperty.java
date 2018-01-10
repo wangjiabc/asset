@@ -33,7 +33,8 @@ public class HiddenProperty {
 
 	private StringProperty date;
 
-		
+	private StringProperty campusAdmin;
+	
 		public IntegerProperty getId() {
 			return id;
 		}
@@ -146,6 +147,16 @@ public class HiddenProperty {
 			SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " ); 
 			String datestr = sdf.format(date); 
 			this.date = new SimpleStringProperty(datestr);
+		}
+
+
+		public StringProperty getCampusAdmin() {
+			return campusAdmin;
+		}
+
+
+		public void setCampusAdmin(String campusAdmin) {
+			this.campusAdmin = new SimpleStringProperty(campusAdmin);
 		}
 
 

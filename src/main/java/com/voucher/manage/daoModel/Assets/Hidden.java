@@ -17,6 +17,9 @@ public class Hidden implements Serializable{
     @SQLString(name="GUID")
 	private String GUID;
 
+    @SQLInteger(name="exist")
+	private Integer exist;
+    
     @SQLString(name="name")
 	private String name;
 
@@ -50,6 +53,12 @@ public class Hidden implements Serializable{
     @SQLDateTime(name="date")
 	private Date date;
 
+    @SQLString(name="campusAdmin")
+	private String campusAdmin;
+
+    @SQLString(name="terminal")
+	private String terminal;
+    
 	public void setId(Integer id){
 		this.id = id;
 	}
@@ -66,6 +75,14 @@ public class Hidden implements Serializable{
 		return GUID;
 	}
 
+	public void setExist(Integer exist){
+		this.exist = exist;
+	}
+
+	public Integer getExist(){
+		return exist;
+	}
+	
 	public void setName(String name){
 		this.name = name;
 	}
@@ -154,6 +171,21 @@ public class Hidden implements Serializable{
 		return date;
 	}
 
+	public void setCampusAdmin(String campusAdmin){
+		this.campusAdmin = campusAdmin;
+	}
+
+	public String getCampusAdmin(){
+		return campusAdmin;
+	}
+
+	public void setTerminal(String terminal){
+		this.terminal = terminal;
+	}
+
+	public String getTerminal(){
+		return terminal;
+	}
 
 
 

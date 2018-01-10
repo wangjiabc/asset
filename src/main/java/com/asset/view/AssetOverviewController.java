@@ -798,7 +798,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     C8.setCellValueFactory(
 	    		 cellData->cellData.getValue().getHidden_type());
 	     C9.setCellValueFactory(
-	    		 cellData->cellData.getValue().getState());
+	    		 cellData->cellData.getValue().getCampusAdmin());
 	     C10.setCellValueFactory(
 	    		 cellData->cellData.getValue().getRemark());
 	     
@@ -809,9 +809,13 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     int page=total/10;
 	     
 	     if(total-page*10>0)
-           page++;	     
+           page++;	
 	     
-	     pagination.setPageCount(page);
+	     if(total>0){
+		     pagination.setPageCount(page);
+	         }else {
+	        	 pagination.setPageCount(1);
+			}
 	     	     
 	 }
 	 

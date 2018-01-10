@@ -1,5 +1,7 @@
 package com.voucher.manage.daoModel.Assets;
 
+import java.util.Date;
+
 import java.io.Serializable;
 
 import com.voucher.manage.daoSQL.annotations.*;
@@ -17,6 +19,12 @@ public class Hidden_Assets implements Serializable{
 
     @SQLString(name="hidden_GUID")
 	private String hidden_GUID;
+
+    @SQLString(name="campusAdmin")
+	private String campusAdmin;
+
+    @SQLDateTime(name="date")
+	private Date date;
 
 	public void setId(Integer id){
 		this.id = id;
@@ -40,6 +48,22 @@ public class Hidden_Assets implements Serializable{
 
 	public String getHidden_GUID(){
 		return hidden_GUID;
+	}
+
+	public void setCampusAdmin(String campusAdmin){
+		this.campusAdmin = campusAdmin;
+	}
+
+	public String getCampusAdmin(){
+		return campusAdmin;
+	}
+
+	public void setDate(Date date){
+		this.date = date;
+	}
+
+	public Date getDate(){
+		return date;
 	}
 
 

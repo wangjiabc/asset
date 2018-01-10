@@ -345,7 +345,11 @@ public class AppendAssetsQueryController {
 	     if(total-page*10>0)
            page++;	     
 	     
-	     pagination.setPageCount(page);
+	     if(total>0){
+		     pagination.setPageCount(page);
+	         }else {
+	        	 pagination.setPageCount(1);
+			}
 	 
 	 }
 	 
@@ -394,8 +398,11 @@ public class AppendAssetsQueryController {
 	     if(total-page*10>0)
         page++;	     
 	     
+	     if(total>0){
 	     pagination0.setPageCount(page);
-	 
+	     }else {
+			pagination0.setPageCount(1);
+		}
 	 }
 	 
 	 public void setDialogStage(Stage dialogStage) {

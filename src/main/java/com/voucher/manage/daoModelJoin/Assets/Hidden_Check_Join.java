@@ -16,6 +16,9 @@ public class Hidden_Check_Join implements Serializable{
     @SQLString(name="GUID")
 	private String GUID;
 
+    @SQLInteger(name="exist")
+	private Integer exist;
+    
     @SQLString(name="check_id")
 	private String check_id;
 
@@ -36,6 +39,13 @@ public class Hidden_Check_Join implements Serializable{
 
     @SQLString(name="principal")
    	private String principal;
+    
+    @SQLString(name="campusAdmin")
+   	private String campusAdmin;
+
+    @SQLString(name="terminal")
+   	private String terminal;
+    
     /*
      * Hidden
      */
@@ -74,6 +84,14 @@ public class Hidden_Check_Join implements Serializable{
 		return GUID;
 	}
 
+	public void setExist(Integer exist){
+		this.exist = exist;
+	}
+
+	public Integer getExist(){
+		return exist;
+	}
+	
 	public void setCheck_id(String check_id){
 		this.check_id = check_id;
 	}
@@ -114,6 +132,21 @@ public class Hidden_Check_Join implements Serializable{
 		return remark;
 	}
 
+	public void setCampusAdmin(String campusAdmin){
+		this.campusAdmin = campusAdmin;
+	}
+
+	public String getCampusAdmin(){
+		return campusAdmin;
+	}
+
+	public void setTerminal(String terminal){
+		this.terminal = terminal;
+	}
+
+	public String getTerminal(){
+		return terminal;
+	}
 	
 	public String getName() {
 		return name;

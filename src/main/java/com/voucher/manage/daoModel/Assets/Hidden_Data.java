@@ -29,6 +29,12 @@ public class Hidden_Data implements Serializable{
     @SQLDateTime(name="date")
 	private Date date;
 
+    @SQLString(name="campusAdmin")
+	private String campusAdmin;
+
+    @SQLString(name="terminal")
+	private String terminal;
+
 	public void setId(Integer id){
 		this.id = id;
 	}
@@ -75,6 +81,22 @@ public class Hidden_Data implements Serializable{
 
 	public Date getDate(){
 		return date;
+	}
+
+	public void setCampusAdmin(String campusAdmin){
+		this.campusAdmin = campusAdmin;
+	}
+
+	public String getCampusAdmin(){
+		return campusAdmin;
+	}
+
+	public void setTerminal(String terminal){
+		this.terminal = terminal;
+	}
+
+	public String getTerminal(){
+		return terminal;
 	}
 
 

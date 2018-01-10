@@ -31,12 +31,11 @@
             <TextField fx:id="hiddenName" GridPane.columnIndex="1" />
             <ChoiceBox fx:id="hiddenLevel" prefHeight="23.0" prefWidth="319.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Label text="整改进度" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <Label text="隐患状态" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label text="负责人" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label text="备注" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Label text="负责人" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label text="录入人" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label text="发生时间" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <DatePicker fx:id="happenTime" prefHeight="23.0" prefWidth="333.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="hiddenState" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <TextField fx:id="hiddenRemark" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <ProgressIndicator fx:id="pi" progress="0.0" GridPane.columnIndex="3">
                <GridPane.margin>
@@ -49,7 +48,12 @@
                </GridPane.margin>
             </Slider>
             <ChoiceBox fx:id="hiddenType" prefWidth="319.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ChoiceBox fx:id="hiddenPrincipal" prefWidth="319.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <ChoiceBox fx:id="hiddenPrincipal" prefWidth="319.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label fx:id="note" prefWidth="500.0" style="-fx-border-color: #C0C0C0; -fx-background-color: #FFFFFF;" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </Label>
          </children>
       </GridPane>
       <Label layoutX="88.0" layoutY="227.0" text="隐患详情" />

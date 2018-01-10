@@ -495,6 +495,7 @@ public class AssetWorkController extends AssetAsSwitch{
 								                String[] where={"[Assets].[dbo].[Hidden_Type].id =", typeId};
 					                            Hidden_Type hidden_Type=new Hidden_Type();
 					                            hidden_Type.setWhere(where);
+					                            hidden_Type.setType(row.getItem().getType().get());
 					                            
 								                int i=assets.deleteHiddenType(hidden_Type);
 								                if(i==1){
@@ -503,6 +504,12 @@ public class AssetWorkController extends AssetAsSwitch{
 													alert.setContentText("删除"+typeName+"成功");
 													alert.showAndWait();
 													setHiddenType();
+								                }else if(i==3){
+								                	Alert alert2 = new Alert(AlertType.WARNING);
+													alert2.setTitle("警告对话框");
+													alert2.setHeaderText("警告");
+													alert2.setContentText(typeName+"正在被使用,不能删除!");
+													alert2.showAndWait();
 								                }else{
 								                	Alert alert2 = new Alert(AlertType.ERROR);
 													alert2.setTitle("异常堆栈对话框1");
@@ -564,7 +571,9 @@ public class AssetWorkController extends AssetAsSwitch{
 								  int level=row.getItem().getHidden_level().get();
 								  String levelId=String.valueOf(row.getItem().getId().get());
 								  String levelName=row.getItem().getLevel_text().get();
+								  Integer hiddenLevel=row.getItem().getHidden_level().get();
 								  String menuType=MenuType.get(event.getTarget().toString());
+								  
 								  System.out.println(menuType);								  
 								  
 								  if(menuType.equals("m1")){
@@ -594,14 +603,21 @@ public class AssetWorkController extends AssetAsSwitch{
 								                String[] where={"[Assets].[dbo].[Hidden_Level].id =", levelId};
 					                            Hidden_Level hidden_Level=new Hidden_Level();
 					                            hidden_Level.setWhere(where);
+					                            hidden_Level.setHidden_level(hiddenLevel);
 					                            
 								                int i=assets.deleteHiddenLevel(hidden_Level);
 								                if(i==1){
-								                	alert.setTitle("安全员工记录");
+								                	alert.setTitle("隐患等级记录");
 													alert.setHeaderText("操作");
 													alert.setContentText("删除"+levelName+"成功");
 													alert.showAndWait();
 													setHiddenLevel();
+								                }else if(i==3){
+								                	Alert alert3 = new Alert(AlertType.WARNING);
+								                	alert3.setTitle("隐患等级记录");
+													alert3.setHeaderText("操作");
+													alert3.setContentText(levelName+"正在被使用,不能删除");
+													alert3.showAndWait();
 								                }else{
 								                	Alert alert2 = new Alert(AlertType.ERROR);
 													alert2.setTitle("异常堆栈对话框1");
@@ -756,9 +772,11 @@ public class AssetWorkController extends AssetAsSwitch{
 	 private void table2(HiddenTypeProperty newValue){
 		 try{
 			   Integer id=newValue.getId().get();
+			   Integer type=newValue.getType().get();
                String typeName=newValue.getHidden_type().get();
 			   Hidden_Type hidden_Type=new Hidden_Type();
 			   hidden_Type.setId(id);
+			   hidden_Type.setType(type);
 			   hidden_Type.setHidden_type(typeName);
 			   
 	            // Load the fxml file and create a new stage for the popup dialog.
@@ -903,7 +921,11 @@ public class AssetWorkController extends AssetAsSwitch{
 	     if(total-page*10>0)
            page++;	     
 	     
-	     pagination.setPageCount(page);
+	     if(total>0){
+		     pagination.setPageCount(page);
+	         }else {
+	        	 pagination.setPageCount(1);
+			}
 	     
 	 }
 	 

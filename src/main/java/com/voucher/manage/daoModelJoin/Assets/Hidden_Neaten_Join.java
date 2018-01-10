@@ -16,6 +16,9 @@ public class Hidden_Neaten_Join implements Serializable{
 	    @SQLString(name="GUID")
 		private String GUID;
 
+	    @SQLInteger(name="exist")
+		private Integer exist;
+	    
 	    @SQLString(name="neaten_id")
 		private String neaten_id;
 
@@ -40,6 +43,12 @@ public class Hidden_Neaten_Join implements Serializable{
 	    @SQLString(name="remark")
 		private String remark;
 
+	    @SQLString(name="campusAdmin")
+		private String campusAdmin;
+
+	    @SQLString(name="terminal")
+		private String terminal;
+	    
 	    /*
 	     * Hidden
 	     */
@@ -75,6 +84,15 @@ public class Hidden_Neaten_Join implements Serializable{
 			return GUID;
 		}
 
+		public void setExist(Integer exist){
+			this.exist = exist;
+		}
+
+		public Integer getExist(){
+			return exist;
+		}
+
+		
 		public void setNeaten_id(String neaten_id){
 			this.neaten_id = neaten_id;
 		}
@@ -132,6 +150,22 @@ public class Hidden_Neaten_Join implements Serializable{
 			return remark;
 		}
 		
+		
+		public void setCampusAdmin(String campusAdmin){
+			this.campusAdmin = campusAdmin;
+		}
+
+		public String getCampusAdmin(){
+			return campusAdmin;
+		}
+
+		public void setTerminal(String terminal){
+			this.terminal = terminal;
+		}
+
+		public String getTerminal(){
+			return terminal;
+		}
 		
 		public String getName() {
 			return name;

@@ -1,6 +1,7 @@
 package com.asset.property;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class HiddenNeatenProperty {
@@ -8,6 +9,8 @@ public class HiddenNeatenProperty {
 	private StringProperty guid;
 	private StringProperty date;
 	private StringProperty instance;
+	private StringProperty campusAdmin;
+	
 	public IntegerProperty getId() {
 		return id;
 	}
@@ -32,5 +35,12 @@ public class HiddenNeatenProperty {
 	public void setInstance(StringProperty instance) {
 		this.instance = instance;
 	}
+	public StringProperty getCampusAdmin() {
+		return campusAdmin;
+	}
 
+
+	public void setCampusAdmin(String campusAdmin) {
+		this.campusAdmin = new SimpleStringProperty(campusAdmin);
+	}
 }
