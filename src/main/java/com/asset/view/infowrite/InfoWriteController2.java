@@ -1117,7 +1117,7 @@ public class InfoWriteController2 {
      C8.setCellValueFactory(
     		 cellData->cellData.getValue().getHidden_type());
      C9.setCellValueFactory(
-    		 cellData->cellData.getValue().getState());
+    		 cellData->cellData.getValue().getCampusAdmin());
      C10.setCellValueFactory(
     		 cellData->cellData.getValue().getRemark());
      
