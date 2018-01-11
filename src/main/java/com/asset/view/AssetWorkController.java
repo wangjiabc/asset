@@ -13,6 +13,7 @@ import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenLevelProperty;
+import com.asset.property.HiddenProperty;
 import com.asset.property.HiddenTypeProperty;
 import com.asset.property.HiddenUserProperty;
 import com.asset.property.join.HiddenCheck_JoinProperty;
@@ -86,13 +87,28 @@ public class AssetWorkController extends AssetAsSwitch{
 	private Button addHiddenTypeButton;
 	
 	@FXML
+	private Button upHiddenTypeButton;
+	
+	@FXML
+	private Button delHiddenTypeButton;
+	
+	@FXML
 	private Button addHiddenLevelButton;
+	
+	@FXML
+	private Button upHiddenLevelButton;
+	
+	@FXML
+	private Button delHiddenLevelButton;
 	
 	@FXML
 	private Button addHiddenUserButton;
 	
 	@FXML
 	private Button upHiddenUserButton;
+	
+	@FXML
+	private Button delHiddenUserButton;
 	
 	private ObservableList<HiddenTypeProperty> hiddenTypeList;	
 	
@@ -175,6 +191,10 @@ public class AssetWorkController extends AssetAsSwitch{
 	 
 	 private HiddenUserProperty hiddenUserProperty;
 	 
+	 private HiddenTypeProperty hiddenTypeProperty;
+	 
+	 private HiddenLevelProperty hiddenLevelProperty;
+	 
 	Assets assets= new Connect().get();
 	
 	 public AssetWorkController() {
@@ -228,6 +248,102 @@ public class AssetWorkController extends AssetAsSwitch{
 	    	 selectionModel.select(3);
 	     }
 	     
+	     hiddenTypeTable.getSelectionModel().selectedItemProperty().addListener(new
+				 ChangeListener<HiddenTypeProperty>() {
+
+					@Override
+					public void changed(ObservableValue<? extends HiddenTypeProperty> observable, HiddenTypeProperty oldValue,
+							HiddenTypeProperty newValue) {
+						// TODO Auto-generated method stub
+						 hiddenTypeProperty=newValue;
+					}
+			        
+				});
+	     
+	    delHiddenTypeButton.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				delType(hiddenTypeProperty);
+			}
+			
+		}); 
+	     
+	    upHiddenTypeButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				table2(hiddenTypeProperty);
+			}
+		});
+	     
+	     addHiddenTypeButton.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					  FXMLLoader loader = new FXMLLoader();
+			            loader.setLocation(AssetWorkController.class.getResource("detail/HiddenTypeDetail.fxml"));
+			            AnchorPane page = null;
+						try {
+							page = (AnchorPane) loader.load();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+			            // Create the dialog Stage.
+			            Stage dialogStage = new Stage();
+			            dialogStage.setTitle("新建隐患类型");
+			            dialogStage.initModality(Modality.APPLICATION_MODAL);
+			            Scene scene = new Scene(page);
+			            dialogStage.setScene(scene);
+
+			            // Set the person into the controller.
+			            HiddenTypeDetailController controller = loader.getController();
+			            controller.setHiddenType(hiddenTypeTable, C11, C12);
+			            controller.setDialogStage(dialogStage);
+	      	            
+			            // Show the dialog and wait until the user closes it
+			            dialogStage.show();
+				}
+			});
+	     
+	     
+	     hiddenLevelTable.getSelectionModel().selectedItemProperty().addListener(new
+				 ChangeListener<HiddenLevelProperty>() {
+
+					@Override
+					public void changed(ObservableValue<? extends HiddenLevelProperty> observable, HiddenLevelProperty oldValue,
+							HiddenLevelProperty newValue) {
+						// TODO Auto-generated method stub
+						 hiddenLevelProperty=newValue;
+					}
+			        
+				});
+	   
+	  delHiddenLevelButton.setOnAction(new EventHandler<ActionEvent>() {
+
+		@Override
+		public void handle(ActionEvent event) {
+			// TODO Auto-generated method stub
+			delLevel(hiddenLevelProperty);
+		}
+		
+	  });  
+	     
+	   upHiddenLevelButton.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+			     table3(hiddenLevelProperty);	
+			}
+			
+		});
+	     
 	     addHiddenLevelButton.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
@@ -261,44 +377,19 @@ public class AssetWorkController extends AssetAsSwitch{
 			            dialogStage.show();
 				}
 			});
+	     	    
 	     
-	    
-	     
-	    
-	     
-	     addHiddenTypeButton.setOnAction(new EventHandler<ActionEvent>() {
+	     hiddenUserTable.getSelectionModel().selectedItemProperty().addListener(new
+				 ChangeListener<HiddenUserProperty>() {
 
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					  FXMLLoader loader = new FXMLLoader();
-			            loader.setLocation(AssetWorkController.class.getResource("detail/HiddenTypeDetail.fxml"));
-			            AnchorPane page = null;
-						try {
-							page = (AnchorPane) loader.load();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-			            // Create the dialog Stage.
-			            Stage dialogStage = new Stage();
-			            dialogStage.setTitle("新建隐患类型");
-			            dialogStage.initModality(Modality.APPLICATION_MODAL);
-			            Scene scene = new Scene(page);
-			            dialogStage.setScene(scene);
-
-			            // Set the person into the controller.
-			            HiddenTypeDetailController controller = loader.getController();
-			            controller.setHiddenType(hiddenTypeTable, C11, C12);
-			            controller.setDialogStage(dialogStage);
-	      	            
-			            // Show the dialog and wait until the user closes it
-			            dialogStage.show();
-				}
-			});
-	    
-	     
+					@Override
+					public void changed(ObservableValue<? extends HiddenUserProperty> observable, HiddenUserProperty oldValue,
+							HiddenUserProperty newValue) {
+						// TODO Auto-generated method stub
+						 hiddenUserProperty=newValue;
+					}
+			        
+				});
 	     
 	     addHiddenUserButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -333,17 +424,7 @@ public class AssetWorkController extends AssetAsSwitch{
 			});
 		     
 	     
-	       hiddenUserTable.getSelectionModel().selectedItemProperty().addListener(new
-					 ChangeListener<HiddenUserProperty>() {
-
-						@Override
-						public void changed(ObservableValue<? extends HiddenUserProperty> observable, HiddenUserProperty oldValue,
-								HiddenUserProperty newValue) {
-							// TODO Auto-generated method stub
-							 hiddenUserProperty=newValue;
-						}
-				        
-					});
+	      
 	     
 	       upHiddenUserButton.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -360,6 +441,16 @@ public class AssetWorkController extends AssetAsSwitch{
 			
 		   });
 		     
+	   delHiddenUserButton.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+			    delUser(hiddenUserProperty);	
+			}
+			
+		});
+	       
 		     hiddenUserTable.setRowFactory( tv -> {
 			        TableRow<HiddenUserProperty> row = new TableRow<>();
 			        row.setOnMouseClicked(event -> {
@@ -378,59 +469,14 @@ public class AssetWorkController extends AssetAsSwitch{
 								// TODO Auto-generated method stub
 								try{
 									
-								  String uesrId=String.valueOf(row.getItem().getId().get());
-								  String userName=row.getItem().getPrincipal_name().get();
+								  
 								  String menuType=MenuType.get(event.getTarget().toString());
 								  System.out.println(menuType);								  
 								  
 								  if(menuType.equals("m1")){
-									  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-								        alert.setTitle("删除");
-								        alert.setHeaderText("安全员工记录");
-								        alert.setContentText("是否删除"+userName+"的信息");
-
-								        ButtonType btnType1 = new ButtonType("确定");
-								        ButtonType btnType2 = new ButtonType("取消");
-								     
-
-								        alert.getButtonTypes().setAll(btnType1, btnType2);
-
-								        Optional<ButtonType> result = alert.showAndWait();
-								        result.ifPresent(buttonType -> {
-								            if (buttonType == btnType1) {
-								                try{
-								                String[] where={"[Assets].[dbo].[Hidden_User].id =",uesrId};
-					                            Hidden_User hidden_User=new Hidden_User();
-					                            hidden_User.setWhere(where);
-					                            
-								                int i=assets.deleteHiddenUser(hidden_User);
-								                if(i==1){
-								                	alert.setTitle("安全员工记录");
-													alert.setHeaderText("操作");
-													alert.setContentText("删除"+userName+"成功");
-													alert.showAndWait();
-													hiddenUserTable.setItems(null);
-													setUser(offset,limit);
-								                }else{
-								                	Alert alert2 = new Alert(AlertType.ERROR);
-													alert2.setTitle("异常堆栈对话框1");
-													alert2.setHeaderText("错误");
-													alert2.setContentText("删除"+userName+"失败");
-													alert2.showAndWait();
-								                }
-								                }catch (Exception e) {
-													// TODO: handle exception
-								                	e.printStackTrace();
-								                	Alert alert2 = new Alert(AlertType.ERROR);
-													alert2.setTitle("异常堆栈对话框2");
-													alert2.setHeaderText("错误");
-													alert2.setContentText("删除"+userName+"失败");
-													alert2.showAndWait();													
-												}
-								            } else if (buttonType == btnType2) {
-								            	System.out.println("点击了取消");
-								            } 
-								        });
+									  HiddenUserProperty rowData=row.getItem();
+									  delUser(rowData);
+									  
 								  }
 								  
 								  
@@ -469,71 +515,17 @@ public class AssetWorkController extends AssetAsSwitch{
 							public void handle(ActionEvent event) {
 								// TODO Auto-generated method stub
 								try{
-								  int id=row.getItem().getId().get();
-								  String typeId=String.valueOf(id);
-								  String typeName=row.getItem().getHidden_type().get();
+								  
 								  String menuType=MenuType.get(event.getTarget().toString());
 								  System.out.println(menuType);								  
 								  
 								  if(menuType.equals("m1")){
+									  
+									  delType(row.getItem());
 									 
-									    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-								        alert.setTitle("删除");
-								        alert.setHeaderText("隐患等级");
-								        alert.setContentText("是否删除"+typeName+"的信息");
-
-								        ButtonType btnType1 = new ButtonType("确定");
-								        ButtonType btnType2 = new ButtonType("取消");
-								     
-
-								        alert.getButtonTypes().setAll(btnType1, btnType2);
-
-								        Optional<ButtonType> result = alert.showAndWait();
-								        result.ifPresent(buttonType -> {
-								            if (buttonType == btnType1) {
-								                try{
-								                String[] where={"[Assets].[dbo].[Hidden_Type].id =", typeId};
-					                            Hidden_Type hidden_Type=new Hidden_Type();
-					                            hidden_Type.setWhere(where);
-					                            hidden_Type.setType(row.getItem().getType().get());
-					                            
-								                int i=assets.deleteHiddenType(hidden_Type);
-								                if(i==1){
-								                	alert.setTitle("安全隐患等级");
-													alert.setHeaderText("操作");
-													alert.setContentText("删除"+typeName+"成功");
-													alert.showAndWait();
-													setHiddenType();
-								                }else if(i==3){
-								                	Alert alert2 = new Alert(AlertType.WARNING);
-													alert2.setTitle("警告对话框");
-													alert2.setHeaderText("警告");
-													alert2.setContentText(typeName+"正在被使用,不能删除!");
-													alert2.showAndWait();
-								                }else{
-								                	Alert alert2 = new Alert(AlertType.ERROR);
-													alert2.setTitle("异常堆栈对话框1");
-													alert2.setHeaderText("错误");
-													alert2.setContentText("删除"+typeName+"失败");
-													alert2.showAndWait();
-								                }
-								                }catch (Exception e) {
-													// TODO: handle exception
-								                	e.printStackTrace();
-								                	Alert alert2 = new Alert(AlertType.ERROR);
-													alert2.setTitle("异常堆栈对话框2");
-													alert2.setHeaderText("错误");
-													alert2.setContentText("删除"+typeName+"失败");
-													alert2.showAndWait();													
-												}
-								            } else if (buttonType == btnType2) {
-								            	System.out.println("点击了取消");
-								            } 
-								        });
 									  }
 								  
-								  
-								  
+								  								  
 								  if(menuType.equals("m2")){
 									  HiddenTypeProperty rowData = row.getItem();
 						              table2(rowData);
@@ -568,77 +560,15 @@ public class AssetWorkController extends AssetAsSwitch{
 							public void handle(ActionEvent event) {
 								// TODO Auto-generated method stub
 								try{
-								  int level=row.getItem().getHidden_level().get();
-								  String levelId=String.valueOf(row.getItem().getId().get());
-								  String levelName=row.getItem().getLevel_text().get();
-								  Integer hiddenLevel=row.getItem().getHidden_level().get();
+								  
 								  String menuType=MenuType.get(event.getTarget().toString());
 								  
 								  System.out.println(menuType);								  
 								  
 								  if(menuType.equals("m1")){
-									  System.out.println(level);
-									 if(level==1||level==2||level==3){
-										  Alert alert = new Alert(AlertType.ERROR);
-											alert.setTitle("错误");
-											alert.setHeaderText("删除隐患等级错误");
-											alert.setContentText("默认隐患级别不能删除");
-											alert.showAndWait();
-									  }else{
-									    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-								        alert.setTitle("删除");
-								        alert.setHeaderText("隐患等级");
-								        alert.setContentText("是否删除"+levelName+"的信息");
-
-								        ButtonType btnType1 = new ButtonType("确定");
-								        ButtonType btnType2 = new ButtonType("取消");
-								     
-
-								        alert.getButtonTypes().setAll(btnType1, btnType2);
-
-								        Optional<ButtonType> result = alert.showAndWait();
-								        result.ifPresent(buttonType -> {
-								            if (buttonType == btnType1) {
-								                try{
-								                String[] where={"[Assets].[dbo].[Hidden_Level].id =", levelId};
-					                            Hidden_Level hidden_Level=new Hidden_Level();
-					                            hidden_Level.setWhere(where);
-					                            hidden_Level.setHidden_level(hiddenLevel);
-					                            
-								                int i=assets.deleteHiddenLevel(hidden_Level);
-								                if(i==1){
-								                	alert.setTitle("隐患等级记录");
-													alert.setHeaderText("操作");
-													alert.setContentText("删除"+levelName+"成功");
-													alert.showAndWait();
-													setHiddenLevel();
-								                }else if(i==3){
-								                	Alert alert3 = new Alert(AlertType.WARNING);
-								                	alert3.setTitle("隐患等级记录");
-													alert3.setHeaderText("操作");
-													alert3.setContentText(levelName+"正在被使用,不能删除");
-													alert3.showAndWait();
-								                }else{
-								                	Alert alert2 = new Alert(AlertType.ERROR);
-													alert2.setTitle("异常堆栈对话框1");
-													alert2.setHeaderText("错误");
-													alert2.setContentText("删除"+levelName+"失败");
-													alert2.showAndWait();
-								                }
-								                }catch (Exception e) {
-													// TODO: handle exception
-								                	e.printStackTrace();
-								                	Alert alert2 = new Alert(AlertType.ERROR);
-													alert2.setTitle("异常堆栈对话框2");
-													alert2.setHeaderText("错误");
-													alert2.setContentText("删除"+levelName+"失败");
-													alert2.showAndWait();													
-												}
-								            } else if (buttonType == btnType2) {
-								            	System.out.println("点击了取消");
-								            } 
-								        });
-									  }
+									  
+									  delLevel(row.getItem());
+								
 								  }
 								  
 								  
@@ -722,8 +652,200 @@ public class AssetWorkController extends AssetAsSwitch{
 		     
 	 }
 	 
-		 	 
+	private void delUser(HiddenUserProperty hiddenUserProperty){
+		String uesrId=String.valueOf(hiddenUserProperty.getId().get());
+		  String userName=hiddenUserProperty.getPrincipal_name().get();
+		  Integer principal=hiddenUserProperty.getPrincipal().get();
+		  
+		  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+	        alert.setTitle("删除");
+	        alert.setHeaderText("安全员工记录");
+	        alert.setContentText("是否删除"+userName+"的信息");
+
+	        ButtonType btnType1 = new ButtonType("确定");
+	        ButtonType btnType2 = new ButtonType("取消");
+	     
+
+	        alert.getButtonTypes().setAll(btnType1, btnType2);
+
+	        Optional<ButtonType> result = alert.showAndWait();
+	        result.ifPresent(buttonType -> {
+	            if (buttonType == btnType1) {
+	                try{
+	                String[] where={"[Assets].[dbo].[Hidden_User].id =",uesrId};
+                  Hidden_User hidden_User=new Hidden_User();
+                  hidden_User.setWhere(where);
+                  hidden_User.setPrincipal(principal);
+                  
+	                int i=assets.deleteHiddenUser(hidden_User);
+	                if(i==1){
+	                	alert.setTitle("安全员工记录");
+						alert.setHeaderText("操作");
+						alert.setContentText("删除"+userName+"成功");
+						alert.showAndWait();
+						hiddenUserTable.setItems(null);
+						setUser(offset,limit);
+	                }else if(i==3){
+	                	Alert alert3 = new Alert(AlertType.WARNING);
+						alert3.setTitle("警告对话框");
+						alert3.setHeaderText("警告");
+						alert3.setContentText("不能删除隐患负责人"+userName);
+						alert3.showAndWait();
+	                }else{
+	                	Alert alert2 = new Alert(AlertType.ERROR);
+						alert2.setTitle("异常堆栈对话框1");
+						alert2.setHeaderText("错误");
+						alert2.setContentText("删除"+userName+"失败");
+						alert2.showAndWait();
+	                }
+	                }catch (Exception e) {
+						// TODO: handle exception
+	                	e.printStackTrace();
+	                	Alert alert2 = new Alert(AlertType.ERROR);
+						alert2.setTitle("异常堆栈对话框2");
+						alert2.setHeaderText("错误");
+						alert2.setContentText("删除"+userName+"失败");
+						alert2.showAndWait();													
+					}
+	            } else if (buttonType == btnType2) {
+	            	System.out.println("点击了取消");
+	            } 
+	        });
+	}
 	 
+	
+	private void delType(HiddenTypeProperty hiddenTypeProperty){
+		
+		 int id=hiddenTypeProperty.getId().get();
+		  String typeId=String.valueOf(id);
+		  String typeName=hiddenTypeProperty.getHidden_type().get();
+		    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+	        alert.setTitle("删除");
+	        alert.setHeaderText("隐患等级");
+	        alert.setContentText("是否删除"+typeName+"的信息");
+
+	        ButtonType btnType1 = new ButtonType("确定");
+	        ButtonType btnType2 = new ButtonType("取消");
+	     
+
+	        alert.getButtonTypes().setAll(btnType1, btnType2);
+
+	        Optional<ButtonType> result = alert.showAndWait();
+	        result.ifPresent(buttonType -> {
+	            if (buttonType == btnType1) {
+	                try{
+	                String[] where={"[Assets].[dbo].[Hidden_Type].id =", typeId};
+                   Hidden_Type hidden_Type=new Hidden_Type();
+                   hidden_Type.setWhere(where);
+                   hidden_Type.setType(hiddenTypeProperty.getType().get());
+                   
+	                int i=assets.deleteHiddenType(hidden_Type);
+	                if(i==1){
+	                	alert.setTitle("安全隐患等级");
+						alert.setHeaderText("操作");
+						alert.setContentText("删除"+typeName+"成功");
+						alert.showAndWait();
+						setHiddenType();
+	                }else if(i==3){
+	                	Alert alert2 = new Alert(AlertType.WARNING);
+						alert2.setTitle("警告对话框");
+						alert2.setHeaderText("警告");
+						alert2.setContentText(typeName+"正在被使用,不能删除!");
+						alert2.showAndWait();
+	                }else{
+	                	Alert alert2 = new Alert(AlertType.ERROR);
+						alert2.setTitle("异常堆栈对话框1");
+						alert2.setHeaderText("错误");
+						alert2.setContentText("删除"+typeName+"失败");
+						alert2.showAndWait();
+	                }
+	                }catch (Exception e) {
+						// TODO: handle exception
+	                	e.printStackTrace();
+	                	Alert alert2 = new Alert(AlertType.ERROR);
+						alert2.setTitle("异常堆栈对话框2");
+						alert2.setHeaderText("错误");
+						alert2.setContentText("删除"+typeName+"失败");
+						alert2.showAndWait();													
+					}
+	            } else if (buttonType == btnType2) {
+	            	System.out.println("点击了取消");
+	            } 
+	       });
+	 }
+	
+	
+	private void delLevel(HiddenLevelProperty hiddenLevelProperty){
+		
+		  int level=hiddenLevelProperty.getHidden_level().get();
+		  String levelId=String.valueOf(hiddenLevelProperty.getId().get());
+		  String levelName=hiddenLevelProperty.getLevel_text().get();
+		  Integer hiddenLevel=hiddenLevelProperty.getHidden_level().get();
+		  
+		  System.out.println(level);
+		 if(level==1||level==2||level==3){
+			  Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("错误");
+				alert.setHeaderText("删除隐患等级错误");
+				alert.setContentText("默认隐患级别不能删除");
+				alert.showAndWait();
+		  }else{
+		    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+	        alert.setTitle("删除");
+	        alert.setHeaderText("隐患等级");
+	        alert.setContentText("是否删除"+levelName+"的信息");
+
+	        ButtonType btnType1 = new ButtonType("确定");
+	        ButtonType btnType2 = new ButtonType("取消");
+	     
+
+	        alert.getButtonTypes().setAll(btnType1, btnType2);
+
+	        Optional<ButtonType> result = alert.showAndWait();
+	        result.ifPresent(buttonType -> {
+	            if (buttonType == btnType1) {
+	                try{
+	                String[] where={"[Assets].[dbo].[Hidden_Level].id =", levelId};
+                    Hidden_Level hidden_Level=new Hidden_Level();
+                    hidden_Level.setWhere(where);
+                    hidden_Level.setHidden_level(hiddenLevel);
+                    
+	                int i=assets.deleteHiddenLevel(hidden_Level);
+	                if(i==1){
+	                	alert.setTitle("隐患等级记录");
+						alert.setHeaderText("操作");
+						alert.setContentText("删除"+levelName+"成功");
+						alert.showAndWait();
+						setHiddenLevel();
+	                }else if(i==3){
+	                	Alert alert3 = new Alert(AlertType.WARNING);
+	                	alert3.setTitle("隐患等级记录");
+						alert3.setHeaderText("操作");
+						alert3.setContentText(levelName+"正在被使用,不能删除");
+						alert3.showAndWait();
+	                }else{
+	                	Alert alert2 = new Alert(AlertType.ERROR);
+						alert2.setTitle("异常堆栈对话框1");
+						alert2.setHeaderText("错误");
+						alert2.setContentText("删除"+levelName+"失败");
+						alert2.showAndWait();
+	                }
+	                }catch (Exception e) {
+						// TODO: handle exception
+	                	e.printStackTrace();
+	                	Alert alert2 = new Alert(AlertType.ERROR);
+						alert2.setTitle("异常堆栈对话框2");
+						alert2.setHeaderText("错误");
+						alert2.setContentText("删除"+levelName+"失败");
+						alert2.showAndWait();													
+					}
+	            } else if (buttonType == btnType2) {
+	            	System.out.println("点击了取消");
+	            } 
+	        });
+		  }
+	}
+	
 	 private void table(HiddenUserProperty newValue){
 		 Integer id=newValue.getId().get();
 		 Integer principal=newValue.getPrincipal().get();

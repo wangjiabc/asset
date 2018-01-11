@@ -52,7 +52,7 @@ public class Main extends Application{
 	            // Show the scene containing the root layout.
 	            Scene scene = new Scene(rootLayout);
 	            primaryStage.setScene(scene);
-	          //  primaryStage.setFullScreen(true);
+	            primaryStage.setFullScreen(true);
 	            primaryStage.show();
 	        } catch (IOException e) {
 	            e.printStackTrace();

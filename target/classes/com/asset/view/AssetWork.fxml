@@ -125,6 +125,8 @@
               								 </ContextMenu>
            								 </contextMenu>
                                     </TableView>
+                                    <Button fx:id="delHiddenTypeButton" layoutX="440.0" layoutY="631.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="73.0" text="删除" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="300.0" />
+                                    <Button fx:id="upHiddenTypeButton" layoutX="334.0" layoutY="631.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="73.0" text="修改" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="200.0" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -146,6 +148,8 @@
               								 </ContextMenu>
            								 </contextMenu>
                                     </TableView>
+                                    <Button fx:id="delHiddenLevelButton" layoutX="429.0" layoutY="625.0" mnemonicParsing="false" prefWidth="73.0" text="删除" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="300.0" />
+                                    <Button fx:id="upHiddenLevelButton" layoutX="328.0" layoutY="625.0" mnemonicParsing="false" prefWidth="73.0" text="修改" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="200.0" />
                                  </children>
                               </AnchorPane>
                            </content>
@@ -174,6 +178,7 @@
                                     <Button fx:id="addHiddenUserButton" layoutX="623.0" layoutY="657.0" mnemonicParsing="false" text="新建员工" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="60.0" />
                                     <Pagination fx:id="pagination" layoutX="278.0" layoutY="497.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="200.0" />
                                     <Button fx:id="upHiddenUserButton" layoutX="511.0" layoutY="625.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="73.0" text="修改" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="170.0" />
+                                    <Button fx:id="delHiddenUserButton" layoutX="382.0" layoutY="625.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="73.0" text="删除" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="280.0" />
                                  </children>
                               </AnchorPane>
                            </content>
