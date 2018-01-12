@@ -7,9 +7,9 @@
 
 <AnchorPane prefHeight="284.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.detail.UpHiddenTypeDetailController">
    <children>
-      <Button fx:id="update" layoutX="302.0" layoutY="222.0" mnemonicParsing="false" prefWidth="80.0" text="确定" AnchorPane.bottomAnchor="30.0" />
-      <TextField fx:id="hiddenType" layoutX="217.0" layoutY="116.0" prefWidth="250.0" AnchorPane.leftAnchor="200.0" />
+      <Button fx:id="update" layoutX="326.0" layoutY="224.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="确  定" AnchorPane.bottomAnchor="30.0" />
+      <TextField fx:id="hiddenType" layoutX="217.0" layoutY="116.0" prefHeight="23.0" prefWidth="312.0" AnchorPane.leftAnchor="200.0" />
       <Label layoutX="98.0" layoutY="122.0" text="隐患类型" AnchorPane.leftAnchor="80.0" />
-      <Button fx:id="cancel" layoutX="420.0" layoutY="230.0" mnemonicParsing="false" prefWidth="80.0" text="取消" AnchorPane.bottomAnchor="30.0" />
+      <Button fx:id="cancel" layoutX="420.0" layoutY="230.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="取  消" AnchorPane.bottomAnchor="30.0" />
    </children>
 </AnchorPane>

@@ -32,21 +32,9 @@
       <ListView layoutX="20.0" layoutY="24.0" prefHeight="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
       <GridPane layoutX="40.0" layoutY="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
          <children>
-            <Label text="查询条件">
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-            </Label>
-            <Label text="关键词 :" GridPane.rowIndex="1">
-               <padding>
-                  <Insets left="30.0" />
-               </padding>
-            </Label>
-            <Label text="隐患级别 :" GridPane.rowIndex="2">
-               <padding>
-                  <Insets left="14.0" />
-               </padding>
-            </Label>
+            <Label text=" 查询条件" />
+            <Label text="关键词 :" GridPane.rowIndex="1" />
+            <Label text="  隐患级别 :" GridPane.rowIndex="2" />
             <Label text="整改进度 :" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <padding>
                   <Insets left="14.0" />
@@ -57,14 +45,14 @@
                   <Insets left="14.0" />
                </padding>
             </Label>
-            <Button fx:id="search" mnemonicParsing="false" prefWidth="80.0" text="  搜索" GridPane.columnIndex="4" GridPane.rowIndex="2">
+            <Button fx:id="search" mnemonicParsing="false" prefWidth="88.0" text="  搜  索" GridPane.columnIndex="4" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin>
             </Button>
-            <TextField fx:id="keyWord" maxHeight="-Infinity" maxWidth="200.0" minWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="keyWord" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  <Insets />
                </GridPane.margin>
             </TextField>
             <ImageView fx:id="searchImage" fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="2">
@@ -72,18 +60,18 @@
                   <Insets left="15.0" />
                </GridPane.margin>
             </ImageView>
-            <SplitMenuButton fx:id="level" mnemonicParsing="false" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <SplitMenuButton fx:id="level" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets left="5.0" />
+                  <Insets />
                </GridPane.margin>
             </SplitMenuButton>
-            <SplitMenuButton fx:id="plan" mnemonicParsing="false" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <SplitMenuButton fx:id="instance" mnemonicParsing="false" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <SplitMenuButton fx:id="plan" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <SplitMenuButton fx:id="instance" maxWidth="1.7976931348623157E308" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
          </columnConstraints>

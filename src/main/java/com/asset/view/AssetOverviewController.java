@@ -58,7 +58,9 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -193,7 +195,20 @@ public class AssetOverviewController extends AssetAsSwitch{
 		 Image image2=new Image(filePath+"/search.png");
 	     searchImage.setImage(image2);
 		 
-	     	     
+	     Image menuImage=new Image(filePath+"/search.png");
+	     ImageView imageView=new ImageView();
+	     imageView.setFitWidth(25);
+	     imageView.setFitHeight(25);
+	     imageView.setImage(menuImage);
+	     contextMenu.getItems().get(2).setGraphic(imageView);
+	     ImageView imageView2=new ImageView();
+	     imageView2.setFitWidth(25);
+	     imageView2.setFitHeight(25);
+	     imageView2.setImage(menuImage);
+	     contextMenu.getItems().get(4).setGraphic(imageView2);
+
+
+	     
 	     List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
 			Iterator<Hidden_Level> iterator=hidden_levels.iterator();
 			List levels = new ArrayList<>();
@@ -693,6 +708,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	            Stage dialogStage = new Stage();
 	            dialogStage.setTitle("隐患");
 	            dialogStage.initModality(Modality.APPLICATION_MODAL);
+	            dialogStage.setResizable(false);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
 

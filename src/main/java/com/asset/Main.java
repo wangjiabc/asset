@@ -31,6 +31,7 @@ public class Main extends Application{
 	    public void start(Stage primaryStage) {
 	        this.primaryStage = primaryStage;
 	        this.primaryStage.setTitle("安全隐患监管系统");
+	        
 
 	        this.primaryStage.getIcons().add(0, new Image(url.toString()+"/xl.gif"));
 	        initRootLayout();
@@ -52,7 +53,9 @@ public class Main extends Application{
 	            // Show the scene containing the root layout.
 	            Scene scene = new Scene(rootLayout);
 	            primaryStage.setScene(scene);
-	            primaryStage.setFullScreen(true);
+	            this.primaryStage.setMaximized(true);
+	           
+	            //primaryStage.setFullScreen(true);
 	            primaryStage.show();
 	        } catch (IOException e) {
 	            e.printStackTrace();

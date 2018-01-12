@@ -39,8 +39,8 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <FlowPane fx:id="imagePane" layoutX="4.0" layoutY="5.0" prefHeight="359.0" prefWidth="861.0" style="-fx-border-color: #C0C0C0;" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="5.0" />
-                        <Button fx:id="switchImage" layoutX="731.0" layoutY="370.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传图片" AnchorPane.bottomAnchor="2.0" AnchorPane.rightAnchor="52.0" />
+                        <FlowPane fx:id="imagePane" layoutX="4.0" layoutY="5.0" prefHeight="335.0" prefWidth="861.0" style="-fx-border-color: #C0C0C0;" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="5.0" />
+                        <Button fx:id="switchImage" layoutX="777.0" layoutY="351.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="选择上传图片" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="6.0" />
                      </children>
                   </AnchorPane>
             </content>
@@ -49,17 +49,17 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <FlowPane fx:id="filePane" layoutX="4.0" layoutY="5.0" prefHeight="360.0" prefWidth="865.0" style="-fx-border-color: #C0C0C0;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="5.0" />
-                        <Button fx:id="switchDoc" layoutX="522.0" layoutY="370.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="选择上传word" AnchorPane.rightAnchor="255.0" />
-                        <Button fx:id="switchExcel" layoutX="639.0" layoutY="370.0" mnemonicParsing="false" text="选择上传excel" AnchorPane.rightAnchor="137.0" />
-                        <Button fx:id="switchPdf" layoutX="753.0" layoutY="370.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="23.0" prefWidth="104.0" text="选择上传pdf" AnchorPane.rightAnchor="14.0" />
+                        <FlowPane fx:id="filePane" layoutX="4.0" layoutY="5.0" prefHeight="335.0" prefWidth="865.0" style="-fx-border-color: #C0C0C0;" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="5.0" />
+                        <Button fx:id="switchDoc" layoutX="586.0" layoutY="351.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="上传word" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="197.0" />
+                        <Button fx:id="switchExcel" layoutX="686.0" layoutY="351.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="上传excel" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="97.0" />
+                        <Button fx:id="switchPdf" layoutX="781.0" layoutY="351.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="上传pdf" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="2.0" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
         </tabs>
       </TabPane>
-      <Button fx:id="post" layoutX="745.0" layoutY="755.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="71.0" text="添加" />
-      <Button fx:id="cancel" layoutX="834.0" layoutY="755.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="73.0" text="取消" />
+      <Button fx:id="post" layoutX="726.0" layoutY="755.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="添加" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="125.0" />
+      <Button fx:id="cancel" layoutX="834.0" layoutY="755.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="88.0" text="取消" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="25.0" />
    </children>
 </AnchorPane>
