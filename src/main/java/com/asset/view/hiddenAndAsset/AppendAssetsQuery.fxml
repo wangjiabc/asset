@@ -16,8 +16,9 @@
          </columnResizePolicy>
          <columns>
             <TableColumn fx:id="C1" prefWidth="75.0" text="资产位置" />
-            <TableColumn fx:id="C3" prefWidth="75.0" text="所在区" />
+            <TableColumn fx:id="C3" prefWidth="75.0" text="所在地区" />
             <TableColumn fx:id="C4" prefWidth="75.0" text="资产编号" />
+            <TableColumn fx:id="C5" prefWidth="75.0" text="管理区" />
          </columns>
       </TableView>
       <Pagination fx:id="pagination" layoutX="64.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />

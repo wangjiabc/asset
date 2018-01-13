@@ -260,8 +260,6 @@ public class HiddenMapController extends AssetAsSwitch{
 	   	        List<Hidden_Join> hidden_Jions= assets.selectHiddenOfMap(searchMap);
 	   	        
 	   	        Hidden_Join hidden_Join=hidden_Jions.get(0);
-	   	        
-	   	        controller.setHidden(hidden_Join);
 	   	    
 	   	        Map searchMap0=new HashMap<>();
 	  		  
@@ -271,7 +269,7 @@ public class HiddenMapController extends AssetAsSwitch{
 	  		    Map searchMap3=new HashMap<>();
 	  		    searchMap3.put("[Assets].[dbo].[Hidden_Neaten].GUID=", hidden_Join.getGUID());
 	  		    
-	  		    controller.setTableView(null,0,10,searchMap,searchMap0,searchMap2,searchMap3,null,null, null, null, null, null, null, null, null,null,null,null);
+	  		    controller.setTableView(null,0,10,searchMap,searchMap0,searchMap2,searchMap3,null,null, null, null, null, null, null, null, null,null,null,null,null);
 	            
 	  		    Map searchMap4=new HashMap<>();
 	  		    searchMap4.put("[Assets].[dbo].[Hidden].GUID=", hidden_Join.getGUID());

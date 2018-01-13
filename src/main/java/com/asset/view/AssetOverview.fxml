@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="1400.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.AssetOverviewController">
+<AnchorPane prefHeight="1400.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.AssetOverviewController">
    <children>
       <SplitPane dividerPositions="0.24448897795591182" layoutX="6.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -80,8 +80,9 @@
                   <ImageView fx:id="danger" fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
                   <ImageView fx:id="report" fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
                   <ImageView fx:id="file" fitHeight="20.0" fitWidth="20.0" layoutX="50.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
-                  <Button layoutX="57.0" layoutY="518.0" mnemonicParsing="false" onAction="#workButtonAction" prefHeight="30.0" text="系统设置" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
-                  <Button fx:id="exitButton" layoutX="33.0" layoutY="554.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="185.0" text="退出系统" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="550.0" />
+                  <Button layoutX="57.0" layoutY="518.0" mnemonicParsing="false" onAction="#workButtonAction" prefHeight="30.0" text="系统设置" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="550.0" />
+                  <Button fx:id="exitButton" layoutX="33.0" layoutY="554.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="185.0" text="退出系统" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="600.0" />
+                  <Button layoutX="90.0" layoutY="476.0" mnemonicParsing="false" onAction="#hiddenAssetAction" text="隐患资产" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="798.0" prefWidth="738.0">
@@ -117,8 +118,8 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <columns>
-            <TableColumn fx:id="C1" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="C2" prefWidth="75.0" text="隐患名称" />
+            <TableColumn fx:id="C1" prefWidth="40.0" text="ID" />
+            <TableColumn fx:id="C2" prefWidth="104.0" text="隐患名称" />
             <TableColumn fx:id="C3" prefWidth="75.0" text="隐患级别" />
             <TableColumn fx:id="C4" prefWidth="75.0" text="隐患详情" />
             <TableColumn fx:id="C5" prefWidth="75.0" text="发生时间" />
@@ -126,19 +127,20 @@
             <TableColumn fx:id="C7" prefWidth="75.0" text="负责人" />
             <TableColumn fx:id="C8" prefWidth="60.0" text="隐患类型" />
             <TableColumn fx:id="C9" prefWidth="74.0" text="录入人" />
+                              <TableColumn fx:id="C12" prefWidth="75.0" text="隐患区" />
             <TableColumn fx:id="C10" prefWidth="59.0" text="备注" />
             <TableColumn fx:id="C11" prefWidth="75.0" text="录入时间" />
          </columns>
          <contextMenu>
                 <ContextMenu fx:id="contextMenu">
-                    <items><MenuItem fx:id="m1" accelerator="Ctrl + D" mnemonicParsing="true"  text="    删      除" /></items>                    
+                    <items><MenuItem fx:id="m1" accelerator="Ctrl + D" mnemonicParsing="true" text="    删      除" /></items>                    
                     <items><SeparatorMenuItem /></items>
                     <items><MenuItem fx:id="m2" accelerator="Ctrl + C" mnemonicParsing="true" text="    增加检查记录" /></items>
-                    <items><MenuItem fx:id="m3" accelerator="Ctrl + N" mnemonicParsing="true"  text="    增加整顿记录" /></items>
-                    <items><MenuItem fx:id="m4" accelerator="Shift + C" mnemonicParsing="true"  text="    查看检查记录" /></items>
-                    <items><MenuItem fx:id="m5" accelerator="Shift + N" mnemonicParsing="true"  text="    查看整顿记录" /></items>                   
+                    <items><MenuItem fx:id="m3" accelerator="Ctrl + N" mnemonicParsing="true" text="    增加整顿记录" /></items>
+                    <items><MenuItem fx:id="m4" accelerator="Shift + C" mnemonicParsing="true" text="    查看检查记录" /></items>
+                    <items><MenuItem fx:id="m5" accelerator="Shift + N" mnemonicParsing="true" text="    查看整顿记录" /></items>                   
                     <items><SeparatorMenuItem /></items>
-                    <items><MenuItem fx:id="m7" accelerator="Ctrl + H" mnemonicParsing="true"  text="    查看详情.......              " /></items>
+                    <items><MenuItem fx:id="m7" accelerator="Ctrl + H" mnemonicParsing="true" text="    查看详情.......              " /></items>
                 </ContextMenu>
             </contextMenu>
       </TableView>

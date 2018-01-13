@@ -18,6 +18,8 @@ public class RoomInfo_PositionProperty {
 	private StringProperty InDate;
 	   
 	private StringProperty Address;
+	
+	private StringProperty ManageRegion;
 	/*
 	 * leftjoin避免空指针
 	 */
@@ -96,4 +98,14 @@ public class RoomInfo_PositionProperty {
 		String datestr = sdf.format(inDate); 
 		this.InDate = new SimpleStringProperty(datestr);
 	}
+	
+	public StringProperty getManageRegion() {
+		return ManageRegion;
+	}
+
+
+	public void setManageRegion(String manageRegion) {
+		ManageRegion = new SimpleStringProperty(manageRegion);
+	}
+	
 }

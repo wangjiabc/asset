@@ -49,6 +49,9 @@ public class RoomInfo_Position implements Serializable{
 	@SQLDateTime(name="date")
 	private Date date;
 	
+	@SQLString(name="ManageRegion")
+    private String ManageRegion;
+	
 	public String getGUID() {
 		return GUID;
 	}
@@ -152,4 +155,13 @@ public class RoomInfo_Position implements Serializable{
 	public void setNum(String num) {
 		Num = num;
 	}
+	
+	public void setManageRegion(String ManageRegion){
+		this.ManageRegion = ManageRegion;
+	}
+
+	public String getManageRegion(){
+		return ManageRegion;
+	}
+	
 }

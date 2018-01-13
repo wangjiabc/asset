@@ -455,7 +455,7 @@ public class HiddenQueryController extends AssetAsSwitch{
 	  		    Map searchMap3=new HashMap<>();
 	  		    searchMap3.put("[Assets].[dbo].[Hidden_Neaten].GUID=", GUID);
 	  		    
-	            controller.setTableView(null,null,null,searchMap,searchMap0,searchMap2,searchMap3,null,null, null, null, null, null, null, null, null,null,null,null);
+	            controller.setTableView(null,null,null,searchMap,searchMap0,searchMap2,searchMap3,null,null, null, null, null, null, null, null, null,null,null,null,null);
 	            
 	           // Map map=assets.selectAllHidden(limit, offset, null, null, searchMap);
 

@@ -39,6 +39,7 @@ public class Hidden_JoinProperty {
 
 	private StringProperty campusAdmin;
 	
+	private StringProperty ManageRegion;
 	/*
     * Hidden_Level
     */
@@ -219,5 +220,14 @@ public class Hidden_JoinProperty {
 
 		public void setCampusAdmin(String campusAdmin) {
 			this.campusAdmin = new SimpleStringProperty(campusAdmin);
+		}
+		
+		public StringProperty getManageRegion() {
+			return ManageRegion;
+		}
+
+
+		public void setManageRegion(String manageRegion) {
+			ManageRegion = new SimpleStringProperty(manageRegion);
 		}
 }

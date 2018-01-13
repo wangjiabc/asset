@@ -14,6 +14,8 @@ public class RoomInfoProperty {
 	   
 	private StringProperty Address;
 	
+	private StringProperty ManageRegion;
+	
 	public RoomInfoProperty() {
 		// TODO Auto-generated constructor stub
 	}
@@ -56,6 +58,15 @@ public class RoomInfoProperty {
 	
 	public StringProperty getAddress() {
 		return Address;
+	}
+	
+	public StringProperty getManageRegion() {
+		return ManageRegion;
+	}
+
+
+	public void setManageRegion(String manageRegion) {
+		ManageRegion = new SimpleStringProperty(manageRegion);
 	}
 	
 }

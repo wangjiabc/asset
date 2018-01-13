@@ -54,6 +54,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -146,6 +147,14 @@ public class AssetInformController extends AssetAsSwitch{
 	     
 	     rightTitleLabel.setText("整改记录");
 	 
+	     
+	     Image delImage=new Image(filePath+"/del.jpg");
+	     ImageView imageView0=new ImageView();
+	     imageView0.setFitWidth(25);
+	     imageView0.setFitHeight(25);
+	     imageView0.setImage(delImage);
+	     contextMenu.getItems().get(0).setGraphic(imageView0);
+	     
 	     Map map=assets.selectAllHidden(1000, 0, null, null, searchMap);
 			hidden=(List<Hidden>) map.get("rows");
 			Iterator<Hidden> iterator=hidden.iterator();

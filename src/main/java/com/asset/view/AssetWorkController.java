@@ -61,6 +61,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -216,6 +217,22 @@ public class AssetWorkController extends AssetAsSwitch{
 	     
 	     setHiddenLevel();
      
+	     Image delImage=new Image(filePath+"/del.jpg");
+	     ImageView imageView0=new ImageView();
+	     imageView0.setFitWidth(25);
+	     imageView0.setFitHeight(25);
+	     imageView0.setImage(delImage);
+	     contextMenuLevel.getItems().get(0).setGraphic(imageView0);
+	     ImageView imageView1=new ImageView();
+	     imageView1.setFitWidth(25);
+	     imageView1.setFitHeight(25);
+	     imageView1.setImage(delImage);
+	     contextMenuType.getItems().get(0).setGraphic(imageView1);
+	     ImageView imageView2=new ImageView();
+	     imageView2.setFitWidth(25);
+	     imageView2.setFitHeight(25);
+	     imageView2.setImage(delImage);
+	     contextMenuUser.getItems().get(0).setGraphic(imageView2);
 	     
 	     hiddenWrite.setOnAction(new EventHandler<ActionEvent>() {
 

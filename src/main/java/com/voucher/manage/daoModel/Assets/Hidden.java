@@ -12,14 +12,14 @@ public class Hidden implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @SQLInteger(name="id")
-	private Integer id;
+   	private Integer id;
 
     @SQLString(name="GUID")
 	private String GUID;
 
     @SQLInteger(name="exist")
 	private Integer exist;
-    
+
     @SQLString(name="name")
 	private String name;
 
@@ -29,11 +29,11 @@ public class Hidden implements Serializable{
     @SQLString(name="detail")
 	private String detail;
 
-    @SQLDouble(name="progress")
-   	private Double progress;
-    
     @SQLDateTime(name="happen_time")
 	private Date happen_time;
+
+    @SQLDouble(name="progress")
+	private Double progress;
 
     @SQLInteger(name="principal")
 	private Integer principal;
@@ -49,7 +49,7 @@ public class Hidden implements Serializable{
 
     @SQLDateTime(name="update_time")
 	private Date update_time;
-    
+
     @SQLDateTime(name="date")
 	private Date date;
 
@@ -58,7 +58,10 @@ public class Hidden implements Serializable{
 
     @SQLString(name="terminal")
 	private String terminal;
-    
+
+    @SQLString(name="ManageRegion")
+	private String ManageRegion;
+
 	public void setId(Integer id){
 		this.id = id;
 	}
@@ -82,7 +85,7 @@ public class Hidden implements Serializable{
 	public Integer getExist(){
 		return exist;
 	}
-	
+
 	public void setName(String name){
 		this.name = name;
 	}
@@ -107,20 +110,20 @@ public class Hidden implements Serializable{
 		return detail;
 	}
 
-	public void setProgress(Double progress){
-		this.progress = progress;
-	}
-
-	public Double getProgress(){
-		return progress;
-	}
-	
 	public void setHappen_time(Date happen_time){
 		this.happen_time = happen_time;
 	}
 
 	public Date getHappen_time(){
 		return happen_time;
+	}
+
+	public void setProgress(Double progress){
+		this.progress = progress;
+	}
+
+	public Double getProgress(){
+		return progress;
 	}
 
 	public void setPrincipal(Integer principal){
@@ -162,7 +165,7 @@ public class Hidden implements Serializable{
 	public Date getUpdate_time(){
 		return update_time;
 	}
-	
+
 	public void setDate(Date date){
 		this.date = date;
 	}
@@ -186,6 +189,15 @@ public class Hidden implements Serializable{
 	public String getTerminal(){
 		return terminal;
 	}
+
+	public void setManageRegion(String ManageRegion){
+		this.ManageRegion = ManageRegion;
+	}
+
+	public String getManageRegion(){
+		return ManageRegion;
+	}
+
 
 
 

@@ -53,7 +53,7 @@
                </padding>
             </Label>
             <Label text="隐患分区" textAlignment="CENTER" GridPane.rowIndex="3" />
-            <ChoiceBox fx:id="hiddenLevel1" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ChoiceBox fx:id="hiddenManageRegion" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Label layoutX="82.0" layoutY="273.0" text="隐患详情" />
@@ -72,8 +72,9 @@
                                  </columnResizePolicy>
                                  <columns>
                                     <TableColumn fx:id="C01" prefWidth="75.0" text="资产位置" />
-                                    <TableColumn fx:id="C03" prefWidth="75.0" text="所在区" />
+                                    <TableColumn fx:id="C03" prefWidth="75.0" text="所在地区" />
                                     <TableColumn fx:id="C04" prefWidth="75.0" text="资产编号" />
+                                    <TableColumn fx:id="C05" prefWidth="75.0" text="管理区" />
                                  </columns>
                                  <contextMenu>
                                     <ContextMenu fx:id="contextMenu">

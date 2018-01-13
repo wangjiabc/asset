@@ -121,4 +121,6 @@ public interface Assets {
 	public String  findIgnoreHidden();
 	
 	public Map<String, Object> hiddenQuery(Integer hiddenLevel);
+	
+	public List selectManageRegion();
 }

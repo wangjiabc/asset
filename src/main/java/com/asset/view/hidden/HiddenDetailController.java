@@ -48,6 +48,7 @@ import com.asset.view.hiddenAndAsset.AppendAssetsQueryController;
 import com.asset.view.neaten.AugmentNeatenDetailController;
 import com.asset.view.neaten.NeatenDetailController;
 import com.rmi.server.Assets;
+import com.voucher.manage.daoModel.RoomInfo;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Assets;
 import com.voucher.manage.daoModel.Assets.Hidden_Check;
@@ -136,6 +137,13 @@ public class HiddenDetailController {
 	private ChoiceBox<T> hiddenPrincipal;//负责人
 	private List<Hidden_User> hidden_Principals;
 	private Integer hiddenPrincipalValue;
+	
+	@FXML
+	private ChoiceBox<T> hiddenManageRegion;
+	private List<RoomInfo> roomInfoLists;
+	private String manageRegion;
+	
+	private List manageRegions=new ArrayList<>();
 	
 	@FXML
 	private DatePicker happenTime;//发生时间
@@ -229,6 +237,9 @@ public class HiddenDetailController {
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,String> C11;
 	
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C12;
+	 
 	 private final Desktop desktop = Desktop.getDesktop();
 	 
 	 private Stage stage;
@@ -272,8 +283,8 @@ public class HiddenDetailController {
 		 @FXML
 		 private TableColumn<RoomInfo_PositionProperty,String> C04;
 		 
-	//	 @FXML
-	//	 private TableColumn<RoomInfo_PositionProperty,String> C05;
+		 @FXML
+		 private TableColumn<RoomInfo_PositionProperty,String> C05;
 		 
 	//	 @FXML
 	//	 private TableColumn<RoomInfo_PositionProperty,Double> C06;
@@ -419,7 +430,8 @@ public class HiddenDetailController {
 			TableColumn<Hidden_JoinProperty,String> C2,TableColumn<Hidden_JoinProperty,String> C3,TableColumn<Hidden_JoinProperty,String> C4,
 			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,ProgressBar> C6,
 			TableColumn<Hidden_JoinProperty,String> C7,TableColumn<Hidden_JoinProperty,String> C8,
-			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,TableColumn<Hidden_JoinProperty,String> C11) {
+			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,
+			TableColumn<Hidden_JoinProperty,String> C11,TableColumn<Hidden_JoinProperty,String> C12) {
 		this.hiddenTable=hiddenTable;		
 		this.offset=offset;
 		this.limit=limit;
@@ -439,6 +451,7 @@ public class HiddenDetailController {
 		this.C9=C9;
 		this.C10=C10;
 		this.C11=C11;
+		this.C12=C12;
 	 }
 	
 	 @FXML
@@ -494,6 +507,20 @@ public class HiddenDetailController {
 						hiddenPrincipalValue=hidden_Principals.get(i).getPrincipal();
 					}
 				});
+		 
+		 hiddenManageRegion.getSelectionModel().selectedIndexProperty().addListener(new 
+				 ChangeListener<Number>() {
+					
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+						String manage=(String) manageRegions.get(i);
+						manageRegion=manage;
+						System.out.println("i="+i+"  "+manageRegion);
+					}
+				});
+		 
 		 
 		 switchImage.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -769,6 +796,9 @@ public class HiddenDetailController {
 	                if(hiddenRemark!=null){
 	                	hidden2.setRemark(hiddenRemark.getText());
 	                }
+	                if(manageRegion!=null){
+	                	hidden2.setManageRegion(manageRegion);
+	                }
 					hidden2.setUpdate_time(date);
 	
 		     	int i=assets.updateHidden(hidden2);
@@ -851,7 +881,7 @@ public class HiddenDetailController {
 				            hidden.setGUID(hidden_Jion.getGUID());
 				            
 				            controller.setHidden(hidden);
-				            controller.setTableView(roomTable, offset, limit, searchMap0, pagination0, C01, null, C03, C04, null);
+				            controller.setTableView(roomTable, offset, limit, searchMap0, pagination0, C01, null, C03, C04, C05);
 				            
 				            controller.setDialogStage(dialogStage);
 				            
@@ -1334,6 +1364,39 @@ public class HiddenDetailController {
 			 hiddenPrincipal.getSelectionModel().select(principal);
 		 }
 		 
+		 
+		 Integer currentManageRegion=null;
+		 
+         roomInfoLists=assets.selectManageRegion();
+		 
+		 Iterator<RoomInfo> iterator5=roomInfoLists.iterator();
+		 
+		 i=0;
+
+		 while (iterator5.hasNext()) {
+			String manage=iterator5.next().getManageRegion();
+			if(!manage.equals("")){
+			  manageRegions.add(manage);
+			  try{
+			   if(hidden_Jion.getManageRegion().equals(manage)){
+				  currentManageRegion=i;
+			    }
+			   }catch (Exception e) {
+				// TODO: handle exception
+				  e.printStackTrace();
+			   }
+			  System.out.println("i="+i);
+			  i++;
+			}			
+		 }
+		 System.out.println("manageRegions=");
+		 MyTestUtil.print(manageRegions);
+		 hiddenManageRegion.setItems(FXCollections.observableArrayList(manageRegions));
+		 if(currentManageRegion!=null){
+			 hiddenManageRegion.getSelectionModel().select(currentManageRegion);
+		 }
+		 
+		 
 		 hiddenRemark.setText(String.valueOf(hidden_Jion.getRemark()));
 		// hiddenPrincipal.setText(String.valueOf(hidden_Jion.getPrincipal()));
 		 
@@ -1511,7 +1574,10 @@ public class HiddenDetailController {
      
      C11.setCellValueFactory(
     		 cellData->cellData.getValue().getDate());
-	     
+	 
+     C12.setCellValueFactory(
+    		 cellData->cellData.getValue().getManageRegion());
+     
 	     int total=(int) map.get("total");
 	     int page=total/10;
 	     
@@ -1537,7 +1603,7 @@ public class HiddenDetailController {
 
 	     roomInfos= (List<Hidden_Assets_Join>) map.get("rows");
 	     
-	     MyTestUtil.print(roomInfos);
+	     //MyTestUtil.print(roomInfos);
 	     
 	     roomList= (ObservableList<RoomInfo_PositionProperty>) new RowData(roomInfos,RoomInfo_PositionProperty.class).get();
 	     Iterator<RoomInfo_PositionProperty> iterator=roomList.iterator();
@@ -1556,8 +1622,8 @@ public class HiddenDetailController {
 	    		    cellData->cellData.getValue().getRegion());
 	     C04.setCellValueFactory(
 	    		    cellData->cellData.getValue().getNum());
-	//     C05.setCellValueFactory(
-	//    		    cellData->cellData.getValue().getInDate());
+	     C05.setCellValueFactory(
+	    		    cellData->cellData.getValue().getManageRegion());
 	 //    C06.setCellValueFactory(
 	  //  		 cellData->cellData.getValue().getLat().asObject());
 	  //   C07.setCellValueFactory(

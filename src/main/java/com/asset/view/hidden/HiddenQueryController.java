@@ -110,6 +110,9 @@ public class HiddenQueryController {
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,String> C11;
 	
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C12;
+	 
 	@FXML
 	private Pagination pagination;
 
@@ -292,7 +295,7 @@ public class HiddenQueryController {
   		    Map searchMap3=new HashMap<>();
 		    searchMap3.put("[Assets].[dbo].[Hidden_Neaten].GUID=", GUID);
 		    
-            controller.setTableView(hiddenTable, offset, limit, searchMap, searchMap0,searchMap2,searchMap3,pagination, C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11);
+            controller.setTableView(hiddenTable, offset, limit, searchMap, searchMap0,searchMap2,searchMap3,pagination, C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11,C12);
 			Map map = assets.selectAllHidden_Jion(limit, offset, null, null, searchMap);
 
 			hidden_Jions =(List<Hidden_Join>) map.get("rows");
@@ -380,7 +383,10 @@ public class HiddenQueryController {
    
    C11.setCellValueFactory(
   		 cellData->cellData.getValue().getDate());
-	     
+	
+   C12.setCellValueFactory(
+  		 cellData->cellData.getValue().getManageRegion());
+   
 	     int total=(int) map.get("total");
 	     int page=total/10;
 	     

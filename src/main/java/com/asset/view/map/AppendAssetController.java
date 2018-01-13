@@ -71,8 +71,8 @@ public class AppendAssetController{
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle("选择要添加位置的资产");
-	            dialogStage.initModality(Modality.WINDOW_MODAL);
+	            dialogStage.setTitle("选择要添加位置的隐患");
+	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
 

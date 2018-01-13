@@ -7,6 +7,7 @@ import com.asset.view.AssetInformController;
 import com.asset.view.AssetMessageController;
 import com.asset.view.AssetOverviewController;
 import com.asset.view.AssetWorkController;
+import com.asset.view.HiddenAssetController;
 import com.asset.view.HiddenMapController;
 import com.asset.view.HiddenQueryController;
 
@@ -181,6 +182,26 @@ public class Main extends Application{
 
 	            // Give the controller access to the main app.
 	            HiddenMapController controller= loader.getController();
+	            controller.setMain(this);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	  //hiddenMap界面
+	    public void showHiddenAsset() {
+	        try {
+	            // Load person overview.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(MainApp.class.getResource("view/HiddenAsset.fxml"));
+	            AnchorPane personOverview = (AnchorPane) loader.load();
+
+	            // Set person overview into the center of root layout.
+	            rootLayout.setCenter(personOverview);
+
+	            // Give the controller access to the main app.
+	            HiddenAssetController controller= loader.getController();
 	            controller.setMain(this);
 
 	        } catch (IOException e) {

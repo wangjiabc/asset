@@ -35,6 +35,8 @@ public class HiddenProperty {
 
 	private StringProperty campusAdmin;
 	
+	private StringProperty ManageRegion;
+	
 		public IntegerProperty getId() {
 			return id;
 		}
@@ -157,6 +159,16 @@ public class HiddenProperty {
 
 		public void setCampusAdmin(String campusAdmin) {
 			this.campusAdmin = new SimpleStringProperty(campusAdmin);
+		}
+
+
+		public StringProperty getManageRegion() {
+			return ManageRegion;
+		}
+
+
+		public void setManageRegion(String manageRegion) {
+			ManageRegion = new SimpleStringProperty(manageRegion);
 		}
 
 

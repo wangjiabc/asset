@@ -85,8 +85,8 @@ public class AppendAssetsQueryController {
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,String> C4;
 	 
-//	 @FXML
-//	 private TableColumn<RoomInfo_PositionProperty,String> C5;
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C5;
 	 
 //	 @FXML
 //	 private TableColumn<RoomInfo_PositionProperty,Double> C6;
@@ -94,8 +94,8 @@ public class AppendAssetsQueryController {
 //	 @FXML
 //	 private TableColumn<RoomInfo_PositionProperty,Double> C7;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,String> C8;
+//	 @FXML
+//	 private TableColumn<RoomInfo_PositionProperty,String> C8;
 	 
 	 @FXML
 	 private Pagination pagination;
@@ -142,8 +142,8 @@ public class AppendAssetsQueryController {
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,String> C04;
 	 
-//	 @FXML
-//	 private TableColumn<RoomInfo_PositionProperty,String> C05;
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C05;
 	 
 //	 @FXML
 //	 private TableColumn<RoomInfo_PositionProperty,Double> C06;
@@ -178,7 +178,7 @@ public class AppendAssetsQueryController {
 		//	   this.C02=C02;
 			   this.C03=C03;
 			   this.C04=C04;
-		//	   this.C05=C05;
+			   this.C05=C05;
 		//	   this.C06=C06;
 		//	   this.C07=C07;
 		 }
@@ -332,8 +332,8 @@ public class AppendAssetsQueryController {
 	    		    cellData->cellData.getValue().getRegion());
 	     C4.setCellValueFactory(
 	    		    cellData->cellData.getValue().getNum());
-//	     C5.setCellValueFactory(
-//	    		    cellData->cellData.getValue().getInDate());
+	     C5.setCellValueFactory(
+	    		    cellData->cellData.getValue().getManageRegion());
 //	     C6.setCellValueFactory(
 //	    		 cellData->cellData.getValue().getLat().asObject());
 //	     C7.setCellValueFactory(
@@ -385,8 +385,8 @@ public class AppendAssetsQueryController {
 	    		    cellData->cellData.getValue().getRegion());
 	     C04.setCellValueFactory(
 	    		    cellData->cellData.getValue().getNum());
-	//     C05.setCellValueFactory(
-	//    		    cellData->cellData.getValue().getInDate());
+	     C05.setCellValueFactory(
+	    		    cellData->cellData.getValue().getManageRegion());
 	//     C06.setCellValueFactory(
 	//    		 cellData->cellData.getValue().getLat().asObject());
 	//     C07.setCellValueFactory(

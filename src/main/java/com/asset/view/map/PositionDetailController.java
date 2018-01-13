@@ -89,7 +89,7 @@ public class PositionDetailController {
 					alert.setContentText("写入成功");
 					alert.showAndWait();
 					try{
-						mapview2.getEngine().reload();
+						mapview2.getEngine().executeScript("script()");
 					}catch (Exception e) {
 						// TODO: handle exception
 						e.printStackTrace();

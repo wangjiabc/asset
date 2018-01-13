@@ -148,6 +148,9 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 private TableColumn<Hidden_JoinProperty,String> C11;
 	 
 	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C12;
+	 
+	 @FXML
 	 private ContextMenu contextMenu;
 	 
 	 @FXML
@@ -195,12 +198,19 @@ public class AssetOverviewController extends AssetAsSwitch{
 		 Image image2=new Image(filePath+"/search.png");
 	     searchImage.setImage(image2);
 		 
-	     Image menuImage=new Image(filePath+"/search.png");
+	     Image delImage=new Image(filePath+"/del.jpg");
+	     ImageView imageView0=new ImageView();
+	     imageView0.setFitWidth(25);
+	     imageView0.setFitHeight(25);
+	     imageView0.setImage(delImage);
+	     contextMenu.getItems().get(0).setGraphic(imageView0);
+	     Image addImage=new Image(filePath+"/add.jpg");
 	     ImageView imageView=new ImageView();
 	     imageView.setFitWidth(25);
 	     imageView.setFitHeight(25);
-	     imageView.setImage(menuImage);
+	     imageView.setImage(addImage);
 	     contextMenu.getItems().get(2).setGraphic(imageView);
+	     Image menuImage=new Image(filePath+"/search.png");
 	     ImageView imageView2=new ImageView();
 	     imageView2.setFitWidth(25);
 	     imageView2.setFitHeight(25);
@@ -681,7 +691,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 
 			            // Set the person into the controller.
 			            InfoWriteController2 controller = loader.getController();
-			            controller.setTableView(hiddenTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8,C9,C10,C11);
+			            controller.setTableView(hiddenTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8,C9,C10,C11,C12);
 			            controller.setDialogStage(dialogStage);
 			            
 			            // Show the dialog and wait until the user closes it
@@ -724,7 +734,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	  		    Map searchMap3=new HashMap<>();
 	  		    searchMap3.put("[Assets].[dbo].[Hidden_Neaten].GUID=", GUID);
 	  		    
-	            controller.setTableView(hiddenTable,offset,limit,searchMap,searchMap0,searchMap2,searchMap3,pagination,C1, C2, C3, C4, C5, C6, C7, C8,C9,C10,C11);
+	            controller.setTableView(hiddenTable,offset,limit,searchMap,searchMap0,searchMap2,searchMap3,pagination,C1, C2, C3, C4, C5, C6, C7, C8,C9,C10,C11,C12);
 	            
 	           // Map map=assets.selectAllHidden(limit, offset, null, null, searchMap);
 
@@ -821,6 +831,9 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     C11.setCellValueFactory(
 	    		 cellData->cellData.getValue().getDate());
 
+	     C12.setCellValueFactory(
+	    		 cellData->cellData.getValue().getManageRegion());
+	     
 	     int total=(int) map.get("total");
 	     int page=total/10;
 	     

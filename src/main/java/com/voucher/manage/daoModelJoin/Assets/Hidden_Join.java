@@ -60,6 +60,9 @@ public class Hidden_Join implements Serializable{
     @SQLString(name="terminal")
 	private String terminal;
     
+    @SQLString(name="ManageRegion")
+	private String ManageRegion;
+    
     /*
      * Hidden_Level
      */
@@ -220,6 +223,14 @@ public class Hidden_Join implements Serializable{
 
 	public String getTerminal(){
 		return terminal;
+	}
+	
+	public void setManageRegion(String ManageRegion){
+		this.ManageRegion = ManageRegion;
+	}
+
+	public String getManageRegion(){
+		return ManageRegion;
 	}
 	
 	/*

@@ -32,6 +32,7 @@ import org.apache.poi.ss.formula.functions.T;
 
 import com.asset.Singleton;
 import com.asset.database.Connect;
+import com.asset.model.roomInfoData;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
 import com.asset.property.RoomInfo_PositionProperty;
@@ -45,6 +46,7 @@ import com.asset.view.check.AugmentCheckInfoDetailController;
 import com.asset.view.hiddenAndAsset.AppendAssetsQueryController;
 import com.asset.view.neaten.AugmentNeatenDetailController;
 import com.rmi.server.Assets;
+import com.voucher.manage.daoModel.RoomInfo;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Assets;
 import com.voucher.manage.daoModel.Assets.Hidden_Data;
@@ -126,6 +128,11 @@ public class InfoWriteController2 {
 	private ChoiceBox<T> hiddenPrincipal;//负责人
 	private List<Hidden_User> hidden_Principals;
 	private Integer hiddenPrincipalValue;
+	
+	@FXML
+	private ChoiceBox<T> hiddenManageRegion;
+	private List<RoomInfo> roomInfoLists;
+	private String manageRegion;
 	
 	@FXML
 	private DatePicker happenTime;//发生时间
@@ -217,6 +224,9 @@ public class InfoWriteController2 {
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,String> C11;
 	
+	 @FXML
+	 private TableColumn<Hidden_JoinProperty,String> C12;
+	 
 	 private final Desktop desktop = Desktop.getDesktop();
 	 
 	 private Stage stage;
@@ -260,8 +270,8 @@ public class InfoWriteController2 {
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,String> C04;
 	 
-	// @FXML
-	// private TableColumn<RoomInfo_PositionProperty,String> C05;
+	 @FXML
+	 private TableColumn<RoomInfo_PositionProperty,String> C05;
 	 
 	// @FXML
 	// private TableColumn<RoomInfo_PositionProperty,Double> C06;
@@ -299,7 +309,8 @@ public class InfoWriteController2 {
 			TableColumn<Hidden_JoinProperty,String> C2,TableColumn<Hidden_JoinProperty,String> C3,TableColumn<Hidden_JoinProperty,String> C4,
 			TableColumn<Hidden_JoinProperty,String> C5,TableColumn<Hidden_JoinProperty,ProgressBar> C6,
 			TableColumn<Hidden_JoinProperty,String> C7,TableColumn<Hidden_JoinProperty,String> C8,
-			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,TableColumn<Hidden_JoinProperty,String> C11) {
+			TableColumn<Hidden_JoinProperty,String> C9,TableColumn<Hidden_JoinProperty,String> C10,
+			TableColumn<Hidden_JoinProperty,String> C11,TableColumn<Hidden_JoinProperty,String> C12) {
 		this.hiddenTable=hiddenTable;
 		this.offset=offset;
 		this.limit=limit;
@@ -316,6 +327,7 @@ public class InfoWriteController2 {
 		this.C9=C9;
 		this.C10=C10;
 		this.C11=C11;
+		this.C12=C12;
 	 }
 	
 	 @FXML
@@ -403,6 +415,33 @@ public class InfoWriteController2 {
 						// TODO Auto-generated method stub
 						int i=(int) newValue;
 						hiddenPrincipalValue=hidden_Principals.get(i).getPrincipal();
+					}
+				});
+		 
+		 
+		 roomInfoLists=assets.selectManageRegion();
+		 
+		 Iterator<RoomInfo> iterator5=roomInfoLists.iterator();
+		 
+		 List manageRegions=new ArrayList<>();
+		 
+		 while (iterator5.hasNext()) {
+			String manage=iterator5.next().getManageRegion();
+			if(!manage.equals(""))
+			  manageRegions.add(manage);
+		 }
+		 
+		 hiddenManageRegion.setItems(FXCollections.observableArrayList(manageRegions));
+		 
+		 hiddenManageRegion.getSelectionModel().selectedIndexProperty().addListener(new 
+				 ChangeListener<Number>() {
+					
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+						manageRegion=(String) manageRegions.get(i);
+						System.out.println("i="+i+"  "+manageRegion);
 					}
 				});
 		 
@@ -667,6 +706,9 @@ public class InfoWriteController2 {
 	                if(hiddenRemark!=null){
 	                	hidden2.setRemark(hiddenRemark.getText());
 	                }
+	                if(manageRegion!=null){
+	                	hidden2.setManageRegion(manageRegion);
+	                }
 					hidden2.setDate(date);
 	
 			     
@@ -762,7 +804,7 @@ public class InfoWriteController2 {
 			            
 			            
 			            controller.setHidden(hidden);
-			            controller.setTableView(roomTable, offset, limit, searchMap0, pagination0, C01, null, C03, C04, null);
+			            controller.setTableView(roomTable, offset, limit, searchMap0, pagination0, C01, null, C03, C04, C05);
 			            
 			            
 			            controller.setDialogStage(dialogStage);
@@ -1123,7 +1165,10 @@ public class InfoWriteController2 {
      
      C11.setCellValueFactory(
     		 cellData->cellData.getValue().getDate());
-	     
+	
+     C12.setCellValueFactory(
+    		 cellData->cellData.getValue().getManageRegion());
+     
 	     int total=(int) map.get("total");
 	     int page=total/10;
 	     
@@ -1170,8 +1215,8 @@ public class InfoWriteController2 {
 	    		    cellData->cellData.getValue().getRegion());
 	     C04.setCellValueFactory(
 	    		    cellData->cellData.getValue().getNum());
-	 //    C05.setCellValueFactory(
-	 //   		    cellData->cellData.getValue().getInDate());
+	     C05.setCellValueFactory(
+	    		    cellData->cellData.getValue().getManageRegion());
 	 //    C06.setCellValueFactory(
 	 //   		 cellData->cellData.getValue().getLat().asObject());
 	 //    C07.setCellValueFactory(
