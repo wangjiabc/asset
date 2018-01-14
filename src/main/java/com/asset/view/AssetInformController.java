@@ -347,7 +347,9 @@ public class AssetInformController extends AssetAsSwitch{
 	            
 	            System.out.println("neatenid="+newValue.getNeaten_id().get());
 	            
-	            Map map=assets.selectAllHiddenNeaten(limit, offset, null, null, searchMap);
+	            String sort="date";
+	  	      String order="desc";
+	            Map map=assets.selectAllHiddenNeaten(limit, offset, sort, order, searchMap);
 	            MyTestUtil.print(map);
 	            List<Hidden_Neaten_Join> hidden_Neaten_Joins= (List<Hidden_Neaten_Join>) map.get("rows");
 	            MyTestUtil.print(hidden_Neaten_Joins);
@@ -369,8 +371,8 @@ public class AssetInformController extends AssetAsSwitch{
 		 
 		 void setHiddenNeaten(Integer offset,Integer limit,Map search){
 
-		      String sort=null;
-		      String order=null;
+			 String sort="date";
+		      String order="desc";
 		     
 			  Map map=new HashMap<>();
 			  

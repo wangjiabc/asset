@@ -221,7 +221,8 @@ public class SelectCheckInfoDetailController {
 	 				String fileName=names.get(n);
 	 				String fileType=types.get(n);
 	 				String path=Singleton.getInstance().getPath();
-	 				File file = new File(path+fileName);
+	 				String filePath=path+hidden_Check_Join.getGUID()+"\\"+fileName;
+					File file = new File(filePath);
 	 				if (!file.getParentFile().exists()) {  
 	 			        boolean result = file.getParentFile().mkdirs();  
 	 			        if (!result) {  
@@ -664,8 +665,8 @@ public class SelectCheckInfoDetailController {
 	
 	 void setHiddenCheckList(Integer offset,Integer limit,Map search){
 
-	      String sort=null;
-	      String order=null;
+		 String sort="date";
+	      String order="desc";
 	      search=new HashMap<>();
 	      
 		  Map map=new HashMap<>();	

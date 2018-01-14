@@ -21,10 +21,10 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="检查人员" GridPane.halignment="CENTER" />
+            <Label text="整改人员" GridPane.halignment="CENTER" />
             <Label GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label text="标题" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <Label text="检查时间" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label text="整改时间" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <TextField fx:id="principal" GridPane.columnIndex="1" />
             <TextField fx:id="checkName" prefHeight="23.0" prefWidth="132.0" GridPane.columnIndex="3" />
             <DatePicker fx:id="happenTime" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />

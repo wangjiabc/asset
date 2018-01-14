@@ -145,7 +145,10 @@ public class AugmentNeatenDetailController {
 		
 		searchMap.put("[Assets].[dbo].[Hidden_Neaten].GUID=", hidden_Join.getGUID());
 		
-		Map map=assets.selectAllHiddenNeaten(limit, offset, null, null, searchMap);
+		String sort="date";
+	      String order="desc";
+		
+		Map map=assets.selectAllHiddenNeaten(limit, offset, sort, order, searchMap);
 		  
 	    List<Hidden_Neaten_Join> hidden_Neaten_Joins= (List<Hidden_Neaten_Join>) map.get("rows");
 

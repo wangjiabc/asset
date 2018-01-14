@@ -1008,7 +1008,8 @@ public class InfoWriteController2 {
 				String fileName=names.get(n);
 				String fileType=types.get(n);
 				String path=Singleton.getInstance().getPath();
-				File file = new File(path+fileName);
+				String filePath=path+hidden_Jion.getGUID()+"\\"+fileName;
+				File file = new File(filePath);
 				if (!file.getParentFile().exists()) {  
 			        boolean result = file.getParentFile().mkdirs();  
 			        if (!result) {  

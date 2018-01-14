@@ -225,12 +225,15 @@ public class CheckInfoDetailController {
 	 				String fileName=names.get(n);
 	 				String fileType=types.get(n);
 	 				String path=Singleton.getInstance().getPath();
-	 				File file = new File(path+fileName);
+	 				String filePath=path+hidden_Check_Join.getGUID()+"\\"+fileName;
+	 				File file = new File(filePath);
 	 				if (!file.getParentFile().exists()) {  
 	 			        boolean result = file.getParentFile().mkdirs();  
 	 			        if (!result) {  
 	 			            System.out.println("创建失败");  
-	 			        }  
+	 			        }else{
+				        	System.out.println(filePath+"创建成功"); 
+				        }  
 	 			    }  								
 	 			    OutputStream output = new FileOutputStream(file);
 	 			    BufferedOutputStream bufferedOutput = new BufferedOutputStream(output);
@@ -604,7 +607,8 @@ public class CheckInfoDetailController {
 						}
 						if(checkCrics.getText()!=null)
 							hidden_Check.setCheck_circs(checkCrics.getText());
-												
+						if(remark.getText()!=null)
+							hidden_Check.setRemark(remark.getText());
 	                    Date date2=new Date();
 	                    hidden_Check.setUpdate_time(date2);
                 
@@ -669,8 +673,8 @@ public class CheckInfoDetailController {
 	
 	 void setHiddenCheckList(Integer offset,Integer limit,Map search){
 
-	      String sort=null;
-	      String order=null;
+	      String sort="date";
+	      String order="desc";
 	      search=new HashMap<>();
 	      
 		  Map map=new HashMap<>();

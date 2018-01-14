@@ -1415,12 +1415,15 @@ public class HiddenDetailController {
 				String fileName=names.get(n);
 				String fileType=types.get(n);
 				String path=Singleton.getInstance().getPath();
-				File file = new File(path+fileName);
+				String filePath=path+hidden_Jion.getGUID()+"\\"+fileName;
+				File file = new File(filePath);
 				if (!file.getParentFile().exists()) {  
 			        boolean result = file.getParentFile().mkdirs();  
 			        if (!result) {  
 			            System.out.println("创建失败");  
-			        }  
+			        }else{
+			        	System.out.println(filePath+"创建成功"); 
+			        }
 			    }  								
 			    OutputStream output = new FileOutputStream(file);
 			    BufferedOutputStream bufferedOutput = new BufferedOutputStream(output);
@@ -1673,7 +1676,10 @@ public class HiddenDetailController {
 	            
 	            searchMap02.put("[Assets].[dbo].[Hidden_Check].check_id=",newValue.getCheck_id().get());
 	            
-	            Map map=assets.selectAllHiddenCheck(limit2, offset2, null, null, searchMap02);
+	            String sort="date";
+	  	      String order="desc";
+	            
+	            Map map=assets.selectAllHiddenCheck(limit2, offset2, sort, order, searchMap02);
 	            
 	            List<Hidden_Check_Join> hidden_Check_Joins= (List<Hidden_Check_Join>) map.get("rows");
 	            MyTestUtil.print(hidden_Check_Joins);
@@ -1695,8 +1701,8 @@ public class HiddenDetailController {
 	
 	 void setHiddenCheckList(Integer offset,Integer limit,Map search){
 
-	      String sort=null;
-	      String order=null;
+		 String sort="date";
+	      String order="desc";
 	     
 		  Map map=new HashMap<>();
 		  
@@ -1788,7 +1794,10 @@ public class HiddenDetailController {
 	           Map searchMap03=new HashMap<>();
 	           searchMap03.put("[Assets].[dbo].[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
 	            
-	           Map map=assets.selectAllHiddenNeaten(limit3, offset3, null, null, searchMap03);
+	           String sort="date";
+	 	      String order="desc";
+	           
+	           Map map=assets.selectAllHiddenNeaten(limit3, offset3, sort, order , searchMap03);
 	           
 	           NeatenDetailController controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
@@ -1814,8 +1823,8 @@ public class HiddenDetailController {
 	
 	 void setHiddenNeatenList(Integer offset,Integer limit,Map search){
 
-	      String sort=null;
-	      String order=null;
+		 String sort="date";
+	      String order="desc";
 	     
 		  Map map=new HashMap<>();
 		  

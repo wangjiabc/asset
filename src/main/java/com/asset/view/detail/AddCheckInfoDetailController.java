@@ -253,8 +253,8 @@ public class AddCheckInfoDetailController {
 	
 	 void setHiddenCheckList(Integer offset,Integer limit,Map search){
 
-	      String sort=null;
-	      String order=null;
+		 String sort="date";
+	      String order="desc";
 	     
 		  Map map=new HashMap<>();
 		  

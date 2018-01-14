@@ -68,6 +68,17 @@ public class Hidden_Neaten_Join implements Serializable{
 	    @SQLInteger(name="type")
 		private Integer type;
 	    
+	    /*
+	     * Position
+	     */
+	    
+	    @SQLDouble(name="lng")
+	   	private Double lng;
+
+	    @SQLDouble(name="lat")
+	   	private Double lat;
+	    
+	    
 	    public void setId(Integer id){
 			this.id = id;
 		}
@@ -213,6 +224,22 @@ public class Hidden_Neaten_Join implements Serializable{
 
 		public void setType(Integer type) {
 			this.type = type;
+		}
+		
+		public void setLng(Double lng){
+			this.lng = lng;
+		}
+
+		public Double getLng(){
+			return lng;
+		}
+
+		public void setLat(Double lat){
+			this.lat = lat;
+		}
+
+		public Double getLat(){
+			return lat;
 		}
 		
 }

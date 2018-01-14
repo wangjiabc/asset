@@ -378,7 +378,10 @@ public class AssetMessageController extends AssetAsSwitch{
 	            System.out.println("check_id="+newValue.getCheck_id());
 	            searchMap.put("[Assets].[dbo].[Hidden_Check].check_id=",newValue.getCheck_id().get());
 	            
-	            Map map=assets.selectAllHiddenCheck(limit, offset, null, null, searchMap);
+	            String sort="date";
+	  	      String order="desc";
+	            
+	            Map map=assets.selectAllHiddenCheck(limit, offset, sort, order, searchMap);
 	            
 	            List<Hidden_Check_Join> hidden_Check_Joins= (List<Hidden_Check_Join>) map.get("rows");
 	            MyTestUtil.print(hidden_Check_Joins);
@@ -399,8 +402,8 @@ public class AssetMessageController extends AssetAsSwitch{
 	 
 	 void setHiddenCheckList(Integer offset,Integer limit,Map search){
 
-	      String sort=null;
-	      String order=null;
+		 String sort="date";
+	      String order="desc";
 	     
 		  Map map=new HashMap<>();
 		  

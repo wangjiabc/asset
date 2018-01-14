@@ -142,11 +142,14 @@ public class AugmentCheckInfoDetailController {
 	
 	public void setHiddenCheckInfo(Hidden_Join hidden_Join){
 		
+		String sort="date";
+	      String order="desc";
+		
 		this.hidden_Join=hidden_Join;
 		
 		searchMap.put("[Assets].[dbo].[Hidden_Check].GUID=", hidden_Join.getGUID());
 		
-		Map map=assets.selectAllHiddenCheck(limit, offset, null, null, searchMap);
+		Map map=assets.selectAllHiddenCheck(limit, offset, sort, order, searchMap);
 		  
 	    List<Hidden_Check_Join> hidden_Check_Joins= (List<Hidden_Check_Join>) map.get("rows");
        /*

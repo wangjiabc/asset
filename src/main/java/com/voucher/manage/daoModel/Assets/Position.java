@@ -12,10 +12,16 @@ public class Position implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @SQLInteger(name="id")
-	private Integer id;
+   	private Integer id;
 
     @SQLString(name="GUID")
 	private String GUID;
+
+    @SQLString(name="check_id")
+	private String check_id;
+
+    @SQLString(name="neaten_id")
+	private String neaten_id;
 
     @SQLString(name="province")
 	private String province;
@@ -55,6 +61,22 @@ public class Position implements Serializable{
 
 	public String getGUID(){
 		return GUID;
+	}
+
+	public void setCheck_id(String check_id){
+		this.check_id = check_id;
+	}
+
+	public String getCheck_id(){
+		return check_id;
+	}
+
+	public void setNeaten_id(String neaten_id){
+		this.neaten_id = neaten_id;
+	}
+
+	public String getNeaten_id(){
+		return neaten_id;
 	}
 
 	public void setProvince(String province){
