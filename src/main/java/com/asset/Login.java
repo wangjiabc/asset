@@ -41,9 +41,11 @@ public class Login extends JFrame implements ActionListener {
  public static String randomcaptcha;
  
   JLabel logoLabel, userNameLabel, passwordLabel, captchaLabel;
-  JTextField userNameInput, captchaInput;
+  JTextField userNameInput;
+ // JTextField captchaInput;
   JPasswordField passwordInput;
-  JButton login, logout,change;
+  JButton login, logout;
+ // jButton change;
   Panel panel;
   Connection connection;
  
@@ -53,7 +55,7 @@ public class Login extends JFrame implements ActionListener {
   
  public Login() {
   setTitle("安全隐患监管系统登录");
-  setSize(500, 400);
+  setSize(500, 300);
   setLocationRelativeTo(null);
   init();
   /*
@@ -102,6 +104,7 @@ public class Login extends JFrame implements ActionListener {
   passwordInput.setFont(font);
   add(passwordInput);
  
+  /*
   captchaLabel = new JLabel("验证码:");
   captchaLabel.setBounds(120, 180, 60, 40);
   captchaLabel.setFont(font);
@@ -111,7 +114,7 @@ public class Login extends JFrame implements ActionListener {
   captchaInput.setSize(80,30);
   captchaInput.setFont(font);
   add(captchaInput);
- 
+
   panel = new PanelDemo();
   panel.setBounds(270, 196, 80, 20);
   panel.setSize(80,30);
@@ -123,25 +126,26 @@ public class Login extends JFrame implements ActionListener {
   change.setContentAreaFilled(false);
   change.setBorderPainted(false);
   add(change);
- 
+ */
+  
   login = new JButton("确定");
-  login.setBounds(120, 270, 120, 30);
+  login.setBounds(120, 200, 120, 30);
   login.setFont(new java.awt.Font("",1,14));
  // login.setMnemonic(KeyEvent.VK_L);
   add(login);
   logout = new JButton("退出");
-  logout.setBounds(270, 270, 120, 30);
+  logout.setBounds(270, 200, 120, 30);
  // logout.setMnemonic(KeyEvent.VK_X);
   logout.setFont(new java.awt.Font("",1,14));
   add(logout);
  
   userNameInput.addActionListener(this);
   passwordInput.addActionListener(this);
-  captchaInput.addActionListener(this);
+//  captchaInput.addActionListener(this);
  
   login.addActionListener(this);
   logout.addActionListener(this);
-  change.addActionListener(this);
+ // change.addActionListener(this);
  }
  
  public void actionPerformed(ActionEvent e) {
@@ -155,12 +159,13 @@ public class Login extends JFrame implements ActionListener {
 	}
   userName = userNameInput.getText();
   password = new String(passwordInput.getPassword());
-  captcha = captchaInput.getText();
-   
+ // captcha = captchaInput.getText();
+  
+  /*
   if (e.getSource() == change) {
    panel.repaint();
   }
-  
+  */
  
   if (e.getSource() == login) {	 
 	  
@@ -173,16 +178,16 @@ public class Login extends JFrame implements ActionListener {
 		  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>密码不能空</html></h2>"));
 		  return;
 	  }
-	  
+	  /*
 	  if(captcha.equals("")){
 		  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>请输入验证码</html></h2>"));
 		  return;
 	  }
-	  
+	  */
 	  Map map=assets.selectHiddenUser(userName);
 	  int state=(int) map.get("state");
 	  Hidden_User hidden_User=(Hidden_User) map.get("row");	 
-	  if (captcha.equals(randomcaptcha.toLowerCase())) {
+	//  if (captcha.equals(randomcaptcha.toLowerCase())) {
 		  
 		  if(state==0){
 			  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>用户不存在</html></h2>"));
@@ -214,13 +219,16 @@ public class Login extends JFrame implements ActionListener {
 			  new MainApp().launch(Main.class, "");  
 			  
 			  
+		  	} else if (userName.equals(campusAdmin)){
+			  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>密码错误!</html></h2>"));
 		  	} else {
-			  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>对不起，你没有登陆权限!</html></h2>"));
-		  	} 
-		  } else {    
+		  	   JOptionPane.showMessageDialog(this, new JLabel("<html><h2>用户不存在!</html></h2>"));
+			}
+		  
+		/*  } else {    
 			  JOptionPane.showMessageDialog(this, new JLabel("<html><h2>验证码错误</html></h2>"));
 			  panel.repaint();
-		  }   
+		  }  */ 
    }
   
   if (e.getSource() == logout) {
