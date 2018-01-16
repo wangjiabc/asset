@@ -267,7 +267,7 @@ public class AppendAssetsQueryController {
 							alert.setContentText("添加"+assetName+"信息"+"成功");
 							alert.showAndWait();
 							Map search2=new HashMap<>();
-							search2.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", hidden_Assets.getHidden_GUID());
+							search2.put("[Hidden_Assets].hidden_GUID=", hidden_Assets.getHidden_GUID());
 							try{
 								setRoomInfoList0(offset0, limit0, search2);
 							}catch (Exception e) {

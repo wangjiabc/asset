@@ -689,7 +689,7 @@ public class AssetWorkController extends AssetAsSwitch{
 	        result.ifPresent(buttonType -> {
 	            if (buttonType == btnType1) {
 	                try{
-	                String[] where={"[Assets].[dbo].[Hidden_User].id =",uesrId};
+	                String[] where={"[Hidden_User].id =",uesrId};
                   Hidden_User hidden_User=new Hidden_User();
                   hidden_User.setWhere(where);
                   hidden_User.setPrincipal(principal);
@@ -751,7 +751,7 @@ public class AssetWorkController extends AssetAsSwitch{
 	        result.ifPresent(buttonType -> {
 	            if (buttonType == btnType1) {
 	                try{
-	                String[] where={"[Assets].[dbo].[Hidden_Type].id =", typeId};
+	                String[] where={"[Hidden_Type].id =", typeId};
                    Hidden_Type hidden_Type=new Hidden_Type();
                    hidden_Type.setWhere(where);
                    hidden_Type.setType(hiddenTypeProperty.getType().get());
@@ -822,7 +822,7 @@ public class AssetWorkController extends AssetAsSwitch{
 	        result.ifPresent(buttonType -> {
 	            if (buttonType == btnType1) {
 	                try{
-	                String[] where={"[Assets].[dbo].[Hidden_Level].id =", levelId};
+	                String[] where={"[Hidden_Level].id =", levelId};
                     Hidden_Level hidden_Level=new Hidden_Level();
                     hidden_Level.setWhere(where);
                     hidden_Level.setHidden_level(hiddenLevel);

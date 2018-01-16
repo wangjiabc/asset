@@ -59,6 +59,7 @@ public class AppendHiddenQueryController {
 	 
 	 @FXML
 	 private ChoiceBox hiddenProgress;	 
+	 private String progress;
 	 
 	 @FXML
 	 private ChoiceBox hiddenType;	 
@@ -169,8 +170,25 @@ public class AppendHiddenQueryController {
 					});
 	     
      
-	    //整改进度 :
-	    
+			//整改进度 :
+		    List hidden_progress=new ArrayList<>();
+		    hidden_progress.add("未整改");
+		    hidden_progress.add("整改中");
+		    hidden_progress.add("已完成");
+		    hiddenProgress.setItems(FXCollections.observableArrayList(hidden_progress));
+		    
+		    hiddenProgress.getSelectionModel().selectedIndexProperty().addListener(new 
+		    		ChangeListener<Number>() {
+
+						@Override
+						public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+								Number newValue) {
+							// TODO Auto-generated method stub
+							int i=(int) newValue;
+							progress=hidden_progress.get(i).toString();
+							searchMap=new HashMap<>();  //清除查询条件
+						}
+				});
 	     
 	    //隐患情况 :
 		hidden_Types=assets.selectAllHiddenType();
@@ -201,15 +219,26 @@ public class AppendHiddenQueryController {
 				// TODO Auto-generated method stub
 				if(hiddenLevelValue!=null){
 				   String search=String.valueOf(hiddenLevelValue);
-				   searchMap.put("[Assets].[dbo].[Hidden].Hidden_Level=", search);
+				   searchMap.put("[Hidden].Hidden_Level=", search);
 				 }
 				
 				 if(keyWord.getText()!=null){
-					 searchMap.put("[Assets].[dbo].[Hidden].name like ", "%"+keyWord.getText()+"%");
+					 searchMap.put("[Hidden].name like ", "%"+keyWord.getText()+"%");
 				 }
 				 
 				 if(hiddenTypeValue!=null){
-					 searchMap.put("[Assets].[dbo].[Hidden].type=", String.valueOf(hiddenTypeValue));
+					 searchMap.put("[Hidden].type=", String.valueOf(hiddenTypeValue));
+				 }
+				 
+				 if(progress!=null){
+					 if(progress.equals("未整改")){
+						 searchMap.put("[Hidden].progress=","0");
+					 }else if(progress.equals("整改中")){
+						 searchMap.put("[Hidden].progress>", "0");
+						 searchMap.put("[Hidden].progress<", "1");
+					 }else{
+						 searchMap.put("[Hidden].progress=", "1");
+					 }
 				 }
 				 
 				 setRoomInfoList(0,10,searchMap);

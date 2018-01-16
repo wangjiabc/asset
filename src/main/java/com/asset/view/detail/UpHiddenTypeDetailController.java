@@ -76,7 +76,7 @@ public class UpHiddenTypeDetailController {
 				System.out.println("hiientypeid="+hidden_Type.getId());
 				if(hidden_Type!=null){
 					hidden_Type.setHidden_type(hiddenType.getText());
-					String[] where={"[Assets].[dbo].[Hidden_Type].id=",String.valueOf(hidden_Type.getId())};
+					String[] where={"[Hidden_Type].id=",String.valueOf(hidden_Type.getId())};
 					hidden_Type.setWhere(where);
 					hidden_Type.setId(null);
 					

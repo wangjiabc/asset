@@ -228,7 +228,7 @@ public class AssetMessageController extends AssetAsSwitch{
 				 if(hiddenValue!=null){
 				   String search=hidden.get(hiddenValue).getGUID();
 				   System.out.println("search="+search);
-				   searchMap.put("[Assets].[dbo].[Hidden_Check].GUID=", search);
+				   searchMap.put("[Hidden_Check].GUID=", search);
 				 }
 				 
 				 setHiddenCheckList(0,10,searchMap);
@@ -300,7 +300,7 @@ public class AssetMessageController extends AssetAsSwitch{
 								        result.ifPresent(buttonType -> {
 								            if (buttonType == btnType1) {
 								                try{
-								                String[] where={"[Assets].[dbo].[Hidden_Check].check_id=",check_id};
+								                String[] where={"[Hidden_Check].check_id=",check_id};
 					                            Hidden_Check hidden_Check=new Hidden_Check();
 					                            hidden_Check.setWhere(where);
 					                            
@@ -376,7 +376,7 @@ public class AssetMessageController extends AssetAsSwitch{
 	            controller.setTableView(hiddenCheckTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
 	            	     
 	            System.out.println("check_id="+newValue.getCheck_id());
-	            searchMap.put("[Assets].[dbo].[Hidden_Check].check_id=",newValue.getCheck_id().get());
+	            searchMap.put("[Hidden_Check].check_id=",newValue.getCheck_id().get());
 	            
 	            String sort="date";
 	  	      String order="desc";

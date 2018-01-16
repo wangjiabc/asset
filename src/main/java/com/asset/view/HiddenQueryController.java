@@ -447,13 +447,13 @@ public class HiddenQueryController extends AssetAsSwitch{
 	            controller.setDialogStage(dialogStage);
 	            
 	            Map searchMap=new HashMap<>();
-	            searchMap.put("[Assets].[dbo].[Hidden].GUID=", GUID);
+	            searchMap.put("[Hidden].GUID=", GUID);
 	            Map searchMap0=new HashMap<>();	  		  
-	  		    searchMap0.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", GUID);
+	  		    searchMap0.put("[Hidden_Assets].hidden_GUID=", GUID);
 	  		    Map searchMap2=new HashMap<>();
-	  		    searchMap2.put("[Assets].[dbo].[Hidden_Check].GUID=", GUID);
+	  		    searchMap2.put("[Hidden_Check].GUID=", GUID);
 	  		    Map searchMap3=new HashMap<>();
-	  		    searchMap3.put("[Assets].[dbo].[Hidden_Neaten].GUID=", GUID);
+	  		    searchMap3.put("[Hidden_Neaten].GUID=", GUID);
 	  		    
 	            controller.setTableView(null,null,null,searchMap,searchMap0,searchMap2,searchMap3,null,null, null, null, null, null, null, null, null,null,null,null,null);
 	            

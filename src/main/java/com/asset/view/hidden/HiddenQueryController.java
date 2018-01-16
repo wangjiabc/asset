@@ -289,11 +289,11 @@ public class HiddenQueryController {
 			
 			Map searchMap0=new HashMap<>();
 	  		  
-	  		searchMap0.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", GUID);
+	  		searchMap0.put("[Hidden_Assets].hidden_GUID=", GUID);
 	  		Map searchMap2=new HashMap<>();
-  		    searchMap2.put("[Assets].[dbo].[Hidden_Check].GUID=", GUID);
+  		    searchMap2.put("[Hidden_Check].GUID=", GUID);
   		    Map searchMap3=new HashMap<>();
-		    searchMap3.put("[Assets].[dbo].[Hidden_Neaten].GUID=", GUID);
+		    searchMap3.put("[Hidden_Neaten].GUID=", GUID);
 		    
             controller.setTableView(hiddenTable, offset, limit, searchMap, searchMap0,searchMap2,searchMap3,pagination, C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, C11,C12);
 			Map map = assets.selectAllHidden_Jion(limit, offset, null, null, searchMap);

@@ -125,7 +125,7 @@ public class AssetsQueryController {
 	
 	 public void setHidden(Hidden hidden) {
 		this.hidden = hidden;
-		searchMap.put("[Assets].[dbo].[Hidden_Assets].[hidden_GUID] =", hidden.getGUID());
+		searchMap.put("[Hidden_Assets].[hidden_GUID] =", hidden.getGUID());
 	}
 
 	 
@@ -145,7 +145,7 @@ public class AssetsQueryController {
 				 
 				 if(!search.equals("")){
 					 searchMap.put("[TTT].[dbo].[RoomInfo].Address like ", search);
-					// searchMap.put("[Assets].[dbo].[RoomInfo].Address like ", search);
+					// searchMap.put("[RoomInfo].Address like ", search);
 				 }
 				 
 				 setRoomInfoList(0,10,searchMap);
@@ -209,7 +209,7 @@ public class AssetsQueryController {
 						        result.ifPresent(buttonType -> {
 						            if (buttonType == btnType1) {
 						                try{
-						                String[] where={"[Assets].[dbo].[Hidden_Assets].asset_GUID=",GUID};
+						                String[] where={"[Hidden_Assets].asset_GUID=",GUID};
 			                            Hidden_Assets hidden_Assets=new Hidden_Assets();
 			                            hidden_Assets.setWhere(where);
 			                            

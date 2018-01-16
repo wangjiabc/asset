@@ -203,7 +203,7 @@ public class UpUserDetailController {
 				  hidden_User.setPurview(purview);
 				  hidden_User.setBusiness(business); 	
 			   	  
-				  String[] where={"[Assets].[dbo].[Hidden_User].id=",String.valueOf(hidden_User.getId())};
+				  String[] where={"[Hidden_User].id=",String.valueOf(hidden_User.getId())};
 				  
 				  hidden_User.setWhere(where);
 				  

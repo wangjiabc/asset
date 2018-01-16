@@ -17,16 +17,12 @@ import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.join.HiddenNeaten_JoinProperty;
-import com.asset.property.join.HiddenNeaten_JoinProperty;
 import com.asset.tool.MenuType;
 import com.asset.tool.MyTestUtil;
-import com.asset.view.check.CheckInfoDetailController;
-import com.asset.view.detail.AddCheckInfoDetailController;
 import com.asset.view.neaten.NeatenDetailController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Neaten;
-import com.voucher.manage.daoModelJoin.Assets.Hidden_Neaten_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Neaten_Join;
 
 import javafx.beans.property.DoubleProperty;
@@ -60,8 +56,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class AssetInformController extends AssetAsSwitch{
-
+public class SafeInspectionController extends AssetAsSwitch{
 	@FXML
 	 private Label rightTitleLabel;
 	
@@ -88,22 +83,10 @@ public class AssetInformController extends AssetAsSwitch{
 	 @FXML
 	 private TableColumn<HiddenNeaten_JoinProperty,String> C6;
 	 
-	 @FXML
-	 private TableColumn<HiddenNeaten_JoinProperty,ProgressBar> C7;
-	 
-	 @FXML
-	 private TableColumn<HiddenNeaten_JoinProperty,String> C8;
-	 
-	 @FXML
-	 private TableColumn<HiddenNeaten_JoinProperty,String> C9;
-	 
+
 	 @FXML
 	 private Pagination pagination;
 	 
-	 @FXML
-	 private ChoiceBox<T> hiddenName;//隐患名字
-	 private List<Hidden> hidden;
-	 private Integer hiddenValue;
 	 
 	 //查询按钮
 	 @FXML
@@ -113,7 +96,7 @@ public class AssetInformController extends AssetAsSwitch{
 	 
 	 private List<Hidden_Neaten_Join> hidden_Neaten_Joins;
 	 
-     private Stage dialogStage;
+    private Stage dialogStage;
 	 
 	 private Integer offset=0;
 	 
@@ -132,7 +115,7 @@ public class AssetInformController extends AssetAsSwitch{
 	 
 	 Assets assets= new Connect().get();
 	
-	 public AssetInformController() {
+	 public SafeInspectionController() {
 		// TODO Auto-generated constructor stub
 		 super();
 	}
@@ -145,7 +128,7 @@ public class AssetInformController extends AssetAsSwitch{
 		 Image image = new Image(filePath+"/inform.jpg");
 	     homepage.setImage(image);
 	     
-	     rightTitleLabel.setText("整改记录");
+	     rightTitleLabel.setText("安全巡查记录");
 	 
 	     
 	     Image delImage=new Image(filePath+"/del.jpg");
@@ -155,40 +138,7 @@ public class AssetInformController extends AssetAsSwitch{
 	     imageView0.setImage(delImage);
 	     contextMenu.getItems().get(0).setGraphic(imageView0);
 	     
-	     Map map=assets.selectAllHidden(1000, 0, null, null, searchMap);
-			hidden=(List<Hidden>) map.get("rows");
-			Iterator<Hidden> iterator=hidden.iterator();
-			List levels = new ArrayList<>();
-			while (iterator.hasNext()) {
-				levels.add(iterator.next().getName());
-				System.out.println("levels="+levels);
-			}
-
-			
-			hiddenWrite.setOnAction(new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					main.showAssetOverview();
-				}
-				
-			});
-			
-			hiddenName.setItems(FXCollections.observableArrayList(levels));
-			
-			hiddenName.getSelectionModel().selectedIndexProperty().addListener(new
-					 ChangeListener<Number>() {
-
-						@Override
-						public void changed(ObservableValue<? extends Number> observable, Number oldValue,
-								Number newValue) {
-							// TODO Auto-generated method stub
-							int i=(int) newValue;
-	                        hiddenValue=i;
-						}
-				        
-					});
+	     
 		     
 		   //搜索
 			    
@@ -197,10 +147,6 @@ public class AssetInformController extends AssetAsSwitch{
 				public void handle(ActionEvent event) {
 					// TODO Auto-generated method stub
 					
-					 if(hiddenValue!=null){
-					   String search=hidden.get(hiddenValue).getGUID();
-					   searchMap.put("[Hidden_Neaten].GUID=", search);
-					 }
 					 
 					 setHiddenNeaten(0,10,searchMap);
 				}
@@ -220,7 +166,7 @@ public class AssetInformController extends AssetAsSwitch{
 		                return null;
 		            }
 			    });
-		     
+	/*	     
 		     hiddenNeatenTable.setRowFactory( tv -> {
 			        TableRow<HiddenNeaten_JoinProperty> row = new TableRow<>();
 			        row.setOnMouseClicked(event -> {
@@ -318,7 +264,7 @@ public class AssetInformController extends AssetAsSwitch{
 			        
 			        return row ;
 			    });
-
+*/
 		     
 		 }
 		 
@@ -341,7 +287,7 @@ public class AssetInformController extends AssetAsSwitch{
 	            NeatenDetailController controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
 	            Map searchMap0=new HashMap<>();
-	            controller.setTableView(hiddenNeatenTable,offset,limit,searchMap0,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
+	          //  controller.setTableView(hiddenNeatenTable,offset,limit,searchMap0,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
 	            	     
 	            System.out.println("neaten_id="+newValue.getNeaten_id());
 	            searchMap.put("[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
@@ -401,26 +347,7 @@ public class AssetInformController extends AssetAsSwitch{
 		     C6.setCellValueFactory(
 		    		    cellData->cellData.getValue().getHappen_time());	
 		     
-		     C7.setCellValueFactory(
-		    		    new Callback<TableColumn.CellDataFeatures<HiddenNeaten_JoinProperty,ProgressBar>, ObservableValue<ProgressBar>>() {
-							
-							@Override
-							public ObservableValue<ProgressBar> call(CellDataFeatures<HiddenNeaten_JoinProperty, ProgressBar> param) {
-								// TODO Auto-generated method stub
-								DoubleProperty d=param.getValue().getProgress();
-								Double dd=d.doubleValue();
-								ProgressBar progressBar=new ProgressBar();
-								progressBar.setProgress(dd);
-								return new SimpleObjectProperty<ProgressBar>(progressBar);
-							}
-						});
-						
-		      C8.setCellValueFactory(
-		    		    cellData->cellData.getValue().getDate());
-		      
-		      C9.setCellValueFactory(
-		    		    cellData->cellData.getValue().getCampusAdmin());
-		     
+		   
 		     int total=(int) map.get("total");
 		     int page=total/10;
 		     
@@ -434,5 +361,5 @@ public class AssetInformController extends AssetAsSwitch{
 				}
 		     	     
 		 }
-	 
+
 }

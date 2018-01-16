@@ -114,8 +114,8 @@ public class AssetOverviewController extends AssetAsSwitch{
 	 @FXML
 	 private TableView<Hidden_JoinProperty> hiddenTable;
 	 
-	 @FXML
-	 private TableColumn<Hidden_JoinProperty,Integer> C1;
+	// @FXML
+	// private TableColumn<Hidden_JoinProperty,Integer> C1;
 	 
 	 @FXML
 	 private TableColumn<Hidden_JoinProperty,String> C2;
@@ -295,7 +295,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 				String code=event.getCode().getName();
 				if(code.equals("Enter")){
 					if(keyWord.getText()!=null){
-					  searchMap.put("[Assets].[dbo].[Hidden].name like ", "%"+keyWord.getText()+"%");
+					  searchMap.put("[Hidden].name like ", "%"+keyWord.getText()+"%");
 					}else{
 						searchMap=new HashMap<>();
 					}
@@ -311,25 +311,25 @@ public class AssetOverviewController extends AssetAsSwitch{
 				// TODO Auto-generated method stub
 				if(hiddenLevelValue!=null){
 				   String search=String.valueOf(hiddenLevelValue);
-				   searchMap.put("[Assets].[dbo].[Hidden].Hidden_Level=", search);
+				   searchMap.put("[Hidden].Hidden_Level=", search);
 				 }
 				
 				 if(keyWord.getText()!=null){
-					 searchMap.put("[Assets].[dbo].[Hidden].name like ", "%"+keyWord.getText()+"%");
+					 searchMap.put("[Hidden].name like ", "%"+keyWord.getText()+"%");
 				 }
 				 
 				 if(hiddenTypeValue!=null){
-					 searchMap.put("[Assets].[dbo].[Hidden].type=", String.valueOf(hiddenTypeValue));
+					 searchMap.put("[Hidden].type=", String.valueOf(hiddenTypeValue));
 				 }
 				 
 				 if(progress!=null){
 					 if(progress.equals("未整改")){
-						 searchMap.put("[Assets].[dbo].[Hidden].progress=","0");
+						 searchMap.put("[Hidden].progress=","0");
 					 }else if(progress.equals("整改中")){
-						 searchMap.put("[Assets].[dbo].[Hidden].progress>", "0");
-						 searchMap.put("[Assets].[dbo].[Hidden].progress<", "1");
+						 searchMap.put("[Hidden].progress>", "0");
+						 searchMap.put("[Hidden].progress<", "1");
 					 }else{
-						 searchMap.put("[Assets].[dbo].[Hidden].progress=", "1");
+						 searchMap.put("[Hidden].progress=", "1");
 					 }
 				 }
 				 
@@ -541,7 +541,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 							            SelectCheckInfoController controller = loader.getController();
 							          //  controller.setDialogStage(dialogStage);
 										Map searchMap4=new HashMap<>();           	     
-							            searchMap4.put("[Assets].[dbo].[Hidden_Check].GUID=",GUID);
+							            searchMap4.put("[Hidden_Check].GUID=",GUID);
 							            
                                         controller.setSearch(searchMap4);						           
 							          
@@ -572,7 +572,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 							          //  controller.setDialogStage(dialogStage);
 										
 							            Map searchMap5=new HashMap<>();
-							            searchMap5.put("[Assets].[dbo].[Hidden_Neaten].GUID=",GUID);
+							            searchMap5.put("[Hidden_Neaten].GUID=",GUID);
 							            
                                         controller.setSearch(searchMap5);						           
 							          
@@ -686,12 +686,13 @@ public class AssetOverviewController extends AssetAsSwitch{
 			            Stage dialogStage = new Stage();
 			            dialogStage.setTitle("信息录入");
 			            dialogStage.initModality(Modality.APPLICATION_MODAL);
+			            dialogStage.setResizable(false);
 			            Scene scene = new Scene(page);
 			            dialogStage.setScene(scene);
 
 			            // Set the person into the controller.
 			            InfoWriteController2 controller = loader.getController();
-			            controller.setTableView(hiddenTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8,C9,C10,C11,C12);
+			            controller.setTableView(hiddenTable,offset,limit,searchMap,pagination,null, C2, C3, C4, C5, C6, C7, C8,C9,C10,C11,C12);
 			            controller.setDialogStage(dialogStage);
 			            
 			            // Show the dialog and wait until the user closes it
@@ -728,13 +729,13 @@ public class AssetOverviewController extends AssetAsSwitch{
 	            
 	            Map searchMap0=new HashMap<>();
 	  		  
-	  		    searchMap0.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", GUID);
+	  		    searchMap0.put("[Hidden_Assets].hidden_GUID=", GUID);
 	  		    Map searchMap2=new HashMap<>();
-	  		    searchMap2.put("[Assets].[dbo].[Hidden_Check].GUID=", GUID);
+	  		    searchMap2.put("[Hidden_Check].GUID=", GUID);
 	  		    Map searchMap3=new HashMap<>();
-	  		    searchMap3.put("[Assets].[dbo].[Hidden_Neaten].GUID=", GUID);
+	  		    searchMap3.put("[Hidden_Neaten].GUID=", GUID);
 	  		    
-	            controller.setTableView(hiddenTable,offset,limit,searchMap,searchMap0,searchMap2,searchMap3,pagination,C1, C2, C3, C4, C5, C6, C7, C8,C9,C10,C11,C12);
+	            controller.setTableView(hiddenTable,offset,limit,searchMap,searchMap0,searchMap2,searchMap3,pagination,null, C2, C3, C4, C5, C6, C7, C8,C9,C10,C11,C12);
 	            
 	           // Map map=assets.selectAllHidden(limit, offset, null, null, searchMap);
 
@@ -796,8 +797,8 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     
 	    hiddenTable.setItems(hiddenList);
         
-	     C1.setCellValueFactory(
-	                cellData -> cellData.getValue().getId().asObject());
+	   //  C1.setCellValueFactory(
+	     //           cellData -> cellData.getValue().getId().asObject());
 	     C2.setCellValueFactory(
 	   		    cellData->cellData.getValue().getName());
 	     C3.setCellValueFactory(

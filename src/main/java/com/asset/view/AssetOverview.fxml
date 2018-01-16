@@ -69,8 +69,8 @@
                   </GridPane>
                   <Button fx:id="hiddenWrite" layoutX="28.0" layoutY="301.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="隐患录入" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0" />
                   <Button layoutX="18.0" layoutY="363.0" mnemonicParsing="false" onAction="#hiddenButtonAction" prefHeight="30.0" prefWidth="200.0" text="隐患查询" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="350.0" />
-                  <Button layoutX="20.0" layoutY="427.0" mnemonicParsing="false" onAction="#messageButtonAction" prefHeight="30.0" prefWidth="200.0" text="检查记录" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" />
-                  <Button layoutX="20.0" layoutY="477.0" mnemonicParsing="false" onAction="#informButtonAction" prefHeight="30.0" prefWidth="200.0" text="整改记录" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="450.0" />
+                  <Button layoutX="20.0" layoutY="427.0" mnemonicParsing="false" onAction="#messageButtonAction" prefHeight="30.0" prefWidth="200.0" text="隐患检查" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" />
+                  <Button layoutX="20.0" layoutY="477.0" mnemonicParsing="false" onAction="#informButtonAction" prefHeight="30.0" prefWidth="200.0" text="隐患整改" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="450.0" />
                   <ImageView fx:id="bar" fitHeight="30.0" fitWidth="222.0" layoutX="-37.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />                 
                   <Label fx:id="leftTitleLabel" layoutX="112.0" layoutY="17.0" text="Label" textFill="#fc0d0d" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="12.0">
                      <font>
@@ -80,8 +80,9 @@
                   <ImageView fx:id="danger" fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="356.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
                   <ImageView fx:id="report" fitHeight="20.0" fitWidth="20.0" layoutX="45.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
                   <ImageView fx:id="file" fitHeight="20.0" fitWidth="20.0" layoutX="50.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
-                  <Button layoutX="57.0" layoutY="518.0" mnemonicParsing="false" onAction="#workButtonAction" prefHeight="30.0" text="系统设置" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
-                  <Button fx:id="exitButton" layoutX="33.0" layoutY="554.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="185.0" text="退出系统" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="550.0" />
+                  <Button layoutX="57.0" layoutY="518.0" mnemonicParsing="false" onAction="#workButtonAction" prefHeight="30.0" text="系统设置" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="550.0" />
+                  <Button fx:id="exitButton" layoutX="33.0" layoutY="554.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="185.0" text="退出系统" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="600.0" />
+                  <Button mnemonicParsing="false" onAction="#safeInspectionAction" prefHeight="30.0" text="安全巡查" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="798.0" prefWidth="738.0">
@@ -117,7 +118,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
          <columns>
-            <TableColumn fx:id="C1" prefWidth="40.0" text="ID" />
             <TableColumn fx:id="C2" prefWidth="104.0" text="隐患名称" />
             <TableColumn fx:id="C3" prefWidth="75.0" text="隐患级别" />
             <TableColumn fx:id="C4" prefWidth="75.0" text="隐患详情" />

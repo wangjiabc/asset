@@ -133,7 +133,7 @@ public class AppendAssetsQueryController {
 				 System.out.println("keyWord="+keyWord.getText());
 				 
 				 if(!search.equals("")){
-				   searchMap.put("[Assets].[dbo].[RoomInfo].Address like ", search);
+				   searchMap.put("[RoomInfo].Address like ", search);
 				 }else {
 					searchMap.clear();
 				}

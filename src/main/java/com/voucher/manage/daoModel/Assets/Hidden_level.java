@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.voucher.manage.daoSQL.annotations.*;
 
-@DBTable(name="[Assets].[dbo].[Hidden_Level]")
+@DBTable(name="[Hidden_Level]")
 public class Hidden_Level implements Serializable{
 
     private static final long serialVersionUID = 1L;

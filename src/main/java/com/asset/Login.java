@@ -206,7 +206,7 @@ public class Login extends JFrame implements ActionListener {
 			  Hidden_User hidden_User2=new Hidden_User();
 			  Date date=new Date();
 			  hidden_User2.setEnter_time(date);
-			  String[] where={"[Assets].[dbo].[Hidden_User].campusAdmin = ",campusAdmin};
+			  String[] where={"[Hidden_User].campusAdmin = ",campusAdmin};
 			  hidden_User2.setWhere(where);
 			  assets.updateHiddenUser(hidden_User2);
 			  dispose();

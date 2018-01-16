@@ -87,7 +87,7 @@ public class UpHiddenLevelDetailController {
 				if(levelText.getText()!=null)
 					hidden_level.setLevel_text(levelText.getText());
 				
-				String[] where={"[Assets].[dbo].[Hidden_Level].id=",String.valueOf(hidden_Level.getId())};
+				String[] where={"[Hidden_Level].id=",String.valueOf(hidden_Level.getId())};
 				
 				hidden_level.setWhere(where);
 				

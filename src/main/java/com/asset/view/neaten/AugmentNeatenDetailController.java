@@ -143,7 +143,7 @@ public class AugmentNeatenDetailController {
 		
 		this.hidden_Join=hidden_Join;
 		
-		searchMap.put("[Assets].[dbo].[Hidden_Neaten].GUID=", hidden_Join.getGUID());
+		searchMap.put("[Hidden_Neaten].GUID=", hidden_Join.getGUID());
 		
 		String sort="date";
 	      String order="desc";

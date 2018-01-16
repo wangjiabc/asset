@@ -10,6 +10,7 @@ import com.asset.view.AssetWorkController;
 import com.asset.view.HiddenAssetController;
 import com.asset.view.HiddenMapController;
 import com.asset.view.HiddenQueryController;
+import com.asset.view.SafeInspectionController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -87,6 +88,25 @@ public class Main extends Application{
 	        }
 	    }
 
+	    //hiddenMap界面
+	    public void showHiddenMap() {
+	        try {
+	            // Load person overview.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(MainApp.class.getResource("view/HiddenMap.fxml"));
+	            AnchorPane personOverview = (AnchorPane) loader.load();
+
+	            // Set person overview into the center of root layout.
+	            rootLayout.setCenter(personOverview);
+
+	            // Give the controller access to the main app.
+	            HiddenMapController controller= loader.getController();
+	            controller.setMain(this);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 
 	  //messgae界面
 	    public void showAssetMessage() {
@@ -169,19 +189,19 @@ public class Main extends Application{
 	        }
 	    }
 	    
-	  //hiddenMap界面
-	    public void showHiddenMap() {
+	  //SafeInspection界面
+	    public void showSafeInspection() {
 	        try {
 	            // Load person overview.
 	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(MainApp.class.getResource("view/HiddenMap.fxml"));
+	            loader.setLocation(MainApp.class.getResource("view/SafeInspection.fxml"));
 	            AnchorPane personOverview = (AnchorPane) loader.load();
 
 	            // Set person overview into the center of root layout.
 	            rootLayout.setCenter(personOverview);
 
 	            // Give the controller access to the main app.
-	            HiddenMapController controller= loader.getController();
+	            SafeInspectionController controller= loader.getController();
 	            controller.setMain(this);
 
 	        } catch (IOException e) {
@@ -189,8 +209,8 @@ public class Main extends Application{
 	        }
 	    }
 	    
-	  //hiddenMap界面
-	  /*  public void showHiddenAsset() {
+	    
+	    public void showHiddenAsset() {
 	        try {
 	            // Load person overview.
 	            FXMLLoader loader = new FXMLLoader();
@@ -208,7 +228,8 @@ public class Main extends Application{
 	            e.printStackTrace();
 	        }
 	    }
-	    */
+	    
+	    
 	    public static void main(String args[]) {
 			new Main().launch("");
 		}

@@ -254,8 +254,8 @@ public class HiddenMapController extends AssetAsSwitch{
 
 	            Map searchMap=new HashMap<>();
 	            
-	            searchMap.put("[Assets].[dbo].[Position].lng=", lng);
-	            searchMap.put("[Assets].[dbo].[Position].lat=", lat);
+	            searchMap.put("[Position].lng=", lng);
+	            searchMap.put("[Position].lat=", lat);
 	            
 	   	        List<Hidden_Join> hidden_Jions= assets.selectHiddenOfMap(searchMap);
 	   	        
@@ -263,16 +263,16 @@ public class HiddenMapController extends AssetAsSwitch{
 	   	    
 	   	        Map searchMap0=new HashMap<>();
 	  		  
-	  		    searchMap0.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", hidden_Join.getGUID());
+	  		    searchMap0.put("[Hidden_Assets].hidden_GUID=", hidden_Join.getGUID());
 	  		    Map searchMap2=new HashMap<>();
-	  		    searchMap2.put("[Assets].[dbo].[Hidden_Check].GUID=", hidden_Join.getGUID());
+	  		    searchMap2.put("[Hidden_Check].GUID=", hidden_Join.getGUID());
 	  		    Map searchMap3=new HashMap<>();
-	  		    searchMap3.put("[Assets].[dbo].[Hidden_Neaten].GUID=", hidden_Join.getGUID());
+	  		    searchMap3.put("[Hidden_Neaten].GUID=", hidden_Join.getGUID());
 	  		    
 	  		    controller.setTableView(null,0,10,searchMap,searchMap0,searchMap2,searchMap3,null,null, null, null, null, null, null, null, null,null,null,null,null);
 	            
 	  		    Map searchMap4=new HashMap<>();
-	  		    searchMap4.put("[Assets].[dbo].[Hidden].GUID=", hidden_Join.getGUID());
+	  		    searchMap4.put("[Hidden].GUID=", hidden_Join.getGUID());
 	  		    Map map=assets.selectAllHidden_Jion(10, 0, "date", "desc", searchMap4);
 	            
 	   	        hidden_Jions= (List<Hidden_Join>) map.get("rows");

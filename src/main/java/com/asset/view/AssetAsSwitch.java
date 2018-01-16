@@ -170,6 +170,11 @@ public abstract class AssetAsSwitch {
 	 }
 	
 	 @FXML
+	 private void hiddenMapAction(){
+		main.showHiddenMap();
+	 }
+	 
+	 @FXML
 	 private void informButtonAction(){
 	     // get a handle to the stage
 	    main.showAssetInform();
@@ -191,8 +196,8 @@ public abstract class AssetAsSwitch {
 	    main.showHiddenQuery();
 	 }
 	 @FXML
-	 private void hiddenMapAction(){
-		 main.showHiddenMap();
+	 private void safeInspectionAction(){
+		 main.showSafeInspection();
 	 }
 
 	 

@@ -339,7 +339,7 @@ public class InfoWriteController2 {
 		 
 		 note.setText(Singleton.getInstance().getHidden_User().getCampusAdmin());
 		 
-		 searchMap0.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", uuid.toString());
+		 searchMap0.put("[Hidden_Assets].hidden_GUID=", uuid.toString());
 		 
 		 List<Hidden_Level> hidden_levels=assets.setctAllHiddenLevel();
 			Iterator<Hidden_Level> iterator=hidden_levels.iterator();
@@ -769,7 +769,7 @@ public class InfoWriteController2 {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				String[] where={"[Assets].[dbo].[Hidden_Assets].hidden_GUID =",uuid.toString()};
+				String[] where={"[Hidden_Assets].hidden_GUID =",uuid.toString()};
                 Hidden_Assets hidden_Assets=new Hidden_Assets();
                 hidden_Assets.setWhere(where);
                 
@@ -859,7 +859,7 @@ public class InfoWriteController2 {
 							        result.ifPresent(buttonType -> {
 							            if (buttonType == btnType1) {
 							                try{
-							                String[] where={"[Assets].[dbo].[Hidden_Assets].asset_GUID=",GUID};
+							                String[] where={"[Hidden_Assets].asset_GUID=",GUID};
 				                            Hidden_Assets hidden_Assets=new Hidden_Assets();
 				                            hidden_Assets.setWhere(where);
 				                            
@@ -871,7 +871,7 @@ public class InfoWriteController2 {
 												alert.showAndWait();
 												roomTable.setItems(null);
 												Map searchMap2=new HashMap<>();
-												searchMap2.put("[Assets].[dbo].[Hidden_Assets].hidden_GUID=", uuid.toString());
+												searchMap2.put("[Hidden_Assets].hidden_GUID=", uuid.toString());
 												setRoomInfoList0(offset, limit,searchMap2);
 							                }else{
 							                	Alert alert2 = new Alert(AlertType.ERROR);

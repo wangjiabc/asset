@@ -156,7 +156,7 @@ public class SelectNeatenController {
 	           System.out.println("neaten_id="+newValue.getNeaten_id());
 	           
 	           Map searchMap0=new HashMap<>();
-	           searchMap0.put("[Assets].[dbo].[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
+	           searchMap0.put("[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
 	            
 	           Map map=assets.selectAllHiddenNeaten(limit, offset, null, null, searchMap0);
 	           

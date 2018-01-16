@@ -156,7 +156,7 @@ public class SelectCheckInfoController {
 	            
 	            Map searchMap0=new HashMap<>();
 	            
-	            searchMap0.put("[Assets].[dbo].[Hidden_Check].check_id=",newValue.getCheck_id().get());
+	            searchMap0.put("[Hidden_Check].check_id=",newValue.getCheck_id().get());
 	            
 	            Map map=assets.selectAllHiddenCheck(limit, offset, null, null, searchMap0);
 	            

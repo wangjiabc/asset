@@ -958,7 +958,7 @@ public class HiddenDetailController {
 								        result.ifPresent(buttonType -> {
 								            if (buttonType == btnType1) {
 								                try{
-								                String[] where={"[Assets].[dbo].[Hidden_Assets].asset_GUID=",GUID};
+								                String[] where={"[Hidden_Assets].asset_GUID=",GUID};
 					                            Hidden_Assets hidden_Assets=new Hidden_Assets();
 					                            hidden_Assets.setWhere(where);
 					                            
@@ -1091,7 +1091,7 @@ public class HiddenDetailController {
 								        result.ifPresent(buttonType -> {
 								            if (buttonType == btnType1) {
 								                try{
-								                String[] where={"[Assets].[dbo].[Hidden_Check].check_id=",check_id};
+								                String[] where={"[Hidden_Check].check_id=",check_id};
 					                            Hidden_Check hidden_Check=new Hidden_Check();
 					                            hidden_Check.setWhere(where);
 					                            
@@ -1211,7 +1211,7 @@ public class HiddenDetailController {
 									        result.ifPresent(buttonType -> {
 									            if (buttonType == btnType1) {
 									                try{
-									                String[] where={"[Assets].[dbo].[Hidden_Neaten].neaten_id=",neaten_id};
+									                String[] where={"[Hidden_Neaten].neaten_id=",neaten_id};
 						                            Hidden_Neaten hidden_Neaten=new Hidden_Neaten();
 						                            hidden_Neaten.setWhere(where);
 						                            
@@ -1674,7 +1674,7 @@ public class HiddenDetailController {
 	            
 	            Map searchMap02=new HashMap<>();
 	            
-	            searchMap02.put("[Assets].[dbo].[Hidden_Check].check_id=",newValue.getCheck_id().get());
+	            searchMap02.put("[Hidden_Check].check_id=",newValue.getCheck_id().get());
 	            
 	            String sort="date";
 	  	      String order="desc";
@@ -1792,7 +1792,7 @@ public class HiddenDetailController {
 	           System.out.println("neaten_id="+newValue.getNeaten_id());
 	           
 	           Map searchMap03=new HashMap<>();
-	           searchMap03.put("[Assets].[dbo].[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
+	           searchMap03.put("[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
 	            
 	           String sort="date";
 	 	      String order="desc";
