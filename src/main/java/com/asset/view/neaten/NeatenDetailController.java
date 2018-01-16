@@ -176,6 +176,8 @@ public class NeatenDetailController {
 	 
 	 private Map<String,String> searchMap=new HashMap<>();
 	 
+	 private Map<String,String> searchMap0=new HashMap<>();
+	 
 	 private Stage dialogStage;
 	 
 	 private Hidden_Join hidden_Join;
@@ -331,14 +333,14 @@ public class NeatenDetailController {
 	    }
 	
 	public void setTableView(TableView<HiddenNeaten_JoinProperty> hiddenNeatenTable,Integer offset,Integer limit,
-			Map<String,String> searchMap,Pagination pagination,TableColumn<HiddenNeaten_JoinProperty,Integer> C1,
+			Map<String,String> searchMap0,Pagination pagination,TableColumn<HiddenNeaten_JoinProperty,Integer> C1,
 			TableColumn<HiddenNeaten_JoinProperty,String> C2,TableColumn<HiddenNeaten_JoinProperty,String> C3,TableColumn<HiddenNeaten_JoinProperty,String> C4,
 			TableColumn<HiddenNeaten_JoinProperty,String> C5,TableColumn<HiddenNeaten_JoinProperty,String> C6,
 			TableColumn<HiddenNeaten_JoinProperty,ProgressBar> C7,TableColumn<HiddenNeaten_JoinProperty,String> C8){
 		this.hiddenNeatenTable=hiddenNeatenTable;
 		this.offset=offset;
 		this.limit=limit;
-		this.searchMap=searchMap;
+		this.searchMap0=searchMap0;
 		this.pagination=pagination;
 		this.C1=C1;
 		this.C2=C2;
@@ -645,8 +647,7 @@ public class NeatenDetailController {
 					alert.setHeaderText("插入数据");
 					alert.setContentText("写入成功");
 					alert.showAndWait();
-					Map searchMap=new HashMap<>();
-					setHiddenNeaten(offset, limit, searchMap);
+					setHiddenNeaten(offset, limit, searchMap0);
 					System.out.println("offset="+offset+"     limit="+limit);
 					handleCancel();
 				 }

@@ -194,9 +194,6 @@ public abstract class AssetAsSwitch {
 	 private void hiddenMapAction(){
 		 main.showHiddenMap();
 	 }
-	 @FXML
-	 private void hiddenAssetAction(){
-		 main.showHiddenAsset();
-	 }
+
 	 
 }

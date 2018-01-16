@@ -340,7 +340,8 @@ public class AssetInformController extends AssetAsSwitch{
 	            // Set the person into the controller.
 	            NeatenDetailController controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
-	            controller.setTableView(hiddenNeatenTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
+	            Map searchMap0=new HashMap<>();
+	            controller.setTableView(hiddenNeatenTable,offset,limit,searchMap0,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
 	            	     
 	            System.out.println("neaten_id="+newValue.getNeaten_id());
 	            searchMap.put("[Assets].[dbo].[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());

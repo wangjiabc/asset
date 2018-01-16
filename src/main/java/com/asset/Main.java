@@ -190,7 +190,7 @@ public class Main extends Application{
 	    }
 	    
 	  //hiddenMap界面
-	    public void showHiddenAsset() {
+	  /*  public void showHiddenAsset() {
 	        try {
 	            // Load person overview.
 	            FXMLLoader loader = new FXMLLoader();
@@ -208,7 +208,7 @@ public class Main extends Application{
 	            e.printStackTrace();
 	        }
 	    }
-	    
+	    */
 	    public static void main(String args[]) {
 			new Main().launch("");
 		}
