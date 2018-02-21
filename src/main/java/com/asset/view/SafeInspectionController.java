@@ -1,118 +1,42 @@
 package com.asset.view;
 
-import java.awt.Desktop;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import org.apache.poi.ss.formula.functions.T;
-
-import com.asset.Singleton;
 import com.asset.database.Connect;
-import com.asset.propert.RowData;
-import com.asset.property.join.HiddenNeaten_JoinProperty;
-import com.asset.tool.MenuType;
-import com.asset.tool.MyTestUtil;
-import com.asset.view.neaten.NeatenDetailController;
 import com.rmi.server.Assets;
-import com.voucher.manage.daoModel.Assets.Hidden;
-import com.voucher.manage.daoModel.Assets.Hidden_Neaten;
-import com.voucher.manage.daoModelJoin.Assets.Hidden_Neaten_Join;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ContextMenu;
+import javafx.geometry.Side;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.control.Pagination;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.util.Callback;
+
+import javafx.scene.chart.PieChart.Data;
+import javafx.scene.chart.StackedAreaChart;
+import javafx.scene.chart.StackedBarChart;
+import javafx.scene.chart.XYChart;
 
 public class SafeInspectionController extends AssetAsSwitch{
 	@FXML
 	 private Label rightTitleLabel;
-	
-	 private ObservableList<HiddenNeaten_JoinProperty> hiddenNeaten;
-	 
-	 @FXML
-	 private TableView<HiddenNeaten_JoinProperty> hiddenNeatenTable;
-	 
-	 @FXML
-	 private TableColumn<HiddenNeaten_JoinProperty,Integer> C1;
-	 
-	 @FXML
-	 private TableColumn<HiddenNeaten_JoinProperty,String> C2;
-	 
-	 @FXML
-	 private TableColumn<HiddenNeaten_JoinProperty,String> C3;
-	 
-	 @FXML
-	 private TableColumn<HiddenNeaten_JoinProperty,String> C4;
-	 
-	 @FXML
-	 private TableColumn<HiddenNeaten_JoinProperty,String> C5;
-	 
-	 @FXML
-	 private TableColumn<HiddenNeaten_JoinProperty,String> C6;
-	 
 
-	 @FXML
-	 private Pagination pagination;
-	 
-	 
-	 //查询按钮
-	 @FXML
-	 private Button search;
-	 
-	 private Map<String,String> searchMap=new HashMap<>();
-	 
-	 private List<Hidden_Neaten_Join> hidden_Neaten_Joins;
-	 
-    private Stage dialogStage;
-	 
-	 private Integer offset=0;
-	 
-	 private Integer limit=10;
-	 
-	 private final Desktop desktop = Desktop.getDesktop();
-	 private Stage stage;
-	 private File file;
-	 private File docFile;
-	 
-	 @FXML
-	 private ContextMenu contextMenu;
-	 
-	 @FXML
-	  Button hiddenWrite;
-	 
+	@FXML
+	 private PieChart hiddenChart;
+	
+	@FXML
+	 private PieChart assetChart;
+	
+	@FXML
+	 private BarChart< Number, String> barChart;
+	
+	@FXML
+	 private AreaChart<Number, String> areaChart;
+	
 	 Assets assets= new Connect().get();
 	
 	 public SafeInspectionController() {
@@ -128,238 +52,50 @@ public class SafeInspectionController extends AssetAsSwitch{
 		 Image image = new Image(filePath+"/inform.jpg");
 	     homepage.setImage(image);
 	     
-	     rightTitleLabel.setText("安全巡查记录");
+	     rightTitleLabel.setText("安全数据统计");
 	 
+	     hiddenChart.setData(getChartData(20.1, 30.1));
+	     hiddenChart.setTitle("全部隐患数量");
+
+	     assetChart.setData(getChartData(40.1, 30.1));
+	     assetChart.setTitle("隐患资产数量");
+
+	     assetChart.getStylesheets().add("com/asset/view/chart2.css");
+	     	     
+	     barChart.setTitle("每月隐患增长数量");	     
+
+	     XYChart.Series series1 = new XYChart.Series();
+	     series1.setName("2003");
+	     series1.getData().add(new XYChart.Data("A",80));
+	     series1.getData().add(new XYChart.Data("B",9));
+	     series1.getData().add(new XYChart.Data("C",6));
 	     
-	     Image delImage=new Image(filePath+"/del.jpg");
-	     ImageView imageView0=new ImageView();
-	     imageView0.setFitWidth(25);
-	     imageView0.setFitHeight(25);
-	     imageView0.setImage(delImage);
-	     contextMenu.getItems().get(0).setGraphic(imageView0);
+	     barChart.getData().add(series1);
+	      
+	     XYChart.Series seriesApril= new XYChart.Series();
+	     seriesApril.setName("April");
+	     seriesApril.getData().add(new XYChart.Data("1", 4));
+	     seriesApril.getData().add(new XYChart.Data("2", 10));
+	     seriesApril.getData().add(new XYChart.Data("3", 15));
 	     
+	     XYChart.Series seriesMay = new XYChart.Series();
+	     seriesMay.setName("May");
+	     seriesMay.getData().add(new XYChart.Data("1", 20));
+	     seriesMay.getData().add(new XYChart.Data("2", 35));
+	     seriesMay.getData().add(new XYChart.Data("3", 43));
 	     
-		     
-		   //搜索
-			    
-		     search.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					
-					 
-					 setHiddenNeaten(0,10,searchMap);
-				}
-			  });
-		    
-		     
-		     pagination.setPageFactory((Integer pageIndex)->{
-			    	if (pageIndex >= 0) {
-			    		offset=pageIndex*10;
-			    		limit=10;
-			    		System.out.println("pagination="+offset+" ______"+limit);
-			    		setHiddenNeaten(offset, limit, searchMap);
-			    		 Label mLabel = new Label();  
-			                mLabel.setText("这是第" + (pageIndex+1) + "页");  
-			                return mLabel;  
-		            } else {
-		                return null;
-		            }
-			    });
-	/*	     
-		     hiddenNeatenTable.setRowFactory( tv -> {
-			        TableRow<HiddenNeaten_JoinProperty> row = new TableRow<>();
-			        row.setOnMouseClicked(event -> {
-			            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-			            	HiddenNeaten_JoinProperty rowData = row.getItem();
-			            	table(rowData);
-			            }
-			        });
-			        
-			        row.setOnContextMenuRequested(event->{
-			        	
-		        	    contextMenu.setOnAction(new EventHandler<ActionEvent>() {
-
-							@Override
-							public void handle(ActionEvent event) {
-								// TODO Auto-generated method stub
-								try{
-									
-								  String neaten_id=row.getItem().getNeaten_id().get();
-								  String name=row.getItem().getNeaten_name().get();
-								  String menuType=MenuType.get(event.getTarget().toString());
-								  System.out.println(menuType);								  
-								  
-								  if(menuType.equals("m1")){
-									  
-									  if(Singleton.getInstance().getHidden_User().getPurview()>1){
-											Alert alert2 = new Alert(AlertType.WARNING);
-											alert2.setTitle("警告对话框");
-											alert2.setHeaderText("警告");
-											alert2.setContentText("你没有删除安全整顿记录的的权限");
-											alert2.showAndWait();
-											return ;
-										 }
-									  
-									  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-								        alert.setTitle("删除");
-								        alert.setHeaderText("安全整顿记录");
-								        alert.setContentText("是否删除"+name+"信息");
-
-								        ButtonType btnType1 = new ButtonType("确定");
-								        ButtonType btnType2 = new ButtonType("取消");
-								     
-
-								        alert.getButtonTypes().setAll(btnType1, btnType2);
-
-								        Optional<ButtonType> result = alert.showAndWait();
-								        result.ifPresent(buttonType -> {
-								            if (buttonType == btnType1) {
-								                try{
-								                String[] where={"[Hidden_Neaten].neaten_id=",neaten_id};
-					                            Hidden_Neaten hidden_Neaten=new Hidden_Neaten();
-					                            hidden_Neaten.setWhere(where);
-					                            
-								                int i=assets.deleteHiddenNeaten(hidden_Neaten);
-								                if(i==1){
-								                	alert.setTitle("安全整顿记录");
-													alert.setHeaderText("操作");
-													alert.setContentText("删除"+name+"成功");
-													alert.showAndWait();
-													hiddenNeatenTable.setItems(null);
-													setHiddenNeaten(offset, limit,searchMap);
-								                }else{
-								                	Alert alert2 = new Alert(AlertType.ERROR);
-													alert2.setTitle("异常堆栈对话框1");
-													alert2.setHeaderText("错误");
-													alert2.setContentText("删除"+name+"失败");
-													alert2.showAndWait();
-								                }
-								                }catch (Exception e) {
-													// TODO: handle exception
-								                	e.printStackTrace();
-								                	Alert alert2 = new Alert(AlertType.ERROR);
-													alert2.setTitle("异常堆栈对话框2");
-													alert2.setHeaderText("错误");
-													alert2.setContentText("删除"+name+"失败");
-													alert2.showAndWait();													
-												}
-								            } else if (buttonType == btnType2) {
-								            	System.out.println("点击了取消");
-								            } 
-								        });
-								  }
-								  
-								  if(menuType.equals("m2")){
-									  HiddenNeaten_JoinProperty rowData = row.getItem();
-						              table(rowData);
-								  }
-								}catch (Exception e) {
-									// TODO: handle exception
-									e.printStackTrace();
-								}
-							}
-		        	    });
-			        });
-			        
-			        return row ;
-			    });
-*/
-		     
-		 }
-		 
+	     areaChart.setTitle("每月隐患资产数量");
+	     
+	     areaChart.getData().addAll(seriesMay,seriesApril);
+	     
+	     areaChart.getStylesheets().add("com/asset/view/chart3.css");
+	 }
 	 
-	  private void table(HiddenNeaten_JoinProperty newValue){
-		  try {
-	            // Load the fxml file and create a new stage for the popup dialog.
-	            FXMLLoader loader = new FXMLLoader();
-	            loader.setLocation(getClass().getResource("neaten/NeatenDetail.fxml"));
-	            AnchorPane page = (AnchorPane) loader.load();
-
-	            // Create the dialog Stage.
-	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle("安全隐患整顿记录");
-	            dialogStage.initModality(Modality.APPLICATION_MODAL);
-	            Scene scene = new Scene(page);
-	            dialogStage.setScene(scene);
-
-	            // Set the person into the controller.
-	            NeatenDetailController controller = loader.getController();
-	            controller.setDialogStage(dialogStage);
-	            Map searchMap0=new HashMap<>();
-	          //  controller.setTableView(hiddenNeatenTable,offset,limit,searchMap0,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
-	            	     
-	            System.out.println("neaten_id="+newValue.getNeaten_id());
-	            searchMap.put("[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
-	            
-	            System.out.println("neatenid="+newValue.getNeaten_id().get());
-	            
-	            String sort="date";
-	  	      String order="desc";
-	            Map map=assets.selectAllHiddenNeaten(limit, offset, sort, order, searchMap);
-	            MyTestUtil.print(map);
-	            List<Hidden_Neaten_Join> hidden_Neaten_Joins= (List<Hidden_Neaten_Join>) map.get("rows");
-	            MyTestUtil.print(hidden_Neaten_Joins);
-
-	            try{
-	               Hidden_Neaten_Join hidden_Neaten_Join=hidden_Neaten_Joins.get(0);          
-	               controller.setHiddenNeaten(hidden_Neaten_Join);
-	            }catch (Exception e) {
-					// TODO: handle exception
-	            	e.printStackTrace();
-				}
-	            // Show the dialog and wait until the user closes it
-	            dialogStage.show();
-
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	   }
-		 
-		 void setHiddenNeaten(Integer offset,Integer limit,Map search){
-
-			 String sort="date";
-		      String order="desc";
-		     
-			  Map map=new HashMap<>();
-			  
-			  	
-			  map=assets.selectAllHiddenNeaten(limit, offset, sort, order, search);
-			  
-		     hidden_Neaten_Joins=  (List<Hidden_Neaten_Join>) map.get("rows");
-		     MyTestUtil.print( hidden_Neaten_Joins);
-		     
-		     hiddenNeaten= (ObservableList<HiddenNeaten_JoinProperty>) new RowData(hidden_Neaten_Joins,HiddenNeaten_JoinProperty.class).get();
-		     
-
-		    hiddenNeatenTable.setItems(hiddenNeaten);
-	       
-		     C1.setCellValueFactory(
-		                cellData -> cellData.getValue().getId().asObject());
-		     C2.setCellValueFactory(
-		   		    cellData->cellData.getValue().getName());
-		     C3.setCellValueFactory(
-		    		    cellData->cellData.getValue().getPrincipal());
-		     C4.setCellValueFactory(
-		    		    cellData->cellData.getValue().getNeaten_name());
-		     C5.setCellValueFactory(
-		    		    cellData->cellData.getValue().getNeaten_instance());
-		     C6.setCellValueFactory(
-		    		    cellData->cellData.getValue().getHappen_time());	
-		     
-		   
-		     int total=(int) map.get("total");
-		     int page=total/10;
-		     
-		     if(total-page*10>0)
-	          page++;	     
-		     System.out.println("page="+page);
-		     if(total>0){
-			     pagination.setPageCount(page);
-		         }else {
-		        	 pagination.setPageCount(1);
-				}
-		     	     
-		 }
-
+	 private ObservableList<Data> getChartData(Double d1,Double d2) {
+	        ObservableList<Data> answer = FXCollections.observableArrayList();
+	        answer.addAll(new PieChart.Data("java", d1),
+	                new PieChart.Data("JavaFx", d2),
+	                new PieChart.Data("fff", 10));
+	        return answer;
+	    }
 }

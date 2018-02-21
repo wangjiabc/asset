@@ -161,7 +161,7 @@ public class CheckInfoDetailController {
 		 private TableColumn<HiddenCheck_JoinProperty,String> C6;
 		 
 		 @FXML
-		 private TableColumn<HiddenCheck_JoinProperty,ProgressBar> C7;
+		 private TableColumn<HiddenCheck_JoinProperty,String> C7;
 		 
 		 @FXML
 		 private TableColumn<HiddenCheck_JoinProperty,String> C8;
@@ -331,7 +331,7 @@ public class CheckInfoDetailController {
 			Map<String,String> searchMap,Pagination pagination,TableColumn<HiddenCheck_JoinProperty,Integer> C1,
 			TableColumn<HiddenCheck_JoinProperty,String> C2,TableColumn<HiddenCheck_JoinProperty,String> C3,TableColumn<HiddenCheck_JoinProperty,String> C4,
 			TableColumn<HiddenCheck_JoinProperty,String> C5,TableColumn<HiddenCheck_JoinProperty,String> C6,
-			TableColumn<HiddenCheck_JoinProperty,ProgressBar> C7,TableColumn<HiddenCheck_JoinProperty,String> C8){
+			TableColumn<HiddenCheck_JoinProperty,String> C7,TableColumn<HiddenCheck_JoinProperty,String> C8){
 		this.hiddenCheckTable=hiddenCheckTable;
 		this.offset=offset;
 		this.limit=limit;
@@ -675,7 +675,6 @@ public class CheckInfoDetailController {
 
 	      String sort="date";
 	      String order="desc";
-	      search=new HashMap<>();
 	      
 		  Map map=new HashMap<>();
 		  
@@ -707,7 +706,7 @@ public class CheckInfoDetailController {
 	    		    cellData->cellData.getValue().getCheck_circs());
 	     C6.setCellValueFactory(
 	    		    cellData->cellData.getValue().getHappen_time());	
-	     
+	     /*
 	     C7.setCellValueFactory(
 	    		    new Callback<TableColumn.CellDataFeatures<HiddenCheck_JoinProperty,ProgressBar>, ObservableValue<ProgressBar>>() {
 						
@@ -721,7 +720,11 @@ public class CheckInfoDetailController {
 							return new SimpleObjectProperty<ProgressBar>(progressBar);
 						}
 					});
-					
+		*/
+	     
+	     C7.setCellValueFactory(
+	    		    cellData->cellData.getValue().getManageRegion());
+	     
 	      C8.setCellValueFactory(
 	    		    cellData->cellData.getValue().getDate());
 	     

@@ -124,33 +124,6 @@
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab fx:id="CheckTab" text="检查记录">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <TableView fx:id="hiddenCheckTable" prefHeight="320.0" prefWidth="860.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <columns>
-                              <TableColumn fx:id="C21" minWidth="-1.0" prefWidth="58.0" text="ID" />
-                              <TableColumn fx:id="C22" prefWidth="92.0" text="隐患名称" />
-                              <TableColumn fx:id="C23" prefWidth="100.0" text="检查人员" />
-                              <TableColumn fx:id="C24" prefWidth="83.0" text="标题" />
-                              <TableColumn fx:id="C25" prefWidth="119.0" text="检查情况" />
-                              <TableColumn fx:id="C26" prefWidth="102.0" text="检查时间" />
-                              <TableColumn fx:id="C27" prefWidth="101.0" text="整改进度" />
-                              <TableColumn fx:id="C29" prefWidth="75.0" text="录入人" />
-                              <TableColumn fx:id="C28" prefWidth="102.0" text="录入时间" />
-                           </columns>
-                            <contextMenu>
-              				  <ContextMenu fx:id="contextMenuCheck">
-               			   	 	 <items><MenuItem fx:id="m1" text="    删除" /></items>                    
-              			  		</ContextMenu>
-            				</contextMenu>
-                        </TableView>
-                        <Pagination fx:id="pagination2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </Tab>
             <Tab fx:id="NeatenTab" text="整改记录">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -161,8 +134,8 @@
                               <TableColumn fx:id="C32" prefWidth="75.0" text="隐患名称" />
                               <TableColumn fx:id="C33" prefWidth="100.0" text="检查人员" />
                               <TableColumn fx:id="C34" prefWidth="83.0" text="标题" />
-                              <TableColumn fx:id="C35" prefWidth="119.0" text="整顿情况" />
-                              <TableColumn fx:id="C36" prefWidth="102.0" text="整顿时间" />
+                              <TableColumn fx:id="C35" prefWidth="119.0" text="整改情况" />
+                              <TableColumn fx:id="C36" prefWidth="102.0" text="整改时间" />
                               <TableColumn fx:id="C37" prefWidth="101.0" text="整改进度" />
                               <TableColumn fx:id="C39" prefWidth="75.0" text="录入人" />
                               <TableColumn fx:id="C38" prefWidth="102.0" text="录入时间" />

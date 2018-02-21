@@ -146,7 +146,7 @@ public class SelectNeatenController {
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle(newValue.getName()+"隐患整顿记录");
+	            dialogStage.setTitle(newValue.getName()+"隐患整改记录");
 	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);

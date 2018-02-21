@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.AssetMessageController">
+<AnchorPane prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.AssetMessageController">
    <children>
       <SplitPane dividerPositions="0.5" layoutX="6.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -67,9 +67,9 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <Button fx:id="hiddenWrite" layoutX="28.0" layoutY="301.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="隐患录入" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0" />
+                  <Button fx:id="hiddenWrite" layoutX="28.0" layoutY="301.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="返回主页" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0" />
                   <Button layoutX="18.0" layoutY="363.0" mnemonicParsing="false" onAction="#hiddenButtonAction" prefHeight="30.0" prefWidth="200.0" text="隐患查询" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="350.0" />
-                  <Button layoutX="20.0" layoutY="427.0" mnemonicParsing="false" onAction="#messageButtonAction" prefHeight="30.0" prefWidth="200.0" text="隐患检查" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" />
+                  <Button layoutX="20.0" layoutY="427.0" mnemonicParsing="false" onAction="#messageButtonAction" prefHeight="30.0" prefWidth="200.0" text="安全巡查" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" />
                   <Button layoutX="20.0" layoutY="477.0" mnemonicParsing="false" onAction="#informButtonAction" prefHeight="30.0" prefWidth="200.0" text="隐患整改" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="450.0" />
                   <ImageView fx:id="bar" fitHeight="30.0" fitWidth="222.0" layoutX="-37.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />                 
                   <Label fx:id="leftTitleLabel" layoutX="112.0" layoutY="17.0" text="Label" textFill="#fc0d0d" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="12.0">
@@ -82,7 +82,7 @@
                   <ImageView fx:id="file" fitHeight="20.0" fitWidth="20.0" layoutX="50.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
                   <Button layoutX="57.0" layoutY="518.0" mnemonicParsing="false" onAction="#workButtonAction" prefHeight="30.0" text="系统设置" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="550.0" />
                   <Button fx:id="exitButton" layoutX="33.0" layoutY="554.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="185.0" text="退出系统" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="600.0" />
-                  <Button mnemonicParsing="false" onAction="#safeInspectionAction" prefHeight="30.0" text="安全巡查" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
+                  <Button mnemonicParsing="false" onAction="#safeInspectionAction" prefHeight="30.0" text="安全统计" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="798.0" prefWidth="738.0">
@@ -111,37 +111,22 @@
                      <children>
                         <ImageView fx:id="imageFile" fitHeight="60.0" fitWidth="60.0" layoutX="337.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="docLabel" layoutX="212.0" layoutY="289.0" />
-                        <Label layoutX="35.0" layoutY="14.0" text="安全隐患检查记录" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="20.0">
+                        <Label layoutX="35.0" layoutY="14.0" text="安全巡查记录" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0">
                            <font>
                               <Font size="26.0" />
                            </font>
                         </Label>
-                        <HBox layoutX="427.0" layoutY="44.0" prefHeight="30.0" prefWidth="320.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-                           <children>
-                              <Label text="隐患名称">
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                              </Label>
-                              <ChoiceBox fx:id="hiddenName" prefWidth="150.0">
-                                 <HBox.margin>
-                                    <Insets left="20.0" right="20.0" />
-                                 </HBox.margin>
-                              </ChoiceBox>
-                              <Button fx:id="search" mnemonicParsing="false" text="搜索" />
-                           </children>
-                        </HBox>
-                        <TableView fx:id="hiddenCheckTable" layoutX="14.0" layoutY="72.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+                        <TableView fx:id="hiddenCheckTable" layoutY="121.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0">
                           <columns>
                               <TableColumn fx:id="C1" minWidth="-1.0" prefWidth="75.0" text="ID" />
-                            <TableColumn fx:id="C2" prefWidth="75.0" text="隐患名称" />
+                            <TableColumn fx:id="C2" prefWidth="75.0" text="资产名称" />
                             <TableColumn fx:id="C3" prefWidth="100.0" text="检查人员" />
                               <TableColumn fx:id="C4" prefWidth="83.0" text="标题" />
                               <TableColumn fx:id="C5" prefWidth="119.0" text="检查情况" />
-                              <TableColumn fx:id="C6" prefWidth="102.0" text="检查时间" />
-                              <TableColumn fx:id="C7" prefWidth="101.0" text="整改进度" />
+                              <TableColumn fx:id="C6" prefWidth="150.0" text="检查时间" />
+                              <TableColumn fx:id="C7" prefWidth="101.0" text="所属分区" />
                               <TableColumn fx:id="C9" prefWidth="75.0" text="录入人" />
-                              <TableColumn fx:id="C8" prefWidth="102.0" text="录入时间" />
+                              <TableColumn fx:id="C8" prefWidth="150.0" text="录入时间" />
                           </columns>
                           <contextMenu>
 		       		         <ContextMenu fx:id="contextMenu">
@@ -153,6 +138,63 @@
                         </TableView>
                      </children></AnchorPane>
                   <Pagination fx:id="pagination" layoutX="74.0" layoutY="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <GridPane AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="110.0">
+                     <children>
+                        <Label text="巡查人员 :" GridPane.halignment="CENTER">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                        </Label>
+                        <Label text="开始日期 :" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                        </Label>
+                        <Label text="资产名称 :" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                        </Label>
+                        <Label text="结束日期 :" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                        </Label>
+                        <Button fx:id="search" mnemonicParsing="false" text="  搜索" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="10.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <ImageView fx:id="searchImage" fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets left="15.0" />
+                           </GridPane.margin>
+                        </ImageView>
+                        <DatePicker fx:id="startTime" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="endTime" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                        <TextField fx:id="assetName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ChoiceBox fx:id="usersName" prefWidth="200.0" GridPane.columnIndex="1" />
+                        <Label text="资产分区 :" GridPane.columnIndex="2">
+                           <padding>
+                              <Insets left="14.0" />
+                           </padding>
+                        </Label>
+                        <ChoiceBox fx:id="hiddenManageRegion" prefWidth="200.0" GridPane.columnIndex="3" />
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
                </children></AnchorPane>
         </items>
       </SplitPane>

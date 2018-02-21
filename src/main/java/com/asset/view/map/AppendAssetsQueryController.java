@@ -16,6 +16,7 @@ import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
 import com.asset.property.RoomInfoProperty;
 import com.asset.property.RoomInfo_PositionProperty;
+import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Position;
@@ -37,12 +38,14 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.web.WebView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -67,8 +70,8 @@ public class AppendAssetsQueryController {
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,String> C1;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,String> C2;
+	// @FXML
+	// private TableColumn<RoomInfo_PositionProperty,String> C2;
 	 
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,String> C3;
@@ -79,14 +82,11 @@ public class AppendAssetsQueryController {
 	 @FXML
 	 private TableColumn<RoomInfo_PositionProperty,String> C5;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,Double> C6;
+	// @FXML
+	// private TableColumn<RoomInfo_PositionProperty,Double> C6;
 	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,Double> C7;
-	 
-	 @FXML
-	 private TableColumn<RoomInfo_PositionProperty,String> C8;
+	// @FXML
+	// private TableColumn<RoomInfo_PositionProperty,Double> C7;
 	 
 	 @FXML
 	 private Pagination pagination;
@@ -106,9 +106,13 @@ public class AppendAssetsQueryController {
 	 Assets assets= new Connect().get();
 	 
 	 private Position position;
-		
-	 public void setPosition(Position position) {
+	
+	 @FXML
+	 private WebView mapview3;
+	 
+	 public void setPosition(Position position,WebView mapview3) {
 		this.position=position;
+		this.mapview3=mapview3;
 	 }
 	 
 	 public AppendAssetsQueryController() {
@@ -124,10 +128,6 @@ public class AppendAssetsQueryController {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				 Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("search");
-					alert.setContentText(keyWord.getText());
-					alert.showAndWait();
 				 String search="%"+keyWord.getText()+"%";
 				 
 				 System.out.println("keyWord="+keyWord.getText());
@@ -157,22 +157,16 @@ public class AppendAssetsQueryController {
 	    
 	   
  
-	    roomTable.getSelectionModel().selectedItemProperty().addListener(
-	    		new ChangeListener<RoomInfo_PositionProperty>() {
-
-					@Override
-					public void changed(ObservableValue<? extends RoomInfo_PositionProperty> observable, RoomInfo_PositionProperty oldValue,
-							RoomInfo_PositionProperty newValue) {
-						// TODO Auto-generated method stub
-						if(i>=1){
-							if(newValue!=null)
-						      table(newValue);
-						}else{
-							i++;
-						}
-					}
-				 }
-	    		);
+	    roomTable.setRowFactory( tv -> {
+	        TableRow<RoomInfo_PositionProperty > row = new TableRow<>();
+	        row.setOnMouseClicked(event -> {
+	            if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+	            	RoomInfo_PositionProperty  rowData = row.getItem();
+	            	table(rowData);
+	            }
+	        });
+	        return row ;
+	    });
 	    
 	 }
 	 
@@ -193,13 +187,17 @@ public class AppendAssetsQueryController {
 
 	            // Set the person into the controller.
 	            PositionDetailController controller = loader.getController();
-	       
+	       /*
+	            Map map=assets.findAllRoomInfo_Position(limit, offset, null, null, searchMap);
+	            
+	            roomInfos= (List<RoomInfo_Position>) map.get("rows");
+	            */
 	            String Address=newValue.getAddress().getValue();
 	            String GUID=newValue.getGUID().getValue();
 	            
 	            position.setGUID(GUID);
 	            
-	            controller.setPosition(position,Address,GUID,null);
+	            controller.setPosition(position,Address,GUID,mapview3);
 	            controller.setDialogStage(dialogStage);
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();
@@ -234,18 +232,18 @@ public class AppendAssetsQueryController {
 
 	     C1.setCellValueFactory(
 	                cellData -> cellData.getValue().getAddress());
-	     C2.setCellValueFactory(
-	   		    cellData->cellData.getValue().getGUID());
+	  //   C2.setCellValueFactory(
+	   	//	    cellData->cellData.getValue().getGUID());
 	     C3.setCellValueFactory(
 	    		    cellData->cellData.getValue().getRegion());
 	     C4.setCellValueFactory(
 	    		    cellData->cellData.getValue().getNum());
 	     C5.setCellValueFactory(
-	    		    cellData->cellData.getValue().getInDate());
-	     C6.setCellValueFactory(
-	    		 cellData->cellData.getValue().getLat().asObject());
-	     C7.setCellValueFactory(
-	    		 cellData->cellData.getValue().getLng().asObject());
+	    		    cellData->cellData.getValue().getManageRegion());
+	   //  C6.setCellValueFactory(
+	    //		 cellData->cellData.getValue().getLat().asObject());
+	    // C7.setCellValueFactory(
+	    //		 cellData->cellData.getValue().getLng().asObject());
 	    
 	     int total=(int) map.get("total");
 	     int page=total/10;

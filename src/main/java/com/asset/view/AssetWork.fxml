@@ -67,9 +67,9 @@
                         </Label>
                      </children>
                   </GridPane>
-                  <Button fx:id="hiddenWrite" layoutX="28.0" layoutY="301.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="隐患录入" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0" />
+                  <Button fx:id="hiddenWrite" layoutX="28.0" layoutY="301.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="200.0" text="返回主页" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0" />
                   <Button layoutX="18.0" layoutY="363.0" mnemonicParsing="false" onAction="#hiddenButtonAction" prefHeight="30.0" prefWidth="200.0" text="隐患查询" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="350.0" />
-                  <Button layoutX="20.0" layoutY="427.0" mnemonicParsing="false" onAction="#messageButtonAction" prefHeight="30.0" prefWidth="200.0" text="隐患检查" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" />
+                  <Button layoutX="20.0" layoutY="427.0" mnemonicParsing="false" onAction="#messageButtonAction" prefHeight="30.0" prefWidth="200.0" text="安全巡查" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0" />
                   <Button layoutX="20.0" layoutY="477.0" mnemonicParsing="false" onAction="#informButtonAction" prefHeight="30.0" prefWidth="200.0" text="隐患整改" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="450.0" />
                   <ImageView fx:id="bar" fitHeight="30.0" fitWidth="222.0" layoutX="-37.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />                 
                   <Label fx:id="leftTitleLabel" layoutX="112.0" layoutY="17.0" text="Label" textFill="#fc0d0d" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="12.0">

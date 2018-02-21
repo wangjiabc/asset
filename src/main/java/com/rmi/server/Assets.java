@@ -15,6 +15,7 @@ import com.voucher.manage.daoModel.Assets.Hidden_User;
 import com.voucher.manage.daoModel.Assets.Position;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Data_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
+import com.voucher.manage.model.Users;
 
 public interface Assets {	
 	
@@ -123,4 +124,8 @@ public interface Assets {
 	public Map<String, Object> hiddenQuery(Integer hiddenLevel);
 	
 	public List selectManageRegion();
+	
+	public Users getWetchatUsers(String openId);
+	
+	public List<Users> getWetchatAllUsers(Integer place);
 }

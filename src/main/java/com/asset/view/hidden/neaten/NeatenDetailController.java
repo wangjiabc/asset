@@ -576,7 +576,7 @@ public class NeatenDetailController {
 						Alert alert2 = new Alert(AlertType.WARNING);
 						alert2.setTitle("警告对话框");
 						alert2.setHeaderText("警告");
-						alert2.setContentText("你没有更新安全整顿记录的权限");
+						alert2.setContentText("你没有更新安全整改记录的权限");
 						alert2.showAndWait();
 						return ;
 					}

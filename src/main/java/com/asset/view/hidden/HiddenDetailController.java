@@ -308,7 +308,7 @@ public class HiddenDetailController {
 		 /*
 		  * 检查记录
 		  */
-		 
+		/* 
 		 @FXML
 		 private Tab CheckTab;
 		 
@@ -362,8 +362,9 @@ public class HiddenDetailController {
 		 
 		 private Integer limit2=10;
 		 
+		 */
 	/*
-	 * 整顿记录
+	 * 整改记录
 	 */
 	
 		 @FXML
@@ -437,7 +438,7 @@ public class HiddenDetailController {
 		this.limit=limit;
 		this.searchMap=searchMap;
 		this.searchMap0=searchMap0;
-		this.searchMap2=searchMap2;
+	//	this.searchMap2=searchMap2;
 		this.searchMap3=searchMap3;
 		this.pagination=pagination;
 		this.C1=C1;
@@ -1018,7 +1019,7 @@ public class HiddenDetailController {
 		 /*
 		  * 检查记录
 		  */
-	     CheckTab.setOnSelectionChanged(new EventHandler<Event>() {
+	  /*   CheckTab.setOnSelectionChanged(new EventHandler<Event>() {
 
 			@Override
 			public void handle(Event event) {
@@ -1040,7 +1041,6 @@ public class HiddenDetailController {
 			
 			
 		});
-	  
 	     
 
 			 hiddenCheckTable.setRowFactory( tv -> {
@@ -1135,8 +1135,10 @@ public class HiddenDetailController {
 			        return row ;
 			    });
 	     
+	     */
+	     
 	     /*
-	      * 整顿记录
+	      * 整改记录
 	      */
 	
 		NeatenTab.setOnSelectionChanged(new EventHandler<Event>() {
@@ -1198,7 +1200,7 @@ public class HiddenDetailController {
 										  
 										  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 									        alert.setTitle("删除");
-									        alert.setHeaderText("安全整顿记录");
+									        alert.setHeaderText("安全整改记录");
 									        alert.setContentText("是否删除"+name+"信息");
 
 									        ButtonType btnType1 = new ButtonType("确定");
@@ -1217,7 +1219,7 @@ public class HiddenDetailController {
 						                            
 									                int i=assets.deleteHiddenNeaten(hidden_Neaten);
 									                if(i==1){
-									                	alert.setTitle("安全整顿记录");
+									                	alert.setTitle("安全整改记录");
 														alert.setHeaderText("操作");
 														alert.setContentText("删除"+name+"成功");
 														alert.showAndWait();
@@ -1375,10 +1377,10 @@ public class HiddenDetailController {
 
 		 while (iterator5.hasNext()) {
 			String manage=iterator5.next().getManageRegion();
-			if(!manage.equals("")){
+			if(manage!=null&&!manage.equals("")){
 			  manageRegions.add(manage);
 			  try{
-			   if(hidden_Jion.getManageRegion().equals(manage)){
+			   if(hidden_Jion.getManageRegion()!=null&&hidden_Jion.getManageRegion().equals(manage)){
 				  currentManageRegion=i;
 			    }
 			   }catch (Exception e) {
@@ -1650,7 +1652,7 @@ public class HiddenDetailController {
 	 /*
 	  * 检查记录
 	  */
-	 
+	 /*
 	 private void table(HiddenCheck_JoinProperty newValue){
 		 try {
 	            // Load the fxml file and create a new stage for the popup dialog.
@@ -1697,8 +1699,8 @@ public class HiddenDetailController {
 	            e.printStackTrace();
 	        }
 	 }
-	 
-	
+	 */
+	/*
 	 void setHiddenCheckList(Integer offset,Integer limit,Map search){
 
 		 String sort="date";
@@ -1768,9 +1770,10 @@ public class HiddenDetailController {
 		}
 	     	     
 	 }
+	 */
 	 
 	 /*
-	  * 整顿记录
+	  * 整改记录
 	  */
 	 
 	 private void table2(HiddenNeaten_JoinProperty newValue){
@@ -1782,7 +1785,7 @@ public class HiddenDetailController {
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle(newValue.getName().getName()+"隐患整顿记录");
+	            dialogStage.setTitle(newValue.getName().getName()+"隐患整改记录");
 	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);

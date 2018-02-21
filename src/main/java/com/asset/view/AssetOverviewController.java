@@ -33,6 +33,7 @@ import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Check_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
+import com.voucher.manage.model.Users;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -215,7 +216,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     imageView2.setFitWidth(25);
 	     imageView2.setFitHeight(25);
 	     imageView2.setImage(menuImage);
-	     contextMenu.getItems().get(4).setGraphic(imageView2);
+	     contextMenu.getItems().get(3).setGraphic(imageView2);
 
 
 	     
@@ -503,7 +504,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 
 							            // Create the dialog Stage.
 							            Stage dialogStage = new Stage();
-							            dialogStage.setTitle("添加"+hidden_Jion.getName()+"安全整顿记录");
+							            dialogStage.setTitle("添加"+hidden_Jion.getName()+"安全整改记录");
 							            dialogStage.initModality(Modality.APPLICATION_MODAL);
 							            Scene scene = new Scene(page);
 							            dialogStage.setScene(scene);
@@ -532,7 +533,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 
 							            // Create the dialog Stage.
 							            Stage dialogStage = new Stage();
-							            dialogStage.setTitle(Name+"隐患检查记录");
+							            dialogStage.setTitle(Name+"安全巡查记录");
 							            dialogStage.initModality(Modality.APPLICATION_MODAL);
 							            Scene scene = new Scene(page);
 							            dialogStage.setScene(scene);
@@ -562,7 +563,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 
 							            // Create the dialog Stage.
 							            Stage dialogStage = new Stage();
-							            dialogStage.setTitle(Name+"隐患整顿记录");
+							            dialogStage.setTitle(Name+"隐患整改记录");
 							            dialogStage.initModality(Modality.APPLICATION_MODAL);
 							            Scene scene = new Scene(page);
 							            dialogStage.setScene(scene);
@@ -752,6 +753,20 @@ public class AssetOverviewController extends AssetAsSwitch{
 	            	try{
 	            	 if(newValue.getId().get()==h.getId()){
 	            		hidden_Jion=h;
+	            		
+	            		if(hidden_Jion.getTerminal()!=null&&hidden_Jion.getTerminal().equals("Wechat")){
+	            				try{
+	            					String openId=hidden_Jion.getCampusAdmin();	            		
+	            					//在详情里把openid换成昵称
+	            					System.out.println("openId="+openId);
+	            					Users users=assets.getWetchatUsers(openId);	      
+	            					MyTestUtil.print(users);
+	            					hidden_Jion.setCampusAdmin(users.getNickname());
+	            				}catch (Exception e) {
+								// TODO: handle exception
+	            					e.printStackTrace();
+	            				}
+	            		}
 	    	            controller.setHidden(hidden_Jion);
 	            		break;
 	            	  }

@@ -7,7 +7,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -34,10 +39,12 @@ import com.asset.view.detail.AddCheckInfoDetailController;
 import com.asset.view.hidden.HiddenDetailController;
 import com.asset.view.infowrite.InfoWriteController2;
 import com.rmi.server.Assets;
+import com.voucher.manage.daoModel.RoomInfo;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Check;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Check_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
+import com.voucher.manage.model.Users;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -57,12 +64,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
@@ -115,7 +124,7 @@ public class AssetMessageController extends AssetAsSwitch{
 	 private TableColumn<HiddenCheck_JoinProperty,String> C6;
 	 
 	 @FXML
-	 private TableColumn<HiddenCheck_JoinProperty,ProgressBar> C7;
+	 private TableColumn<HiddenCheck_JoinProperty,String> C7;
 	 
 	 @FXML
 	 private TableColumn<HiddenCheck_JoinProperty,String> C8;
@@ -126,10 +135,33 @@ public class AssetMessageController extends AssetAsSwitch{
 	 @FXML
 	 private Pagination pagination;
 	 
+	/*
 	 @FXML
 	 private ChoiceBox<T> hiddenName;//隐患名字
 	 private List<Hidden> hidden;
 	 private Integer hiddenValue;
+	*/
+	 
+	 @FXML
+	 private ChoiceBox<T> usersName;//隐患名字
+	 private List<Users> users;
+	 private Integer usersValue;
+	 
+	 @FXML
+	 private ChoiceBox<T> hiddenManageRegion;
+	 private List<RoomInfo> roomInfoLists;
+	 private String manageRegion;
+	 
+	 private List manageRegions=new ArrayList<>();
+	 
+	 @FXML
+	 private DatePicker startTime;
+ 	 
+	 @FXML
+	 private DatePicker endTime;
+	 
+	 @FXML
+	 private TextField assetName;
 	 
 	 //查询按钮
 	 @FXML
@@ -182,7 +214,7 @@ public class AssetMessageController extends AssetAsSwitch{
 	     imageView0.setImage(delImage);
 	     contextMenu.getItems().get(0).setGraphic(imageView0);
 	     
-	     
+	    /* 
 	 	Map map=assets.selectAllHidden(1000, 0, null, null, searchMap);
 		hidden=(List<Hidden>) map.get("rows");
 		Iterator<Hidden> iterator=hidden.iterator();
@@ -191,8 +223,8 @@ public class AssetMessageController extends AssetAsSwitch{
 			levels.add(iterator.next().getName());
 			System.out.println("levels="+levels);
 		}
-
-		
+        */
+	 
 		hiddenWrite.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
@@ -202,6 +234,8 @@ public class AssetMessageController extends AssetAsSwitch{
 			}
 			
 		});
+		
+		/*
 		
 		hiddenName.setItems(FXCollections.observableArrayList(levels));
 		
@@ -218,17 +252,111 @@ public class AssetMessageController extends AssetAsSwitch{
 			        
 				});
 	     
-	   //搜索
-		    
+	     */
+		
+		users=assets.getWetchatAllUsers(0);
+		Iterator<Users> iterator=users.iterator();
+		List names = new ArrayList<>();
+		
+		while (iterator.hasNext()) {
+				names.add(iterator.next().getNickname());
+		} 
+
+		usersName.setItems(FXCollections.observableArrayList(names));
+		
+		usersName.getSelectionModel().selectedIndexProperty().addListener(new
+				 ChangeListener<Number>() {
+
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+							Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+                        usersValue=i;
+                        searchMap=new HashMap<>();  //清除查询条件
+					}
+			        
+				});
+		
+		
+		roomInfoLists=assets.selectManageRegion();
+		 
+		 Iterator<RoomInfo> iterator5=roomInfoLists.iterator();
+		 
+		 List manageRegions=new ArrayList<>();
+		 
+		 while (iterator5.hasNext()) {
+			String manage=iterator5.next().getManageRegion();
+			if(!manage.equals(""))
+			  manageRegions.add(manage);
+		 }
+		
+		 hiddenManageRegion.setItems(FXCollections.observableArrayList(manageRegions));
+		 
+		 hiddenManageRegion.getSelectionModel().selectedIndexProperty().addListener(new 
+				 ChangeListener<Number>() {
+					
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+						String manage=(String) manageRegions.get(i);
+						manageRegion=manage;
+						System.out.println("i="+i+"  "+manageRegion);
+					}
+				});
+		
+		
+	   //搜索		    
 	     search.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				
+				/*
 				 if(hiddenValue!=null){
 				   String search=hidden.get(hiddenValue).getGUID();
 				   System.out.println("search="+search);
 				   searchMap.put("[Hidden_Check].GUID=", search);
+				 }
+				 */
+				
+				if(usersValue!=null){
+					   String search=users.get(usersValue).getOpenId();
+					   searchMap.put("[Hidden_Check].campusAdmin=", search);
+					 }
+				
+				if(assetName.getText()!=null&&!assetName.getText().equals("")){
+					System.out.println("assetName="+assetName.getText());
+					searchMap.put("[TTT].[dbo].[RoomInfo].Address like ", "%"+assetName.getText()+"%");
+				}
+				
+				SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
+				
+				 if(startTime.getValue()!=null){
+					 LocalDate localDate=startTime.getValue();
+					 Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+					 Date date = Date.from(instant);
+					 String sTime=sdf.format(date);
+					 
+					 System.out.println("sTime="+sTime);
+					 
+					 searchMap.put("[Hidden_Check].date > ", sTime);
+				 }
+				
+				 if(endTime.getValue()!=null){
+					 LocalDate localDate2=endTime.getValue();
+					 Instant instant2 = Instant.from(localDate2.atStartOfDay(ZoneId.systemDefault()));
+					 Date date2 = Date.from(instant2);
+					 String eTime=sdf.format(date2);
+					 
+					 System.out.println("eTime="+eTime);
+					 
+					 searchMap.put("[Hidden_Check].date < ", eTime);
+				 }
+				 
+				 if(manageRegion!=null&&!manageRegion.equals("")){
+					 searchMap.put("[TTT].[dbo].[RoomInfo].ManageRegion = ", manageRegion);
 				 }
 				 
 				 setHiddenCheckList(0,10,searchMap);
@@ -365,7 +493,7 @@ public class AssetMessageController extends AssetAsSwitch{
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle("安全隐患检查记录");
+	            dialogStage.setTitle("安全巡查记录");
 	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
@@ -376,12 +504,15 @@ public class AssetMessageController extends AssetAsSwitch{
 	            controller.setTableView(hiddenCheckTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
 	            	     
 	            System.out.println("check_id="+newValue.getCheck_id());
-	            searchMap.put("[Hidden_Check].check_id=",newValue.getCheck_id().get());
+	            
+	            Map searchMap1=new HashMap<>();
+	            
+	            searchMap1.put("[Hidden_Check].check_id=",newValue.getCheck_id().get());
 	            
 	            String sort="date";
 	  	      String order="desc";
 	            
-	            Map map=assets.selectAllHiddenCheck(limit, offset, sort, order, searchMap);
+	            Map map=assets.selectAllHiddenCheck(limit, offset, sort, order, searchMap1);
 	            
 	            List<Hidden_Check_Join> hidden_Check_Joins= (List<Hidden_Check_Join>) map.get("rows");
 	            MyTestUtil.print(hidden_Check_Joins);
@@ -435,7 +566,7 @@ public class AssetMessageController extends AssetAsSwitch{
 	    		    cellData->cellData.getValue().getCheck_circs());
 	     C6.setCellValueFactory(
 	    		    cellData->cellData.getValue().getHappen_time());	
-	     
+	     /*
 	     C7.setCellValueFactory(
 	    		    new Callback<TableColumn.CellDataFeatures<HiddenCheck_JoinProperty,ProgressBar>, ObservableValue<ProgressBar>>() {
 						
@@ -449,7 +580,11 @@ public class AssetMessageController extends AssetAsSwitch{
 							return new SimpleObjectProperty<ProgressBar>(progressBar);
 						}
 					});
-					
+			*/	
+	     
+	     C7.setCellValueFactory(
+	    		    cellData->cellData.getValue().getManageRegion());
+	     
 	      C8.setCellValueFactory(
 	    		    cellData->cellData.getValue().getDate());
 	     

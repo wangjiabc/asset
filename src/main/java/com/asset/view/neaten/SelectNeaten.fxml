@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="538.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.neaten.SelectNeatenController">
          <children>
-            <Label layoutX="35.0" layoutY="14.0" text="整顿记录" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="20.0">
+            <Label layoutX="35.0" layoutY="14.0" text="整改记录" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="20.0">
                <font>
                   <Font size="26.0" />
                </font>
@@ -19,8 +19,8 @@
                   <TableColumn fx:id="C2" prefWidth="75.0" text="隐患名称" />
                   <TableColumn fx:id="C3" prefWidth="100.0" text="检查人员" />
                   <TableColumn fx:id="C4" prefWidth="83.0" text="标题" />
-                  <TableColumn fx:id="C5" prefWidth="119.0" text="整顿情况" />
-                  <TableColumn fx:id="C6" prefWidth="102.0" text="整顿时间" />
+                  <TableColumn fx:id="C5" prefWidth="119.0" text="整改情况" />
+                  <TableColumn fx:id="C6" prefWidth="102.0" text="整改时间" />
                   <TableColumn fx:id="C7" prefWidth="101.0" text="整改进度" />
                   <TableColumn fx:id="C8" prefWidth="102.0" text="录入时间" />
                </columns>

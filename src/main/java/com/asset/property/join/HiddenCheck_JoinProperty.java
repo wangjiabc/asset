@@ -35,7 +35,7 @@ public class HiddenCheck_JoinProperty {
     
 	private IntegerProperty type;
 	
-	
+	private StringProperty ManageRegion;
 	
 	
 	public IntegerProperty getId() {
@@ -138,4 +138,14 @@ public class HiddenCheck_JoinProperty {
 	public void setCampusAdmin(String campusAdmin) {
 		this.campusAdmin = new SimpleStringProperty(campusAdmin);
 	}
+	
+	public StringProperty getManageRegion() {
+		return ManageRegion;
+	}
+
+
+	public void setManageRegion(String manageRegion) {
+		ManageRegion = new SimpleStringProperty(manageRegion);
+	}
+	
 }

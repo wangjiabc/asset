@@ -79,7 +79,7 @@ public class AppendAssetController{
 	            // Set the person into the controller.
 	            AppendAssetsQueryController controller = loader.getController();
 	            
-	            controller.setPosition(position);
+	            controller.setPosition(position,null);
 	            controller.setDialogStage(dialogStage);
 	            
 	            // Show the dialog and wait until the user closes it

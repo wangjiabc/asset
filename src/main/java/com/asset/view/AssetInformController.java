@@ -250,14 +250,14 @@ public class AssetInformController extends AssetAsSwitch{
 											Alert alert2 = new Alert(AlertType.WARNING);
 											alert2.setTitle("警告对话框");
 											alert2.setHeaderText("警告");
-											alert2.setContentText("你没有删除安全整顿记录的的权限");
+											alert2.setContentText("你没有删除安全整改记录的的权限");
 											alert2.showAndWait();
 											return ;
 										 }
 									  
 									  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 								        alert.setTitle("删除");
-								        alert.setHeaderText("安全整顿记录");
+								        alert.setHeaderText("安全整改记录");
 								        alert.setContentText("是否删除"+name+"信息");
 
 								        ButtonType btnType1 = new ButtonType("确定");
@@ -276,7 +276,7 @@ public class AssetInformController extends AssetAsSwitch{
 					                            
 								                int i=assets.deleteHiddenNeaten(hidden_Neaten);
 								                if(i==1){
-								                	alert.setTitle("安全整顿记录");
+								                	alert.setTitle("安全整改记录");
 													alert.setHeaderText("操作");
 													alert.setContentText("删除"+name+"成功");
 													alert.showAndWait();
@@ -332,7 +332,7 @@ public class AssetInformController extends AssetAsSwitch{
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle("安全隐患整顿记录");
+	            dialogStage.setTitle("安全隐患整改记录");
 	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);

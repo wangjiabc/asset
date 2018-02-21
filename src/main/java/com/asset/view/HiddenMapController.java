@@ -15,11 +15,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.view.hidden.HiddenDetailController;
-import com.asset.view.map.AppendAssetController;
 import com.asset.view.map.AppendAssetsQueryController;
 import com.asset.view.map.AppendHiddenQueryController;
-import com.asset.view.map.PositionDetailController;
-import com.asset.view.map.QueryAssetController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Position;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
@@ -61,10 +58,22 @@ public class HiddenMapController extends AssetAsSwitch{
 	 	private WebView mapview2;
 		
 		@FXML
+	 	private WebView mapview3;
+		
+		@FXML
+	 	private WebView mapview4;
+		
+		@FXML
 	 	private Tab HiddenQuery;
 		
 		@FXML
 	 	private Tab HiddenAppend;
+		
+		@FXML
+	 	private Tab AssetMap;
+		
+		@FXML
+	 	private Tab PatrolMap;
 		
 		 @FXML
 		  Button hiddenWrite;
@@ -72,6 +81,10 @@ public class HiddenMapController extends AssetAsSwitch{
 	 	private WebEngine webEngine;
 	 	
 	 	private WebEngine webEngine2;
+	 	
+	 	private WebEngine webEngine3;
+	 	
+	 	private WebEngine webEngine4;
 	 	
 	 	private static final String mapUrl=Singleton.getInstance().getMapUrl();
 	 
@@ -128,6 +141,10 @@ public class HiddenMapController extends AssetAsSwitch{
 	 		
 	 		webEngine2=mapview2.getEngine();
 	 		
+	 		webEngine3=mapview3.getEngine();
+	 		
+	 		webEngine4=mapview4.getEngine();
+	 		
 	 		webEngine.load(mapUrl+"baidumap/queryMap.html");
 	 		
 			mapview.getEngine().setOnAlert((WebEvent<String> wEvent)->{
@@ -136,15 +153,7 @@ public class HiddenMapController extends AssetAsSwitch{
 			});
 			
 			
-			webEngine2.load(mapUrl+"baidumap/appendMap.html");
-			
-			mapview2.getEngine().setOnAlert((WebEvent<String> wEvent)->{
-				System.out.println(wEvent);
-				appendTable(wEvent.getData());
-				webEngine.reload();
-			});
-			
-	 		HiddenQuery.setOnSelectionChanged(new EventHandler<Event>() {
+			HiddenQuery.setOnSelectionChanged(new EventHandler<Event>() {
 
 				@Override
 				public void handle(Event event) {
@@ -153,8 +162,25 @@ public class HiddenMapController extends AssetAsSwitch{
 				}
 				
 			}); 
-	 	     
 			
+			webEngine2.load(mapUrl+"baidumap/appendMap.html");
+			
+			mapview2.getEngine().setOnAlert((WebEvent<String> wEvent)->{
+				System.out.println(wEvent);
+				appendTable(wEvent.getData());
+				webEngine.reload();
+			});
+
+			
+	 		webEngine3.load(mapUrl+"baidumap/assetMap.html");
+	 		
+	 		mapview3.getEngine().setOnAlert((WebEvent<String> wEvent)->{
+				System.out.println(wEvent);
+				appendAssetTable(wEvent.getData());
+			});
+	 		
+	 		webEngine4.load(mapUrl+"baidumap/patrolMap.html");
+	 		
 				
 	}
 
@@ -196,7 +222,7 @@ public class HiddenMapController extends AssetAsSwitch{
 
 	            // Create the dialog Stage.
 	            Stage dialogStage = new Stage();
-	            dialogStage.setTitle("选择要添加位置的资产");
+	            dialogStage.setTitle("选择要添加位置的隐患");
 	            dialogStage.initModality(Modality.APPLICATION_MODAL);
 	            Scene scene = new Scene(page);
 	            dialogStage.setScene(scene);
@@ -294,6 +320,62 @@ public class HiddenMapController extends AssetAsSwitch{
 					}
 	            }
 	  		    
+	            // Show the dialog and wait until the user closes it
+	            dialogStage.show();
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	 }
+	 
+	 
+	 private void appendAssetTable(String webEvent){
+		 JSONObject jsonObject=JSONObject.parseObject(webEvent);
+		 String province=jsonObject.getString("province");
+		 String city=jsonObject.getString("city");
+		 String district=jsonObject.getString("district");
+		 String street=jsonObject.getString("street");
+		 String streetNumber=jsonObject.getString("streetNumber");
+		 String lng=jsonObject.getString("lng");
+		 String lat=jsonObject.getString("lat");
+		 
+		 Position position=new Position();
+		 position.setProvince(province);
+		 position.setCity(city);
+		 position.setDistrict(district);
+		 position.setStreet(streetNumber);
+		 position.setStreet(streetNumber);
+		 position.setLat(Double.valueOf(lat));
+		 position.setLng(Double.valueOf(lng));
+		 try {
+			 
+			 if(Singleton.getInstance().getHidden_User().getPurview()>2){
+					Alert alert2 = new Alert(AlertType.WARNING);
+					alert2.setTitle("警告对话框");
+					alert2.setHeaderText("警告");
+					alert2.setContentText("你没有修改位置的权限");
+					alert2.showAndWait();
+					return ;
+				}
+			 
+	            // Load the fxml file and create a new stage for the popup dialog.
+	            FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(AppendAssetsQueryController.class.getResource("AppendAssetsQuery.fxml"));
+	            AnchorPane page = (AnchorPane) loader.load();
+
+	            // Create the dialog Stage.
+	            Stage dialogStage = new Stage();
+	            dialogStage.setTitle("选择要添加位置的资产");
+	            dialogStage.initModality(Modality.APPLICATION_MODAL);
+	            Scene scene = new Scene(page);
+	            dialogStage.setScene(scene);
+
+	            // Set the person into the controller.
+	            AppendAssetsQueryController controller = loader.getController();
+	            
+	            controller.setPosition(position,mapview3);
+	            controller.setDialogStage(dialogStage);
+	            
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();
 
