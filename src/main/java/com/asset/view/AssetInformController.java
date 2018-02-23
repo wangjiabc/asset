@@ -174,7 +174,7 @@ public class AssetInformController extends AssetAsSwitch{
 				}
 				
 			});
-			
+				
 			hiddenName.setItems(FXCollections.observableArrayList(levels));
 			
 			hiddenName.getSelectionModel().selectedIndexProperty().addListener(new

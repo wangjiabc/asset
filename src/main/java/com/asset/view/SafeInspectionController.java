@@ -1,9 +1,21 @@
 package com.asset.view;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.bcel.generic.NEW;
+
 import com.asset.database.Connect;
 import com.rmi.server.Assets;
+import com.voucher.manage.daoModel.HiddenAssetByMonthAmount;
+import com.voucher.manage.daoModel.HiddenByMonthAmount;
+import com.voucher.manage.daoModel.Assets.Hidden_Type;
+import com.voucher.manage.tools.MyTestUtil;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +25,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
@@ -37,6 +51,16 @@ public class SafeInspectionController extends AssetAsSwitch{
 	@FXML
 	 private AreaChart<Number, String> areaChart;
 	
+	@FXML
+	 private ChoiceBox hiddenYears1;	 
+	 private List<String> hidden_years1;
+	 private String hiddenYear1;
+	
+	 @FXML
+	 private ChoiceBox hiddenYears2;	 
+	 private List<String> hidden_years2;
+	 private String hiddenYear2;
+	 
 	 Assets assets= new Connect().get();
 	
 	 public SafeInspectionController() {
@@ -54,48 +78,143 @@ public class SafeInspectionController extends AssetAsSwitch{
 	     
 	     rightTitleLabel.setText("安全数据统计");
 	 
-	     hiddenChart.setData(getChartData(20.1, 30.1));
+	     int in=assets.findInHidden();	     
+	     int not=assets.findNotHidden();	     
+	     int success=assets.findSuccessHidden();
+	     
+	     hiddenChart.setData(getChartData(not,in,success));
 	     hiddenChart.setTitle("全部隐患数量");
 
-	     assetChart.setData(getChartData(40.1, 30.1));
+	     int successAssets=assets.findAllAssets();
+	     int hiddenAssets=assets.findAllAssetsHidden();
+	     
+	     assetChart.setData(getChartData2(successAssets, hiddenAssets));
 	     assetChart.setTitle("隐患资产数量");
 
 	     assetChart.getStylesheets().add("com/asset/view/chart2.css");
-	     	     
-	     barChart.setTitle("每月隐患增长数量");	     
+	     
+	     hidden_years1=assets.findHiddenByYear();
+	     
+	     hiddenYears1.setItems(FXCollections.observableArrayList(hidden_years1));
+	     
+	     hiddenYears1.getSelectionModel().selectedIndexProperty().addListener(new
+				 ChangeListener<Number>() {
 
-	     XYChart.Series series1 = new XYChart.Series();
-	     series1.setName("2003");
-	     series1.getData().add(new XYChart.Data("A",80));
-	     series1.getData().add(new XYChart.Data("B",9));
-	     series1.getData().add(new XYChart.Data("C",6));
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+							Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+                        hiddenYear1=hidden_years1.get(i);                        
+                        hiddenAmountByMonth(barChart, hiddenYear1); 
+						System.out.println(hiddenYear1);
+					}
+			        
+				});
 	     
-	     barChart.getData().add(series1);
-	      
-	     XYChart.Series seriesApril= new XYChart.Series();
-	     seriesApril.setName("April");
-	     seriesApril.getData().add(new XYChart.Data("1", 4));
-	     seriesApril.getData().add(new XYChart.Data("2", 10));
-	     seriesApril.getData().add(new XYChart.Data("3", 15));
+	     hiddenYears1.getSelectionModel().select(0);
+	     	     	     	     
+	     hidden_years2=assets.findAssetByYear();
 	     
-	     XYChart.Series seriesMay = new XYChart.Series();
-	     seriesMay.setName("May");
-	     seriesMay.getData().add(new XYChart.Data("1", 20));
-	     seriesMay.getData().add(new XYChart.Data("2", 35));
-	     seriesMay.getData().add(new XYChart.Data("3", 43));
+	     hiddenYears2.setItems(FXCollections.observableArrayList(hidden_years2));
 	     
-	     areaChart.setTitle("每月隐患资产数量");
+	     hiddenYears2.getSelectionModel().selectedIndexProperty().addListener(new
+				 ChangeListener<Number>() {
+
+					@Override
+					public void changed(ObservableValue<? extends Number> observable, Number oldValue,
+							Number newValue) {
+						// TODO Auto-generated method stub
+						int i=(int) newValue;
+						hiddenYear2=hidden_years2.get(i);
+						hiddenAssetAmountByMonth(areaChart, hiddenYear2);
+						System.out.println(hiddenYear2);
+					}
+			        
+				});
 	     
-	     areaChart.getData().addAll(seriesMay,seriesApril);
+	     hiddenYears2.getSelectionModel().select(0);
 	     
-	     areaChart.getStylesheets().add("com/asset/view/chart3.css");
+	     
 	 }
 	 
-	 private ObservableList<Data> getChartData(Double d1,Double d2) {
+	 private ObservableList<Data> getChartData(Integer d1,Integer d2,Integer d3) {
 	        ObservableList<Data> answer = FXCollections.observableArrayList();
-	        answer.addAll(new PieChart.Data("java", d1),
-	                new PieChart.Data("JavaFx", d2),
-	                new PieChart.Data("fff", 10));
+	        answer.addAll(new PieChart.Data("未整改的隐患"+(d1*100/(d1+d2+d3)*100)/100+"%", d1),
+	                new PieChart.Data("整改中的隐患"+(d2*100/(d1+d2+d3)*100)/100+"%", d2),
+	                new PieChart.Data("已整改的隐患"+(d3*100/(d1+d2+d3)*100)/100+"%", d3));
 	        return answer;
 	    }
+	 
+	 private ObservableList<Data> getChartData2(Integer d1,Integer d2) {
+	        ObservableList<Data> answer = FXCollections.observableArrayList();
+	        answer.addAll(new PieChart.Data("正常资产数量"+(d1*100/(d1+d2)*100)/100+"%", d1),
+	                new PieChart.Data("隐患资产数量"+(d2*100/(d1+d2)*100)/100+"%", d2));
+	        return answer;
+	    }
+	 
+	 private void hiddenAmountByMonth(BarChart barChart,String year){
+		 
+		 barChart.setTitle("每月新增隐患数量");
+
+	     XYChart.Series series = new XYChart.Series();
+	     series.setName("隐患数量");
+
+	     List list=assets.findHiddenByMonthOfYear(year);
+	     
+	     Iterator<HiddenByMonthAmount> iterator=list.iterator();
+	     
+	     int size=0;
+	     
+	     while (iterator.hasNext()) {
+	    	 HiddenByMonthAmount hiddenByMonthAmount=iterator.next();
+	    	 series.getData().add(new XYChart.Data(hiddenByMonthAmount.getYear()+"  数量:"
+	    			 				+hiddenByMonthAmount.getAmount(),
+	    			                hiddenByMonthAmount.getAmount()));
+	    	 size++;
+		 }
+	     
+	     barChart.getData().add(series);	     
+	     barChart.getData().clear();	     
+	     barChart.getData().add(series);	     
+	     barChart.setMaxWidth(size*100);
+
+	 }
+	 
+	 
+	 private void hiddenAssetAmountByMonth(AreaChart areaChart,String year){
+		 
+		 XYChart.Series seriesAsset= new XYChart.Series();
+		 seriesAsset.setName("资产");
+		 
+		 XYChart.Series seriesHidden = new XYChart.Series();
+		 seriesHidden.setName("隐患");
+		 
+		 List list=assets.findHiddenAssetsByMonthOfYear(year);
+		 
+		 MyTestUtil.print(list);
+		 
+		 Iterator<HiddenAssetByMonthAmount> iterator=list.iterator();
+		 
+		 while (iterator.hasNext()) {
+			HiddenAssetByMonthAmount hiddenAssetByMonthAmount=iterator.next();
+			
+			seriesAsset.getData().add(new XYChart.Data(hiddenAssetByMonthAmount.getYear(), 
+					hiddenAssetByMonthAmount.getAmount()));
+			
+			seriesHidden.getData().add(new XYChart.Data(hiddenAssetByMonthAmount.getYear(),
+					hiddenAssetByMonthAmount.getHiddenAmount()));
+			
+		 }
+ 
+	     areaChart.setTitle("每月隐患资产数量");
+	     
+	     areaChart.getData().clear();
+	     
+	     areaChart.getData().addAll(seriesAsset,seriesHidden);
+	     
+	     areaChart.getStylesheets().add("com/asset/view/chart3.css");
+		 
+	 }
+	 
 }
