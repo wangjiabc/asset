@@ -34,6 +34,7 @@ import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.FileConvect;
 import com.asset.tool.MenuType;
 import com.asset.tool.MyTestUtil;
+import com.asset.view.check.CheckAssetsQueryController;
 import com.asset.view.check.CheckInfoDetailController;
 import com.asset.view.detail.AddCheckInfoDetailController;
 import com.asset.view.hidden.HiddenDetailController;
@@ -133,6 +134,9 @@ public class AssetMessageController extends AssetAsSwitch{
 	 private TableColumn<HiddenCheck_JoinProperty,String> C9;
 	 
 	 @FXML
+	 private TableColumn<HiddenCheck_JoinProperty,String> C10;
+	 
+	 @FXML
 	 private Pagination pagination;
 	 
 	/*
@@ -166,6 +170,9 @@ public class AssetMessageController extends AssetAsSwitch{
 	 //查询按钮
 	 @FXML
 	 private Button search;
+	 
+	 @FXML
+	 private Button addCheck;
 	 
 	 private Map<String,String> searchMap=new HashMap<>();
 	 
@@ -364,6 +371,41 @@ public class AssetMessageController extends AssetAsSwitch{
 		  });
 	    
 	     
+	     addCheck.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				  FXMLLoader loader = new FXMLLoader();
+		            loader.setLocation(CheckAssetsQueryController.class.getResource("CheckAssetsQuery.fxml"));
+		            AnchorPane page = null;
+		            try {
+						 page = (AnchorPane) loader.load();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		            
+		            Stage dialogStage = new Stage();
+		            dialogStage.setTitle("选择要添加安全巡查记录的资产");
+		            dialogStage.initModality(Modality.APPLICATION_MODAL);
+		            Scene scene = new Scene(page);
+		            dialogStage.setScene(scene);
+		            
+		           CheckAssetsQueryController controller=loader.getController();
+		           
+		           controller.setTableView(hiddenCheckTable, limit, offset,pagination,C1, C2, C3, C4, C5, C6, C7, C8, C9, C10);
+		           
+		           controller.setDialogStage(dialogStage);
+		            
+		            // Show the dialog and wait until the user closes it
+		            dialogStage.show();
+		           
+
+			}
+	    	 
+	     });
+	     
 	     pagination.setPageFactory((Integer pageIndex)->{
 		    	if (pageIndex >= 0) {
 		    		offset=pageIndex*10;
@@ -428,7 +470,7 @@ public class AssetMessageController extends AssetAsSwitch{
 								        result.ifPresent(buttonType -> {
 								            if (buttonType == btnType1) {
 								                try{
-								                String[] where={"[Hidden_Check].check_id=",check_id};
+								                String[] where={"check_id=",check_id};
 					                            Hidden_Check hidden_Check=new Hidden_Check();
 					                            hidden_Check.setWhere(where);
 					                            
@@ -517,7 +559,20 @@ public class AssetMessageController extends AssetAsSwitch{
 	            List<Hidden_Check_Join> hidden_Check_Joins= (List<Hidden_Check_Join>) map.get("rows");
 	            MyTestUtil.print(hidden_Check_Joins);
 	            try{
-	               Hidden_Check_Join hidden_Check_Join=hidden_Check_Joins.get(0);            
+	               Hidden_Check_Join hidden_Check_Join=hidden_Check_Joins.get(0);  
+	               if(hidden_Check_Join.getTerminal()!=null&&hidden_Check_Join.getTerminal().equals("Wechat")){
+       				try{
+       					String openId=hidden_Check_Join.getCampusAdmin();	            		
+       					//在详情里把openid换成昵称
+       					System.out.println("openId="+openId);
+       					Users users=assets.getWetchatUsers(openId);	      
+       					MyTestUtil.print(users);
+       					hidden_Check_Join.setCampusAdmin(users.getNickname());
+       				}catch (Exception e) {
+						// TODO: handle exception
+       					e.printStackTrace();
+       				}
+	               }
 	               controller.setHiddenCheckInfo(hidden_Check_Join);
 	            }catch (Exception e) {
 					// TODO: handle exception
@@ -557,7 +612,7 @@ public class AssetMessageController extends AssetAsSwitch{
 	     C1.setCellValueFactory(
 	                cellData -> cellData.getValue().getId().asObject());
 	     C2.setCellValueFactory(
-	   		    cellData->cellData.getValue().getName());
+	   		    cellData->cellData.getValue().getAddress());
 	     C3.setCellValueFactory(
 	    		    cellData->cellData.getValue().getPrincipal());
 	     C4.setCellValueFactory(
@@ -590,6 +645,9 @@ public class AssetMessageController extends AssetAsSwitch{
 	     
 	      C9.setCellValueFactory(
 	    		    cellData->cellData.getValue().getCampusAdmin());
+	      	      
+	      C10.setCellValueFactory(
+	    		  	cellData->cellData.getValue().getDistrict());
 	      
 	     int total=(int) map.get("total");
 	     int page=total/10;

@@ -19,7 +19,6 @@ import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.MenuType;
 import com.asset.tool.MyTestUtil;
 import com.asset.view.assets.AssetsQueryController;
-import com.asset.view.check.AugmentCheckInfoDetailController;
 import com.asset.view.check.CheckInfoDetailController;
 import com.asset.view.check.SelectCheckInfoController;
 import com.asset.view.hidden.HiddenDetailController;
@@ -466,6 +465,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 							        });
 							  }
 							  
+							  /*
 							  if(menuType.equals("m2")){
 								  try {
 							            // Load the fxml file and create a new stage for the popup dialog.
@@ -494,6 +494,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 							        }
 								 
 							  }
+							  */
 							  
 							  if(menuType.equals("m3")){
 								  try {

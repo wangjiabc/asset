@@ -274,6 +274,15 @@ public class Hidden_Check_Join implements Serializable{
     @SQLDouble(name="lat")
    	private Double lat;
     
+    @SQLString(name="city")
+	private String city;
+
+    @SQLString(name="district")
+	private String district;
+
+    @SQLString(name="street")
+	private String street;
+    
 	public void setId(Integer id){
 		this.id = id;
 	}
@@ -958,4 +967,27 @@ public class Hidden_Check_Join implements Serializable{
 		this.happen_time = happen_time;
 	}
 	
+	public void setCity(String city){
+		this.city = city;
+	}
+
+	public String getCity(){
+		return city;
+	}
+
+	public void setDistrict(String district){
+		this.district = district;
+	}
+
+	public String getDistrict(){
+		return district;
+	}
+
+	public void setStreet(String street){
+		this.street = street;
+	}
+
+	public String getStreet(){
+		return street;
+	}
 }

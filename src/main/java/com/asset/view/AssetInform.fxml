@@ -127,7 +127,7 @@
               			 </ContextMenu>
            			  </contextMenu>
                   </TableView>
-                  <Label layoutX="53.0" layoutY="74.0" text="安全隐患整改记录" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="70.0">
+                  <Label layoutX="53.0" layoutY="74.0" text="安全隐患整改记录" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="70.0">
                      <font>
                         <Font size="26.0" />
                      </font>

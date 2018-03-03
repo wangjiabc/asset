@@ -1,9 +1,17 @@
 package com.asset.view.check;
 
+import java.awt.Desktop;
+import java.awt.EventQueue;
 import java.awt.image.BufferedImage;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -26,8 +34,10 @@ import com.asset.propert.RowData;
 import com.asset.property.join.HiddenCheck_JoinProperty;
 import com.asset.property.join.Hidden_JoinProperty;
 import com.asset.tool.FileConvect;
+import com.asset.tool.FileType;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
+import com.voucher.manage.daoModel.RoomInfo;
 import com.voucher.manage.daoModel.Assets.Hidden;
 import com.voucher.manage.daoModel.Assets.Hidden_Check;
 import com.voucher.manage.daoModel.Assets.Hidden_Check_Date;
@@ -57,6 +67,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -64,6 +75,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -72,16 +84,24 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-public class AugmentCheckInfoDetailController {
+public class AddCheckInfoDetailController {
 	@FXML
 	 private Label rightTitleLabel;
 	
 	@FXML
 	 private AnchorPane anchorPane;
 	
+	private RoomInfo roomInfo;
+	
+	@FXML
+	private Label address;
+	
+	@FXML
+	private Label manageRegion;
+	
 	@FXML
 	private TextField principal;
-	
+		
 	@FXML
 	private TextField checkName;
 	
@@ -110,7 +130,7 @@ public class AugmentCheckInfoDetailController {
 	 
 	 	@FXML
 		private FlowPane imagePane;
-        
+	 
 	 	@FXML
 		private FlowPane filePane;
 	 	
@@ -126,6 +146,44 @@ public class AugmentCheckInfoDetailController {
 		@FXML
 		private Button switchPdf;
 		
+		 private ObservableList<HiddenCheck_JoinProperty> hiddenCheckList;
+		 
+		 @FXML
+		 private TableView<HiddenCheck_JoinProperty> hiddenCheckTable;
+		 
+		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,Integer> C1;
+		 
+		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,String> C2;
+		 
+		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,String> C3;
+		 
+		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,String> C4;
+		 
+		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,String> C5;
+		 
+		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,String> C6;
+		 
+		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,String> C7;
+		 
+		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,String> C8;
+		
+		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,String> C9;
+		 
+		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,String> C10;
+		 
+		 @FXML
+		 private Pagination pagination;
+		 
 	 private Integer offset=10;
 	 
 	 private Integer limit=0;	 	
@@ -134,37 +192,56 @@ public class AugmentCheckInfoDetailController {
 	 
 	 private Stage dialogStage;
 	 
-	 private Hidden_Join hidden_Join;
+	 private List<Hidden_Check_Join> hidden_Checks;
 	 
-	 private Hidden_Check_Join hidden_Check_Join;
-	 
-	 Assets assets= new Connect().get();
+	Assets assets= new Connect().get();
 	
-	public void setHiddenCheckInfo(Hidden_Join hidden_Join){
-		
-		String sort="date";
-	      String order="desc";
-		
-		this.hidden_Join=hidden_Join;
-		
-		searchMap.put("[Hidden_Check].GUID=", hidden_Join.getGUID());
-		
-		Map map=assets.selectAllHiddenCheck(limit, offset, sort, order, searchMap);
-		  
-	    List<Hidden_Check_Join> hidden_Check_Joins= (List<Hidden_Check_Join>) map.get("rows");
-       /*
-	    if(hidden_Check_Joins!=null){
-	    	this.hidden_Check_Join=hidden_Check_Joins.get(0);
-	    	principal.setText(hidden_Check_Join.getPrincipal());
-	    	checkName.setText(hidden_Check_Join.getCheck_name());
-	    	checkCrics.setText(hidden_Check_Join.getCheck_circs());
-	    	remark.setText(hidden_Check_Join.getRemark());
-	    }
-	    */
-	    
-	    
-	}
+	private final Desktop desktop = Desktop.getDesktop();
 	 
+	public void setHiddenCheckInfo(RoomInfo roomInfo){
+       
+	       address.setText(roomInfo.getAddress());
+	    
+	       manageRegion.setText(roomInfo.getManageRegion());
+	       
+	       this.roomInfo=roomInfo;
+	       
+	}
+	
+	 private void openFile(File file) {
+	        EventQueue.invokeLater(() -> {
+	            try {
+	                desktop.open(file);
+	            } catch (IOException ex) {
+                 ex.printStackTrace();
+	            }
+	        });
+	    }
+	
+	public void setTableView(TableView<HiddenCheck_JoinProperty> hiddenCheckTable,Integer offset,Integer limit,
+			Map<String,String> searchMap,Pagination pagination,TableColumn<HiddenCheck_JoinProperty,Integer> C1,
+			TableColumn<HiddenCheck_JoinProperty,String> C2,TableColumn<HiddenCheck_JoinProperty,String> C3,TableColumn<HiddenCheck_JoinProperty,String> C4,
+			TableColumn<HiddenCheck_JoinProperty,String> C5,TableColumn<HiddenCheck_JoinProperty,String> C6,
+			TableColumn<HiddenCheck_JoinProperty,String> C7,TableColumn<HiddenCheck_JoinProperty,String> C8,
+			TableColumn<HiddenCheck_JoinProperty,String> C9,TableColumn<HiddenCheck_JoinProperty,String> C10){
+		this.hiddenCheckTable=hiddenCheckTable;
+		this.offset=offset;
+		this.limit=limit;
+		this.searchMap=searchMap;
+		this.pagination=pagination;
+		this.C1=C1;
+		this.C2=C2;
+		this.C3=C3;
+		this.C4=C4;
+		this.C5=C5;
+		this.C6=C6;
+		this.C7=C7;
+		this.C8=C8;
+		this.C9=C9;
+		this.C10=C10;
+
+	 }
+	
 	@FXML
     private void initialize() {
 		
@@ -393,6 +470,7 @@ public class AugmentCheckInfoDetailController {
 					}
 				});
 		 
+		 
 		post.setOnAction(new EventHandler<ActionEvent>() {	
 			@Override
 			public void handle(ActionEvent event) {
@@ -400,7 +478,17 @@ public class AugmentCheckInfoDetailController {
 				Hidden_Check hidden_Check=new Hidden_Check();
 				Date date=new Date();
 				try{
-					    hidden_Check.setGUID(hidden_Join.getGUID());
+					
+					if(Singleton.getInstance().getHidden_User().getPurview()>2){
+						Alert alert2 = new Alert(AlertType.WARNING);
+						alert2.setTitle("警告对话框");
+						alert2.setHeaderText("警告");
+						alert2.setContentText("你没有更新安全检查记录的的权限");
+						alert2.showAndWait();
+						return ;
+					 }
+					
+					
 					    if(principal.getText()!=null)
 	                    	hidden_Check.setPrincipal(principal.getText());
 						if(checkName.getText()!=null)
@@ -414,16 +502,22 @@ public class AugmentCheckInfoDetailController {
 						}
 						if(checkCrics.getText()!=null)
 							hidden_Check.setCheck_circs(checkCrics.getText());
-						
+						if(remark.getText()!=null)
+							hidden_Check.setRemark(remark.getText());
+	                    
 						hidden_Check.setCampusAdmin(Singleton.getInstance().getHidden_User().getCampusAdmin());
 						hidden_Check.setTerminal("PC");
 						
+						hidden_Check.setGUID(roomInfo.getGUID());
 						UUID uuid=UUID.randomUUID();
 						hidden_Check.setCheck_id(uuid.toString());
 	                    Date date2=new Date();
 	                    hidden_Check.setDate(date2);
 	                    System.out.println("hidden_Check=");
-				MyTestUtil.print(hidden_Check);
+                
+	                    String[] where={"check_id=",String.valueOf(hidden_Check.getCheck_id())};
+	                    hidden_Check.setWhere(where);
+	                    
 				int i=assets.insertHiddenCheck(hidden_Check);
 				 				
 				if(i==0){
@@ -433,20 +527,26 @@ public class AugmentCheckInfoDetailController {
 					alert.setContentText("写入失败");
 					alert.showAndWait();
 				}else if(i==1){
-					int j=assets.uploadImageFile(Hidden_Check_Date.class,hidden_Check.getCheck_id(), names, fileBytes);
-					   if(j==0){
-						 Alert alert = new Alert(AlertType.ERROR);
+					System.out.println("check_id="+hidden_Check.getCheck_id());
+					if(names!=null&&fileBytes!=null){
+						System.out.println("fileBytes="+fileBytes);
+					  int j=assets.uploadImageFile(Hidden_Check_Date.class,hidden_Check.getCheck_id(), names, fileBytes);
+					     if(j==0){
+						    Alert alert = new Alert(AlertType.ERROR);
 							alert.setTitle("异常堆栈对话框0");
 							alert.setHeaderText("错误");
 							alert.setContentText("上传图片失败");
 							alert.showAndWait();
-					  }
+					      }
+					}
 					
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("对话框");
 					alert.setHeaderText("插入数据");
 					alert.setContentText("写入成功");
 					alert.showAndWait();
+					setHiddenCheckList(offset, limit, searchMap);
+					System.out.println("offset="+offset+"     limit="+limit);
 					handleCancel();
 				 }
 				}catch (Exception e) {
@@ -473,7 +573,84 @@ public class AugmentCheckInfoDetailController {
 		
 	}
 	
-			
+	
+	 void setHiddenCheckList(Integer offset,Integer limit,Map search){
+
+	      String sort="date";
+	      String order="desc";
+	      
+		  Map map=new HashMap<>();
+		  
+		  	
+		  map=assets.selectAllHiddenCheck(limit, offset, sort, order, search);
+		  
+	     hidden_Checks= (List<Hidden_Check_Join>) map.get("rows");
+	     MyTestUtil.print(hidden_Checks);
+	     
+	     hiddenCheckList= (ObservableList<HiddenCheck_JoinProperty>) new RowData(hidden_Checks,HiddenCheck_JoinProperty.class).get();
+	     
+	     java.util.Iterator<HiddenCheck_JoinProperty> iterator=hiddenCheckList.iterator();
+	    
+	     while (iterator.hasNext()) {
+			System.out.println("hiddenlist="+iterator.next().getDate());
+		}
+	     
+	    hiddenCheckTable.setItems(hiddenCheckList);
+     
+	     C1.setCellValueFactory(
+	                cellData -> cellData.getValue().getId().asObject());
+	     C2.setCellValueFactory(
+	   		    cellData->cellData.getValue().getAddress());
+	     C3.setCellValueFactory(
+	    		    cellData->cellData.getValue().getPrincipal());
+	     C4.setCellValueFactory(
+	    		    cellData->cellData.getValue().getCheck_name());
+	     C5.setCellValueFactory(
+	    		    cellData->cellData.getValue().getCheck_circs());
+	     C6.setCellValueFactory(
+	    		    cellData->cellData.getValue().getHappen_time());	
+	     /*
+	     C7.setCellValueFactory(
+	    		    new Callback<TableColumn.CellDataFeatures<HiddenCheck_JoinProperty,ProgressBar>, ObservableValue<ProgressBar>>() {
+						
+						@Override
+						public ObservableValue<ProgressBar> call(CellDataFeatures<HiddenCheck_JoinProperty, ProgressBar> param) {
+							// TODO Auto-generated method stub
+							DoubleProperty d=param.getValue().getProgress();
+							Double dd=d.doubleValue();
+							ProgressBar progressBar=new ProgressBar();
+							progressBar.setProgress(dd);
+							return new SimpleObjectProperty<ProgressBar>(progressBar);
+						}
+					});
+		*/
+	     
+	     C7.setCellValueFactory(
+	    		    cellData->cellData.getValue().getManageRegion());
+	     
+	      C8.setCellValueFactory(
+	    		    cellData->cellData.getValue().getDate());
+	     
+	      C9.setCellValueFactory(
+	    		    cellData->cellData.getValue().getCampusAdmin());
+	      	      
+	      C10.setCellValueFactory(
+	    		  	cellData->cellData.getValue().getDistrict());
+	      
+	     int total=(int) map.get("total");
+	     int page=total/10;
+	     
+	     if(total-page*10>0)
+         page++;	     
+	    
+         if(total>0){
+	     pagination.setPageCount(page);
+         }else {
+        	 pagination.setPageCount(1);
+		}
+	     	     
+	 }
+	
 	public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }

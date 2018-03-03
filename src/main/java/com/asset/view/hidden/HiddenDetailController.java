@@ -42,7 +42,6 @@ import com.asset.tool.FileType;
 import com.asset.tool.MenuType;
 import com.asset.tool.MyTestUtil;
 import com.asset.view.AssetOverviewController;
-import com.asset.view.check.AugmentCheckInfoDetailController;
 import com.asset.view.check.SelectCheckInfoDetailController;
 import com.asset.view.hiddenAndAsset.AppendAssetsQueryController;
 import com.asset.view.neaten.AugmentNeatenDetailController;

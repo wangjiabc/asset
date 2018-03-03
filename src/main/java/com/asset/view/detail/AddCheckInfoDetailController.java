@@ -102,10 +102,17 @@ public class AddCheckInfoDetailController {
 	 private TableColumn<HiddenCheck_JoinProperty,String> C6;
 	 
 	 @FXML
-	 private TableColumn<HiddenCheck_JoinProperty,ProgressBar> C7;
+	 private TableColumn<HiddenCheck_JoinProperty,String> C7;
 	 
 	 @FXML
 	 private TableColumn<HiddenCheck_JoinProperty,String> C8;
+	
+	 @FXML
+	 private TableColumn<HiddenCheck_JoinProperty,String> C9;
+	 
+	 @FXML
+	 private TableColumn<HiddenCheck_JoinProperty,String> C10;
+	 
 	 
 	 @FXML
 	 private Pagination pagination;
@@ -136,7 +143,8 @@ public class AddCheckInfoDetailController {
 				Map<String,String> searchMap,Pagination pagination,TableColumn<HiddenCheck_JoinProperty,Integer> C1,
 				TableColumn<HiddenCheck_JoinProperty,String> C2,TableColumn<HiddenCheck_JoinProperty,String> C3,TableColumn<HiddenCheck_JoinProperty,String> C4,
 				TableColumn<HiddenCheck_JoinProperty,String> C5,TableColumn<HiddenCheck_JoinProperty,String> C6,
-				TableColumn<HiddenCheck_JoinProperty,ProgressBar> C7,TableColumn<HiddenCheck_JoinProperty,String> C8){
+				TableColumn<HiddenCheck_JoinProperty,String> C7,TableColumn<HiddenCheck_JoinProperty,String> C8,
+				TableColumn<HiddenCheck_JoinProperty,String> C9,TableColumn<HiddenCheck_JoinProperty,String> C10){
 			this.hiddenCheckTable=hiddenCheckTable;
 			this.offset=offset;
 			this.limit=limit;
@@ -150,6 +158,8 @@ public class AddCheckInfoDetailController {
 			this.C6=C6;
 			this.C7=C7;
 			this.C8=C8;
+			this.C9=C9;
+			this.C10=C10;
 
 		 }
 	 
@@ -288,21 +298,16 @@ public class AddCheckInfoDetailController {
 	    		    cellData->cellData.getValue().getHappen_time());	
 	     
 	     C7.setCellValueFactory(
-	    		    new Callback<TableColumn.CellDataFeatures<HiddenCheck_JoinProperty,ProgressBar>, ObservableValue<ProgressBar>>() {
-						
-						@Override
-						public ObservableValue<ProgressBar> call(CellDataFeatures<HiddenCheck_JoinProperty, ProgressBar> param) {
-							// TODO Auto-generated method stub
-							DoubleProperty d=param.getValue().getProgress();
-							Double dd=d.doubleValue();
-							ProgressBar progressBar=new ProgressBar();
-							progressBar.setProgress(dd);
-							return new SimpleObjectProperty<ProgressBar>(progressBar);
-						}
-					});
-					
+	    		    cellData->cellData.getValue().getManageRegion());
+	     
 	      C8.setCellValueFactory(
 	    		    cellData->cellData.getValue().getDate());
+	     
+	      C9.setCellValueFactory(
+	    		    cellData->cellData.getValue().getCampusAdmin());
+	      	      
+	      C10.setCellValueFactory(
+	    		  	cellData->cellData.getValue().getDistrict());
 	     
 	     int total=(int) map.get("total");
 	     int page=total/10;

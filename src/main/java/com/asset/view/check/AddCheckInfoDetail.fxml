@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="804.0" prefWidth="941.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.check.CheckInfoDetailController">
+<AnchorPane prefHeight="804.0" prefWidth="941.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.asset.view.check.AddCheckInfoDetailController">
    <children>
       <GridPane layoutX="16.0" layoutY="27.0" prefHeight="151.0" prefWidth="901.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -25,10 +25,9 @@
          <children>
             <Label text="检查人员" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label text="检查位置" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label text="检查时间" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <DatePicker fx:id="happenTime" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label text="备 注" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Label text="备  注" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <TextField fx:id="remark" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <Label text="检查记录详情 :" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                <GridPane.margin>
@@ -46,16 +45,9 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </Label>
-            <Label fx:id="note" maxWidth="1.7976931348623157E308" style="-fx-border-color: #C0C0C0; -fx-background-color: #FFFFFF;" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Label>
-            <Label fx:id="checkDistrict" maxWidth="1.7976931348623157E308" style="-fx-border-color: #C0C0C0; -fx-background-color: #FFFFFF;" text="Label" GridPane.columnIndex="3" GridPane.rowIndex="1">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Label>
+            <TextField fx:id="principal" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="标  题" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <TextField fx:id="checkName" prefHeight="23.0" prefWidth="132.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <TextArea fx:id="checkCrics" layoutX="21.0" layoutY="143.0" prefHeight="210.0" prefWidth="845.0" promptText="内容详情" AnchorPane.bottomAnchor="500.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="180.0" />

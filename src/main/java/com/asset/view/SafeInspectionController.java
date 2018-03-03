@@ -89,7 +89,7 @@ public class SafeInspectionController extends AssetAsSwitch{
 	     int hiddenAssets=assets.findAllAssetsHidden();
 	     
 	     assetChart.setData(getChartData2(successAssets, hiddenAssets));
-	     assetChart.setTitle("隐患资产数量");
+	     assetChart.setTitle("全部隐患资产数量");
 
 	     assetChart.getStylesheets().add("com/asset/view/chart2.css");
 	     
@@ -140,16 +140,16 @@ public class SafeInspectionController extends AssetAsSwitch{
 	 
 	 private ObservableList<Data> getChartData(Integer d1,Integer d2,Integer d3) {
 	        ObservableList<Data> answer = FXCollections.observableArrayList();
-	        answer.addAll(new PieChart.Data("未整改的隐患"+(d1*100/(d1+d2+d3)*100)/100+"%", d1),
-	                new PieChart.Data("整改中的隐患"+(d2*100/(d1+d2+d3)*100)/100+"%", d2),
-	                new PieChart.Data("已整改的隐患"+(d3*100/(d1+d2+d3)*100)/100+"%", d3));
+	        answer.addAll(new PieChart.Data("未整改的隐患"+d1+"处("+(d1*100/(d1+d2+d3)*100)/100+"%)", d1),
+	                new PieChart.Data("整改中的隐患"+d2+"处("+(d2*100/(d1+d2+d3)*100)/100+"%)", d2),
+	                new PieChart.Data("已整改的隐患"+d3+"处("+(d3*100/(d1+d2+d3)*100)/100+"%)", d3));
 	        return answer;
 	    }
 	 
 	 private ObservableList<Data> getChartData2(Integer d1,Integer d2) {
 	        ObservableList<Data> answer = FXCollections.observableArrayList();
-	        answer.addAll(new PieChart.Data("正常资产数量"+(d1*100/(d1+d2)*100)/100+"%", d1),
-	                new PieChart.Data("隐患资产数量"+(d2*100/(d1+d2)*100)/100+"%", d2));
+	        answer.addAll(new PieChart.Data("正常资产数量"+d1+"处("+(d1*100/(d1+d2)*100)/100+"%)", d1),
+	                new PieChart.Data("隐患资产数量"+d2+"处("+(d2*100/(d1+d2)*100)/100+"%)", d2));
 	        return answer;
 	    }
 	 
@@ -168,7 +168,7 @@ public class SafeInspectionController extends AssetAsSwitch{
 	     
 	     while (iterator.hasNext()) {
 	    	 HiddenByMonthAmount hiddenByMonthAmount=iterator.next();
-	    	 series.getData().add(new XYChart.Data(hiddenByMonthAmount.getYear()+"  数量:"
+	    	 series.getData().add(new XYChart.Data(hiddenByMonthAmount.getYear()+"  隐患:"
 	    			 				+hiddenByMonthAmount.getAmount(),
 	    			                hiddenByMonthAmount.getAmount()));
 	    	 size++;
@@ -185,10 +185,10 @@ public class SafeInspectionController extends AssetAsSwitch{
 	 private void hiddenAssetAmountByMonth(AreaChart areaChart,String year){
 		 
 		 XYChart.Series seriesAsset= new XYChart.Series();
-		 seriesAsset.setName("资产");
+		 seriesAsset.setName("正常资产");
 		 
 		 XYChart.Series seriesHidden = new XYChart.Series();
-		 seriesHidden.setName("隐患");
+		 seriesHidden.setName("有隐患资产");
 		 
 		 List list=assets.findHiddenAssetsByMonthOfYear(year);
 		 
@@ -199,15 +199,19 @@ public class SafeInspectionController extends AssetAsSwitch{
 		 while (iterator.hasNext()) {
 			HiddenAssetByMonthAmount hiddenAssetByMonthAmount=iterator.next();
 			
-			seriesAsset.getData().add(new XYChart.Data(hiddenAssetByMonthAmount.getYear(), 
+			seriesAsset.getData().add(new XYChart.Data(hiddenAssetByMonthAmount.getYear()+
+					" 资产:"+hiddenAssetByMonthAmount.getAmount()+
+					" 有隐患资产:"+hiddenAssetByMonthAmount.getHiddenAmount(), 
 					hiddenAssetByMonthAmount.getAmount()));
 			
-			seriesHidden.getData().add(new XYChart.Data(hiddenAssetByMonthAmount.getYear(),
+			seriesHidden.getData().add(new XYChart.Data(hiddenAssetByMonthAmount.getYear()+
+					" 资产:"+hiddenAssetByMonthAmount.getAmount()+
+					" 有隐患资产:"+hiddenAssetByMonthAmount.getHiddenAmount(), 
 					hiddenAssetByMonthAmount.getHiddenAmount()));
 			
 		 }
  
-	     areaChart.setTitle("每月隐患资产数量");
+	     areaChart.setTitle("每月新增隐患资产数量");
 	     
 	     areaChart.getData().clear();
 	     

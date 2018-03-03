@@ -107,59 +107,18 @@
                         <Insets right="10.0" />
                      </padding>
                   </HBox>
-                  <AnchorPane fx:id="anchorPane" layoutX="10.0" layoutY="50.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
-                     <children>
-                        <ImageView fx:id="imageFile" fitHeight="60.0" fitWidth="60.0" layoutX="337.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="docLabel" layoutX="212.0" layoutY="289.0" />
-                        <Label layoutX="35.0" layoutY="14.0" text="安全巡查记录" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0">
-                           <font>
-                              <Font size="26.0" />
-                           </font>
-                        </Label>
-                        <TableView fx:id="hiddenCheckTable" layoutY="121.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="150.0">
-                          <columns>
-                              <TableColumn fx:id="C1" minWidth="-1.0" prefWidth="75.0" text="ID" />
-                            <TableColumn fx:id="C2" prefWidth="75.0" text="资产名称" />
-                            <TableColumn fx:id="C3" prefWidth="100.0" text="检查人员" />
-                              <TableColumn fx:id="C4" prefWidth="83.0" text="标题" />
-                              <TableColumn fx:id="C5" prefWidth="119.0" text="检查情况" />
-                              <TableColumn fx:id="C6" prefWidth="150.0" text="检查时间" />
-                              <TableColumn fx:id="C7" prefWidth="101.0" text="所属分区" />
-                              <TableColumn fx:id="C9" prefWidth="75.0" text="录入人" />
-                              <TableColumn fx:id="C8" prefWidth="150.0" text="录入时间" />
-                          </columns>
-                          <contextMenu>
-		       		         <ContextMenu fx:id="contextMenu">
-             				     <items><MenuItem fx:id="m1" accelerator="Ctrl + D" mnemonicParsing="true" text="    删   除" /></items>                    
-           				         <items><SeparatorMenuItem /></items>
-           				         <items><MenuItem fx:id="m2" text="    查看详情   " /></items>
-              				  </ContextMenu>
-           					 </contextMenu>
-                        </TableView>
-                     </children></AnchorPane>
+                  <Label text="安全巡查记录" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="70.0">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
                   <Pagination fx:id="pagination" layoutX="74.0" layoutY="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                  <GridPane AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="110.0">
+                  <GridPane AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0">
                      <children>
-                        <Label text="巡查人员 :" GridPane.halignment="CENTER">
-                           <padding>
-                              <Insets left="14.0" />
-                           </padding>
-                        </Label>
-                        <Label text="开始日期 :" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-                           <padding>
-                              <Insets left="14.0" />
-                           </padding>
-                        </Label>
-                        <Label text="资产名称 :" GridPane.rowIndex="1">
-                           <padding>
-                              <Insets left="14.0" />
-                           </padding>
-                        </Label>
-                        <Label text="结束日期 :" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                           <padding>
-                              <Insets left="14.0" />
-                           </padding>
-                        </Label>
+                        <Label text="巡查人员 :" GridPane.halignment="CENTER" />
+                        <Label text="开始日期 :" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Label text="资产名称 :" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Label text="结束日期 :" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                         <Button fx:id="search" mnemonicParsing="false" text="  搜索" GridPane.columnIndex="6" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="10.0" />
@@ -174,11 +133,7 @@
                         <DatePicker fx:id="endTime" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                         <TextField fx:id="assetName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <ChoiceBox fx:id="usersName" prefWidth="200.0" GridPane.columnIndex="1" />
-                        <Label text="资产分区 :" GridPane.columnIndex="2">
-                           <padding>
-                              <Insets left="14.0" />
-                           </padding>
-                        </Label>
+                        <Label text="资产分区 :" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
                         <ChoiceBox fx:id="hiddenManageRegion" prefWidth="200.0" GridPane.columnIndex="3" />
                      </children>
                      <columnConstraints>
@@ -195,6 +150,34 @@
                         <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
+                  <TableView fx:id="hiddenCheckTable" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="200.0">
+                    <columns>
+                        <TableColumn fx:id="C1" minWidth="-1.0" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="C2" prefWidth="150.0" text="资产名称" />
+                      <TableColumn fx:id="C3" prefWidth="100.0" text="检查人员" />
+                        <TableColumn fx:id="C4" prefWidth="83.0" text="标题" />
+                        <TableColumn fx:id="C5" prefWidth="150.0" text="检查情况" />
+                        <TableColumn fx:id="C6" prefWidth="150.0" text="检查时间" />
+                        <TableColumn fx:id="C10" prefWidth="120.0" text="检查位置" />
+                        <TableColumn fx:id="C7" prefWidth="101.0" text="所属分区" />
+                        <TableColumn fx:id="C9" prefWidth="75.0" text="录入人" />
+                        <TableColumn fx:id="C8" prefWidth="150.0" text="录入时间" />
+                    </columns>
+                    <contextMenu>
+		       		         <ContextMenu fx:id="contextMenu">
+       				     <items>
+                              <MenuItem fx:id="m1" accelerator="Ctrl + D" mnemonicParsing="true" text="    删   除" />
+                           </items>                    
+     				         <items>
+                              <SeparatorMenuItem />
+                           </items>
+     				         <items>
+                              <MenuItem fx:id="m2" text="    查看详情   " />
+                           </items>
+        				  </ContextMenu>
+     					 </contextMenu>
+                  </TableView>
+                  <Button fx:id="addCheck" layoutX="967.0" layoutY="161.0" mnemonicParsing="false" text="新建巡查记录" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="154.0" />
                </children></AnchorPane>
         </items>
       </SplitPane>

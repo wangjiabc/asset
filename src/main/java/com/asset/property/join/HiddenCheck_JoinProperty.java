@@ -37,7 +37,20 @@ public class HiddenCheck_JoinProperty {
 	
 	private StringProperty ManageRegion;
 	
+	/*
+	 * RoomInfo 
+	 */
+	private StringProperty address;
 	
+	/*
+	 * Position
+	 */
+	private String city="";
+	
+	private String street="";
+	
+	private StringProperty district;
+
 	public IntegerProperty getId() {
 		return id;
 	}
@@ -147,5 +160,39 @@ public class HiddenCheck_JoinProperty {
 	public void setManageRegion(String manageRegion) {
 		ManageRegion = new SimpleStringProperty(manageRegion);
 	}
+	
+	public String getCity() {
+		return city;
+	}
+	
+	public void setCity(String city) {
+		if(city!=null)
+			this.city = city;
+	}
+	
+	public String getStreet() {
+		return street;
+	}
+	
+	public void setStreet(String street) {
+		if(street!=null)
+			this.street = street;
+	}
+	
+	public StringProperty getDistrict() {
+		return district;
+	}
+	
+	public void setDistrict(String district) {
+		this.district = new SimpleStringProperty(city+district+street);
+	}
+	public StringProperty getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = new SimpleStringProperty(address);
+	}
+	
+
 	
 }

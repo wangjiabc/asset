@@ -91,7 +91,19 @@ public class CheckInfoDetailController {
 	 private AnchorPane anchorPane;
 	
 	@FXML
-	private TextField principal;
+	private Label address;
+	
+	@FXML
+	private Label manageRegion;
+	
+	@FXML
+	private Label checkDistrict;
+	
+	@FXML
+	private Label note;//录入人
+	
+	//@FXML
+	//private TextField principal;
 	
 	@FXML
 	private TextField checkName;
@@ -167,6 +179,12 @@ public class CheckInfoDetailController {
 		 private TableColumn<HiddenCheck_JoinProperty,String> C8;
 		
 		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,String> C9;
+		 
+		 @FXML
+		 private TableColumn<HiddenCheck_JoinProperty,String> C10;
+		 
+		 @FXML
 		 private Pagination pagination;
 		 
 	 private Integer offset=10;
@@ -191,8 +209,22 @@ public class CheckInfoDetailController {
        
 	    if(hidden_Check_Join!=null){
 	    	this.hidden_Check_Join=hidden_Check_Join;
-	    	principal.setText(hidden_Check_Join.getPrincipal());
-	    	checkName.setText(hidden_Check_Join.getCheck_name());
+	    	//principal.setText(hidden_Check_Join.getPrincipal());
+	    	address.setText(hidden_Check_Join.getAddress());
+	    	manageRegion.setText(hidden_Check_Join.getManager());
+	    	
+	    	String district="";
+	    	
+	    	if(hidden_Check_Join.getCity()!=null)
+	    		district=district+hidden_Check_Join.getCity();
+	    	if(hidden_Check_Join.getDistrict()!=null)
+	    		district=district+hidden_Check_Join.getDistrict();
+	    	if(hidden_Check_Join.getStreet()!=null)
+	    		district=district+hidden_Check_Join.getStreet();
+	    	
+	    	checkDistrict.setText(district);
+	    	
+	    	note.setText(hidden_Check_Join.getCampusAdmin());
 	    	checkCrics.setText(hidden_Check_Join.getCheck_circs());
 	    	remark.setText(hidden_Check_Join.getRemark());
 	    	
@@ -594,8 +626,8 @@ public class CheckInfoDetailController {
 						return ;
 					 }
 					
-					    if(principal.getText()!=null)
-	                    	hidden_Check.setPrincipal(principal.getText());
+					  //  if(principal.getText()!=null)
+	                    //	hidden_Check.setPrincipal(principal.getText());
 						if(checkName.getText()!=null)
 							hidden_Check.setCheck_name(checkName.getText());
 	
@@ -728,6 +760,12 @@ public class CheckInfoDetailController {
 	      C8.setCellValueFactory(
 	    		    cellData->cellData.getValue().getDate());
 	     
+	      C9.setCellValueFactory(
+	    		    cellData->cellData.getValue().getCampusAdmin());
+	      	      
+	      C10.setCellValueFactory(
+	    		  	cellData->cellData.getValue().getDistrict());
+	      
 	     int total=(int) map.get("total");
 	     int page=total/10;
 	     
