@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -14,12 +15,14 @@ import org.apache.http.client.ClientProtocolException;
 import com.alibaba.fastjson.JSONObject;
 import com.asset.Singleton;
 import com.asset.database.Connect;
+import com.asset.tool.MyTestUtil;
 import com.asset.view.hidden.HiddenDetailController;
 import com.asset.view.map.AppendAssetsQueryController;
 import com.asset.view.map.AppendHiddenQueryController;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Position;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
+import com.voucher.manage.model.Users;
 
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -188,6 +191,7 @@ public class HiddenMapController extends AssetAsSwitch{
 	
 	 private void appendTable(String webEvent){
 		 JSONObject jsonObject=JSONObject.parseObject(webEvent);
+		 String type=jsonObject.getString("type");		//百度地图事件类型
 		 String province=jsonObject.getString("province");
 		 String city=jsonObject.getString("city");
 		 String district=jsonObject.getString("district");
@@ -212,9 +216,12 @@ public class HiddenMapController extends AssetAsSwitch{
 					alert2.setHeaderText("警告");
 					alert2.setContentText("你没有修改位置的权限");
 					alert2.showAndWait();
+					mapview2.getEngine().executeScript("script()");
 					return ;
 				}
 			 
+			  if(type.equals("onclick")){
+				  
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
 	            loader.setLocation(AppendAssetsQueryController.class.getResource("AppendHiddenQuery.fxml"));
@@ -235,7 +242,37 @@ public class HiddenMapController extends AssetAsSwitch{
 	            
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();
-
+	            
+			  }else if(type.equals("ondragend")){
+				  
+				  JSONObject ja=JSONObject.parseObject(jsonObject.getString("ja"));
+				  
+				  String slng=ja.getString("lng");
+				  String slat=ja.getString("lat");
+				  
+				  String GUID=assets.getGUIDByPosition(slng, slat);
+				  
+				  int i=0;
+				  
+				  if(GUID!=null){				  
+					  Date date=new Date();
+					  position.setGUID(GUID);
+					  position.setDate(date);					  
+					  i=assets.updatePosition(position);
+				  }
+				  				  
+				  if(i==0){
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("异常堆栈对话框0");
+						alert.setHeaderText("错误");
+						alert.setContentText("写入失败");
+						alert.showAndWait();
+					}
+				  
+				  mapview2.getEngine().executeScript("script()");
+				  
+			  }
+			   
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	        }
@@ -312,6 +349,20 @@ public class HiddenMapController extends AssetAsSwitch{
 	            	try{
 	            	 if(hidden_Join.getGUID().equals(h.getGUID())){
 	            		 hidden_Join2=h;
+	            		 
+	            		 if(hidden_Join2.getTerminal()!=null&&hidden_Join2.getTerminal().equals("Wechat")){
+	            				try{
+	            					String openId=hidden_Join2.getCampusAdmin();	            		
+	            					//在详情里把openid换成昵称
+	            					System.out.println("openId="+openId);
+	            					Users users=assets.getWetchatUsers(openId);	      
+	            					MyTestUtil.print(users);
+	            					hidden_Join2.setCampusAdmin(users.getNickname());
+	            				}catch (Exception e) {
+								// TODO: handle exception
+	            					e.printStackTrace();
+	            				}
+	            		}
 	    	            controller.setHidden(hidden_Join2);
 	            		break;
 	            	  }
@@ -331,6 +382,7 @@ public class HiddenMapController extends AssetAsSwitch{
 	 
 	 private void appendAssetTable(String webEvent){
 		 JSONObject jsonObject=JSONObject.parseObject(webEvent);
+		 String type=jsonObject.getString("type");		//百度地图事件类型
 		 String province=jsonObject.getString("province");
 		 String city=jsonObject.getString("city");
 		 String district=jsonObject.getString("district");
@@ -355,9 +407,12 @@ public class HiddenMapController extends AssetAsSwitch{
 					alert2.setHeaderText("警告");
 					alert2.setContentText("你没有修改位置的权限");
 					alert2.showAndWait();
+					mapview3.getEngine().executeScript("script()");
 					return ;
 				}
 			 
+			 if(type.equals("onclick")){
+
 	            // Load the fxml file and create a new stage for the popup dialog.
 	            FXMLLoader loader = new FXMLLoader();
 	            loader.setLocation(AppendAssetsQueryController.class.getResource("AppendAssetsQuery.fxml"));
@@ -378,6 +433,36 @@ public class HiddenMapController extends AssetAsSwitch{
 	            
 	            // Show the dialog and wait until the user closes it
 	            dialogStage.show();
+	            
+			 }else if(type.equals("ondragend")){
+				  
+				  JSONObject ja=JSONObject.parseObject(jsonObject.getString("ja"));
+				  
+				  String slng=ja.getString("lng");
+				  String slat=ja.getString("lat");
+				  
+				  String GUID=assets.getGUIDByPosition(slng, slat);
+				  
+				  int i=0;
+				  
+				  if(GUID!=null){				  
+					  Date date=new Date();
+					  position.setGUID(GUID);
+					  position.setDate(date);					  
+					  i=assets.updatePosition(position);
+				  }
+				  				  
+				  if(i==0){
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("异常堆栈对话框0");
+						alert.setHeaderText("错误");
+						alert.setContentText("写入失败");
+						alert.showAndWait();
+					}
+				  
+				  mapview3.getEngine().executeScript("script()");
+				  
+			  }
 
 	        } catch (IOException e) {
 	            e.printStackTrace();

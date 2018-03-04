@@ -143,4 +143,6 @@ public interface Assets {
 	
 	public List findHiddenAssetsByMonthOfYear(String year);
 	
+	public String getGUIDByPosition(String lng,String lat);
+	
 }
