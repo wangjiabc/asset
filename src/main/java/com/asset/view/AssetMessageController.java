@@ -543,7 +543,7 @@ public class AssetMessageController extends AssetAsSwitch{
 	            // Set the person into the controller.
 	            CheckInfoDetailController controller = loader.getController();
 	            controller.setDialogStage(dialogStage);
-	            controller.setTableView(hiddenCheckTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
+	            controller.setTableView(hiddenCheckTable,offset,limit,searchMap,pagination,C1, C2, C3, C4, C5, C6, C7, C8, C9, C10);
 	            	     
 	            System.out.println("check_id="+newValue.getCheck_id());
 	            

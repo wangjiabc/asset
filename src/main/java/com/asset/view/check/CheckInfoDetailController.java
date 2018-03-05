@@ -211,7 +211,7 @@ public class CheckInfoDetailController {
 	    	this.hidden_Check_Join=hidden_Check_Join;
 	    	//principal.setText(hidden_Check_Join.getPrincipal());
 	    	address.setText(hidden_Check_Join.getAddress());
-	    	manageRegion.setText(hidden_Check_Join.getManager());
+	    	manageRegion.setText(hidden_Check_Join.getManageRegion());
 	    	
 	    	String district="";
 	    	
@@ -363,7 +363,8 @@ public class CheckInfoDetailController {
 			Map<String,String> searchMap,Pagination pagination,TableColumn<HiddenCheck_JoinProperty,Integer> C1,
 			TableColumn<HiddenCheck_JoinProperty,String> C2,TableColumn<HiddenCheck_JoinProperty,String> C3,TableColumn<HiddenCheck_JoinProperty,String> C4,
 			TableColumn<HiddenCheck_JoinProperty,String> C5,TableColumn<HiddenCheck_JoinProperty,String> C6,
-			TableColumn<HiddenCheck_JoinProperty,String> C7,TableColumn<HiddenCheck_JoinProperty,String> C8){
+			TableColumn<HiddenCheck_JoinProperty,String> C7,TableColumn<HiddenCheck_JoinProperty,String> C8,
+			TableColumn<HiddenCheck_JoinProperty,String> C9,TableColumn<HiddenCheck_JoinProperty,String> C10){
 		this.hiddenCheckTable=hiddenCheckTable;
 		this.offset=offset;
 		this.limit=limit;
@@ -377,7 +378,8 @@ public class CheckInfoDetailController {
 		this.C6=C6;
 		this.C7=C7;
 		this.C8=C8;
-
+		this.C9=C9;
+		this.C10=C10;
 	 }
 	
 	@FXML
@@ -628,8 +630,8 @@ public class CheckInfoDetailController {
 					
 					  //  if(principal.getText()!=null)
 	                    //	hidden_Check.setPrincipal(principal.getText());
-						if(checkName.getText()!=null)
-							hidden_Check.setCheck_name(checkName.getText());
+						//if(checkName.getText()!=null)
+						//	hidden_Check.setCheck_name(checkName.getText());
 	
 						if(happenTime.getValue()!=null){
 							LocalDate localDate=happenTime.getValue();
@@ -729,7 +731,7 @@ public class CheckInfoDetailController {
 	     C1.setCellValueFactory(
 	                cellData -> cellData.getValue().getId().asObject());
 	     C2.setCellValueFactory(
-	   		    cellData->cellData.getValue().getName());
+	   		    cellData->cellData.getValue().getAddress());
 	     C3.setCellValueFactory(
 	    		    cellData->cellData.getValue().getPrincipal());
 	     C4.setCellValueFactory(
