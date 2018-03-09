@@ -83,11 +83,13 @@ public class PositionDetailController {
 					alert.setContentText("写入失败");
 					alert.showAndWait();
 				}else if(i==1){
+					/*
 					Alert alert = new Alert(AlertType.INFORMATION);
 					alert.setTitle("对话框");
 					alert.setHeaderText("更新数据");
 					alert.setContentText("写入成功");
 					alert.showAndWait();
+					*/
 					try{
 						mapview2.getEngine().executeScript("script()");
 					}catch (Exception e) {

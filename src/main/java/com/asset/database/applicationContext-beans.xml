@@ -13,7 +13,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 <!-- 客户端   调用服务端rmi服务配置-->  
 <bean id="testrmiSpring" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">  
   <!--调用服务端url以及serviceName -->  
-  <property name="serviceUrl" value="rmi://127.0.0.1:1099/testrmiSpring"/>  
+  <property name="serviceUrl" value="rmi://:1099/testrmiSpring"/>  
   <!-- 调用服务端的接口 -->  
  <property name="serviceInterface" value="com.rmi.server.Server"/>  
   
@@ -22,7 +22,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 <!-- 客户端   调用服务端rmi服务配置2-->  
 <bean id="assetsSpringRMI" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">  
   <!--调用服务端url以及serviceName -->  
-  <property name="serviceUrl" value="rmi://127.0.0.1:1099/assetsSpringRMI"/>  
+  <property name="serviceUrl" value="rmi://:1099/assetsSpringRMI"/>  
   <!-- 调用服务端的接口 -->  
  <property name="serviceInterface" value="com.rmi.server.Assets"/>  
   
