@@ -275,6 +275,13 @@ public class AppendAssetsQueryController {
 								e.printStackTrace();
 							}
 							handleCancel();
+		                }else if(i==2){
+		                	Alert alert2 = new Alert(AlertType.WARNING);
+							alert2.setTitle("警告对话框");
+							alert2.setHeaderText("警告");
+							alert2.setContentText("已关联的资产不能添加!");
+							alert2.showAndWait();
+							return ;
 		                }else{
 		                	Alert alert2 = new Alert(AlertType.ERROR);
 							alert2.setTitle("异常堆栈对话框");

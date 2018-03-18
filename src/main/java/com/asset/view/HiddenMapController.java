@@ -63,8 +63,8 @@ public class HiddenMapController extends AssetAsSwitch{
 		@FXML
 	 	private WebView mapview3;
 		
-		@FXML
-	 	private WebView mapview4;
+		//@FXML
+	 	//private WebView mapview4;
 		
 		@FXML
 	 	private Tab HiddenQuery;
@@ -87,7 +87,7 @@ public class HiddenMapController extends AssetAsSwitch{
 	 	
 	 	private WebEngine webEngine3;
 	 	
-	 	private WebEngine webEngine4;
+	 	//private WebEngine webEngine4;
 	 	
 	 	private static final String mapUrl=Singleton.getInstance().getMapUrl();
 	 
@@ -146,7 +146,7 @@ public class HiddenMapController extends AssetAsSwitch{
 	 		
 	 		webEngine3=mapview3.getEngine();
 	 		
-	 		webEngine4=mapview4.getEngine();
+	 		//webEngine4=mapview4.getEngine();
 	 		
 	 		webEngine.load(mapUrl+"baidumap/queryMap.html");
 	 		
@@ -182,7 +182,7 @@ public class HiddenMapController extends AssetAsSwitch{
 				appendAssetTable(wEvent.getData());
 			});
 	 		
-	 		webEngine4.load(mapUrl+"baidumap/patrolMap.html");
+	 		//webEngine4.load(mapUrl+"baidumap/patrolMap.html");
 	 		
 				
 	}

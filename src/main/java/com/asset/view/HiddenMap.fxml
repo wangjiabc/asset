@@ -124,11 +124,6 @@
                               <WebView fx:id="mapview3" prefHeight="200.0" prefWidth="200.0" />
                            </content>
                         </Tab>
-                        <Tab fx:id="PatrolMap" text="Untitled Tab">
-                           <content>
-                              <WebView fx:id="mapview4" prefHeight="200.0" prefWidth="200.0" />
-                           </content>
-                        </Tab>
                     </tabs>
                   </TabPane>
                </children></AnchorPane>
