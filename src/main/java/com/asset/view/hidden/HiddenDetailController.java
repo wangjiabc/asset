@@ -1285,7 +1285,7 @@ public class HiddenDetailController {
 		 System.out.println("guid="+hidden_Jion.getGUID());
 		 hiddenName.setText(String.valueOf(hidden_Jion.getName()));
 
-		 note.setText(hidden_Jion.getCampusAdmin());
+		 note.setText(hidden_Jion.getUser_name());
 
 		 try{
 		 Date date=hidden_Jion.getHappen_time();

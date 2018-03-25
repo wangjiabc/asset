@@ -283,6 +283,15 @@ public class Hidden_Check_Join implements Serializable{
     @SQLString(name="street")
 	private String street;
     
+    /*
+     * WeiXin_User
+     */
+    @SQLString(name="phone")
+	private String phone;
+
+    @SQLString(name="user_name")
+	private String user_name;
+    
 	public void setId(Integer id){
 		this.id = id;
 	}
@@ -989,5 +998,21 @@ public class Hidden_Check_Join implements Serializable{
 
 	public String getStreet(){
 		return street;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
 }

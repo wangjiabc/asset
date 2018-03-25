@@ -34,6 +34,7 @@ import com.voucher.manage.daoModel.Assets.Hidden_Check;
 import com.voucher.manage.daoModel.Assets.Hidden_Level;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
+import com.voucher.manage.daoModel.Assets.WeiXin_User;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 
 import javafx.beans.value.ChangeListener;
@@ -673,6 +674,7 @@ public class AssetWorkController extends AssetAsSwitch{
 		String uesrId=String.valueOf(hiddenUserProperty.getId().get());
 		  String userName=hiddenUserProperty.getPrincipal_name().get();
 		  Integer principal=hiddenUserProperty.getPrincipal().get();
+		  String campusAdmin=hiddenUserProperty.getCampusAdmin().get();
 		  
 		  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 	        alert.setTitle("删除");
@@ -695,6 +697,13 @@ public class AssetWorkController extends AssetAsSwitch{
                   hidden_User.setPrincipal(principal);
                   
 	                int i=assets.deleteHiddenUser(hidden_User);
+	                
+	                WeiXin_User weiXin_User=new WeiXin_User();
+					 
+					 weiXin_User.setCampusAdmin(campusAdmin);
+					 
+					 assets.deleteWeiXinUser(weiXin_User);
+	                
 	                if(i==1){
 	                	alert.setTitle("安全员工记录");
 						alert.setHeaderText("操作");

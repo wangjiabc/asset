@@ -126,7 +126,7 @@
             <TableColumn fx:id="C7" prefWidth="75.0" text="负责人" />
             <TableColumn fx:id="C8" prefWidth="60.0" text="隐患类型" />
             <TableColumn fx:id="C9" prefWidth="74.0" text="录入人" />
-                              <TableColumn fx:id="C12" prefWidth="75.0" text="隐患区" />
+                              <TableColumn fx:id="C12" prefWidth="75.0" text="管理分区" />
             <TableColumn fx:id="C10" prefWidth="59.0" text="备注" />
             <TableColumn fx:id="C11" prefWidth="75.0" text="录入时间" />
          </columns>

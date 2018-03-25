@@ -344,13 +344,14 @@ public class AssetInformController extends AssetAsSwitch{
 	            controller.setTableView(hiddenNeatenTable,offset,limit,searchMap0,pagination,C1, C2, C3, C4, C5, C6, C7, C8);
 	            	     
 	            System.out.println("neaten_id="+newValue.getNeaten_id());
-	            searchMap.put("[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
+	            Map searchMap1=new HashMap<>();
+	            searchMap1.put("[Hidden_Neaten].neaten_id=",newValue.getNeaten_id().get());
 	            
 	            System.out.println("neatenid="+newValue.getNeaten_id().get());
 	            
 	            String sort="date";
 	  	      String order="desc";
-	            Map map=assets.selectAllHiddenNeaten(limit, offset, sort, order, searchMap);
+	            Map map=assets.selectAllHiddenNeaten(2, 0, sort, order, searchMap1);
 	            MyTestUtil.print(map);
 	            List<Hidden_Neaten_Join> hidden_Neaten_Joins= (List<Hidden_Neaten_Join>) map.get("rows");
 	            MyTestUtil.print(hidden_Neaten_Joins);
@@ -419,7 +420,7 @@ public class AssetInformController extends AssetAsSwitch{
 		    		    cellData->cellData.getValue().getDate());
 		      
 		      C9.setCellValueFactory(
-		    		    cellData->cellData.getValue().getCampusAdmin());
+		    		    cellData->cellData.getValue().getUser_name());
 		     
 		     int total=(int) map.get("total");
 		     int page=total/10;

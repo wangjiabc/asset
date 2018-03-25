@@ -336,7 +336,7 @@ public class InfoWriteController2 {
 
 		 pagination0.setPageCount(1);
 		 
-		 note.setText(Singleton.getInstance().getHidden_User().getCampusAdmin());
+		 note.setText(Singleton.getInstance().getHidden_User().getPrincipal_name());
 		 
 		 searchMap0.put("[Hidden_Assets].hidden_GUID=", uuid.toString());
 		 
@@ -927,7 +927,7 @@ public class InfoWriteController2 {
 		 System.out.println("guid="+hidden_Jion.getGUID());
 		 hiddenName.setText(String.valueOf(hidden_Jion.getName()));
 
-		 note.setText(hidden_Jion.getCampusAdmin());
+		 note.setText(hidden_Jion.getUser_name());
 		 
 		 slider.setValue(hidden_Jion.getProgress()*50); 
 	     pi.setProgress(hidden_Jion.getProgress());

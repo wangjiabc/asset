@@ -841,7 +841,7 @@ public class AssetOverviewController extends AssetAsSwitch{
 	     C8.setCellValueFactory(
 	    		 cellData->cellData.getValue().getHidden_type());
 	     C9.setCellValueFactory(
-	    		 cellData->cellData.getValue().getCampusAdmin());
+	    		 cellData->cellData.getValue().getUser_name());
 	     C10.setCellValueFactory(
 	    		 cellData->cellData.getValue().getRemark());
 	     

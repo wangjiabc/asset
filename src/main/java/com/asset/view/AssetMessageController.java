@@ -266,7 +266,7 @@ public class AssetMessageController extends AssetAsSwitch{
 		List names = new ArrayList<>();
 		
 		while (iterator.hasNext()) {
-				names.add(iterator.next().getNickname());
+				names.add(iterator.next().getName());
 		} 
 
 		usersName.setItems(FXCollections.observableArrayList(names));
@@ -554,7 +554,7 @@ public class AssetMessageController extends AssetAsSwitch{
 	            String sort="date";
 	  	      String order="desc";
 	            
-	            Map map=assets.selectAllHiddenCheck(limit, offset, sort, order, searchMap1);
+	            Map map=assets.selectAllHiddenCheck(2, 0, sort, order, searchMap1);
 	            
 	            List<Hidden_Check_Join> hidden_Check_Joins= (List<Hidden_Check_Join>) map.get("rows");
 	            MyTestUtil.print(hidden_Check_Joins);
@@ -644,7 +644,7 @@ public class AssetMessageController extends AssetAsSwitch{
 	    		    cellData->cellData.getValue().getDate());
 	     
 	      C9.setCellValueFactory(
-	    		    cellData->cellData.getValue().getCampusAdmin());
+	    		    cellData->cellData.getValue().getUser_name());
 	      	      
 	      C10.setCellValueFactory(
 	    		  	cellData->cellData.getValue().getDistrict());

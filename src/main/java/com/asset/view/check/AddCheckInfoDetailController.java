@@ -632,7 +632,7 @@ public class AddCheckInfoDetailController {
 	    		    cellData->cellData.getValue().getDate());
 	     
 	      C9.setCellValueFactory(
-	    		    cellData->cellData.getValue().getCampusAdmin());
+	    		    cellData->cellData.getValue().getUser_name());
 	      	      
 	      C10.setCellValueFactory(
 	    		  	cellData->cellData.getValue().getDistrict());

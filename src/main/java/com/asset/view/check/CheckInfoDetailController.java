@@ -224,7 +224,7 @@ public class CheckInfoDetailController {
 	    	
 	    	checkDistrict.setText(district);
 	    	
-	    	note.setText(hidden_Check_Join.getCampusAdmin());
+	    	note.setText(hidden_Check_Join.getUser_name());
 	    	checkCrics.setText(hidden_Check_Join.getCheck_circs());
 	    	remark.setText(hidden_Check_Join.getRemark());
 	    	
@@ -763,7 +763,7 @@ public class CheckInfoDetailController {
 	    		    cellData->cellData.getValue().getDate());
 	     
 	      C9.setCellValueFactory(
-	    		    cellData->cellData.getValue().getCampusAdmin());
+	    		    cellData->cellData.getValue().getUser_name());
 	      	      
 	      C10.setCellValueFactory(
 	    		  	cellData->cellData.getValue().getDistrict());

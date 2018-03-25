@@ -13,6 +13,7 @@ import com.voucher.manage.daoModel.Assets.Hidden_Neaten;
 import com.voucher.manage.daoModel.Assets.Hidden_Type;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
 import com.voucher.manage.daoModel.Assets.Position;
+import com.voucher.manage.daoModel.Assets.WeiXin_User;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Data_Join;
 import com.voucher.manage.daoModelJoin.Assets.Hidden_Join;
 import com.voucher.manage.model.Users;
@@ -83,6 +84,12 @@ public interface Assets {
 	public Integer deleteHiddenUser(Hidden_User hidden_User);
 
 	public Integer updateHiddenUser(Hidden_User hidden_User);
+	
+	public Integer insertWeiXinUser(WeiXin_User weiXin_User);
+	
+	public Integer deleteWeiXinUser(WeiXin_User weiXin_User);
+	
+	public Integer updateWeiXinUser(WeiXin_User weiXin_User);
 	
 	public Integer updateUserPassword(Hidden_User hidden_User,String OldPw);
 	

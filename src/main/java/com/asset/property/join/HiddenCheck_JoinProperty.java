@@ -51,6 +51,13 @@ public class HiddenCheck_JoinProperty {
 	
 	private StringProperty district;
 
+	/*
+	 * WeiXin_User
+	 */
+	
+	private StringProperty user_name;
+	
+	
 	public IntegerProperty getId() {
 		return id;
 	}
@@ -193,6 +200,14 @@ public class HiddenCheck_JoinProperty {
 		this.address = new SimpleStringProperty(address);
 	}
 	
+	public StringProperty getUser_name() {
+		return user_name;
+	}
+
+
+	public void setUser_name(String user_name) {
+		this.user_name = new SimpleStringProperty(user_name);
+	}
 
 	
 }

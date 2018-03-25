@@ -14,6 +14,7 @@ import com.asset.tool.Md5;
 import com.asset.tool.MyTestUtil;
 import com.rmi.server.Assets;
 import com.voucher.manage.daoModel.Assets.Hidden_User;
+import com.voucher.manage.daoModel.Assets.WeiXin_User;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -189,7 +190,15 @@ public class AddUserDetailController {
 				 hidden_User.setRegister_time(date);
 				 
 				 int i=assets.insertHiddenUser(hidden_User);
-				  
+				 
+				 WeiXin_User weiXin_User=new WeiXin_User();
+				 
+				 weiXin_User.setCampusAdmin(campusAdmin.getText());
+				 weiXin_User.setUser_name(PrincipalName.getText());
+				 weiXin_User.setPhone(phone.getText());
+				 
+				 assets.insertWeiXinUser(weiXin_User);
+				 
 				  if(i==1){
 					  Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 	                	alert.setTitle("安全信息");
