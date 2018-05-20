@@ -13,6 +13,8 @@ public class Singleton {
 	
 	private Hidden_User hidden_User=null;
 	
+	public final static String ROOMDATABASE="[TTT]";
+	
     private Singleton (){    	
     }  
     

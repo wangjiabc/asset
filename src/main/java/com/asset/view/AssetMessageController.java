@@ -35,6 +35,7 @@ import com.asset.tool.FileConvect;
 import com.asset.tool.MenuType;
 import com.asset.tool.MyTestUtil;
 import com.asset.view.check.CheckAssetsQueryController;
+import com.asset.view.check.CheckAssetsQueryController2;
 import com.asset.view.check.CheckInfoDetailController;
 import com.asset.view.detail.AddCheckInfoDetailController;
 import com.asset.view.hidden.HiddenDetailController;
@@ -151,12 +152,16 @@ public class AssetMessageController extends AssetAsSwitch{
 	 private List<Users> users;
 	 private Integer usersValue;
 	 
+	 /*
 	 @FXML
 	 private ChoiceBox<T> hiddenManageRegion;
+	 private List manageRegions=new ArrayList<>();
+	 */
+	 
 	 private List<RoomInfo> roomInfoLists;
 	 private String manageRegion;
 	 
-	 private List manageRegions=new ArrayList<>();
+	
 	 
 	 @FXML
 	 private DatePicker startTime;
@@ -166,6 +171,9 @@ public class AssetMessageController extends AssetAsSwitch{
 	 
 	 @FXML
 	 private TextField assetName;
+	 
+	 @FXML
+	 private Button searchAssetName;
 	 
 	 //查询按钮
 	 @FXML
@@ -194,6 +202,9 @@ public class AssetMessageController extends AssetAsSwitch{
 	 
 	 @FXML
 	  Button hiddenWrite;
+	 
+	 //安全巡查的资产名称
+	 private String checkAddress="";
 	 
 	 Assets assets= new Connect().get();
 	 
@@ -289,7 +300,7 @@ public class AssetMessageController extends AssetAsSwitch{
 		roomInfoLists=assets.selectManageRegion();
 		 
 		 Iterator<RoomInfo> iterator5=roomInfoLists.iterator();
-		 
+		 /*
 		 List manageRegions=new ArrayList<>();
 		 
 		 while (iterator5.hasNext()) {
@@ -312,7 +323,7 @@ public class AssetMessageController extends AssetAsSwitch{
 						System.out.println("i="+i+"  "+manageRegion);
 					}
 				});
-		
+		*/
 		
 	   //搜索		    
 	     search.setOnAction(new EventHandler<ActionEvent>() {
@@ -333,10 +344,15 @@ public class AssetMessageController extends AssetAsSwitch{
 					   searchMap.put("[Hidden_Check].campusAdmin=", search);
 					 }
 				
+				/*
 				if(assetName.getText()!=null&&!assetName.getText().equals("")){
 					System.out.println("assetName="+assetName.getText());
-					searchMap.put("[TTT].[dbo].[RoomInfo].Address like ", "%"+assetName.getText()+"%");
+					searchMap.put(Singleton.ROOMDATABASE+".[dbo].[RoomInfo].Address like ", "%"+assetName.getText()+"%");
 				}
+				
+				*/
+				
+				checkAddress=assetName.getText();
 				
 				SimpleDateFormat sdf  =   new  SimpleDateFormat( " yyyy-MM-dd HH:mm:ss " );
 				
@@ -363,13 +379,44 @@ public class AssetMessageController extends AssetAsSwitch{
 				 }
 				 
 				 if(manageRegion!=null&&!manageRegion.equals("")){
-					 searchMap.put("[TTT].[dbo].[RoomInfo].ManageRegion = ", manageRegion);
+					 searchMap.put(Singleton.ROOMDATABASE+".[dbo].[RoomInfo].ManageRegion = ", manageRegion);
 				 }
 				 
 				 setHiddenCheckList(0,10,searchMap);
 			}
 		  });
 	    
+	     searchAssetName.setOnAction(new EventHandler<ActionEvent>() {
+			
+			@Override
+			public void handle(ActionEvent event) {
+				// TODO Auto-generated method stub
+				FXMLLoader loader = new FXMLLoader();
+	            loader.setLocation(CheckAssetsQueryController2.class.getResource("CheckAssetsQuery2.fxml"));
+	            AnchorPane page = null;
+	            try {
+					 page = (AnchorPane) loader.load();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            
+	            Stage dialogStage = new Stage();
+	            dialogStage.setTitle("选择资产");
+	            dialogStage.initModality(Modality.APPLICATION_MODAL);
+	            Scene scene = new Scene(page);
+	            dialogStage.setScene(scene);
+	            
+	           CheckAssetsQueryController2 controller=loader.getController();
+	           
+	           controller.setTableView(assetName);
+	           
+	           controller.setDialogStage(dialogStage);
+	            
+	            // Show the dialog and wait until the user closes it
+	            dialogStage.show();
+			}
+		});
 	     
 	     addCheck.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -554,7 +601,7 @@ public class AssetMessageController extends AssetAsSwitch{
 	            String sort="date";
 	  	      String order="desc";
 	            
-	            Map map=assets.selectAllHiddenCheck(2, 0, sort, order, searchMap1);
+	            Map map=assets.selectAllHiddenCheck(2, 0, sort, order,checkAddress, searchMap1);
 	            
 	            List<Hidden_Check_Join> hidden_Check_Joins= (List<Hidden_Check_Join>) map.get("rows");
 	            MyTestUtil.print(hidden_Check_Joins);
@@ -594,7 +641,7 @@ public class AssetMessageController extends AssetAsSwitch{
 		  Map map=new HashMap<>();
 		  
 		  	
-		  map=assets.selectAllHiddenCheck(limit, offset, sort, order, search);
+		  map=assets.selectAllHiddenCheck(limit, offset, sort, order,checkAddress, search);
 		  
 	     hidden_Checks= (List<Hidden_Check_Join>) map.get("rows");
 	     MyTestUtil.print(hidden_Checks);

@@ -248,7 +248,7 @@ public class HiddenMapController extends AssetAsSwitch{
 			  }else if(type.equals("ondragend")){
 				  
 				  JSONObject ja=JSONObject.parseObject(jsonObject.getString("ja"));
-				  
+				  MyTestUtil.print(ja);
 				  String slng=ja.getString("lng");
 				  String slat=ja.getString("lat");
 				  

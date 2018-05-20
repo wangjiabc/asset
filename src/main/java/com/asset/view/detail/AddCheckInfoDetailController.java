@@ -269,7 +269,7 @@ public class AddCheckInfoDetailController {
 		  Map map=new HashMap<>();
 		  
 		  	
-		  map=assets.selectAllHiddenCheck(limit, offset, sort, order, search);
+		  map=assets.selectAllHiddenCheck(limit, offset, sort, order,"", search);
 		  
 	     hidden_Checks= (List<Hidden_Check_Join>) map.get("rows");
 	     MyTestUtil.print(hidden_Checks);

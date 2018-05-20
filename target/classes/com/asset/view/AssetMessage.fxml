@@ -116,33 +116,39 @@
                   <GridPane AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0">
                      <children>
                         <Label text="巡查人员 :" GridPane.halignment="CENTER" />
-                        <Label text="开始日期 :" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <Label text="资产名称 :" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <Label text="结束日期 :" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                        <Button fx:id="search" mnemonicParsing="false" text="  搜索" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                        <Label text="开始日期 :" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Label text="资产名称 :" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                        <Label text="结束日期 :" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Button fx:id="search" mnemonicParsing="false" prefHeight="32.0" prefWidth="104.0" text="  搜索" GridPane.columnIndex="4" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="10.0" />
                            </GridPane.margin>
                         </Button>
-                        <ImageView fx:id="searchImage" fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                        <ImageView fx:id="searchImage" fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="15.0" />
                            </GridPane.margin>
                         </ImageView>
-                        <DatePicker fx:id="startTime" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                        <DatePicker fx:id="endTime" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                        <TextField fx:id="assetName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="startTime" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="endTime" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <TextField fx:id="assetName" GridPane.columnIndex="3">
+                           <GridPane.margin>
+                              <Insets right="60.0" />
+                           </GridPane.margin></TextField>
                         <ChoiceBox fx:id="usersName" prefWidth="200.0" GridPane.columnIndex="1" />
-                        <Label text="资产分区 :" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-                        <ChoiceBox fx:id="hiddenManageRegion" prefWidth="200.0" GridPane.columnIndex="3" />
+                        <Button fx:id="searchAssetName" mnemonicParsing="false" prefHeight="32.0" prefWidth="56.0" text="选择" GridPane.columnIndex="3">
+                           <GridPane.margin>
+                              <Insets left="165.0" />
+                           </GridPane.margin>
+                        </Button>
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="234.0" minWidth="10.0" prefWidth="222.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="98.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="180.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                      </columnConstraints>
                      <rowConstraints>
@@ -155,7 +161,7 @@
                         <TableColumn fx:id="C1" minWidth="-1.0" prefWidth="75.0" text="ID" />
                       <TableColumn fx:id="C2" prefWidth="150.0" text="资产名称" />
                       <TableColumn fx:id="C3" prefWidth="100.0" text="检查人员" />
-                        <TableColumn fx:id="C4" prefWidth="83.0" text="标题" />
+                        <TableColumn fx:id="C4" prefWidth="83.0" text="状态" />
                         <TableColumn fx:id="C5" prefWidth="150.0" text="检查情况" />
                         <TableColumn fx:id="C6" prefWidth="150.0" text="检查时间" />
                         <TableColumn fx:id="C10" prefWidth="120.0" text="检查位置" />

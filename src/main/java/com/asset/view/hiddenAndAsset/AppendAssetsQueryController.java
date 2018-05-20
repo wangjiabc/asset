@@ -12,6 +12,7 @@ import java.util.Optional;
 import org.controlsfx.dialog.Dialogs;
 
 import com.asset.MainApp;
+import com.asset.Singleton;
 import com.asset.database.Connect;
 import com.asset.propert.RowData;
 import com.asset.property.HiddenProperty;
@@ -195,7 +196,7 @@ public class AppendAssetsQueryController {
 				 String search="%"+keyWord.getText()+"%";
 				 
 				 if(!search.equals("")){
-				   searchMap.put("[TTT].[dbo].[RoomInfo].Address like ", search);
+				   searchMap.put(Singleton.ROOMDATABASE+".[dbo].[RoomInfo].Address like ", search);
 				 }else {
 					searchMap.clear();
 				}

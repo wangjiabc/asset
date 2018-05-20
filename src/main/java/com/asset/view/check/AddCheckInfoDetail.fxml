@@ -46,7 +46,7 @@
                </padding>
             </Label>
             <TextField fx:id="principal" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="标  题" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Label text="检查状态" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <TextField fx:id="checkName" prefHeight="23.0" prefWidth="132.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
       </GridPane>

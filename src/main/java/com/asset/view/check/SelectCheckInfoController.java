@@ -158,7 +158,7 @@ public class SelectCheckInfoController {
 	            
 	            searchMap0.put("[Hidden_Check].check_id=",newValue.getCheck_id().get());
 	            
-	            Map map=assets.selectAllHiddenCheck(limit, offset, null, null, searchMap0);
+	            Map map=assets.selectAllHiddenCheck(limit, offset, null, null,"", searchMap0);
 	            
 	            List<Hidden_Check_Join> hidden_Check_Joins= (List<Hidden_Check_Join>) map.get("rows");
 	            MyTestUtil.print(hidden_Check_Joins);
@@ -186,7 +186,7 @@ public class SelectCheckInfoController {
 		  Map map=new HashMap<>();
 		  
 		  	
-		  map=assets.selectAllHiddenCheck(limit, offset, sort, order, search);
+		  map=assets.selectAllHiddenCheck(limit, offset, sort, order,"", search);
 		  
 	     hidden_Checks= (List<Hidden_Check_Join>) map.get("rows");
 	     MyTestUtil.print(hidden_Checks);

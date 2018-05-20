@@ -1008,7 +1008,7 @@ public class HiddenDetailController {
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
 				 String searchValue="%"+keyWord.getText()+"%";
-				 searchMap0.put("[TTT].[dbo].[RoomInfo].Address like ", searchValue);
+				 searchMap0.put(Singleton.ROOMDATABASE+".[dbo].[RoomInfo].Address like ", searchValue);
 				 setRoomInfoList0(offset0, limit0, searchMap0);
 			}
 

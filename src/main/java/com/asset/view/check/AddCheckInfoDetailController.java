@@ -194,6 +194,9 @@ public class AddCheckInfoDetailController {
 	 
 	 private List<Hidden_Check_Join> hidden_Checks;
 	 
+	//安全巡查的资产名称
+	private String checkAddress;
+	 
 	Assets assets= new Connect().get();
 	
 	private final Desktop desktop = Desktop.getDesktop();
@@ -582,7 +585,7 @@ public class AddCheckInfoDetailController {
 		  Map map=new HashMap<>();
 		  
 		  	
-		  map=assets.selectAllHiddenCheck(limit, offset, sort, order, search);
+		  map=assets.selectAllHiddenCheck(limit, offset, sort, order,checkAddress, search);
 		  
 	     hidden_Checks= (List<Hidden_Check_Join>) map.get("rows");
 	     MyTestUtil.print(hidden_Checks);
