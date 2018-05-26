@@ -138,6 +138,9 @@ public class AssetMessageController extends AssetAsSwitch{
 	 private TableColumn<HiddenCheck_JoinProperty,String> C10;
 	 
 	 @FXML
+	 private TableColumn<HiddenCheck_JoinProperty,String> C11;
+	 
+	 @FXML
 	 private Pagination pagination;
 	 
 	/*
@@ -692,8 +695,11 @@ public class AssetMessageController extends AssetAsSwitch{
 	     
 	      C9.setCellValueFactory(
 	    		    cellData->cellData.getValue().getUser_name());
-	      	      
+	      
 	      C10.setCellValueFactory(
+	    		  	cellData->cellData.getValue().getState());
+	      
+	      C11.setCellValueFactory(
 	    		  	cellData->cellData.getValue().getDistrict());
 	      
 	     int total=(int) map.get("total");

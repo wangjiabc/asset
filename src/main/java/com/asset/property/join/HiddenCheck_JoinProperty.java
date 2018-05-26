@@ -42,6 +42,8 @@ public class HiddenCheck_JoinProperty {
 	 */
 	private StringProperty address;
 	
+	private StringProperty state;
+	
 	/*
 	 * Position
 	 */
@@ -207,6 +209,12 @@ public class HiddenCheck_JoinProperty {
 
 	public void setUser_name(String user_name) {
 		this.user_name = new SimpleStringProperty(user_name);
+	}
+	public StringProperty getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = new SimpleStringProperty(state);
 	}
 
 	
