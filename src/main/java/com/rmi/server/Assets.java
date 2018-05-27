@@ -138,6 +138,8 @@ public interface Assets {
 	
 	public List selectManageRegion();
 	
+	public List selectRoomProperty();
+	
 	public Users getWetchatUsers(String openId);
 	
 	public List<Users> getWetchatAllUsers(Integer place);
