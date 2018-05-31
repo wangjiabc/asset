@@ -140,16 +140,26 @@ public class SafeInspectionController extends AssetAsSwitch{
 	 
 	 private ObservableList<Data> getChartData(Integer d1,Integer d2,Integer d3) {
 	        ObservableList<Data> answer = FXCollections.observableArrayList();
-	        answer.addAll(new PieChart.Data("未整改的隐患"+d1+"处("+(d1*100/(d1+d2+d3)*100)/100+"%)", d1),
+	        try{
+	        	answer.addAll(new PieChart.Data("未整改的隐患"+d1+"处("+(d1*100/(d1+d2+d3)*100)/100+"%)", d1),
 	                new PieChart.Data("整改中的隐患"+d2+"处("+(d2*100/(d1+d2+d3)*100)/100+"%)", d2),
 	                new PieChart.Data("已整改的隐患"+d3+"处("+(d3*100/(d1+d2+d3)*100)/100+"%)", d3));
+	        }catch (Exception e) {
+				// TODO: handle exception
+	        	e.printStackTrace();
+			}
 	        return answer;
 	    }
 	 
 	 private ObservableList<Data> getChartData2(Integer d1,Integer d2) {
 	        ObservableList<Data> answer = FXCollections.observableArrayList();
-	        answer.addAll(new PieChart.Data("正常资产数量"+d1+"处("+(d1*100/(d1+d2)*100)/100+"%)", d1),
+	        try{
+	        	answer.addAll(new PieChart.Data("正常资产数量"+d1+"处("+(d1*100/(d1+d2)*100)/100+"%)", d1),
 	                new PieChart.Data("隐患资产数量"+d2+"处("+(d2*100/(d1+d2)*100)/100+"%)", d2));
+	        }catch (Exception e) {
+				// TODO: handle exception
+			    e.printStackTrace();
+	        }
 	        return answer;
 	    }
 	 

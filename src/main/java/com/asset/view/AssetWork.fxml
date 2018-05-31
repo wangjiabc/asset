@@ -82,7 +82,7 @@
                   <ImageView fx:id="file" fitHeight="20.0" fitWidth="20.0" layoutX="50.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="40.0" />
                   <Button layoutX="57.0" layoutY="518.0" mnemonicParsing="false" onAction="#workButtonAction" prefHeight="30.0" text="系统设置" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="550.0" />
                   <Button fx:id="exitButton" layoutX="33.0" layoutY="554.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="185.0" text="退出系统" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="600.0" />
-                  <Button mnemonicParsing="false" onAction="#safeInspectionAction" prefHeight="30.0" text="安全巡查" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
+                  <Button mnemonicParsing="false" onAction="#safeInspectionAction" prefHeight="30.0" text="安全统计" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="500.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="798.0" prefWidth="738.0">

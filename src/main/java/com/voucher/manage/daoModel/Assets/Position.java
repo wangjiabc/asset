@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 import com.voucher.manage.daoSQL.annotations.*;
 
-@DBTable(name="[Position]")
+@DBTable(name="[Assets].[dbo].[Position]")
 public class Position implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -16,6 +16,9 @@ public class Position implements Serializable{
 
     @SQLString(name="GUID")
 	private String GUID;
+
+    @SQLInteger(name="is_roomInfo")
+	private Integer is_roomInfo;
 
     @SQLString(name="check_id")
 	private String check_id;
@@ -61,6 +64,14 @@ public class Position implements Serializable{
 
 	public String getGUID(){
 		return GUID;
+	}
+
+	public void setIs_roomInfo(Integer is_roomInfo){
+		this.is_roomInfo = is_roomInfo;
+	}
+
+	public Integer getIs_roomInfo(){
+		return is_roomInfo;
 	}
 
 	public void setCheck_id(String check_id){

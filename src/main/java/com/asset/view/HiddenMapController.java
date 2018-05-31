@@ -265,6 +265,9 @@ public class HiddenMapController extends AssetAsSwitch{
 		              });
 			
 			
+			checkBox1.setText("隐藏文字");
+			checkBox1.setSelected(false);
+			
 			webEngine.load(mapUrl+"baidumap/queryMap.html");
 	 			 		
 	 		
@@ -405,15 +408,15 @@ public class HiddenMapController extends AssetAsSwitch{
 				@Override
 				public void handle(Event event) {
 					// TODO Auto-generated method stub
-					
-					checkBox2.setText("显示文字");
-					checkBox2.setSelected(true);
-					
+								
 					manageRegion=null; //清空资产分区选项
 					hiddenManageRegion1.getSelectionModel().clearSelection();
 					getCountAsset();
 					
 					webEngine2.load(mapUrl+"baidumap/assetMap.html");
+					
+					checkBox2.setText("隐藏文字");
+					checkBox2.setSelected(false);
 			 		
 				}
 				
@@ -602,10 +605,11 @@ public class HiddenMapController extends AssetAsSwitch{
               		  * 
               		  */
               		 
-              		checkBox3.setText("显示时间");
-              		checkBox3.setSelected(true);
-              		 
+        		 
 					webEngine3.load(mapUrl+"baidumap/checkMap.html");
+					
+					checkBox3.setText("隐藏时间");
+              		checkBox3.setSelected(false);
 			 		
 				}
 			});
@@ -662,7 +666,9 @@ public class HiddenMapController extends AssetAsSwitch{
 		 int total=(int) map.get("total");
 		 
 		 checkCount3.setText("共"+String.valueOf(total)+"处");
-		 		 
+		 
+		 System.out.println("campusAdmin="+campusAdmin+"\n"+sTime+"\n"+eTime);
+		 
 		 mapview3.getEngine().executeScript("checkMap('"+campusAdmin+"','"+sTime+"','"+eTime+"')");
 	}
 	
@@ -760,10 +766,10 @@ public class HiddenMapController extends AssetAsSwitch{
 		 Map search=new HashMap<>();
 		 search.put("[Position].GUID !=","''");
 		 if(manageRegion!=null&&!manageRegion.equals("")){
-			 search.put(Singleton.ROOMDATABASE+".[dbo].[RoomInfo].ManageRegion = ", manageRegion);
+			 search.put(Singleton.ROOMDATABASE+".[dbo].[RoomInfo].ManageRegion = ", "'"+manageRegion+"'");
 		 }
 		 if(roomProperty!=null&&!roomProperty.equals("")){
-			 search.put(Singleton.ROOMDATABASE+".[dbo].[RoomInfo].RoomProperty = ", roomProperty);
+			 search.put(Singleton.ROOMDATABASE+".[dbo].[RoomInfo].RoomProperty = ", "'"+roomProperty+"'");
 		 }
 		 Map map=assets.findAllRoomInfo_Position(1, 0, null, null, search);
 		 int total=(int) map.get("total");
@@ -889,6 +895,7 @@ public class HiddenMapController extends AssetAsSwitch{
 		 position.setStreet(streetNumber);
 		 position.setLat(Double.valueOf(lat));
 		 position.setLng(Double.valueOf(lng));
+		 position.setIs_roomInfo(1);
 		 try {
 			 
 			 if(Singleton.getInstance().getHidden_User().getPurview()>2){
