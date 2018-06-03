@@ -122,8 +122,6 @@ public class HiddenMapController extends AssetAsSwitch{
 	 	@FXML
 	 	private ChoiceBox<T> hiddenRoomProperty2;
 	 	@FXML
-	 	private CheckBox checkBox2;
-	 	@FXML
 	 	private Label assetCount2;
 	 	
 	 	@FXML
@@ -287,8 +285,8 @@ public class HiddenMapController extends AssetAsSwitch{
 
 				@Override
 				public void handle(Event event) {
-					checkBox1.setText("显示文字");
-					checkBox1.setSelected(true);
+					checkBox1.setText("隐藏文字");
+					checkBox1.setSelected(false);
 					
 					// TODO Auto-generated method stub						 	    	 	
 					webEngine.reload();
@@ -374,34 +372,7 @@ public class HiddenMapController extends AssetAsSwitch{
 							getCountAsset();
 						}
 					});
-						
-			
-			checkBox2.selectedProperty().addListener(new ChangeListener<Boolean>() {
-		           public void changed(ObservableValue<? extends Boolean> ov,
-		                   Boolean old_val, Boolean new_val) {
-		                   if(new_val){
-		                	   checkBox2.setText("显示文字");
-		                	   try{
-		                		   mapview2.getEngine().executeScript("lableShow('1')");
-		                	   }catch (Exception e) {
-								// TODO: handle exception
-		                	   }
-		                	}else{
-		                	   checkBox2.setText("隐藏文字"); 
-		                	   try{
-		                		   mapview2.getEngine().executeScript("lableShow('0')");
-		                	   }catch (Exception e) {
-								// TODO: handle exception
-							}
-		                   }
-		                   checkBox2.setSelected(new_val);
-		                   hiddenManageRegion2.getSelectionModel().clearSelection();
-		                   hiddenRoomProperty2.getSelectionModel().clearSelection();
-		                   manageRegion=null;
-		                   roomProperty=null;
-		                   getCountAsset();
-		                }
-		              });
+									
 			
 			AssetMap.setOnSelectionChanged(new EventHandler<Event>() {
 
@@ -411,12 +382,16 @@ public class HiddenMapController extends AssetAsSwitch{
 								
 					manageRegion=null; //清空资产分区选项
 					hiddenManageRegion1.getSelectionModel().clearSelection();
-					getCountAsset();
+					hiddenManageRegion2.getSelectionModel().clearSelection();
+					roomProperty=null;
+					hiddenRoomProperty2.getSelectionModel().clearSelection();					
+					
+					int total=assets.getAllRoomInfoPosition();
+					
+					assetCount2.setText("共"+total+"处");
 					
 					webEngine2.load(mapUrl+"baidumap/assetMap.html");
-					
-					checkBox2.setText("隐藏文字");
-					checkBox2.setSelected(false);
+
 			 		
 				}
 				
@@ -661,7 +636,7 @@ public class HiddenMapController extends AssetAsSwitch{
 			 searchMap.put("[Hidden_Check].date < ", eTime);
 		 }
 		
-		 Map map=assets.selectAllHiddenCheck(1000, 0, sort, order,null, searchMap);		 
+		 Map map=assets.selectAllHiddenCheckPosition(1000, 0, sort, order, searchMap);		 
 		 
 		 int total=(int) map.get("total");
 		 
@@ -764,12 +739,12 @@ public class HiddenMapController extends AssetAsSwitch{
 	
 	 private void getCountAsset(){
 		 Map search=new HashMap<>();
-		 search.put("[Position].GUID !=","''");
+		 search.put("[Position].GUID !=","");
 		 if(manageRegion!=null&&!manageRegion.equals("")){
-			 search.put(Singleton.ROOMDATABASE+".[dbo].[RoomInfo].ManageRegion = ", "'"+manageRegion+"'");
+			 search.put(Singleton.ROOMDATABASE+".[dbo].[RoomInfo].ManageRegion = ", manageRegion);
 		 }
 		 if(roomProperty!=null&&!roomProperty.equals("")){
-			 search.put(Singleton.ROOMDATABASE+".[dbo].[RoomInfo].RoomProperty = ", "'"+roomProperty+"'");
+			 search.put(Singleton.ROOMDATABASE+".[dbo].[RoomInfo].RoomProperty = ", roomProperty);
 		 }
 		 Map map=assets.findAllRoomInfo_Position(1, 0, null, null, search);
 		 int total=(int) map.get("total");

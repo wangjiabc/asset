@@ -1097,7 +1097,7 @@ public class InfoWriteController2 {
 	 private void openFile(File file) {
 	        EventQueue.invokeLater(() -> {
 	            try {
-	                desktop.open(file);
+	            	Desktop.getDesktop().open(file);
 	            } catch (IOException ex) {
                  ex.printStackTrace();
 	            }

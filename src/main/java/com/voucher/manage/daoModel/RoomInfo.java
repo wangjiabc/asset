@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 import com.voucher.manage.daoSQL.annotations.*;
 
-@DBTable(name="[RoomInfo]")
+@DBTable(name="[TTT].[dbo].[RoomInfo]")
 public class RoomInfo implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -223,6 +223,12 @@ public class RoomInfo implements Serializable{
 
     @SQLFloat(name="UseYears")
 	private Float UseYears;
+
+    @SQLDateTime(name="hidden_check_date")
+	private Date hidden_check_date;
+
+    @SQLDateTime(name="asset_check_date")
+	private Date asset_check_date;
 
 	public void setGUID(String GUID){
 		this.GUID = GUID;
@@ -790,6 +796,22 @@ public class RoomInfo implements Serializable{
 
 	public Float getUseYears(){
 		return UseYears;
+	}
+
+	public void setHidden_check_date(Date hidden_check_date){
+		this.hidden_check_date = hidden_check_date;
+	}
+
+	public Date getHidden_check_date(){
+		return hidden_check_date;
+	}
+
+	public void setAsset_check_date(Date asset_check_date){
+		this.asset_check_date = asset_check_date;
+	}
+
+	public Date getAsset_check_date(){
+		return asset_check_date;
 	}
 
 

@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -1441,8 +1443,13 @@ public class HiddenDetailController {
 			    }else if(FileType.testDoc(fileType)){
 			    	System.out.println(fileName);
 			    	URL url = getClass().getResource("");	            	    	
-        	    	File image=new File(url.getPath()+"/word.jpg");
-                    bufImg = ImageIO.read(image);
+        	    	File image=new File(Singleton.getInstance().getMapUrl()+"img/excel.jpg");
+                    try {
+						bufImg = ImageIO.read(new URI(Singleton.getInstance().getMapUrl()+"img/word.jpg").toURL());
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			    }else if(FileType.testXls(fileType)){
 			    	System.out.println(fileName);
 			    	URL url = getClass().getResource("");	            	    	
@@ -1506,13 +1513,13 @@ public class HiddenDetailController {
 	 }
 	 
 	 private void openFile(File file) {
-	        EventQueue.invokeLater(() -> {
-	            try {
-	                desktop.open(file);
-	            } catch (IOException ex) {
-                 ex.printStackTrace();
-	            }
-	        });
+		 new Thread(() -> {
+	           try {
+	               Desktop.getDesktop().open(file);
+	           } catch (Exception e1) {
+	               e1.printStackTrace();
+	           }
+	       }).start();
 	    }
 	 
 	 void setRoomInfoList(Map search){

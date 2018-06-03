@@ -7,13 +7,13 @@ public class Singleton {
 	
 	private String campusAdmin;
 	
-	private final static String mapUrl="http://127.0.0.1/voucher/"; 
+	private final static String mapUrl="http://220.166.104.133/voucher/"; 
 	
 	private final static String path=System.getProperties().getProperty("user.home")+"\\Desktop\\bb\\doc\\";
 	
 	private Hidden_User hidden_User=null;
 	
-	public final static String ROOMDATABASE="[YTRoomManage]";
+	public final static String ROOMDATABASE="[ttt]";
 	
     private Singleton (){    	
     }  

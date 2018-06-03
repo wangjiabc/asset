@@ -31,10 +31,11 @@ public class Main extends Application{
 	    
 	    @Override
 	    public void start(Stage primaryStage) {
+	    	System.out.println(url);
 	        this.primaryStage = primaryStage;
 	        this.primaryStage.setTitle("安全隐患监管系统");	        
 
-	        this.primaryStage.getIcons().add(0, new Image(url.toString()+"/xl.gif"));
+	        this.primaryStage.getIcons().add(0, new Image(url+"/xl.gif"));
 	        initRootLayout();
 	        
 	       showAssetOverview();
